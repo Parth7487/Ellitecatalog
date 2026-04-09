@@ -4523,8 +4523,8 @@
       "Model": "RX-7 FD",
       "Style": "99 Spec Wing Ends",
       "Part": "Wing / Spoiler",
-      "SKU": 1250,
-      "Price": null,
+      "SKU": null,
+      "Price": 1250.0,
       "Dims": null
     },
     {
@@ -4532,8 +4532,8 @@
       "Model": "RX-7 FD",
       "Style": "99 Spec Wing Insert End Caps",
       "Part": "Wing / Spoiler",
-      "SKU": 175,
-      "Price": null,
+      "SKU": null,
+      "Price": 175.0,
       "Dims": null
     },
     {
@@ -4541,8 +4541,8 @@
       "Model": "RX-7 FD",
       "Style": "Duckbill Wing Spoiler",
       "Part": "Wing / Spoiler",
-      "SKU": 585,
-      "Price": null,
+      "SKU": null,
+      "Price": 585.0,
       "Dims": null
     },
     {
@@ -4550,8 +4550,8 @@
       "Model": "RX-7 FD",
       "Style": "OEM Headlight Cover",
       "Part": "Headlight Cover",
-      "SKU": 355,
-      "Price": null,
+      "SKU": null,
+      "Price": 355.0,
       "Dims": null
     },
     {
@@ -4559,8 +4559,8 @@
       "Model": "RX-7 FD",
       "Style": "Speed Style Front Diffuser",
       "Part": "Front Diffuser",
-      "SKU": 1060,
-      "Price": null,
+      "SKU": null,
+      "Price": 1060.0,
       "Dims": null
     },
     {
@@ -4568,8 +4568,8 @@
       "Model": "RX-7 FD",
       "Style": "Carbon Fiber Rear Strut Bar Cover - Interior Trim",
       "Part": "Strut Bar Cover",
-      "SKU": 380,
-      "Price": null,
+      "SKU": null,
+      "Price": 380.0,
       "Dims": null
     },
     {
@@ -4577,8 +4577,8 @@
       "Model": "RX-7 FD",
       "Style": "Full Vacuum Carbon GT Wing Spoiler",
       "Part": "Wing / Spoiler",
-      "SKU": 3250,
-      "Price": null,
+      "SKU": null,
+      "Price": 3250.0,
       "Dims": null
     },
     {
@@ -4586,8 +4586,8 @@
       "Model": "RX-7 FD",
       "Style": "Carbon Fiber Ganador Style Side Mirrors",
       "Part": "Mirrors",
-      "SKU": 1290,
-      "Price": null,
+      "SKU": null,
+      "Price": 1290.0,
       "Dims": null
     },
     {
@@ -4595,8 +4595,8 @@
       "Model": "RX-7 FD",
       "Style": "Interior Trim",
       "Part": "Racing Dash (LHD & RHD)",
-      "SKU": 1790,
-      "Price": null,
+      "SKU": null,
+      "Price": 1790.0,
       "Dims": null
     },
     {
@@ -4604,8 +4604,8 @@
       "Model": "RX-7 FD",
       "Style": "Carbon Fiber Tonneau Cover",
       "Part": "Tonneau Cover",
-      "SKU": 770,
-      "Price": null,
+      "SKU": null,
+      "Price": 770.0,
       "Dims": null
     },
     {
@@ -4613,8 +4613,8 @@
       "Model": "RX-7 FD",
       "Style": "FEED-Style Side Skirts",
       "Part": "Side Skirts",
-      "SKU": 895,
-      "Price": null,
+      "SKU": null,
+      "Price": 895.0,
       "Dims": null
     },
     {
@@ -4622,8 +4622,8 @@
       "Model": "RX-7 FD",
       "Style": "FEED-Style Front Fenders",
       "Part": "Fenders",
-      "SKU": 955,
-      "Price": null,
+      "SKU": null,
+      "Price": 955.0,
       "Dims": null
     },
     {
@@ -4631,8 +4631,8 @@
       "Model": "RX-7 FD",
       "Style": "Carbon Fiber Cowl Panel",
       "Part": "Cowl Panel",
-      "SKU": 480,
-      "Price": null,
+      "SKU": null,
+      "Price": 480.0,
       "Dims": null
     },
     {
@@ -4640,8 +4640,8 @@
       "Model": "RX-7 FD",
       "Style": "R-Magic Style Headlights",
       "Part": "Headlights",
-      "SKU": 1650,
-      "Price": null,
+      "SKU": null,
+      "Price": 1650.0,
       "Dims": null
     },
     {
@@ -4649,8 +4649,8 @@
       "Model": "RX-7 FD",
       "Style": "99+ Style Front Bumper",
       "Part": "Front Bumper",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -4658,8 +4658,8 @@
       "Model": "RX-7 FD",
       "Style": "Odula Style Wing Spoiler",
       "Part": "Wing / Spoiler",
-      "SKU": 565,
-      "Price": null,
+      "SKU": null,
+      "Price": 565.0,
       "Dims": null
     },
     {
@@ -4667,8 +4667,8 @@
       "Model": "RX-7 FD",
       "Style": "Interior Trim",
       "Part": "Door ",
-      "SKU": 375,
-      "Price": null,
+      "SKU": null,
+      "Price": 375.0,
       "Dims": null
     },
     {
@@ -4676,8 +4676,8 @@
       "Model": "RX-7 FD",
       "Style": "Cooling Panel",
       "Part": "Engine Bay",
-      "SKU": 425,
-      "Price": null,
+      "SKU": null,
+      "Price": 425.0,
       "Dims": null
     },
     {
@@ -4685,8 +4685,8 @@
       "Model": "RX-8",
       "Style": "SE3P Early Aero Mirror (Left Hand Drive)",
       "Part": "Mirrors",
-      "SKU": 900,
-      "Price": null,
+      "SKU": null,
+      "Price": 900.0,
       "Dims": null
     },
     {
@@ -5801,8 +5801,8 @@
       "Model": "Evo 8/9",
       "Style": "Ralli-Style Carbon Fiber Front Lip Bumper",
       "Part": "Front Bumper / Lip",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -5810,8 +5810,8 @@
       "Model": "Evo 8/9",
       "Style": "Carbon Fiber Rear Diffuser",
       "Part": "Rear Diffuser",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -5819,8 +5819,8 @@
       "Model": "Evo 8/9",
       "Style": "Carbon Fiber Time Attack Voltex Rear Bumper Diffuser",
       "Part": "Rear Diffuser",
-      "SKU": 1099,
-      "Price": null,
+      "SKU": null,
+      "Price": 1099.0,
       "Dims": null
     },
     {
@@ -5828,8 +5828,8 @@
       "Model": "Evo 8/9",
       "Style": "Project Oni: Type Zero Full Carbon Fiber BodyKit",
       "Part": "Body Kit",
-      "SKU": 7950,
-      "Price": null,
+      "SKU": null,
+      "Price": 7950.0,
       "Dims": null
     },
     {
@@ -5837,8 +5837,8 @@
       "Model": "Evo 10",
       "Style": "Carbon Fiber Rear Diffuser",
       "Part": "Rear Diffuser",
-      "SKU": 1270,
-      "Price": null,
+      "SKU": null,
+      "Price": 1270.0,
       "Dims": null
     },
     {
@@ -5846,8 +5846,8 @@
       "Model": "Evo 10",
       "Style": "Carbon Fiber Front Fender Flare",
       "Part": "Fender Flares",
-      "SKU": 800,
-      "Price": null,
+      "SKU": null,
+      "Price": 800.0,
       "Dims": null
     },
     {
@@ -5855,8 +5855,8 @@
       "Model": "Evo 10",
       "Style": "Carbon Fiber Front Bumper Splitter",
       "Part": "Front Splitter",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -5864,8 +5864,8 @@
       "Model": "Evo 10",
       "Style": "Carbon Fiber Front Bumper Lip",
       "Part": "Front Lip",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -5873,8 +5873,8 @@
       "Model": "Evo 8/9",
       "Style": "JDM OEM-Style Rear Bumper",
       "Part": "Rear Bumper",
-      "SKU": 1545,
-      "Price": null,
+      "SKU": null,
+      "Price": 1545.0,
       "Dims": null
     },
     {
@@ -5882,8 +5882,8 @@
       "Model": "Evo",
       "Style": "OEM-Style Front Bumper with Lip",
       "Part": "Front Bumper",
-      "SKU": 2340,
-      "Price": null,
+      "SKU": null,
+      "Price": 2340.0,
       "Dims": null
     },
     {
@@ -5891,8 +5891,8 @@
       "Model": "Evo 9",
       "Style": "Mitsubishi OEM Rear Bumper Diffuser",
       "Part": "Rear Diffuser",
-      "SKU": 690,
-      "Price": null,
+      "SKU": null,
+      "Price": 690.0,
       "Dims": null
     },
     {
@@ -5900,8 +5900,8 @@
       "Model": "Evo 9",
       "Style": "MR SE-Style Front Lip Bumper",
       "Part": "Front Lip",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -5909,8 +5909,8 @@
       "Model": "Evo 8/9",
       "Style": "Varis-Style Carbon Fiber Front Bumper Canards",
       "Part": "Canards",
-      "SKU": 360,
-      "Price": null,
+      "SKU": null,
+      "Price": 360.0,
       "Dims": null
     },
     {
@@ -5918,8 +5918,8 @@
       "Model": "Evo 8/9",
       "Style": "Do-Luck D-Style Carbon Fiber Front Lip Bumper",
       "Part": "Front Lip",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -5927,8 +5927,8 @@
       "Model": "Evo 8/9",
       "Style": "Type-5 Carbon Fiber GT Wing Spoiler",
       "Part": "Wing / Spoiler",
-      "SKU": 1840,
-      "Price": null,
+      "SKU": null,
+      "Price": 1840.0,
       "Dims": null
     },
     {
@@ -5936,8 +5936,8 @@
       "Model": "Evo 9",
       "Style": "Rear Bumper",
       "Part": "Rear Bumper",
-      "SKU": 450,
-      "Price": null,
+      "SKU": null,
+      "Price": 450.0,
       "Dims": null
     },
     {
@@ -5945,8 +5945,8 @@
       "Model": "Evo 9",
       "Style": "JP-Style Carbon Fiber Front Lip Bumper",
       "Part": "Front Lip",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -9833,8 +9833,8 @@
       "Model": "200SX/180SX",
       "Style": "Carbon Fiber Front Bumper Lip",
       "Part": "Front Lip",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -9842,8 +9842,8 @@
       "Model": "200SX/180SX",
       "Style": "Carbon Fiber Bumper Canards",
       "Part": "Canards",
-      "SKU": 360,
-      "Price": null,
+      "SKU": null,
+      "Price": 360.0,
       "Dims": null
     },
     {
@@ -9851,8 +9851,8 @@
       "Model": "350Z",
       "Style": "Seido Style Rear Diffuser",
       "Part": "Rear Diffuser",
-      "SKU": 955,
-      "Price": null,
+      "SKU": null,
+      "Price": 955.0,
       "Dims": null
     },
     {
@@ -9860,8 +9860,8 @@
       "Model": "Skyline R34",
       "Style": "Front Splitter with Undertray",
       "Part": "Front Splitter",
-      "SKU": 780,
-      "Price": null,
+      "SKU": null,
+      "Price": 780.0,
       "Dims": null
     },
     {
@@ -9869,8 +9869,8 @@
       "Model": "Skyline R34",
       "Style": "Z-Tune Style Front Fenders",
       "Part": "Fenders",
-      "SKU": 1145,
-      "Price": null,
+      "SKU": null,
+      "Price": 1145.0,
       "Dims": null
     },
     {
@@ -9878,8 +9878,8 @@
       "Model": "Skyline R33",
       "Style": "GTR Vacuum Carbon Fiber Extension SideSkirt",
       "Part": "Side Skirts",
-      "SKU": 1250,
-      "Price": null,
+      "SKU": null,
+      "Price": 1250.0,
       "Dims": null
     },
     {
@@ -9887,8 +9887,8 @@
       "Model": "Skyline R35",
       "Style": "GTR Mines Rear Spoiler without Base",
       "Part": "Wing / Spoiler",
-      "SKU": 939,
-      "Price": null,
+      "SKU": null,
+      "Price": 939.0,
       "Dims": null
     },
     {
@@ -9896,8 +9896,8 @@
       "Model": "Skyline R35",
       "Style": "GTR OEM Style Rear Spoiler",
       "Part": "Wing / Spoiler",
-      "SKU": 939,
-      "Price": null,
+      "SKU": null,
+      "Price": 939.0,
       "Dims": null
     },
     {
@@ -9905,8 +9905,8 @@
       "Model": "Skyline R35",
       "Style": "CBA DBA OEM Spoiler H Style Higher Legs",
       "Part": "Wing / Spoiler",
-      "SKU": 569,
-      "Price": null,
+      "SKU": null,
+      "Price": 569.0,
       "Dims": null
     },
     {
@@ -9914,8 +9914,8 @@
       "Model": "Skyline R33",
       "Style": "GTR Border 4pcs Front Bumper Canard",
       "Part": "Canards",
-      "SKU": 390,
-      "Price": null,
+      "SKU": null,
+      "Price": 390.0,
       "Dims": null
     },
     {
@@ -9923,8 +9923,8 @@
       "Model": "Skyline R32",
       "Style": "GTR TS Style Diffuser",
       "Part": "Rear Diffuser",
-      "SKU": 795,
-      "Price": null,
+      "SKU": null,
+      "Price": 795.0,
       "Dims": null
     },
     {
@@ -9932,8 +9932,8 @@
       "Model": "Skyline R34",
       "Style": "GTT Z-Tune 5pcs 1999-2000 / GTT 2D GTR Conversion EAST BEAR Rear Diffuser",
       "Part": "Rear Diffuser",
-      "SKU": 1440,
-      "Price": null,
+      "SKU": null,
+      "Price": 1440.0,
       "Dims": null
     },
     {
@@ -9941,8 +9941,8 @@
       "Model": "Skyline R34",
       "Style": "GTT Z-Tune Type B Front Bumper Lip",
       "Part": "Front Lip",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -9950,8 +9950,8 @@
       "Model": "Skyline R34",
       "Style": "GTT Z-Tune / GTT 2D GTR Conversion (2pcs) Side Skirt Extensions",
       "Part": "Side Skirts",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -9959,8 +9959,8 @@
       "Model": "Skyline R34",
       "Style": "GTT Z-Tune / GTT 4D GTR-Style Front Bumper",
       "Part": "Front Bumper",
-      "SKU": 3240,
-      "Price": null,
+      "SKU": null,
+      "Price": 3240.0,
       "Dims": null
     },
     {
@@ -9968,8 +9968,8 @@
       "Model": "Skyline R34",
       "Style": "GTT Z-Tune / GTT 2D GTR Conversion Rear Bumper Spats/Caps",
       "Part": "Bumper Spats",
-      "SKU": 400,
-      "Price": null,
+      "SKU": null,
+      "Price": 400.0,
       "Dims": null
     },
     {
@@ -9977,8 +9977,8 @@
       "Model": "Skyline R34",
       "Style": "GTT Z-Tune / GTT 2D GTR Conversion GTR-Style Rear Bumper",
       "Part": "Rear Bumper",
-      "SKU": 2150,
-      "Price": null,
+      "SKU": null,
+      "Price": 2150.0,
       "Dims": null
     },
     {
@@ -9986,8 +9986,8 @@
       "Model": "Skyline R34",
       "Style": "GTT Z-Tune / GTT 2D GTR Conversion (2pcs) Side Skirt Extensions",
       "Part": "Side Skirts",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -9995,8 +9995,8 @@
       "Model": "Skyline R34",
       "Style": "GTT Z-Tune Type A Bumper Lip",
       "Part": "Front Lip",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -10004,8 +10004,8 @@
       "Model": "Skyline R34",
       "Style": "GTR NI Z-Tune Style Front Bumper Lip",
       "Part": "Front Lip",
-      "SKU": 1620,
-      "Price": null,
+      "SKU": null,
+      "Price": 1620.0,
       "Dims": null
     },
     {
@@ -10013,8 +10013,8 @@
       "Model": "Skyline R34",
       "Style": "GTR NI Z-Tune Style Extensions SideSkirt",
       "Part": "Side Skirts",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -10022,8 +10022,8 @@
       "Model": "Skyline R34",
       "Style": "GTR Z-Tune Style Side Skirts",
       "Part": "Side Skirts",
-      "SKU": 940,
-      "Price": null,
+      "SKU": null,
+      "Price": 940.0,
       "Dims": null
     },
     {
@@ -10031,8 +10031,8 @@
       "Model": "Skyline R34",
       "Style": "GTR Z-Tune Style Rear Bumper Spats",
       "Part": "Bumper Spats",
-      "SKU": 355,
-      "Price": null,
+      "SKU": null,
+      "Price": 355.0,
       "Dims": null
     },
     {
@@ -10040,8 +10040,8 @@
       "Model": "Skyline R34",
       "Style": "GTR NI Z-Tune Style Rear Bumper",
       "Part": "Rear Bumper",
-      "SKU": 785,
-      "Price": null,
+      "SKU": null,
+      "Price": 785.0,
       "Dims": null
     },
     {
@@ -10049,8 +10049,8 @@
       "Model": "Skyline R32",
       "Style": "GTR TS Carbon Fiber Type 2 w/ Metal Fitting Accessories Rear Diffuser",
       "Part": "Rear Diffuser",
-      "SKU": 610.37,
-      "Price": null,
+      "SKU": null,
+      "Price": 610.37,
       "Dims": null
     },
     {
@@ -10058,8 +10058,8 @@
       "Model": "Skyline R35",
       "Style": "RSW Style LHD DOOR MIRROR INNER PANEL",
       "Part": "Mirrors",
-      "SKU": 299,
-      "Price": null,
+      "SKU": null,
+      "Price": 299.0,
       "Dims": null
     },
     {
@@ -10067,8 +10067,8 @@
       "Model": "Skyline R35",
       "Style": "OEM Style Wheel Arch Flares (10mm wider) 8pcs",
       "Part": "Fender Flares",
-      "SKU": 689,
-      "Price": null,
+      "SKU": null,
+      "Price": 689.0,
       "Dims": null
     },
     {
@@ -10076,8 +10076,8 @@
       "Model": "Skyline R35",
       "Style": "CBA WA Style Addon Rear Bumper Diffuser",
       "Part": "Rear Diffuser",
-      "SKU": 799,
-      "Price": null,
+      "SKU": null,
+      "Price": 799.0,
       "Dims": null
     },
     {
@@ -10085,8 +10085,8 @@
       "Model": "Skyline R35",
       "Style": "VS Style Side Low Mirror Under Cover",
       "Part": "Mirrors",
-      "SKU": 210,
-      "Price": null,
+      "SKU": null,
+      "Price": 210.0,
       "Dims": null
     },
     {
@@ -10094,8 +10094,8 @@
       "Model": "Skyline R35",
       "Style": "Side Mirror Cover 2 PCS",
       "Part": "Mirrors",
-      "SKU": 449,
-      "Price": null,
+      "SKU": null,
+      "Price": 449.0,
       "Dims": null
     },
     {
@@ -10103,8 +10103,8 @@
       "Model": "Skyline R33",
       "Style": "Border Front Bumper Air Duct",
       "Part": "Air Duct",
-      "SKU": 297,
-      "Price": null,
+      "SKU": null,
+      "Price": 297.0,
       "Dims": null
     },
     {
@@ -12875,8 +12875,8 @@
       "Model": "Supra Mark 4",
       "Style": "Tamon Style Widebody Kit",
       "Part": "Wide Body Kit",
-      "SKU": 8500,
-      "Price": null,
+      "SKU": null,
+      "Price": 8500.0,
       "Dims": null
     },
     {
@@ -12884,8 +12884,8 @@
       "Model": "Supra Mark 4",
       "Style": "Carbon Fiber Rear Hatch",
       "Part": "Rear Hatch",
-      "SKU": 2700,
-      "Price": null,
+      "SKU": null,
+      "Price": 2700.0,
       "Dims": null
     },
     {
@@ -12893,8 +12893,8 @@
       "Model": "Supra Mark 4",
       "Style": "Carbon Fiber Headlight Bezels",
       "Part": "Headlight Bezels",
-      "SKU": 880,
-      "Price": null,
+      "SKU": null,
+      "Price": 880.0,
       "Dims": null
     },
     {
@@ -12902,8 +12902,8 @@
       "Model": "Supra Mark 4",
       "Style": "OEM Front Bumper",
       "Part": "Front Bumper",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -12911,8 +12911,8 @@
       "Model": "Supra Mark 4",
       "Style": "Orido/TS Blend Body Kit",
       "Part": "Body Kit",
-      "SKU": 8750,
-      "Price": null,
+      "SKU": null,
+      "Price": 8750.0,
       "Dims": null
     },
     {
@@ -13361,8 +13361,8 @@
       "Model": "Cayanne",
       "Style": "wide body",
       "Part": "Front Bumper Air Intake Frame",
-      "SKU": 1478,
-      "Price": null,
+      "SKU": null,
+      "Price": 1478.0,
       "Dims": null
     },
     {
@@ -13370,8 +13370,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Front Bumper Air Intake",
-      "SKU": 1479,
-      "Price": null,
+      "SKU": null,
+      "Price": 1479.0,
       "Dims": null
     },
     {
@@ -13379,8 +13379,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Front Skirt",
-      "SKU": 1480,
-      "Price": null,
+      "SKU": null,
+      "Price": 1480.0,
       "Dims": null
     },
     {
@@ -13388,8 +13388,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Front Diffuser",
-      "SKU": 1481,
-      "Price": null,
+      "SKU": null,
+      "Price": 1481.0,
       "Dims": null
     },
     {
@@ -13397,8 +13397,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Rear Bumper",
-      "SKU": 1482,
-      "Price": null,
+      "SKU": null,
+      "Price": 1482.0,
       "Dims": null
     },
     {
@@ -13406,8 +13406,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Rear Bumper Air inlet",
-      "SKU": 1483,
-      "Price": null,
+      "SKU": null,
+      "Price": 1483.0,
       "Dims": null
     },
     {
@@ -13415,8 +13415,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Diffuser",
-      "SKU": 1484,
-      "Price": null,
+      "SKU": null,
+      "Price": 1484.0,
       "Dims": null
     },
     {
@@ -13424,8 +13424,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Hood Vents",
-      "SKU": 1485,
-      "Price": null,
+      "SKU": null,
+      "Price": 1485.0,
       "Dims": null
     },
     {
@@ -13433,8 +13433,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Side Skirt",
-      "SKU": 1486,
-      "Price": null,
+      "SKU": null,
+      "Price": 1486.0,
       "Dims": null
     },
     {
@@ -13442,8 +13442,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Front Fender Wide Eyebrow",
-      "SKU": 1487,
-      "Price": null,
+      "SKU": null,
+      "Price": 1487.0,
       "Dims": null
     },
     {
@@ -13451,8 +13451,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Rear Fender Wide Eyebrow",
-      "SKU": 1488,
-      "Price": null,
+      "SKU": null,
+      "Price": 1488.0,
       "Dims": null
     },
     {
@@ -13460,8 +13460,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Door Eyebrow Trim",
-      "SKU": 1489,
-      "Price": null,
+      "SKU": null,
+      "Price": 1489.0,
       "Dims": null
     },
     {
@@ -13469,8 +13469,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Grille",
-      "SKU": 1490,
-      "Price": null,
+      "SKU": null,
+      "Price": 1490.0,
       "Dims": null
     },
     {
@@ -13478,8 +13478,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Trunk Gap Trim",
-      "SKU": 1491,
-      "Price": null,
+      "SKU": null,
+      "Price": 1491.0,
       "Dims": null
     },
     {
@@ -13487,8 +13487,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Roof Carbon",
-      "SKU": 1492,
-      "Price": null,
+      "SKU": null,
+      "Price": 1492.0,
       "Dims": null
     },
     {
@@ -13496,8 +13496,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Eyeline",
-      "SKU": 1493,
-      "Price": null,
+      "SKU": null,
+      "Price": 1493.0,
       "Dims": null
     },
     {
@@ -13505,8 +13505,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Taillight Frame",
-      "SKU": 1494,
-      "Price": null,
+      "SKU": null,
+      "Price": 1494.0,
       "Dims": null
     },
     {
@@ -13523,8 +13523,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Rear Bumper",
-      "SKU": 1754,
-      "Price": null,
+      "SKU": null,
+      "Price": 1754.0,
       "Dims": null
     },
     {
@@ -13532,8 +13532,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Side Skirt",
-      "SKU": 1755,
-      "Price": null,
+      "SKU": null,
+      "Price": 1755.0,
       "Dims": null
     },
     {
@@ -13541,8 +13541,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Front Fender Wide Eyebrow",
-      "SKU": 1756,
-      "Price": null,
+      "SKU": null,
+      "Price": 1756.0,
       "Dims": null
     },
     {
@@ -13550,8 +13550,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Rear Fender Wide Eyebrow",
-      "SKU": 1757,
-      "Price": null,
+      "SKU": null,
+      "Price": 1757.0,
       "Dims": null
     },
     {
@@ -13559,8 +13559,8 @@
       "Model": "Cayanne",
       "Style": "Sold as Kit",
       "Part": "Backdoor Wide Trim",
-      "SKU": 1758,
-      "Price": null,
+      "SKU": null,
+      "Price": 1758.0,
       "Dims": null
     },
     {
@@ -15341,8 +15341,8 @@
       "Model": "Model 3",
       "Style": "Dry Carbon Spoiler",
       "Part": "Wing / Spoiler",
-      "SKU": 1030,
-      "Price": null,
+      "SKU": null,
+      "Price": 1030.0,
       "Dims": null
     },
     {
@@ -15350,8 +15350,8 @@
       "Model": "Model 3",
       "Style": "Dry Carbon Mirror Caps",
       "Part": "Mirrors",
-      "SKU": 745,
-      "Price": null,
+      "SKU": null,
+      "Price": 745.0,
       "Dims": null
     },
     {
@@ -15359,8 +15359,8 @@
       "Model": "GT86/BRZ",
       "Style": "(2013 Model) Rear Spoiler",
       "Part": "Wing / Spoiler",
-      "SKU": 550,
-      "Price": null,
+      "SKU": null,
+      "Price": 550.0,
       "Dims": null
     },
     {
@@ -15368,8 +15368,8 @@
       "Model": "GT86/BRZ",
       "Style": "FT86 TK Style Rear Spoiler",
       "Part": "Wing / Spoiler",
-      "SKU": 850,
-      "Price": null,
+      "SKU": null,
+      "Price": 850.0,
       "Dims": null
     },
     {
@@ -15377,8 +15377,8 @@
       "Model": "GT86/BRZ",
       "Style": "ZN6 Rear Fender Arches",
       "Part": "Fender Flares",
-      "SKU": 1250,
-      "Price": null,
+      "SKU": null,
+      "Price": 1250.0,
       "Dims": null
     },
     {
@@ -15386,8 +15386,8 @@
       "Model": "GT86/BRZ",
       "Style": "ZN Rear Diffuser",
       "Part": "Rear Diffuser",
-      "SKU": 950,
-      "Price": null,
+      "SKU": null,
+      "Price": 950.0,
       "Dims": null
     },
     {
@@ -15395,8 +15395,8 @@
       "Model": "GT86/BRZ",
       "Style": "ZN Front Bumper",
       "Part": "Front Bumper",
-      "SKU": 1150,
-      "Price": null,
+      "SKU": null,
+      "Price": 1150.0,
       "Dims": null
     },
     {
@@ -15404,8 +15404,8 @@
       "Model": "GT86/BRZ",
       "Style": "ZN Side Skirts",
       "Part": "Side Skirts",
-      "SKU": 1080,
-      "Price": null,
+      "SKU": null,
+      "Price": 1080.0,
       "Dims": null
     },
     {
@@ -15413,8 +15413,8 @@
       "Model": "GT86/BRZ",
       "Style": "ZN Front Lip",
       "Part": "Front Lip",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -15422,8 +15422,8 @@
       "Model": "GT86/BRZ",
       "Style": "N Spec Rear Bumper",
       "Part": "Rear Bumper",
-      "SKU": 1545,
-      "Price": null,
+      "SKU": null,
+      "Price": 1545.0,
       "Dims": null
     },
     {
@@ -15431,8 +15431,8 @@
       "Model": "GT86/BRZ",
       "Style": "A1 Front Lip",
       "Part": "Front Lip",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -15440,8 +15440,8 @@
       "Model": "GT86/BRZ",
       "Style": "A3 Front Lip",
       "Part": "Front Lip",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -15449,8 +15449,8 @@
       "Model": "GT86/BRZ",
       "Style": "A2 Front Lip",
       "Part": "Front Lip",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -15458,8 +15458,8 @@
       "Model": "GT86/BRZ",
       "Style": "OEM-Style Carbon Fiber  Sills - Interior Trim ",
       "Part": "Door",
-      "SKU": 320,
-      "Price": null,
+      "SKU": null,
+      "Price": 320.0,
       "Dims": null
     },
     {
@@ -15467,8 +15467,8 @@
       "Model": "GT86/BRZ",
       "Style": "Interior Trim ",
       "Part": "Shift Frame Cover",
-      "SKU": 300,
-      "Price": null,
+      "SKU": null,
+      "Price": 300.0,
       "Dims": null
     },
     {
@@ -15476,8 +15476,8 @@
       "Model": "GT86/BRZ",
       "Style": "AE Fenders",
       "Part": "Fenders",
-      "SKU": 1190,
-      "Price": null,
+      "SKU": null,
+      "Price": 1190.0,
       "Dims": null
     },
     {
@@ -15485,8 +15485,8 @@
       "Model": "GT86/BRZ",
       "Style": "GFB Spatz (2pcs)",
       "Part": "Bumper Spats",
-      "SKU": 425,
-      "Price": null,
+      "SKU": null,
+      "Price": 425.0,
       "Dims": null
     },
     {
@@ -15494,8 +15494,8 @@
       "Model": "GT86/BRZ",
       "Style": "GFB Skirt Extensions (2pcs)",
       "Part": "Side Skirts",
-      "SKU": 1080,
-      "Price": null,
+      "SKU": null,
+      "Price": 1080.0,
       "Dims": null
     },
     {
@@ -15503,8 +15503,8 @@
       "Model": "GT86/BRZ",
       "Style": "GFB Widebody Fender Seals (4pcs)",
       "Part": "Fender Seals",
-      "SKU": 1190,
-      "Price": null,
+      "SKU": null,
+      "Price": 1190.0,
       "Dims": null
     },
     {
@@ -15512,8 +15512,8 @@
       "Model": "GT86/BRZ",
       "Style": "GFB Splitter with Undertray",
       "Part": "Front Splitter",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -15521,8 +15521,8 @@
       "Model": "GT86/BRZ",
       "Style": "GFB Front Bumper",
       "Part": "Front Bumper",
-      "SKU": 1620,
-      "Price": null,
+      "SKU": null,
+      "Price": 1620.0,
       "Dims": null
     },
     {
@@ -15530,8 +15530,8 @@
       "Model": "GT86/BRZ",
       "Style": "GFB Front Fender",
       "Part": "Fenders",
-      "SKU": 1190,
-      "Price": null,
+      "SKU": null,
+      "Price": 1190.0,
       "Dims": null
     },
     {
@@ -15539,8 +15539,8 @@
       "Model": "GT86/BRZ",
       "Style": "GFB Skirts (2pcs)",
       "Part": "Side Skirts",
-      "SKU": 1080,
-      "Price": null,
+      "SKU": null,
+      "Price": 1080.0,
       "Dims": null
     },
     {
@@ -15548,8 +15548,8 @@
       "Model": "GT86/BRZ",
       "Style": "VARIS Diffuser",
       "Part": "Rear Diffuser",
-      "SKU": 950,
-      "Price": null,
+      "SKU": null,
+      "Price": 950.0,
       "Dims": null
     },
     {
@@ -15557,8 +15557,8 @@
       "Model": "GT86/BRZ",
       "Style": "VARIS Front Fenders",
       "Part": "Fenders",
-      "SKU": 1190,
-      "Price": null,
+      "SKU": null,
+      "Price": 1190.0,
       "Dims": null
     },
     {
@@ -15566,8 +15566,8 @@
       "Model": "GT86/BRZ",
       "Style": "VARIS Rear Bumper",
       "Part": "Rear Bumper",
-      "SKU": 1545,
-      "Price": null,
+      "SKU": null,
+      "Price": 1545.0,
       "Dims": null
     },
     {
@@ -15575,8 +15575,8 @@
       "Model": "GT86/BRZ",
       "Style": "VARIS Spatz",
       "Part": "Bumper Spats",
-      "SKU": 650,
-      "Price": null,
+      "SKU": null,
+      "Price": 650.0,
       "Dims": null
     },
     {
@@ -15584,8 +15584,8 @@
       "Model": "GT86/BRZ",
       "Style": "VARIS Arising II Rear Diffuser",
       "Part": "Rear Diffuser",
-      "SKU": 1350,
-      "Price": null,
+      "SKU": null,
+      "Price": 1350.0,
       "Dims": null
     },
     {
@@ -15593,8 +15593,8 @@
       "Model": "GT86/BRZ",
       "Style": "VARIS Lip",
       "Part": "Front Lip",
-      "SKU": 720,
-      "Price": null,
+      "SKU": null,
+      "Price": 720.0,
       "Dims": null
     },
     {
@@ -15602,8 +15602,8 @@
       "Model": "GT86/BRZ",
       "Style": "VARIS Side Skirts",
       "Part": "Side Skirts",
-      "SKU": 1080,
-      "Price": null,
+      "SKU": null,
+      "Price": 1080.0,
       "Dims": null
     },
     {
@@ -15611,8 +15611,8 @@
       "Model": "GT86/BRZ",
       "Style": "Intake Manifold Cover",
       "Part": "Engine Bay",
-      "SKU": 250,
-      "Price": null,
+      "SKU": null,
+      "Price": 250.0,
       "Dims": null
     },
     {
@@ -15620,8 +15620,8 @@
       "Model": "GT86/BRZ",
       "Style": "+30mm Front Fender",
       "Part": "Fenders",
-      "SKU": 1190,
-      "Price": null,
+      "SKU": null,
+      "Price": 1190.0,
       "Dims": null
     }
   ],
@@ -18836,7 +18836,7 @@
     }
   ],
   "metadata": {
-    "generated_at": "2026-04-09T14:49:41.307565",
+    "generated_at": "2026-04-09T15:10:41.175805",
     "counts": {
       "kits": 1736,
       "hoods": 401
