@@ -25,120 +25,101 @@
         .btn-hoods { background-color: #1A1A1A; color: #FFF; font-weight: 500; }
         .btn-inactive { background-color: #1A1A1A !important; color: #888 !important; }
         
+        /* Layout Structure */
+        .logo-row { background: #FFFFFF; border-bottom: 1px solid #E5E7EB; padding: 12px 24px; display: flex; justify-content: center; align-items: center; }
+        .logo-box { max-width: 150px; height: 50px; display: flex; align-items: center; justify-content: center; }
+        
+        .nav-row { background: #000000; padding: 0 24px; display: flex; justify-content: center; position: sticky; top: 0; z-50; }
+        
         /* Table Styles */
         table { border-spacing: 0; width: 100%; border-collapse: collapse; }
-        th { 
-            background-color: #000; color: #FFF; font-weight: 800; 
-            font-size: 10px; text-transform: uppercase; padding: 8px 12px;
-            text-align: left;
-        }
-        td { 
-            padding: 6px 12px; border-bottom: 1px solid #E4E4E7; 
-            font-size: 11px; vertical-align: middle;
-        }
-        
+        th { background-color: #000; color: #FFF; font-weight: 800; font-size: 10px; text-transform: uppercase; padding: 10px 12px; text-align: left; }
+        td { padding: 8px 12px; border-bottom: 1px solid #E4E4E7; font-size: 11px; vertical-align: middle; }
         tr:nth-child(even) { background-color: #F8F8F8; }
         .row-hover:hover { background-color: #F3F4F6 !important; }
-
-        .price-col { font-weight: 800; text-align: right; font-size: 12px; white-space: nowrap; }
-        .sku-col { color: #71717A; font-family: monospace; font-size: 10px; }
+        .price-col { font-weight: 800; text-align: right; font-size: 12px; color: #000; }
 
         /* Mobile Adjustments */
         @media (max-width: 768px) {
-            header { flex-direction: column; gap: 12px; padding: 15px !important; }
-            .logo-box { width: 120px; height: 60px; }
-            .search-container { flex-direction: column; gap: 8px; padding: 10px !important; }
-            .filter-strip { grid-template-columns: 1fr 1fr; display: grid !important; gap: 4px; padding: 6px !important; }
-            .btn-reset { width: 100%; }
+            .nav-row { flex-direction: column; padding: 0; }
+            .btn-kits, .btn-hoods { width: 50%; display: inline-block; text-align: center; }
+            .search-container { top: 40px; }
+            .filter-strip { grid-template-columns: 1fr 1fr; display: grid !important; }
             
-            /* Responsive Table -> Card View */
             thead { display: none; }
-            tr { display: block; padding: 10px 5px; border-bottom: 4px solid #F1F5F9; }
-            td { display: flex; justify-content: justify; padding: 4px 10px; border: none; align-items: center; }
-            td::before {
-                content: attr(data-label);
-                font-weight: 800;
-                font-size: 9px;
-                text-transform: uppercase;
-                color: #A1A1AA;
-                min-width: 70px;
-                margin-right: 10px;
-            }
-            .price-col { text-align: left; font-size: 14px; margin-top: 4px; color: #000; }
-            .brand-col { font-weight: 800; color: #C4F101; background: #000; display: inline-flex; border-radius: 2px; margin-bottom: 4px; }
-            .brand-col::before { color: #555; }
+            tr { display: block; padding: 12px 8px; border-bottom: 6px solid #F1F5F9; }
+            td { display: flex; justify-content: space-between; padding: 4px 10px; border: none; align-items: center; text-align: right; }
+            td::before { content: attr(data-label); font-weight: 800; font-size: 9px; text-transform: uppercase; color: #A1A1AA; text-align: left; }
+            .price-col { font-size: 14px; margin-top: 8px; border-top: 1px solid #EEE; padding-top: 8px; }
+            .brand-col { font-weight: 800; color: #C4F101; background: #000; justify-content: center; border-radius: 2px; }
         }
 
-        .filter-strip { background: #000; padding: 4px 8px; display: flex; gap: 4px; overflow-x: auto; }
-        .filter-select { 
-            background: #18181B; color: #FFF; border: 1px solid #333; 
-            font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 2px;
-            min-width: 100px;
-        }
-        .filter-input {
-            background: #18181B; color: #FFF; border: 1px solid #333;
-            font-size: 10px; padding: 4px 8px; border-radius: 2px;
-            min-width: 100px;
-        }
-
-        .logo-box { width: 84px; height: 50px; background: white; display: flex; align-items: center; justify-content: center; padding: 4px; border-radius: 2px; }
-        html { zoom: 100%; }
-        @media screen and (min-width: 1024px) { html { zoom: 90%; } }
+        .filter-strip { background: #000; display: flex; gap: 4px; overflow-x: auto; padding: 4px; }
+        .filter-select, .filter-input { background: #18181B; color: #FFF; border: 1px solid #333; font-size: 10px; font-weight: 700; padding: 6px 10px; border-radius: 2px; min-width: 100px; height: 32px; }
+        
+        /* Logo missing fallback */
+        .logo-box img[src="logo.png"]:not([src]) { display: none; }
+        .logo-fallback { font-weight: 900; font-size: 24px; color: #000; letter-spacing: -1px; }
     </style>
 </head>
 <body class="bg-white">
 
-    <header class="bg-black px-6 py-3 flex items-center justify-between shadow-xl sticky top-0 z-50">
+    <!-- Top Logo Bar -->
+    <div class="logo-row">
         <div class="logo-box">
-            <img src="logo.png" alt="Logo" class="max-h-full object-contain">
+            <img src="logo.png" alt="ELITE TI" class="max-h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span class="logo-fallback hidden">ELITE <span class="text-brand-lime">TI</span></span>
         </div>
-        
-        <div class="flex gap-px bg-gray-900 p-0.5 rounded-sm">
-            <button id="tab-kits" onclick="switchCategory('kits')" class="px-6 md:px-12 py-2 btn-kits text-[11px] uppercase tracking-wider transition-all">Body Kits</button>
-            <button id="tab-hoods" onclick="switchCategory('hoods')" class="px-6 md:px-12 py-2 btn-hoods text-[11px] uppercase tracking-wider btn-inactive transition-all">Hoods & Carbon</button>
-        </div>
-        
-        <button class="hidden md:flex bg-brand-lime px-5 py-2.5 font-extrabold text-[10px] items-center gap-1.5 rounded-sm">
-            UPLOAD CSV
-        </button>
-    </header>
-
-    <div class="search-container bg-white border-b border-gray-100 flex items-center gap-3 p-3 sticky top-[62px] md:top-[70px] z-50 shadow-sm">
-        <input type="text" id="global-search" oninput="handleFilter()" placeholder="SEARCH CATALOG..." class="flex-grow border border-gray-200 p-3 italic font-medium text-xs outline-none focus:border-brand-lime rounded-sm h-10">
-        <button onclick="resetFilters()" class="btn-reset border-2 border-black font-bold text-[10px] px-6 h-10 uppercase tracking-widest hover:bg-black hover:text-white transition-all">Reset</button>
     </div>
 
-    <div class="filter-strip sticky top-[122px] md:top-[126px] z-40 bg-black border-b border-brand-lime">
+    <!-- Navigation Bar (Sticky) -->
+    <header class="nav-row shadow-lg">
+        <div class="flex gap-px bg-gray-900 w-full max-w-[600px] justify-center">
+            <button id="tab-kits" onclick="switchCategory('kits')" class="flex-1 py-3 btn-kits text-[11px] uppercase tracking-wider">Body Kits</button>
+            <button id="tab-hoods" onclick="switchCategory('hoods')" class="flex-1 py-3 btn-hoods text-[11px] uppercase tracking-wider btn-inactive">Hoods & Carbon</button>
+        </div>
+    </header>
+
+    <!-- Controls -->
+    <div class="search-container bg-white border-b border-gray-100 flex items-center gap-3 p-4 sticky top-[42px] md:top-[48px] z-50 shadow-sm">
+        <input type="text" id="global-search" oninput="handleFilter()" placeholder="SEARCH CATALOG..." class="flex-grow border border-gray-200 p-3 italic font-semibold text-xs outline-none focus:border-brand-lime h-10 shadow-inner">
+        <button onclick="resetFilters()" class="border-2 border-black font-extrabold text-[10px] px-8 h-10 uppercase tracking-widest hover:bg-black hover:text-white transition-all">Reset</button>
+    </div>
+
+    <div class="filter-strip sticky top-[114px] md:top-[122px] z-40 border-b border-brand-lime">
         <select id="brand-filter" onchange="handleFilter()" class="filter-select"><option value="">MAKE</option></select>
         <select id="model-filter" onchange="handleFilter()" class="filter-select"><option value="">MODEL</option></select>
         <select id="style-filter" onchange="handleFilter()" class="filter-select"><option value="">STYLE</option></select>
         <select id="part-filter" onchange="handleFilter()" class="filter-select"><option value="">PART</option></select>
         <input type="text" id="sku-filter" oninput="handleFilter()" placeholder="SKU" class="filter-input">
-        <input type="number" id="min-price" oninput="handleFilter()" placeholder="MIN $" class="filter-input w-24">
-        <input type="number" id="max-price" oninput="handleFilter()" placeholder="MAX $" class="filter-input w-24">
+        <div class="flex gap-1">
+            <input type="number" id="min-price" oninput="handleFilter()" placeholder="MIN $" class="filter-input w-24">
+            <input type="number" id="max-price" oninput="handleFilter()" placeholder="MAX $" class="filter-input w-24">
+        </div>
     </div>
 
     <main class="w-full">
         <table class="w-full">
             <thead>
                 <tr>
-                    <th style="width: 12%">Make</th>
+                    <th style="width: 10%">Make</th>
                     <th style="width: 15%">Model</th>
-                    <th style="width: 12%">Style</th>
-                    <th style="width: 38%">Part</th>
+                    <th style="width: 15%">Style</th>
+                    <th style="width: 35%">Part</th>
                     <th style="width: 10%">Sku</th>
-                    <th style="width: 13%; text-align: right;">Eti Rrp</th>
+                    <th style="width: 15%; text-align: right;">Eti Rrp</th>
                 </tr>
             </thead>
-            <tbody id="catalog-body">
-                <!-- Data -->
-            </tbody>
+            <tbody id="catalog-body"></tbody>
         </table>
-
-        <div id="empty-state" class="hidden py-40 text-center">
-            <p class="text-gray-300 font-bold uppercase text-xs tracking-widest">No Matches Found</p>
-        </div>
+        <div id="empty-state" class="hidden py-40 text-center text-gray-400 font-bold uppercase text-xs tracking-widest">No Matches Found</div>
     </main>
+
+    <!-- Developer Credit -->
+    <footer class="p-12 mt-20 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 text-[9px] font-bold text-gray-400 uppercase tracking-widest">
+        <div>&copy; 2026 ELITE TI</div>
+        <div>DESIGNED & DEVELOPED BY <a href="https://Shopifydevstudio.com" target="_blank" class="text-black border-b border-black">SHOPIFYDEVSTUDIO.COM</a></div>
+    </footer>
 
     <script src="app.js"></script>
 </body>
