@@ -2,172 +2,163 @@ let allData = { kits: [], hoods: [] };
 let currentCategory = 'kits';
 let filteredData = [];
 
-// Initialize app
 async function init() {
     try {
-        const response = await fetch('data.json');
+        // Add cache buster to ensure Vercel serves the latest data
+        const response = await fetch('data.json?v=' + Date.now());
+        if (!response.ok) throw new Error('Network response was not ok');
         allData = await response.json();
         
-        // Populate brand filter
-        updateBrandFilter();
+        console.log('Data loaded successfully:', allData.metadata.counts);
         
-        // Initial render
+        initializeAllFilters();
         switchCategory('kits');
-        
-        console.log('Data loaded:', allData);
     } catch (error) {
         console.error('Error loading data:', error);
-        document.getElementById('results-grid').innerHTML = `
-            <div class="col-span-full py-20 text-center">
-                <p class="text-red-400 font-medium">Failed to load catalog data. Please ensure data.json exists.</p>
-            </div>
+        document.getElementById('catalog-body').innerHTML = `
+            <tr>
+                <td colspan="6" class="py-20 text-center text-red-500 font-bold uppercase tracking-widest">
+                    Data Load Error: Please refresh the page or check data.json
+                </td>
+            </tr>
         `;
     }
 }
 
-function updateBrandFilter() {
-    const brandFilter = document.getElementById('brand-filter');
-    const brands = new Set();
+function initializeAllFilters() {
+    populateSelect('brand-filter', 'Brand', 'Category', 'MAKE');
+    populateSelect('model-filter', 'Model', null, 'MODEL');
+    populateSelect('style-filter', 'Style', null, 'STYLE');
+    populateSelect('part-filter', 'Part', 'Category', 'PART');
+}
+
+function populateSelect(id, optKey, altKey, label) {
+    const select = document.getElementById(id);
+    const options = new Set();
     
-    const data = allData[currentCategory];
-    data.forEach(item => {
-        const brand = item.Brand || item.Category || 'Other';
-        brands.add(brand);
+    allData[currentCategory].forEach(item => {
+        const val = item[optKey] || (altKey ? item[altKey] : null);
+        if (val && String(val).trim() !== '') options.add(val);
     });
     
-    // Clear and add "All Brands"
-    brandFilter.innerHTML = '<option value="">All Brands / Categories</option>';
-    
-    // Sort and add brands
-    Array.from(brands).sort().forEach(brand => {
-        const option = document.createElement('option');
-        option.value = brand;
-        option.textContent = brand;
-        brandFilter.appendChild(option);
+    const sorted = Array.from(options).sort();
+    select.innerHTML = `<option value="">${label}</option>`;
+    sorted.forEach(opt => {
+        const el = document.createElement('option');
+        el.value = opt;
+        el.textContent = opt;
+        select.appendChild(el);
     });
 }
 
 function switchCategory(category) {
     currentCategory = category;
     
-    // Update UI tabs
     const kitsTab = document.getElementById('tab-kits');
     const hoodsTab = document.getElementById('tab-hoods');
     
     if (category === 'kits') {
-        kitsTab.classList.add('bg-accent-500', 'text-white', 'shadow-lg');
-        kitsTab.classList.remove('text-slate-400');
-        hoodsTab.classList.remove('bg-accent-500', 'text-white', 'shadow-lg');
-        hoodsTab.classList.add('text-slate-400');
+        kitsTab.classList.remove('btn-inactive');
+        hoodsTab.classList.add('btn-inactive');
     } else {
-        hoodsTab.classList.add('bg-accent-500', 'text-white', 'shadow-lg');
-        hoodsTab.classList.remove('text-slate-400');
-        kitsTab.classList.remove('bg-accent-500', 'text-white', 'shadow-lg');
-        kitsTab.classList.add('text-slate-400');
+        hoodsTab.classList.remove('btn-inactive');
+        kitsTab.classList.add('btn-inactive');
     }
     
-    // Reset search and filter
-    document.getElementById('search-input').value = '';
-    document.getElementById('brand-filter').value = '';
-    
-    updateBrandFilter();
+    resetFilters(false);
+    initializeAllFilters();
     handleFilter();
 }
 
-function handleFilter() {
-    const searchTerm = document.getElementById('search-input').value.toLowerCase();
-    const brandTerm = document.getElementById('brand-filter').value;
-    const sortVal = document.getElementById('sort-filter').value;
-    
-    const data = allData[currentCategory];
-    
-    filteredData = data.filter(item => {
-        const searchStr = Object.values(item).join(' ').toLowerCase();
-        const matchesSearch = searchStr.includes(searchTerm);
-        
-        const itemBrand = item.Brand || item.Category || 'Other';
-        const matchesBrand = !brandTerm || itemBrand === brandTerm;
-        
-        return matchesSearch && matchesBrand;
-    });
-    
-    // Sorting
-    if (sortVal === 'price-asc') {
-        filteredData.sort((a, b) => (parseFloat(a.Price) || 0) - (parseFloat(b.Price) || 0));
-    } else if (sortVal === 'price-desc') {
-        filteredData.sort((a, b) => (parseFloat(b.Price) || 0) - (parseFloat(a.Price) || 0));
-    } else if (sortVal === 'model-asc') {
-        filteredData.sort((a, b) => String(a.Model).localeCompare(String(b.Model)));
-    }
-    
-    // Update Tag UI
-    const brandTag = document.getElementById('active-brand-tag');
-    if (brandTerm) {
-        brandTag.classList.remove('hidden');
-        document.getElementById('current-brand-name').textContent = brandTerm;
-    } else {
-        brandTag.classList.add('hidden');
-    }
-    
-    renderResults();
+function resetFilters(trigger = true) {
+    document.getElementById('global-search').value = '';
+    document.getElementById('brand-filter').value = '';
+    document.getElementById('model-filter').value = '';
+    document.getElementById('style-filter').value = '';
+    document.getElementById('part-filter').value = '';
+    document.getElementById('sku-filter').value = '';
+    document.getElementById('min-price').value = '';
+    document.getElementById('max-price').value = '';
+    if (trigger) handleFilter();
 }
 
-function renderResults() {
-    const grid = document.getElementById('results-grid');
-    const countDisplay = document.getElementById('count-display');
+function handleFilter() {
+    const search = document.getElementById('global-search').value.toLowerCase();
+    const brand = document.getElementById('brand-filter').value;
+    const model = document.getElementById('model-filter').value;
+    const style = document.getElementById('style-filter').value;
+    const part = document.getElementById('part-filter').value;
+    const sku = document.getElementById('sku-filter').value.toLowerCase();
+    const minP = parseFloat(document.getElementById('min-price').value) || 0;
+    const maxP = parseFloat(document.getElementById('max-price').value) || Infinity;
+    
+    const rawData = allData[currentCategory];
+    
+    filteredData = rawData.filter(item => {
+        const itemBrand = String(item.Brand || item.Category || '');
+        const itemModel = String(item.Model || '');
+        const itemStyle = String(item.Style || '');
+        const itemPart = String(item.Part || item.Category || '');
+        const itemSku = String(item.SKU || '').toLowerCase();
+        const itemPrice = parseFloat(item.Price) || 0;
+        
+        const matchesSearch = search === '' || Object.values(item).join(' ').toLowerCase().includes(search);
+        const matchesBrand = brand === '' || itemBrand === brand;
+        const matchesModel = model === '' || itemModel === model;
+        const matchesStyle = style === '' || itemStyle === style;
+        const matchesPart = part === '' || itemPart === part;
+        const matchesSku = sku === '' || itemSku.includes(sku);
+        const matchesPrice = itemPrice >= minP && itemPrice <= maxP;
+        
+        return matchesSearch && matchesBrand && matchesModel && matchesStyle && matchesPart && matchesSku && matchesPrice;
+    });
+    
+    renderTable();
+}
+
+function renderTable() {
+    const body = document.getElementById('catalog-body');
     const emptyState = document.getElementById('empty-state');
     
-    countDisplay.textContent = filteredData.length;
+    body.innerHTML = '';
     
     if (filteredData.length === 0) {
-        grid.innerHTML = '';
         emptyState.classList.remove('hidden');
         return;
     }
-    
     emptyState.classList.add('hidden');
     
-    grid.innerHTML = filteredData.map(item => {
-        const price = item.Price ? `$${parseFloat(item.Price).toLocaleString()}` : 'Contact Us';
-        const brand = item.Brand || item.Category || '-';
-        const model = item.Model || '-';
-        const style = item.Style || '-';
-        const part = item.Part || item.Category || 'Component';
-        const sku = item.SKU || 'N/A';
+    let lastBrand = null;
+    let lastModel = null;
+    
+    const rows = filteredData.map(item => {
+        const brand = String(item.Brand || item.Category || '');
+        const model = String(item.Model || '');
+        const style = String(item.Style || '');
+        const part = String(item.Part || item.Category || '');
+        const sku = String(item.SKU || '');
+        const price = item.Price ? `$${parseFloat(item.Price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}` : '';
+        
+        // Match the clustered display from screenshot
+        const brandDisp = brand === lastBrand ? '' : brand;
+        const modelDisp = (brand === lastBrand && model === lastModel) ? '' : model;
+        
+        lastBrand = brand;
+        lastModel = model;
         
         return `
-            <div class="glass p-5 rounded-3xl border border-white/5 card-hover flex flex-col gap-4">
-                <div class="flex justify-between items-start">
-                    <span class="bg-accent-500/10 text-accent-400 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border border-accent-500/20">
-                        ${brand}
-                    </span>
-                    <span class="text-xs font-mono text-slate-500">#${sku}</span>
-                </div>
-                
-                <div class="space-y-1">
-                    <h3 class="text-lg font-bold text-white line-clamp-1">${model}</h3>
-                    <p class="text-sm text-slate-400 font-medium">${style}</p>
-                </div>
-                
-                <div class="py-3 border-y border-white/5">
-                    <p class="text-[13px] text-slate-300 font-medium leading-relaxed italic">
-                        ${part}
-                    </p>
-                </div>
-                
-                <div class="mt-auto flex items-center justify-between">
-                    <div>
-                        <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Wholesale Price</p>
-                        <p class="text-xl font-black text-white">${price}</p>
-                    </div>
-                    <button class="bg-white/5 hover:bg-accent-500 group transition-all p-2.5 rounded-xl border border-white/10 hover:border-accent-400">
-                        <svg class="w-5 h-5 text-slate-300 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                    </button>
-                </div>
-            </div>
+            <tr class="row-hover">
+                <td class="brand-col">${brandDisp}</td>
+                <td class="model-col">${modelDisp}</td>
+                <td class="style-col">${style}</td>
+                <td class="part-col">${part}</td>
+                <td class="sku-col">${sku}</td>
+                <td class="price-col">${price}</td>
+            </tr>
         `;
     }).join('');
+    
+    body.innerHTML = rows;
 }
 
-// Start
 init();
