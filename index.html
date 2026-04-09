@@ -13,143 +13,132 @@
                     colors: {
                         'brand-lime': '#C4F101',
                         'brand-dark': '#000000',
-                        'brand-gray-text': '#71717A',
-                        'brand-row-alt': '#F9FAFB'
                     }
                 }
             }
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; font-size: 11px; color: #18181B; }
+        body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; font-size: 11px; color: #18181B; -webkit-font-smoothing: antialiased; }
         
-        /* Header & Nav */
         .btn-kits { background-color: #C4F101; color: #000; font-weight: 800; }
         .btn-hoods { background-color: #1A1A1A; color: #FFF; font-weight: 500; }
         .btn-inactive { background-color: #1A1A1A !important; color: #888 !important; }
         
-        /* Table Structure - Super Compact */
-        table { border-spacing: 0; width: 100%; }
+        /* Table Styles */
+        table { border-spacing: 0; width: 100%; border-collapse: collapse; }
         th { 
             background-color: #000; color: #FFF; font-weight: 800; 
-            font-size: 10px; text-transform: uppercase; padding: 6px 12px;
-            text-align: left; border-right: 1px solid #333;
+            font-size: 10px; text-transform: uppercase; padding: 8px 12px;
+            text-align: left;
         }
-        th:last-child { border-right: none; }
-        
         td { 
-            padding: 4px 12px; border-bottom: 1px solid #E4E4E7; 
-            font-size: 11px; vertical-align: middle; line-height: 1.2;
+            padding: 6px 12px; border-bottom: 1px solid #E4E4E7; 
+            font-size: 11px; vertical-align: middle;
         }
-        
-        .brand-col { font-weight: 700; color: #52525B; width: 10%; }
-        .model-col { font-weight: 600; color: #18181B; width: 15%; }
-        .style-col { color: #71717A; width: 10%; }
-        .part-col { color: #27272A; width: 35%; }
-        .sku-col { color: #71717A; width: 10%; font-family: monospace; }
-        .price-col { font-weight: 800; text-align: right; width: 15%; padding-right: 24px; font-size: 12px; }
         
         tr:nth-child(even) { background-color: #F8F8F8; }
         .row-hover:hover { background-color: #F3F4F6 !important; }
 
-        /* Filter Controls - Ultra Slim */
-        .filter-strip { background: #000; padding: 4px 8px; display: flex; gap: 4px; align-items: center; }
+        .price-col { font-weight: 800; text-align: right; font-size: 12px; white-space: nowrap; }
+        .sku-col { color: #71717A; font-family: monospace; font-size: 10px; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 12px; padding: 15px !important; }
+            .logo-box { width: 120px; height: 60px; }
+            .search-container { flex-direction: column; gap: 8px; padding: 10px !important; }
+            .filter-strip { grid-template-columns: 1fr 1fr; display: grid !important; gap: 4px; padding: 6px !important; }
+            .btn-reset { width: 100%; }
+            
+            /* Responsive Table -> Card View */
+            thead { display: none; }
+            tr { display: block; padding: 10px 5px; border-bottom: 4px solid #F1F5F9; }
+            td { display: flex; justify-content: justify; padding: 4px 10px; border: none; align-items: center; }
+            td::before {
+                content: attr(data-label);
+                font-weight: 800;
+                font-size: 9px;
+                text-transform: uppercase;
+                color: #A1A1AA;
+                min-width: 70px;
+                margin-right: 10px;
+            }
+            .price-col { text-align: left; font-size: 14px; margin-top: 4px; color: #000; }
+            .brand-col { font-weight: 800; color: #C4F101; background: #000; display: inline-flex; border-radius: 2px; margin-bottom: 4px; }
+            .brand-col::before { color: #555; }
+        }
+
+        .filter-strip { background: #000; padding: 4px 8px; display: flex; gap: 4px; overflow-x: auto; }
         .filter-select { 
             background: #18181B; color: #FFF; border: 1px solid #333; 
-            font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 2px;
-            height: 24px; min-width: 80px; flex: 1;
+            font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 2px;
+            min-width: 100px;
         }
         .filter-input {
             background: #18181B; color: #FFF; border: 1px solid #333;
-            font-size: 9px; padding: 2px 8px; border-radius: 2px;
-            height: 24px; flex: 1;
+            font-size: 10px; padding: 4px 8px; border-radius: 2px;
+            min-width: 100px;
         }
-        .filter-input::placeholder { color: #555; }
-
-        .search-container { padding: 12px 24px; display: flex; gap: 12px; align-items: center; border-bottom: 1px solid #E5E7EB; }
-        .search-bar { flex-grow: 1; border: 1px solid #E4E4E7; padding: 8px 16px; font-size: 11px; border-radius: 2px; }
-        .btn-reset { border: 1px solid #000; font-weight: 700; font-size: 10px; padding: 8px 16px; text-transform: uppercase; }
 
         .logo-box { width: 84px; height: 50px; background: white; display: flex; align-items: center; justify-content: center; padding: 4px; border-radius: 2px; }
-
-        /* Zoom Correction */
-        html { zoom: 90%; }
-        @media screen and (min-width: 2000px) { html { zoom: 110%; } }
+        html { zoom: 100%; }
+        @media screen and (min-width: 1024px) { html { zoom: 90%; } }
     </style>
 </head>
 <body class="bg-white">
 
-    <!-- Navbar Like Screenshot -->
-    <header class="bg-black px-6 py-2.5 flex items-center justify-between">
-        <div class="logo-box rounded-sm shadow-sm overflow-hidden">
-            <img src="logo.png" alt="ETI LOGO" class="max-h-full max-w-full object-contain">
+    <header class="bg-black px-6 py-3 flex items-center justify-between shadow-xl sticky top-0 z-50">
+        <div class="logo-box">
+            <img src="logo.png" alt="Logo" class="max-h-full object-contain">
         </div>
         
-        <div class="flex gap-0.5">
-            <button id="tab-kits" onclick="switchCategory('kits')" class="px-10 py-2.5 btn-kits text-[11px] uppercase tracking-wider">Body Kits</button>
-            <button id="tab-hoods" onclick="switchCategory('hoods')" class="px-10 py-2.5 btn-hoods text-[11px] uppercase tracking-wider btn-inactive">Hoods & Carbon</button>
+        <div class="flex gap-px bg-gray-900 p-0.5 rounded-sm">
+            <button id="tab-kits" onclick="switchCategory('kits')" class="px-6 md:px-12 py-2 btn-kits text-[11px] uppercase tracking-wider transition-all">Body Kits</button>
+            <button id="tab-hoods" onclick="switchCategory('hoods')" class="px-6 md:px-12 py-2 btn-hoods text-[11px] uppercase tracking-wider btn-inactive transition-all">Hoods & Carbon</button>
         </div>
         
-        <button class="bg-brand-lime px-5 py-2.5 font-extrabold text-[10px] flex items-center gap-1.5 rounded-sm">
-            <svg class="w-3.5 h-3.5" stroke="currentColor" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+        <button class="hidden md:flex bg-brand-lime px-5 py-2.5 font-extrabold text-[10px] items-center gap-1.5 rounded-sm">
             UPLOAD CSV
         </button>
     </header>
 
-    <!-- Search Section -->
-    <div class="search-container bg-white">
-        <div class="relative flex-grow">
-            <input type="text" id="global-search" oninput="handleFilter()" placeholder="SEARCH CATALOG..." class="search-bar w-full outline-none focus:border-brand-lime">
-        </div>
-        <button onclick="resetFilters()" class="btn-reset hover:bg-black hover:text-white transition-all">Reset Filters</button>
+    <div class="search-container bg-white border-b border-gray-100 flex items-center gap-3 p-3 sticky top-[62px] md:top-[70px] z-50 shadow-sm">
+        <input type="text" id="global-search" oninput="handleFilter()" placeholder="SEARCH CATALOG..." class="flex-grow border border-gray-200 p-3 italic font-medium text-xs outline-none focus:border-brand-lime rounded-sm h-10">
+        <button onclick="resetFilters()" class="btn-reset border-2 border-black font-bold text-[10px] px-6 h-10 uppercase tracking-widest hover:bg-black hover:text-white transition-all">Reset</button>
     </div>
 
-    <!-- Filter Strip -->
-    <div class="filter-strip">
+    <div class="filter-strip sticky top-[122px] md:top-[126px] z-40 bg-black border-b border-brand-lime">
         <select id="brand-filter" onchange="handleFilter()" class="filter-select"><option value="">MAKE</option></select>
         <select id="model-filter" onchange="handleFilter()" class="filter-select"><option value="">MODEL</option></select>
         <select id="style-filter" onchange="handleFilter()" class="filter-select"><option value="">STYLE</option></select>
         <select id="part-filter" onchange="handleFilter()" class="filter-select"><option value="">PART</option></select>
-        <input type="text" id="sku-filter" oninput="handleFilter()" placeholder="SEARCH SKU..." class="filter-input">
-        <input type="number" id="min-price" oninput="handleFilter()" placeholder="MIN" class="filter-input !flex-initial w-20">
-        <input type="number" id="max-price" oninput="handleFilter()" placeholder="MAX" class="filter-input !flex-initial w-20">
+        <input type="text" id="sku-filter" oninput="handleFilter()" placeholder="SKU" class="filter-input">
+        <input type="number" id="min-price" oninput="handleFilter()" placeholder="MIN $" class="filter-input w-24">
+        <input type="number" id="max-price" oninput="handleFilter()" placeholder="MAX $" class="filter-input w-24">
     </div>
 
-    <!-- Table -->
-    <div class="w-full overflow-x-auto">
-        <table class="min-w-full">
+    <main class="w-full">
+        <table class="w-full">
             <thead>
                 <tr>
-                    <th class="brand-col">Make</th>
-                    <th class="model-col">Model</th>
-                    <th class="style-col">Style</th>
-                    <th class="part-col">Part</th>
-                    <th class="sku-col">Sku</th>
-                    <th class="price-col">Eti Rrp</th>
+                    <th style="width: 12%">Make</th>
+                    <th style="width: 15%">Model</th>
+                    <th style="width: 12%">Style</th>
+                    <th style="width: 38%">Part</th>
+                    <th style="width: 10%">Sku</th>
+                    <th style="width: 13%; text-align: right;">Eti Rrp</th>
                 </tr>
             </thead>
             <tbody id="catalog-body">
                 <!-- Data -->
             </tbody>
         </table>
-    </div>
 
-    <!-- Empty State -->
-    <div id="empty-state" class="hidden py-40 text-center border-b border-gray-100">
-        <p class="text-gray-300 font-bold uppercase text-xs">No Data Found</p>
-    </div>
-
-    <!-- Footer -->
-    <footer class="w-full max-w-[1400px] mx-auto px-6 py-12 mt-20 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em]">
-        <div class="flex items-center gap-4">
-            <span>&copy; 2026 ELITE TI</span>
-            <span class="w-1.5 h-1.5 bg-gray-200 rounded-full"></span>
-            <span>WHOLESALE MASTER CATALOG</span>
+        <div id="empty-state" class="hidden py-40 text-center">
+            <p class="text-gray-300 font-bold uppercase text-xs tracking-widest">No Matches Found</p>
         </div>
-        <div class="text-gray-400">
-            DESIGNED & DEVELOPED BY <a href="https://Shopifydevstudio.com" target="_blank" class="text-black hover:text-brand-lime transition-all border-b border-black">SHOPIFYDEVSTUDIO.COM</a>
-        </div>
-    </footer>
+    </main>
 
     <script src="app.js"></script>
 </body>
