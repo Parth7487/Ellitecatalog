@@ -4,15 +4,31 @@ let filteredData = [];
 
 async function init() {
     try {
-        const response = await fetch('data.json?v=' + Date.now());
-        if (!response.ok) throw new Error('Data load failed');
-        allData = await response.json();
+        const url = `data.json?v=${Date.now()}`;
+        const response = await fetch(url);
         
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        allData = await response.json();
         initializeAllFilters();
         switchCategory('kits');
     } catch (error) {
-        console.error('Error loading data:', error);
-        document.getElementById('catalog-body').innerHTML = `<tr><td colspan="6" class="py-20 text-center text-red-500 font-bold uppercase tracking-widest">Failed to load local data.json</td></tr>`;
+        console.error('CRITICAL: Data could not be loaded.', error);
+        document.getElementById('catalog-body').innerHTML = `
+            <tr>
+                <td colspan="6" class="py-20 text-center">
+                    <p class="text-red-500 font-black uppercase text-sm tracking-widest mb-2 overflow-hidden">
+                        ERROR: ${error.message}
+                    </p>
+                    <p class="text-gray-400 text-[10px] uppercase font-bold">
+                        Please ensure data.json exists in the repository root.
+                    </p>
+                    <button onclick="location.reload()" class="mt-4 border border-black px-4 py-2 text-[10px] font-bold hover:bg-black hover:text-white transition-all">RETRY CONNECTION</button>
+                </td>
+            </tr>
+        `;
     }
 }
 
