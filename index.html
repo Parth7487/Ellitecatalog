@@ -5,176 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elite Ti - Wholesale Catalog</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Outfit', 'sans-serif'],
-                    },
                     colors: {
-                        accent: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bae6fd',
-                            300: '#7dd3fc',
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
-                        }
+                        'brand-lime': '#C4F101',
+                        'brand-dark': '#000000',
+                        'brand-gray-text': '#71717A',
+                        'brand-row-alt': '#F9FAFB'
                     }
                 }
             }
         }
     </script>
     <style>
-        body {
-            background-color: #0c0f14;
-            color: #e2e8f0;
-            overflow-x: hidden;
+        body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; font-size: 11px; color: #18181B; }
+        
+        /* Header & Nav */
+        .btn-kits { background-color: #C4F101; color: #000; font-weight: 800; }
+        .btn-hoods { background-color: #1A1A1A; color: #FFF; font-weight: 500; }
+        .btn-inactive { background-color: #1A1A1A !important; color: #888 !important; }
+        
+        /* Table Structure - Super Compact */
+        table { border-spacing: 0; width: 100%; }
+        th { 
+            background-color: #000; color: #FFF; font-weight: 800; 
+            font-size: 10px; text-transform: uppercase; padding: 6px 12px;
+            text-align: left; border-right: 1px solid #333;
         }
-        .glass {
-            background: rgba(23, 27, 34, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        th:last-child { border-right: none; }
+        
+        td { 
+            padding: 4px 12px; border-bottom: 1px solid #E4E4E7; 
+            font-size: 11px; vertical-align: middle; line-height: 1.2;
         }
-        .text-gradient {
-            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        
+        .brand-col { font-weight: 700; color: #52525B; width: 10%; }
+        .model-col { font-weight: 600; color: #18181B; width: 15%; }
+        .style-col { color: #71717A; width: 10%; }
+        .part-col { color: #27272A; width: 35%; }
+        .sku-col { color: #71717A; width: 10%; font-family: monospace; }
+        .price-col { font-weight: 800; text-align: right; width: 15%; padding-right: 24px; font-size: 12px; }
+        
+        tr:nth-child(even) { background-color: #F8F8F8; }
+        .row-hover:hover { background-color: #F3F4F6 !important; }
+
+        /* Filter Controls - Ultra Slim */
+        .filter-strip { background: #000; padding: 4px 8px; display: flex; gap: 4px; align-items: center; }
+        .filter-select { 
+            background: #18181B; color: #FFF; border: 1px solid #333; 
+            font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 2px;
+            height: 24px; min-width: 80px; flex: 1;
         }
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .filter-input {
+            background: #18181B; color: #FFF; border: 1px solid #333;
+            font-size: 9px; padding: 2px 8px; border-radius: 2px;
+            height: 24px; flex: 1;
         }
-        .card-hover:hover {
-            transform: translateY(-4px);
-            border-color: rgba(56, 189, 248, 0.3);
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #111827;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #374151;
-            border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #4b5563;
-        }
-        [v-cloak] { display: none; }
+        .filter-input::placeholder { color: #555; }
+
+        .search-container { padding: 12px 24px; display: flex; gap: 12px; align-items: center; border-bottom: 1px solid #E5E7EB; }
+        .search-bar { flex-grow: 1; border: 1px solid #E4E4E7; padding: 8px 16px; font-size: 11px; border-radius: 2px; }
+        .btn-reset { border: 1px solid #000; font-weight: 700; font-size: 10px; padding: 8px 16px; text-transform: uppercase; }
+
+        .logo-box { width: 84px; height: 50px; background: white; display: flex; align-items: center; justify-content: center; padding: 4px; border-radius: 2px; }
+
+        /* Zoom Correction */
+        html { zoom: 90%; }
+        @media screen and (min-width: 2000px) { html { zoom: 110%; } }
     </style>
 </head>
-<body class="custom-scrollbar">
-    <div id="app" class="min-h-screen flex flex-col">
-        <!-- Header -->
-        <header class="sticky top-0 z-50 glass border-b border-white/5 px-6 py-4">
-            <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-accent-500 rounded-lg flex items-center justify-center shadow-lg shadow-accent-500/20">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                    </div>
-                    <div>
-                        <h1 class="text-xl font-bold font-heading text-white tracking-tight">ELITE TI <span class="text-accent-400">CATALOG</span></h1>
-                        <p class="text-xs text-slate-400 font-medium">Wholesale Pricing Master v2.0</p>
-                    </div>
-                </div>
+<body class="bg-white">
 
-                <!-- Navigation Tabs -->
-                <div class="flex bg-black/40 p-1 rounded-xl border border-white/5 self-start md:self-auto">
-                    <button id="tab-kits" onclick="switchCategory('kits')" class="px-6 py-2 rounded-lg text-sm font-semibold transition-all duration-200 bg-accent-500 text-white shadow-lg shadow-accent-500/10">Changes Kits</button>
-                    <button id="tab-hoods" onclick="switchCategory('hoods')" class="px-6 py-2 rounded-lg text-sm font-semibold transition-all duration-200 text-slate-400 hover:text-white">HOODS & ACC</button>
-                </div>
-            </div>
-        </header>
+    <!-- Navbar Like Screenshot -->
+    <header class="bg-black px-6 py-2.5 flex items-center justify-between">
+        <div class="logo-box rounded-sm shadow-sm overflow-hidden">
+            <img src="logo.png" alt="ETI LOGO" class="max-h-full max-w-full object-contain">
+        </div>
+        
+        <div class="flex gap-0.5">
+            <button id="tab-kits" onclick="switchCategory('kits')" class="px-10 py-2.5 btn-kits text-[11px] uppercase tracking-wider">Body Kits</button>
+            <button id="tab-hoods" onclick="switchCategory('hoods')" class="px-10 py-2.5 btn-hoods text-[11px] uppercase tracking-wider btn-inactive">Hoods & Carbon</button>
+        </div>
+        
+        <button class="bg-brand-lime px-5 py-2.5 font-extrabold text-[10px] flex items-center gap-1.5 rounded-sm">
+            <svg class="w-3.5 h-3.5" stroke="currentColor" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+            UPLOAD CSV
+        </button>
+    </header>
 
-        <!-- Main Content -->
-        <main class="flex-grow p-6 lg:p-10 max-w-7xl mx-auto w-full">
-            <!-- Search and Filters Section -->
-            <div class="mb-10 space-y-6">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-                    <!-- Search -->
-                    <div class="lg:col-span-6 relative">
-                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        </span>
-                        <input type="text" id="search-input" oninput="handleFilter()" placeholder="Search Car, Model, SKU or Part..." 
-                            class="w-full bg-slate-900/50 border border-white/10 rounded-2xl py-3.5 pl-11 pr-4 focus:outline-none focus:ring-2 focus:ring-accent-500/50 focus:border-accent-500 transition-all text-white placeholder-slate-500">
-                    </div>
+    <!-- Search Section -->
+    <div class="search-container bg-white">
+        <div class="relative flex-grow">
+            <input type="text" id="global-search" oninput="handleFilter()" placeholder="SEARCH CATALOG..." class="search-bar w-full outline-none focus:border-brand-lime">
+        </div>
+        <button onclick="resetFilters()" class="btn-reset hover:bg-black hover:text-white transition-all">Reset Filters</button>
+    </div>
 
-                    <!-- Brand Filter -->
-                    <div class="lg:col-span-3">
-                        <select id="brand-filter" onchange="handleFilter()" class="w-full bg-slate-900/50 border border-white/10 rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-accent-500/50 text-white appearance-none cursor-pointer">
-                            <option value="">All Brands</option>
-                        </select>
-                    </div>
+    <!-- Filter Strip -->
+    <div class="filter-strip">
+        <select id="brand-filter" onchange="handleFilter()" class="filter-select"><option value="">MAKE</option></select>
+        <select id="model-filter" onchange="handleFilter()" class="filter-select"><option value="">MODEL</option></select>
+        <select id="style-filter" onchange="handleFilter()" class="filter-select"><option value="">STYLE</option></select>
+        <select id="part-filter" onchange="handleFilter()" class="filter-select"><option value="">PART</option></select>
+        <input type="text" id="sku-filter" oninput="handleFilter()" placeholder="SEARCH SKU..." class="filter-input">
+        <input type="number" id="min-price" oninput="handleFilter()" placeholder="MIN" class="filter-input !flex-initial w-20">
+        <input type="number" id="max-price" oninput="handleFilter()" placeholder="MAX" class="filter-input !flex-initial w-20">
+    </div>
 
-                    <!-- Sort -->
-                    <div class="lg:col-span-3">
-                        <select id="sort-filter" onchange="handleFilter()" class="w-full bg-slate-900/50 border border-white/10 rounded-2xl py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-accent-500/50 text-white appearance-none cursor-pointer">
-                            <option value="none">Default Sort</option>
-                            <option value="price-asc">Price: Low to High</option>
-                            <option value="price-desc">Price: High to Low</option>
-                            <option value="model-asc">Model: A-Z</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <!-- Active Filters & Stats -->
-                <div class="flex items-center justify-between px-2">
-                    <div class="text-sm text-slate-400 font-medium">
-                        Showing <span id="count-display" class="text-accent-400 font-bold">0</span> results
-                    </div>
-                    <div id="active-brand-tag" class="hidden">
-                         <span class="bg-accent-500/10 text-accent-400 text-xs px-3 py-1 rounded-full border border-accent-500/20 font-semibold shadow-sm">Filtering by: <span id="current-brand-name"></span></span>
-                    </div>
-                </div>
-            </div>
+    <!-- Table -->
+    <div class="w-full overflow-x-auto">
+        <table class="min-w-full">
+            <thead>
+                <tr>
+                    <th class="brand-col">Make</th>
+                    <th class="model-col">Model</th>
+                    <th class="style-col">Style</th>
+                    <th class="part-col">Part</th>
+                    <th class="sku-col">Sku</th>
+                    <th class="price-col">Eti Rrp</th>
+                </tr>
+            </thead>
+            <tbody id="catalog-body">
+                <!-- Data -->
+            </tbody>
+        </table>
+    </div>
 
-            <!-- Results Grid -->
-            <div id="results-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <!-- Skeleton Loading -->
-                <div class="animate-pulse bg-slate-800/50 rounded-3xl h-64 border border-white/5"></div>
-                <div class="animate-pulse bg-slate-800/50 rounded-3xl h-64 border border-white/5"></div>
-                <div class="animate-pulse bg-slate-800/50 rounded-3xl h-64 border border-white/5"></div>
-                <div class="animate-pulse bg-slate-800/50 rounded-3xl h-64 border border-white/5"></div>
-            </div>
-
-            <!-- Empty State -->
-            <div id="empty-state" class="hidden flex flex-col items-center justify-center py-20 text-center">
-                <div class="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mb-4 text-slate-600">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 9.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-                <h3 class="text-xl font-bold text-white mb-2">No items found</h3>
-                <p class="text-slate-500">Try adjusting your search or filters to find what you're looking for.</p>
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="mt-auto px-6 py-8 border-t border-white/5">
-            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-500">
-                <p>&copy; 2026 Elite Ti Professional. All rights reserved.</p>
-                <div class="flex items-center gap-6">
-                    <span class="flex items-center gap-2">
-                        <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                        Status: Database Ready
-                    </span>
-                    <a href="#" class="hover:text-white transition-colors">Documentation</a>
-                    <a href="#" class="hover:text-white transition-colors">Support</a>
-                </div>
-            </div>
-        </footer>
+    <!-- Empty State -->
+    <div id="empty-state" class="hidden py-40 text-center border-b border-gray-100">
+        <p class="text-gray-300 font-bold uppercase text-xs">No Data Found</p>
     </div>
 
     <script src="app.js"></script>
