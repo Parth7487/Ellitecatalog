@@ -22,9 +22,10 @@ BRAND_MAPPING = {
     "GTR R35": "NISSAN", "SKYLINE": "NISSAN", "S13": "NISSAN", "S14": "NISSAN", 
     "S15": "NISSAN", "200SX": "NISSAN", "180SX": "NISSAN", "SILVIA": "NISSAN", "A31": "NISSAN",
     "CEFIRO": "NISSAN", "NAVARA": "NISSAN", "JUKE": "NISSAN", "MARCH": "NISSAN",
+    "TIDA": "NISSAN", "TIIDA": "NISSAN", "300 ZX": "NISSAN", "300ZX": "NISSAN", "200 SX": "NISSAN",
     
     # MAZDA
-    "RX8": "MAZDA", "RX-8": "MAZDA", "RX7": "MAZDA", "RX-7": "MAZDA", 
+    "RX8": "MAZDA", "RX-8": "MAZDA", "RX7": "MAZDA", "RX-7": "MAZDA", "SAVANA": "MAZDA",
     "MAZDA3": "MAZDA", "MAZDA 3": "MAZDA", "MAZDA2": "MAZDA", "MAZDA 2": "MAZDA", "MX5": "MAZDA",
     
     # HONDA
@@ -32,6 +33,7 @@ BRAND_MAPPING = {
     "S2000": "HONDA", "S 2000": "HONDA", "PRELUDE": "HONDA", "CRV": "HONDA", 
     "CRZ": "HONDA", "BRIO": "HONDA", "DC5": "HONDA", "DC2": "HONDA", "DIMENTION": "HONDA",
     "EK9": "HONDA", "EK99": "HONDA", "EG": "HONDA", "EP3": "HONDA", "FD": "HONDA", "FB": "HONDA", "FC": "HONDA", "FK": "HONDA",
+    "STREAM": "HONDA",
     
     # TOYOTA
     "SUPRA": "TOYOTA", "86": "TOYOTA", "FT86": "TOYOTA", "GT86": "TOYOTA", "YARIS": "TOYOTA",
@@ -39,7 +41,7 @@ BRAND_MAPPING = {
     "REVO": "TOYOTA", "ALPHARD": "TOYOTA", "VEILFIRE": "TOYOTA", "MAJESTY": "TOYOTA",
     "MR2": "TOYOTA", "MRS": "TOYOTA", "CELICA": "TOYOTA", "CELIGA": "TOYOTA", "ARISTO": "TOYOTA",
     "CHASER": "TOYOTA", "CHAISER": "TOYOTA", "MARK 2": "TOYOTA", "SOARER": "TOYOTA", "ALTEZZA": "TOYOTA",
-    "LAND CRUISER": "TOYOTA", "LANDCRUESER": "TOYOTA",
+    "LAND CRUISER": "TOYOTA", "LANDCRUESER": "TOYOTA", "WISH": "TOYOTA",
 
     # MITSUBISHI
     "EVO": "MITSUBISHI", "EVO6": "MITSUBISHI", "EVO7": "MITSUBISHI", "EVO8": "MITSUBISHI", "EVO9": "MITSUBISHI", "EVO10": "MITSUBISHI",
@@ -66,7 +68,7 @@ BRAND_MAPPING = {
     # BMW
     "E30": "BMW", "E36": "BMW", "E46": "BMW", "E90": "BMW", "E92": "BMW", "E93": "BMW",
     "F30": "BMW", "F32": "BMW", "F10": "BMW", "F12": "BMW", "G30": "BMW", "I8": "BMW",
-    "Z4": "BMW", "E89": "BMW", "M3": "BMW", "M4": "BMW", "M5": "BMW",
+    "Z4": "BMW", "E89": "BMW", "M3": "BMW", "M4": "BMW", "M5": "BMW", "E60": "BMW",
     
     # MERCEDES
     "W140": "BENZ", "W129": "BENZ", "W205": "BENZ", "W209": "BENZ", "W211": "BENZ",
@@ -86,7 +88,25 @@ BRAND_MAPPING = {
     "VANTAGE": "ASTON MARTIN", "VANTENGE": "ASTON MARTIN",
 
     # MINI
-    "R53": "MINI", "R56": "MINI", "F55": "MINI", "F56": "MINI", "COOPER": "MINI"
+    "R53": "MINI", "R56": "MINI", "F55": "MINI", "F56": "MINI", "COOPER": "MINI",
+    
+    # LEXUS
+    "LEXUS": "LEXUS", "IS 250": "LEXUS", "IS250": "LEXUS", "GS300": "LEXUS", "LS 430": "LEXUS", "LS430": "LEXUS", "RX": "LEXUS",
+    
+    # ISUZU
+    "ISUZU": "ISUZU", "D-MAX": "ISUZU", "DMAX": "ISUZU", "D-MAX BLUE": "ISUZU",
+    
+    # SUZUKI
+    "SUZUKI": "SUZUKI", "SWIFT": "SUZUKI",
+    
+    # DAIHATSU
+    "DAIHATSU": "DAIHATSU", "MOVE": "DAIHATSU",
+    
+    # ALFA ROMEO
+    "ALFA": "ALFA ROMEO", "ALFA 156": "ALFA ROMEO",
+    
+    # AUDI (Add S6)
+    "S6": "AUDI"
 }
 
 def resolve_brand(brand, model):
@@ -105,7 +125,14 @@ MODEL_NORMS = {
     "LANDCRUESER": "LAND CRUISER",
     "CHAISER JP 95-00": "CHASER JP 95-00",
     "GT-WING E36": "E36",
-    "R8 (WING E36)": "E36"
+    "R8 (WING E36)": "E36",
+    "200 SX": "200SX",
+    "200 SX JP": "200SX",
+    "300 ZX": "300ZX",
+    "D-max Pitinum 2010": "D-MAX 2010",
+    "D-max Blue1.9": "D-MAX 1.9",
+    "New D-max 2012": "D-MAX 2012",
+    "D-max 2021": "D-MAX 2021"
 }
 
 def normalize_model(model):
