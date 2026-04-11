@@ -127,8 +127,8 @@ function renderTable() {
         const sku = String(item.SKU || '');
         const priceStr = item.Price ? `$${parseFloat(item.Price).toLocaleString('en-US', {minimumFractionDigits: 2})}` : '-';
         
-        const bDisp = (brand === lastBrand) ? '' : brand;
-        const mDisp = (brand === lastBrand && model === lastModel) ? '' : model;
+        const bDisp = brand;
+        const mDisp = model;
         lastBrand = brand; lastModel = model;
         
         return `
