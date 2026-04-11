@@ -38,7 +38,8 @@ BRAND_MAPPING = {
     "VIOS": "TOYOTA", "CAMRY": "TOYOTA", "ALTIS": "TOYOTA", "FORTUNER": "TOYOTA", "VIGO": "TOYOTA",
     "REVO": "TOYOTA", "ALPHARD": "TOYOTA", "VEILFIRE": "TOYOTA", "MAJESTY": "TOYOTA",
     "MR2": "TOYOTA", "MRS": "TOYOTA", "CELICA": "TOYOTA", "CELIGA": "TOYOTA", "ARISTO": "TOYOTA",
-    "CHASER": "TOYOTA", "MARK 2": "TOYOTA", "SOARER": "TOYOTA", "ALTEZZA": "TOYOTA",
+    "CHASER": "TOYOTA", "CHAISER": "TOYOTA", "MARK 2": "TOYOTA", "SOARER": "TOYOTA", "ALTEZZA": "TOYOTA",
+    "LAND CRUISER": "TOYOTA", "LANDCRUESER": "TOYOTA",
 
     # MITSUBISHI
     "EVO": "MITSUBISHI", "EVO6": "MITSUBISHI", "EVO7": "MITSUBISHI", "EVO8": "MITSUBISHI", "EVO9": "MITSUBISHI", "EVO10": "MITSUBISHI",
@@ -58,6 +59,9 @@ BRAND_MAPPING = {
     "911": "PORSCHE", "718": "PORSCHE", "981": "PORSCHE", "997": "PORSCHE", "996": "PORSCHE", 
     "991": "PORSCHE", "CAYANNE": "PORSCHE", "CAYENNE": "PORSCHE", "BOXSTER": "PORSCHE", "CAYMAN": "PORSCHE",
     "MACAN": "PORSCHE", "TAYCAN": "PORSCHE", "PANAMERA": "PORSCHE", "GT2": "PORSCHE", "GT3": "PORSCHE",
+
+    # BENTLEY
+    "BENTLEY": "BENTLEY", "CONTINENTAL": "BENTLEY", "CONTINETAL": "BENTLEY",
 
     # BMW
     "E30": "BMW", "E36": "BMW", "E46": "BMW", "E90": "BMW", "E92": "BMW", "E93": "BMW",
@@ -93,6 +97,25 @@ def resolve_brand(brand, model):
             return correct_brand
     return brand
 
+MODEL_NORMS = {
+    "RX-8": "RX8",
+    "RX-7": "RX7",
+    "CONTINETAL GT": "CONTINENTAL GT",
+    "CONTINETAL GTC": "CONTINENTAL GTC",
+    "LANDCRUESER": "LAND CRUISER",
+    "CHAISER JP 95-00": "CHASER JP 95-00",
+    "GT-WING E36": "E36",
+    "R8 (WING E36)": "E36"
+}
+
+def normalize_model(model):
+    if not model or pd.isna(model): return model
+    m_str = str(model).strip()
+    # Replace if exact match (case insensitive map check)
+    for k, v in MODEL_NORMS.items():
+        if m_str.upper() == k.upper():
+            return v
+    return m_str
 
 def clean_val(v):
     if pd.isna(v) or v is None: return None
@@ -129,7 +152,11 @@ def extract_kits(xl):
     # Strict NaN to None convert
     records = []
     for r in data_df.to_dict(orient='records'):
-        brand = resolve_brand(r.get('Brand'), r.get('Model'))
+        # Normalize the model string before proceeding
+        normalized_mod = normalize_model(r.get('Model'))
+        r['Model'] = normalized_mod
+        
+        brand = resolve_brand(r.get('Brand'), normalized_mod)
         r['Brand'] = clean_val(brand)
         records.append({k: clean_val(v) for k, v in r.items()})
     return records
@@ -206,7 +233,10 @@ def extract_hoods(xl):
     
     records = []
     for r in df_res.to_dict(orient='records'):
-        brand = resolve_brand(r.get('Brand'), r.get('Model'))
+        normalized_mod = normalize_model(r.get('Model'))
+        r['Model'] = normalized_mod
+        
+        brand = resolve_brand(r.get('Brand'), normalized_mod)
         r['Brand'] = clean_val(brand)
         records.append({k: clean_val(v) for k, v in r.items()})
     return records
