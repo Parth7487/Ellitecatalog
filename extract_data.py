@@ -181,10 +181,17 @@ def extract_kits(xl):
     for r in data_df.to_dict(orient='records'):
         # Normalize the model string before proceeding
         normalized_mod = normalize_model(r.get('Model'))
-        r['Model'] = normalized_mod
         
         brand = resolve_brand(r.get('Brand'), normalized_mod)
-        r['Brand'] = clean_val(brand)
+        brand_clean = clean_val(brand)
+        
+        # Add the Make in front of the Model if we successfully resolved a brand
+        if brand_clean and brand_clean != 'OTHER' and normalized_mod:
+            if not str(normalized_mod).upper().startswith(brand_clean.upper()):
+                normalized_mod = f"{brand_clean} {normalized_mod}"
+                
+        r['Model'] = normalized_mod
+        r['Brand'] = brand_clean
         records.append({k: clean_val(v) for k, v in r.items()})
     return records
 
@@ -261,10 +268,17 @@ def extract_hoods(xl):
     records = []
     for r in df_res.to_dict(orient='records'):
         normalized_mod = normalize_model(r.get('Model'))
-        r['Model'] = normalized_mod
         
         brand = resolve_brand(r.get('Brand'), normalized_mod)
-        r['Brand'] = clean_val(brand)
+        brand_clean = clean_val(brand)
+        
+        # Add the Make in front of the Model if we successfully resolved a brand
+        if brand_clean and brand_clean != 'OTHER' and normalized_mod:
+            if not str(normalized_mod).upper().startswith(brand_clean.upper()):
+                normalized_mod = f"{brand_clean} {normalized_mod}"
+
+        r['Model'] = normalized_mod
+        r['Brand'] = brand_clean
         records.append({k: clean_val(v) for k, v in r.items()})
     return records
 
