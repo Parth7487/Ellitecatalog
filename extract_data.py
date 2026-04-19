@@ -129,20 +129,51 @@ MODEL_NORMS = {
     "200 SX": "200SX",
     "200 SX JP": "200SX",
     "300 ZX": "300ZX",
-    "D-max Pitinum 2010": "D-MAX 2010",
-    "D-max Blue1.9": "D-MAX 1.9",
-    "New D-max 2012": "D-MAX 2012",
-    "D-max 2021": "D-MAX 2021"
+    "D-MAX PITINUM 2010": "D-MAX 2010",
+    "D-MAX BLUE1.9": "D-MAX 1.9",
+    "NEW D-MAX 2012": "D-MAX 2012",
+    "D-MAX 2021": "D-MAX 2021",
+    
+    # Platform Consolidations
+    "FT86": "GT86/BRZ",
+    "FT-86": "GT86/BRZ",
+    "86": "GT86/BRZ",
+    "BRZ": "GT86/BRZ",
+    
+    # Spelling Fixes
+    "CAYANNE": "CAYENNE",
+    "VANTENGE": "VANTAGE",
+    "HULACAN": "HURACAN",
+    "GALLADOR": "GALLARDO",
+    
+    # Skyline Consolidations
+    "SKYLINE R34": "R34",
+    "SKYLINE R33": "R33",
+    "SKYLINE R32": "R32",
+    "SKYLINE": "SKYLINE GTR"
 }
 
 def normalize_model(model):
     if not model or pd.isna(model): return model
-    m_str = str(model).strip()
-    # Replace if exact match (case insensitive map check)
-    for k, v in MODEL_NORMS.items():
-        if m_str.upper() == k.upper():
-            return v
+    m_str = str(model).strip().upper() # Force Uppercase immediately
+    
+    # Check map
+    if m_str in MODEL_NORMS:
+        return MODEL_NORMS[m_str]
+    
+    # Advanced RegEx Consolidations
+    if re.search(r'370\s*Z', m_str): return "370Z"
+    if re.search(r'350\s*Z', m_str): return "350Z"
+    if re.search(r'RX\s*-?\s*7', m_str): return "RX7"
+    if re.search(r'RX\s*-?\s*8', m_str): return "RX8"
+    if re.search(r'R\s*35', m_str) or "GTR" in m_str: return "GTR R35"
+    if "EVO" in m_str:
+        if "10" in m_str or "X" in m_str: return "EVO X"
+        return "EVO"
+        
     return m_str
+
+
 
 def clean_val(v):
     if pd.isna(v) or v is None: return None

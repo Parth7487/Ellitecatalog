@@ -19,7 +19,7 @@
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; font-size: 11px; color: #18181B; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; font-size: 13px; color: #18181B; -webkit-font-smoothing: antialiased; }
         
         .btn-kits { background-color: #C4F101; color: #000; font-weight: 800; }
         .btn-hoods { background-color: #1A1A1A; color: #FFF; font-weight: 500; }
@@ -89,10 +89,8 @@
     <div class="filter-strip sticky top-[114px] md:top-[122px] z-40 border-b border-brand-lime">
         <select id="brand-filter" onchange="handleFilter()" class="filter-select"><option value="">MAKE</option></select>
         <select id="model-filter" onchange="handleFilter()" class="filter-select"><option value="">MODEL</option></select>
-        <select id="style-filter" onchange="handleFilter()" class="filter-select"><option value="">STYLE</option></select>
         <select id="part-filter" onchange="handleFilter()" class="filter-select"><option value="">PART</option></select>
-        <input type="text" id="sku-filter" oninput="handleFilter()" placeholder="SKU" class="filter-input">
-        <div class="flex gap-1">
+        <div class="flex gap-1 ml-auto">
             <input type="number" id="min-price" oninput="handleFilter()" placeholder="MIN $" class="filter-input w-24">
             <input type="number" id="max-price" oninput="handleFilter()" placeholder="MAX $" class="filter-input w-24">
         </div>
@@ -102,12 +100,10 @@
         <table class="w-full">
             <thead>
                 <tr>
-                    <th style="width: 10%">Make</th>
-                    <th style="width: 15%">Model</th>
-                    <th style="width: 15%">Style</th>
-                    <th style="width: 35%">Part</th>
-                    <th style="width: 10%">Sku</th>
-                    <th style="width: 15%; text-align: right;">Eti Rrp</th>
+                    <th style="width: 15%">Make</th>
+                    <th style="width: 25%">Model</th>
+                    <th style="width: 45%">Part / Description</th>
+                    <th style="width: 15%; text-align: right;">Wholesale Price</th>
                 </tr>
             </thead>
             <tbody id="catalog-body"></tbody>
