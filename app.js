@@ -15,6 +15,9 @@ async function init() {
         allData = await response.json();
         initializeSelects();
         switchCategory('kits');
+        
+        // Dynamic JDM & Euro Folder Health Monitor loader
+        await initHealthDashboard();
     } catch (error) {
         console.error('CRITICAL: Data could not be loaded.', error);
         document.getElementById('catalog-body').innerHTML = `
@@ -174,6 +177,202 @@ function renderTable() {
     }).join('');
     
     body.innerHTML = rows;
+}
+
+// ==========================================
+// 📂 GOOGLE DRIVE FOLDER HEALTH MONITOR SECTION
+// ==========================================
+let healthData = { totals: {}, brands: [] };
+let activeHealthBrand = null;
+let drawerStatusFilter = 'all';
+
+async function initHealthDashboard() {
+    try {
+        const res = await fetch(`health_data.json?v=${Date.now()}`);
+        if (!res.ok) throw new Error("Health data file not found");
+        healthData = await res.json();
+        renderHealthDashboard();
+    } catch (err) {
+        console.warn("Folder health data could not be loaded. Hiding dashboard.", err);
+        const section = document.getElementById('health-dashboard-section');
+        if (section) section.style.display = 'none';
+    }
+}
+
+function renderHealthDashboard() {
+    const totals = healthData.totals;
+    if (!totals || !totals.total_folders) return;
+
+    document.getElementById('grand-percentage').textContent = `${totals.completion_percentage}%`;
+    document.getElementById('grand-progress-bar').style.width = `${totals.completion_percentage}%`;
+    document.getElementById('total-folders-count').textContent = totals.total_folders.toLocaleString();
+    document.getElementById('completed-folders-count').textContent = totals.folders_with_edited.toLocaleString();
+    document.getElementById('raw-folders-count').textContent = totals.folders_with_only_raw.toLocaleString();
+    document.getElementById('empty-folders-count').textContent = totals.folders_empty.toLocaleString();
+
+    const grid = document.getElementById('brand-health-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    healthData.brands.forEach(brand => {
+        const pct = brand.total_folders > 0 ? ((brand.folders_with_edited / brand.total_folders) * 100).toFixed(1) : "0.0";
+        
+        let colorClass = "text-zinc-400";
+        let barClass = "bg-zinc-700";
+        let statusBadge = "bg-zinc-800 text-zinc-400";
+        let statusText = "Placeholder";
+        
+        const pctNum = parseFloat(pct);
+        if (pctNum >= 80.0) {
+            colorClass = "text-emerald-400";
+            barClass = "bg-emerald-500";
+            statusBadge = "bg-emerald-950/80 text-emerald-400 border border-emerald-800/40";
+            statusText = "Finalizing";
+        } else if (pctNum >= 30.0) {
+            colorClass = "text-blue-400";
+            barClass = "bg-blue-500";
+            statusBadge = "bg-blue-950/80 text-blue-400 border border-blue-800/40";
+            statusText = "In Progress";
+        } else if (brand.folders_with_only_raw > 0) {
+            colorClass = "text-amber-400";
+            barClass = "bg-amber-500";
+            statusBadge = "bg-amber-950/80 text-amber-400 border border-amber-800/40";
+            statusText = "Awaiting Edits";
+        }
+
+        const card = document.createElement('div');
+        card.className = "bg-zinc-900 border border-zinc-800 hover:border-zinc-700 p-5 rounded cursor-pointer transition-all hover:scale-[1.02] flex flex-col justify-between h-40 group relative overflow-hidden";
+        card.onclick = () => openBrandHealthDetails(brand.make);
+        
+        card.innerHTML = `
+            <div>
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-black text-xs uppercase tracking-wider">${brand.make}</span>
+                    <span class="text-[7px] uppercase tracking-widest font-black px-1.5 py-0.5 rounded ${statusBadge}">${statusText}</span>
+                </div>
+                <div class="text-[9px] text-zinc-400 uppercase font-black tracking-wider mb-4">
+                    ${brand.folders_with_edited} / ${brand.total_folders} Completed
+                </div>
+            </div>
+            
+            <div>
+                <div class="flex justify-between text-[9px] font-black uppercase text-zinc-500 mb-1">
+                    <span>Progress</span>
+                    <span class="${colorClass}">${pct}%</span>
+                </div>
+                <div class="w-full bg-zinc-800 h-1.5 rounded-full overflow-hidden">
+                    <div class="h-full rounded-full ${barClass} transition-all duration-500" style="width: ${pct}%"></div>
+                </div>
+            </div>
+            
+            <!-- Absolute background hover glow -->
+            <div class="absolute -bottom-8 -right-8 w-20 h-20 rounded-full blur-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 ${barClass}"></div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+function toggleHealthDrawer(open) {
+    const drawer = document.getElementById('health-drawer');
+    const overlay = document.getElementById('health-overlay');
+    if (!drawer || !overlay) return;
+    
+    if (open) {
+        drawer.classList.remove('translate-x-full');
+        overlay.classList.remove('hidden');
+    } else {
+        drawer.classList.add('translate-x-full');
+        overlay.classList.add('hidden');
+    }
+}
+
+function openBrandHealthDetails(brandName) {
+    activeHealthBrand = healthData.brands.find(b => b.make === brandName);
+    if (!activeHealthBrand) return;
+
+    document.getElementById('drawer-title').textContent = `${brandName} FOLDER HEALTH`;
+    document.getElementById('drawer-search').value = '';
+    
+    // Set status filter to all
+    setDrawerStatusFilter('all', false);
+    
+    // Open drawer UI
+    toggleHealthDrawer(true);
+    
+    // Load table
+    renderDrawerFolders();
+}
+
+function setDrawerStatusFilter(filter, triggerRender = true) {
+    drawerStatusFilter = filter;
+    
+    // Update button states
+    ['all', 'edited', 'raw_only', 'empty'].forEach(f => {
+        const btn = document.getElementById(`filter-btn-${f}`);
+        if (!btn) return;
+        if (f === filter) {
+            btn.className = btn.className.replace('bg-zinc-900', 'bg-zinc-800').replace('border-zinc-800', 'border-zinc-700');
+        } else {
+            btn.className = btn.className.replace('bg-zinc-800', 'bg-zinc-900').replace('border-zinc-700', 'border-zinc-800');
+        }
+    });
+    
+    if (triggerRender) renderDrawerFolders();
+}
+
+function filterDrawerFolders() {
+    renderDrawerFolders();
+}
+
+function renderDrawerFolders() {
+    if (!activeHealthBrand) return;
+
+    const tbody = document.getElementById('drawer-folders-body');
+    const emptyState = document.getElementById('drawer-empty-state');
+    if (!tbody || !emptyState) return;
+    
+    tbody.innerHTML = '';
+
+    const search = document.getElementById('drawer-search').value.toLowerCase().trim();
+    
+    const filtered = activeHealthBrand.folders.filter(f => {
+        const matchesSearch = search === '' || f.path.toLowerCase().includes(search);
+        const matchesFilter = drawerStatusFilter === 'all' || f.status === drawerStatusFilter;
+        return matchesSearch && matchesFilter;
+    });
+
+    if (filtered.length === 0) {
+        emptyState.classList.remove('hidden');
+        return;
+    }
+    emptyState.classList.add('hidden');
+
+    filtered.forEach((f, idx) => {
+        let statusBadge = '';
+        let statusRowClass = '';
+        if (f.status === 'edited') {
+            statusBadge = '<span class="bg-emerald-950 text-emerald-400 text-[8px] font-black uppercase px-2 py-0.5 rounded border border-emerald-900/40">🟢 Done</span>';
+            statusRowClass = 'hover:bg-emerald-950/10';
+        } else if (f.status === 'raw_only') {
+            statusBadge = '<span class="bg-amber-950 text-amber-400 text-[8px] font-black uppercase px-2 py-0.5 rounded border border-amber-980/40">🔴 Raw</span>';
+            statusRowClass = 'hover:bg-amber-950/10';
+        } else {
+            statusBadge = '<span class="bg-zinc-800 text-zinc-400 text-[8px] font-black uppercase px-2 py-0.5 rounded">⚪ Empty</span>';
+            statusRowClass = 'hover:bg-zinc-900/50';
+        }
+
+        const tr = document.createElement('tr');
+        tr.className = `transition-colors duration-150 border-b border-zinc-900/40 text-[10px] ${statusRowClass}`;
+        
+        tr.innerHTML = `
+            <td class="py-3 px-2 text-zinc-500 text-center">${idx + 1}</td>
+            <td class="py-3 px-2 font-mono text-zinc-200 text-left truncate max-w-[280px]" title="${f.path}">${f.path}</td>
+            <td class="py-3 px-2 text-center text-zinc-400">${f.raw_count || 0}</td>
+            <td class="py-3 px-2 text-center text-zinc-400">${f.edited_count || 0}</td>
+            <td class="py-3 px-2 text-right">${statusBadge}</td>
+        `;
+        tbody.appendChild(tr);
+    });
 }
 
 init();

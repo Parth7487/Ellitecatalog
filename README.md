@@ -27,3 +27,9 @@ If the master Excel file is updated:
 1. Replace `Wholesale_GreenActive_Merged_Master_Revised_v2.0.xlsx` in the root.
 2. Run `python3 extract_data.py`.
 3. Commit the updated `data.json`.
+
+If folder health reports are updated on Google Drive:
+1. Run `python3 extract_health_data.py` (which parses the GDrive Folder Health Reports).
+2. Commit the updated `health_data.json`.
+   
+*(Note: To completely re-scan Google Drive folders before parsing, run `python3 scratch/refresh_health_reports.py` first).*
