@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Ti - Folder Sync Command Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-lime': '#C4F101',
+                        'brand-dark': '#0B0B0C',
+                        'brand-card': '#141416',
+                        'brand-card-hover': '#1A1A1E',
+                        'brand-border': '#27272A',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #070708;
+            color: #E4E4E7;
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Custom scrollbar for premium look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0B0C;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272A;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C4F101;
+        }
+        
+        .glow-lime {
+            box-shadow: 0 0 15px rgba(196, 241, 1, 0.15);
+        }
+        .glow-lime-sm {
+            box-shadow: 0 0 10px rgba(196, 241, 1, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header / Nav -->
+    <header class="border-b border-brand-border bg-brand-dark/80 backdrop-blur sticky top-0 z-50 px-4 py-3 md:px-8">
+        <div class="max-w-[1600px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="flex items-center gap-2 border border-brand-border hover:border-brand-lime text-xs font-black tracking-widest px-4 py-2 bg-brand-card hover:bg-black text-gray-300 hover:text-brand-lime transition-all uppercase rounded-sm">
+                    <span>← BACK TO CATALOG</span>
+                </a>
+                <div class="h-6 w-px bg-brand-border hidden sm:block"></div>
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-brand-lime animate-pulse"></span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-gray-400">GDRIVE SYNC LIVE MONITOR</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <span class="text-lg font-black tracking-tight text-white">ELITE <span class="text-brand-lime">TI</span></span>
+                <span class="text-[9px] font-extrabold uppercase tracking-widest px-2 py-0.5 border border-brand-lime/20 text-brand-lime bg-brand-lime/10 rounded-sm">STATUS DASHBOARD</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content Container -->
+    <main class="flex-grow max-w-[1600px] w-full mx-auto p-4 md:p-8 flex flex-col gap-6">
+        
+        <!-- Top Statistics Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <!-- Overall Sync Completion Card -->
+            <div class="bg-brand-card border border-brand-border p-5 rounded-md flex flex-col justify-between hover:border-zinc-800 transition-all glow-lime-sm">
+                <div class="flex justify-between items-start">
+                    <span class="text-[10px] font-black tracking-widest uppercase text-gray-400">Sync Progress</span>
+                    <span id="stats-completion-pct" class="text-2xl font-black text-brand-lime">0.0%</span>
+                </div>
+                <div class="my-4">
+                    <div class="w-full bg-black h-2 rounded-full overflow-hidden border border-brand-border">
+                        <div id="stats-completion-bar" class="bg-brand-lime h-full w-0 transition-all duration-1000 ease-out shadow-[0_0_10px_#C4F101]"></div>
+                    </div>
+                </div>
+                <div class="flex justify-between text-[10px] font-extrabold text-zinc-500 uppercase tracking-wider">
+                    <span>Active Makes: <span id="stats-total-makes" class="text-white">8</span></span>
+                    <span>Completed Folders: <span id="stats-folders-pct-label" class="text-brand-lime">0/0</span></span>
+                </div>
+            </div>
+
+            <!-- Folder Checklist Sync Status Card -->
+            <div class="bg-brand-card border border-brand-border p-5 rounded-md flex flex-col justify-between hover:border-zinc-800 transition-all">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-[10px] font-black tracking-widest uppercase text-gray-400">Folder Sync Statuses</span>
+                    <span class="text-[10px] font-extrabold text-zinc-500 uppercase">Total: <span id="stats-folders-total" class="text-white">0</span> Folders</span>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="bg-zinc-950 p-2.5 rounded-sm border border-brand-border/40 text-center">
+                        <span class="block text-[8px] font-black tracking-wider text-green-400 uppercase mb-0.5">✅ EDITED (DONE)</span>
+                        <span id="stats-folders-edited" class="text-lg font-black text-white">0</span>
+                    </div>
+                    <div class="bg-zinc-950 p-2.5 rounded-sm border border-brand-border/40 text-center">
+                        <span class="block text-[8px] font-black tracking-wider text-yellow-500 uppercase mb-0.5">⚠️ RAW ONLY</span>
+                        <span id="stats-folders-raw" class="text-lg font-black text-white">0</span>
+                    </div>
+                    <div class="bg-zinc-950 p-2.5 rounded-sm border border-brand-border/40 text-center">
+                        <span class="block text-[8px] font-black tracking-wider text-red-500 uppercase mb-0.5">❌ EMPTY</span>
+                        <span id="stats-folders-empty" class="text-lg font-black text-white">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Asset Counters Card -->
+            <div class="bg-brand-card border border-brand-border p-5 rounded-md flex flex-col justify-between hover:border-zinc-800 transition-all">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-[10px] font-black tracking-widest uppercase text-gray-400">Asset Counters</span>
+                    <span class="text-[10px] font-extrabold text-zinc-500 uppercase">Processed Photos</span>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="flex items-center gap-3 bg-zinc-950 p-3 rounded-sm border border-brand-border/40">
+                        <div class="w-2.5 h-2.5 rounded-full bg-brand-lime shadow-[0_0_8px_#C4F101]"></div>
+                        <div>
+                            <span class="block text-[8px] font-black tracking-wider text-zinc-500 uppercase">EDITED IMAGES</span>
+                            <span id="stats-images-edited" class="text-xl font-black text-white">0</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 bg-zinc-950 p-3 rounded-sm border border-brand-border/40">
+                        <div class="w-2.5 h-2.5 rounded-full bg-zinc-500"></div>
+                        <div>
+                            <span class="block text-[8px] font-black tracking-wider text-zinc-500 uppercase">RAW IMAGES</span>
+                            <span id="stats-images-raw" class="text-xl font-black text-white">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Sidebar + Content Split -->
+        <section class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+            
+            <!-- Left Sidebar: Brand Navigation list -->
+            <div class="lg:col-span-1 bg-brand-card border border-brand-border p-4 rounded-md flex flex-col gap-4">
+                <div class="border-b border-brand-border pb-3">
+                    <span class="text-[10px] font-black tracking-widest uppercase text-gray-400">Select Make Portfolio</span>
+                </div>
+                
+                <div id="sidebar-brand-list" class="flex flex-col gap-1.5 max-h-[500px] overflow-y-auto pr-1">
+                    <!-- Dynamic Make List Buttons will go here -->
+                    <div class="py-10 text-center text-zinc-500 text-xs font-bold uppercase tracking-wider animate-pulse">
+                        Loading Makes...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Folder Table List -->
+            <div class="lg:col-span-3 bg-brand-card border border-brand-border rounded-md overflow-hidden flex flex-col">
+                
+                <!-- Controls Area -->
+                <div class="p-4 border-b border-brand-border flex flex-col sm:flex-row gap-4 justify-between items-stretch sm:items-center bg-brand-dark/40">
+                    <div class="flex-grow max-w-md">
+                        <input type="text" id="folder-search" oninput="handleFolderSearch()" placeholder="SEARCH FOLDERS IN THIS MAKE..." class="w-full bg-zinc-950 border border-brand-border text-white text-xs italic font-bold p-3 outline-none focus:border-brand-lime transition-all rounded-sm shadow-inner uppercase">
+                    </div>
+                    
+                    <!-- Filters Pill Row -->
+                    <div class="flex flex-wrap gap-1.5 items-center">
+                        <button onclick="setFilter('all')" id="filter-all" class="text-[9px] font-black uppercase tracking-wider px-3.5 py-2 border-2 border-brand-lime bg-brand-lime text-black transition-all rounded-sm">All</button>
+                        <button onclick="setFilter('edited')" id="filter-edited" class="text-[9px] font-black uppercase tracking-wider px-3.5 py-2 border border-brand-border text-zinc-400 hover:text-white hover:border-zinc-700 transition-all rounded-sm">✅ Edited</button>
+                        <button onclick="setFilter('raw_only')" id="filter-raw" class="text-[9px] font-black uppercase tracking-wider px-3.5 py-2 border border-brand-border text-zinc-400 hover:text-white hover:border-zinc-700 transition-all rounded-sm">⚠️ Raw Only</button>
+                        <button onclick="setFilter('empty')" id="filter-empty" class="text-[9px] font-black uppercase tracking-wider px-3.5 py-2 border border-brand-border text-zinc-400 hover:text-white hover:border-zinc-700 transition-all rounded-sm">❌ Empty</button>
+                    </div>
+                </div>
+
+                <!-- Info Header (Selected Brand & Table Summary Info) -->
+                <div class="px-5 py-3 border-b border-brand-border bg-brand-dark/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <div>
+                        <h2 id="selected-brand-title" class="text-base font-black text-white uppercase tracking-tight">Loading...</h2>
+                        <p id="selected-brand-subtitle" class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5"></p>
+                    </div>
+                    <div class="text-[10px] font-black text-zinc-400 uppercase tracking-widest bg-zinc-950 px-3 py-1.5 border border-brand-border rounded-sm">
+                        Showing <span id="folders-count-visible" class="text-brand-lime font-black">0</span> of <span id="folders-count-total" class="text-white">0</span> folders
+                    </div>
+                </div>
+
+                <!-- Scrollable Table Container -->
+                <div class="overflow-x-auto w-full max-h-[600px] overflow-y-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="sticky top-0 bg-black z-10 border-b border-brand-border">
+                            <tr>
+                                <th class="p-3 text-[10px] font-black tracking-widest text-zinc-400 uppercase">Folder Path</th>
+                                <th class="p-3 text-[10px] font-black tracking-widest text-zinc-400 uppercase text-center w-28">Status</th>
+                                <th class="p-3 text-[10px] font-black tracking-widest text-zinc-400 uppercase text-center w-20">Raw</th>
+                                <th class="p-3 text-[10px] font-black tracking-widest text-zinc-400 uppercase text-center w-20">Edited</th>
+                                <th class="p-3 text-[10px] font-black tracking-widest text-zinc-400 uppercase text-right w-36">Last Upload</th>
+                            </tr>
+                        </thead>
+                        <tbody id="folder-table-body" class="divide-y divide-brand-border/40">
+                            <!-- Rows will be injected by progress.js -->
+                            <tr>
+                                <td colspan="5" class="p-20 text-center text-zinc-500 font-black uppercase text-[10px] tracking-widest animate-pulse">
+                                    Preparing table data...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- Table Empty State -->
+                    <div id="table-empty-state" class="hidden py-32 text-center flex flex-col items-center justify-center border-t border-brand-border/20 bg-brand-dark/20">
+                        <span class="text-[10px] font-black tracking-widest text-zinc-500 uppercase">No Folders Found Matching Filters</span>
+                        <button onclick="resetTableFilters()" class="mt-4 border border-brand-lime/20 text-brand-lime hover:bg-brand-lime hover:text-black hover:border-brand-lime text-[9px] font-black tracking-widest px-6 py-2 transition-all uppercase rounded-sm">Reset Filters</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="p-8 border-t border-brand-border bg-brand-dark flex flex-col md:flex-row justify-between items-center gap-4 text-[9px] font-extrabold text-zinc-500 uppercase tracking-widest mt-10">
+        <div>&copy; 2026 ELITE TI PORTFOLIO MANAGEMENT</div>
+        <div class="flex gap-4">
+            <span class="text-zinc-600">GDRIVE SYNC: ACTIVE</span>
+            <span class="text-zinc-600">|</span>
+            <span class="text-brand-lime">STATUS: PREMIUM ACTIVE</span>
+        </div>
+        <div>DEVELOPER CONTROL CENTER <a href="https://Shopifydevstudio.com" target="_blank" class="text-zinc-400 hover:text-white border-b border-zinc-600 hover:border-white transition-all">SHOPIFYDEVSTUDIO.COM</a></div>
+    </footer>
+
+    <script src="progress.js?v=2026-05-27"></script>
+</body>
+</html>

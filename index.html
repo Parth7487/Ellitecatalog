@@ -111,106 +111,10 @@
         <div id="empty-state" class="hidden py-40 text-center text-gray-400 font-bold uppercase text-xs tracking-widest">No Matches Found</div>
     </main>
 
-    <!-- Catalog Sync Progress Section -->
-    <section id="health-dashboard-section" class="max-w-7xl mx-auto px-6 py-12 mt-12 border-t border-gray-100">
-        <div class="bg-black text-white rounded-lg p-8 shadow-2xl relative overflow-hidden">
-            <!-- Background glow effect -->
-            <div class="absolute -right-16 -top-16 w-64 h-64 bg-brand-lime opacity-10 rounded-full blur-3xl pointer-events-none"></div>
-            
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
-                <div>
-                    <h2 class="text-xs uppercase tracking-widest font-black text-brand-lime mb-1">GDRIVE ASSET MONITOR</h2>
-                    <h3 class="text-xl font-extrabold tracking-tight">PORTFOLIO PHOTO SYNC STATUS</h3>
-                </div>
-                <div class="text-right">
-                    <span id="grand-percentage" class="text-3xl font-black text-brand-lime">0.0%</span>
-                    <span class="text-gray-400 text-[10px] block uppercase font-bold tracking-wider">Overall Completed</span>
-                </div>
-            </div>
-            
-            <!-- Global Progress Bar -->
-            <div class="w-full bg-zinc-800 h-3 rounded-full mb-8 overflow-hidden shadow-inner border border-zinc-700">
-                <div id="grand-progress-bar" class="bg-brand-lime h-full rounded-full transition-all duration-1000 shadow-[0_0_8px_#C4F101]" style="width: 0%"></div>
-            </div>
-            
-            <!-- Overall Totals Grid -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-                <div class="bg-zinc-900 border border-zinc-800 p-4 rounded text-center">
-                    <span id="total-folders-count" class="text-lg font-black block text-white">0</span>
-                    <span class="text-zinc-500 text-[9px] uppercase tracking-wider font-bold">Total Folders</span>
-                </div>
-                <div class="bg-zinc-900 border border-zinc-800 p-4 rounded text-center">
-                    <span id="completed-folders-count" class="text-lg font-black block text-emerald-400">0</span>
-                    <span class="text-zinc-500 text-[9px] uppercase tracking-wider font-bold">🟢 Completed (Edits)</span>
-                </div>
-                <div class="bg-zinc-900 border border-zinc-800 p-4 rounded text-center">
-                    <span id="raw-folders-count" class="text-lg font-black block text-amber-400">0</span>
-                    <span class="text-zinc-500 text-[9px] uppercase tracking-wider font-bold">🔴 Raw Only</span>
-                </div>
-                <div class="bg-zinc-900 border border-zinc-800 p-4 rounded text-center">
-                    <span id="empty-folders-count" class="text-lg font-black block text-zinc-400">0</span>
-                    <span class="text-zinc-500 text-[9px] uppercase tracking-wider font-bold">⚪ Placeholders</span>
-                </div>
-            </div>
-            
-            <!-- Brand Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="brand-health-grid">
-                <!-- Brand cards dynamically loaded here -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Side Panel Drawer (Glassmorphic Slide-out) -->
-    <div id="health-drawer" class="fixed inset-y-0 right-0 w-full max-w-2xl bg-zinc-950 border-l border-zinc-800 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-[100] flex flex-col text-white">
-        <!-- Drawer Header -->
-        <div class="p-6 border-b border-zinc-800 flex justify-between items-center bg-zinc-900/50">
-            <div>
-                <span id="drawer-brand-badge" class="bg-brand-lime text-black font-extrabold text-[8px] uppercase px-2 py-0.5 rounded tracking-wider mb-1 inline-block">BRAND STATUS</span>
-                <h4 id="drawer-title" class="text-lg font-black uppercase tracking-wider">Brand Details</h4>
-            </div>
-            <button onclick="toggleHealthDrawer(false)" class="text-zinc-400 hover:text-white transition-colors p-2 hover:bg-zinc-800 rounded">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-        
-        <!-- Drawer Filters and Search -->
-        <div class="p-6 border-b border-zinc-800 bg-zinc-900/20 flex flex-col sm:flex-row gap-3">
-            <input type="text" id="drawer-search" oninput="filterDrawerFolders()" placeholder="Search folders..." class="flex-grow bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-500 p-2.5 rounded text-xs outline-none focus:border-brand-lime">
-            <div class="flex gap-1">
-                <button onclick="setDrawerStatusFilter('all')" id="filter-btn-all" class="px-3 py-2 bg-zinc-800 text-white font-extrabold text-[9px] uppercase rounded tracking-wider border border-zinc-700">All</button>
-                <button onclick="setDrawerStatusFilter('edited')" id="filter-btn-edited" class="px-3 py-2 bg-zinc-900 hover:bg-zinc-800 text-emerald-400 font-extrabold text-[9px] uppercase rounded tracking-wider border border-zinc-800">🟢 Done</button>
-                <button onclick="setDrawerStatusFilter('raw_only')" id="filter-btn-raw_only" class="px-3 py-2 bg-zinc-900 hover:bg-zinc-800 text-amber-400 font-extrabold text-[9px] uppercase rounded tracking-wider border border-zinc-800">🔴 Raw</button>
-                <button onclick="setDrawerStatusFilter('empty')" id="filter-btn-empty" class="px-3 py-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-400 font-extrabold text-[9px] uppercase rounded tracking-wider border border-zinc-800">⚪ Empty</button>
-            </div>
-        </div>
-        
-        <!-- Drawer Body (Scrollable Folder list) -->
-        <div class="flex-grow overflow-y-auto p-6" id="drawer-body-container">
-            <table class="w-full text-zinc-300">
-                <thead>
-                    <tr class="border-b border-zinc-800">
-                        <th class="bg-transparent text-zinc-500 text-[9px] font-extrabold p-2" style="width: 5%">#</th>
-                        <th class="bg-transparent text-zinc-500 text-[9px] font-extrabold p-2 text-left" style="width: 60%">Folder Path</th>
-                        <th class="bg-transparent text-zinc-500 text-[9px] font-extrabold p-2 text-center" style="width: 10%">Raw</th>
-                        <th class="bg-transparent text-zinc-500 text-[9px] font-extrabold p-2 text-center" style="width: 10%">Edits</th>
-                        <th class="bg-transparent text-zinc-500 text-[9px] font-extrabold p-2 text-right" style="width: 15%">Status</th>
-                    </tr>
-                </thead>
-                <tbody id="drawer-folders-body" class="divide-y divide-zinc-900">
-                    <!-- Folders list dynamically loaded here -->
-                </tbody>
-            </table>
-            <div id="drawer-empty-state" class="hidden py-20 text-center text-zinc-600 font-bold uppercase text-[10px] tracking-widest">No matching folders found</div>
-        </div>
-    </div>
-    <!-- Overlay for drawer -->
-    <div id="health-overlay" onclick="toggleHealthDrawer(false)" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] hidden transition-opacity duration-300"></div>
-
     <!-- Developer Credit -->
     <footer class="p-12 mt-20 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 text-[9px] font-bold text-gray-400 uppercase tracking-widest">
         <div>&copy; 2026 ELITE TI</div>
+        <div><a href="progress.html" class="text-black border-b border-black hover:text-brand-lime hover:border-brand-lime transition-all">📊 GDRIVE SYNC PROGRESS</a></div>
         <div>DESIGNED & DEVELOPED BY <a href="https://Shopifydevstudio.com" target="_blank" class="text-black border-b border-black">SHOPIFYDEVSTUDIO.COM</a></div>
     </footer>
 
