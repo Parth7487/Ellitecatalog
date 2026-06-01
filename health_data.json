@@ -531,12 +531,12 @@
     },
     {
       "make": "Honda",
-      "total_folders": 169,
+      "total_folders": 165,
       "raw_images": 310,
       "edited_images": 4,
       "folders_with_edited": 1,
       "folders_with_only_raw": 46,
-      "folders_empty": 122,
+      "folders_empty": 118,
       "folders": [
         {
           "path": "Civic EG_EK/Interior/ETi HONDA CIVIC EK 96-99 FOR RACE Carbon Fiber Dashboard",
@@ -1001,20 +1001,6 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Exterior/ETi HONDA EK99 OEM Carbon Fiber Trunk (DUPLICATE)",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Exterior/ETi Honda EK9 OEM Hood (DUPLICATE)",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
           "path": "Civic EG_EK/Exterior/Honda Civic EG Carbon Fiber Drag Racing Hood",
           "raw_count": 0,
           "edited_count": 0,
@@ -1470,13 +1456,6 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Miscellaneous/Exterior/ETi Honda EK9 OEM Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
           "path": "Miscellaneous/Exterior/ETi Honda FCFK V Shape Vented Style Hood",
           "raw_count": 0,
           "edited_count": 0,
@@ -1597,13 +1576,6 @@
         },
         {
           "path": "Other Civics/Exterior/ETi HONDA DIMENTION 04 OEM Carbon Fiber Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Other Civics/Exterior/ETi HONDA EK99 OEM Carbon Fiber Trunk",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -8196,12 +8168,12 @@
     }
   ],
   "totals": {
-    "total_folders": 1158,
+    "total_folders": 1154,
     "folders_with_edited": 401,
     "folders_with_only_raw": 250,
-    "folders_empty": 507,
+    "folders_empty": 503,
     "total_edited_images": 2971,
     "total_raw_images": 5060,
-    "completion_percentage": 34.6
+    "completion_percentage": 34.7
   }
 }
