@@ -531,13 +531,20 @@
     },
     {
       "make": "Honda",
-      "total_folders": 174,
+      "total_folders": 169,
       "raw_images": 310,
-      "edited_images": 0,
-      "folders_with_edited": 0,
-      "folders_with_only_raw": 47,
-      "folders_empty": 127,
+      "edited_images": 4,
+      "folders_with_edited": 1,
+      "folders_with_only_raw": 46,
+      "folders_empty": 122,
       "folders": [
+        {
+          "path": "Civic EG_EK/Interior/ETi HONDA CIVIC EK 96-99 FOR RACE Carbon Fiber Dashboard",
+          "raw_count": 4,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-01"
+        },
         {
           "path": "Accord/Exterior/ETi HONDA ACCORD 09 TOP SECRET Carbon Fiber Hood",
           "raw_count": 5,
@@ -653,13 +660,6 @@
         {
           "path": "Civic EG_EK/Exterior/Honda Civic EK JS Racing Hood",
           "raw_count": 7,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Interior/ETi HONDA CIVIC EK 96-99 FOR RACE Carbon Fiber Dashboard",
-          "raw_count": 4,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
@@ -1393,27 +1393,6 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Jazz_Fit/Exterior/Nissan Skyline R32 GTR TS Carbon Fiber Rear Diffuser Type 2 w Metal Fitting Accessories",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Jazz_Fit/Exterior/R34 GTR Nismo Style Front Lip (must be fitted with R34 GTR NI Style Front Bumper)",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Jazz_Fit/Exterior/RB26 Plug Cover Fit For Skyline BNR32 R32 R33 R34",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
           "path": "Jazz_Fit/Kits/HONDA JAZZ MC JS Body Kit",
           "raw_count": 0,
           "edited_count": 0,
@@ -1422,13 +1401,6 @@
         },
         {
           "path": "Jazz_Fit/Kits/HONDA JAZZ MC MUGEN NEW SKIRT KIT 4 pcs Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Jazz_Fit/Kits/R34 GTT Z-Tune Rear Bumper Caps  Skyline R34 GTT 2D GTR Conversion Rear Bumper Spats (ONLY Fit GTR-Style Bumper)",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -1534,13 +1506,6 @@
         },
         {
           "path": "Miscellaneous/Exterior/Honda EK EG Titanium Strut Bar",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Miscellaneous/Exterior/R34 GTR OEM Rear Spoiler (Fits R32 R33 R34 GTR GTS G35)",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -1761,19 +1726,12 @@
     {
       "make": "Mazda",
       "total_folders": 105,
-      "raw_images": 714,
-      "edited_images": 682,
-      "folders_with_edited": 89,
-      "folders_with_only_raw": 0,
+      "raw_images": 726,
+      "edited_images": 678,
+      "folders_with_edited": 88,
+      "folders_with_only_raw": 1,
       "folders_empty": 16,
       "folders": [
-        {
-          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 ETi Carbon Fiber Hood",
-          "raw_count": 4,
-          "edited_count": 4,
-          "status": "edited",
-          "upload_date": "2026-05-04"
-        },
         {
           "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 VEILSIDE Carbon Fiber Trunk",
           "raw_count": 3,
@@ -1979,7 +1937,7 @@
         },
         {
           "path": "RX7_FD3S/Exterior/ETi RX-7 V8 MS Style Hood",
-          "raw_count": 11,
+          "raw_count": 17,
           "edited_count": 11,
           "status": "edited",
           "upload_date": "2026-05-02"
@@ -2389,6 +2347,13 @@
           "edited_count": 10,
           "status": "edited",
           "upload_date": "2026-05-05"
+        },
+        {
+          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 ETi Carbon Fiber Hood",
+          "raw_count": 10,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A"
         },
         {
           "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 FRONT Carbon Fiber Doors",
@@ -6345,11 +6310,11 @@
     {
       "make": "Toyota",
       "total_folders": 268,
-      "raw_images": 1233,
+      "raw_images": 1265,
       "edited_images": 601,
       "folders_with_edited": 56,
-      "folders_with_only_raw": 53,
-      "folders_empty": 159,
+      "folders_with_only_raw": 58,
+      "folders_empty": 154,
       "folders": [
         {
           "path": "Supra_MKIV/Exterior/(New) Drag Bumper",
@@ -6744,6 +6709,20 @@
           "upload_date": "2026-04-25"
         },
         {
+          "path": "Altezza/Kits/TOYOTA ALTEZA C-WEST Body Kit",
+          "raw_count": 7,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "Altezza/Kits/TOYOTA ALTEZA D-SPEED Body Kit",
+          "raw_count": 3,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A"
+        },
+        {
           "path": "GR86/Exterior/Toyota GR86 Carbon Fiber Euro 1 Vented Hood",
           "raw_count": 7,
           "edited_count": 0,
@@ -7066,6 +7045,27 @@
           "upload_date": "N/A"
         },
         {
+          "path": "MR2_SW20/Kits/TOYOTA MR2 AB-FULK Body Kit",
+          "raw_count": 8,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "MR2_SW20/Kits/TOYOTA MR2 BOMEX BODY KIT Body Kit",
+          "raw_count": 6,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "MR2_SW20/Kits/TOYOTA MR2 TRD GT2000 BODY KIT 10pcs Body Kit",
+          "raw_count": 8,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A"
+        },
+        {
           "path": "Supra_MKIV/Exterior/(Duplicate)ETi Toyota Supra MKIV Carbon Fiber Fuse Box Cover",
           "raw_count": 3,
           "edited_count": 0,
@@ -7165,20 +7165,6 @@
         },
         {
           "path": "Altezza/Exterior/ETi TOYOTA ALTEZZA OEM Carbon Fiber Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Altezza/Kits/TOYOTA ALTEZA C-WEST Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Altezza/Kits/TOYOTA ALTEZA D-SPEED Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -7696,28 +7682,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "MR2_SW20/Kits/TOYOTA MR2 AB-FULK Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
           "path": "MR2_SW20/Kits/TOYOTA MR2 AUTO PISTA Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "MR2_SW20/Kits/TOYOTA MR2 BOMEX BODY KIT Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "MR2_SW20/Kits/TOYOTA MR2 TRD GT2000 BODY KIT 10pcs Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -8231,12 +8196,12 @@
     }
   ],
   "totals": {
-    "total_folders": 1163,
+    "total_folders": 1158,
     "folders_with_edited": 401,
-    "folders_with_only_raw": 245,
-    "folders_empty": 517,
+    "folders_with_only_raw": 250,
+    "folders_empty": 507,
     "total_edited_images": 2971,
-    "total_raw_images": 5016,
-    "completion_percentage": 34.5
+    "total_raw_images": 5060,
+    "completion_percentage": 34.6
   }
 }
