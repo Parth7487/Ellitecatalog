@@ -531,12 +531,12 @@
     },
     {
       "make": "Honda",
-      "total_folders": 165,
+      "total_folders": 166,
       "raw_images": 310,
       "edited_images": 4,
       "folders_with_edited": 1,
       "folders_with_only_raw": 46,
-      "folders_empty": 118,
+      "folders_empty": 119,
       "folders": [
         {
           "path": "Civic EG_EK/Interior/ETi HONDA CIVIC EK 96-99 FOR RACE Carbon Fiber Dashboard",
@@ -1128,6 +1128,13 @@
         },
         {
           "path": "Civic EG_EK/Exterior/Honda EK EG Titanium Strut Bar",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "empty",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "Civic EG_EK/Interior/Honda Civic EK9 Coupe Racing Dashboard",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -8168,10 +8175,10 @@
     }
   ],
   "totals": {
-    "total_folders": 1154,
+    "total_folders": 1155,
     "folders_with_edited": 401,
     "folders_with_only_raw": 250,
-    "folders_empty": 503,
+    "folders_empty": 504,
     "total_edited_images": 2971,
     "total_raw_images": 5060,
     "completion_percentage": 34.7
