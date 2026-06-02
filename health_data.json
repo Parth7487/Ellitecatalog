@@ -531,15 +531,15 @@
     },
     {
       "make": "Honda",
-      "total_folders": 166,
+      "total_folders": 163,
       "raw_images": 310,
       "edited_images": 4,
       "folders_with_edited": 1,
       "folders_with_only_raw": 46,
-      "folders_empty": 119,
+      "folders_empty": 116,
       "folders": [
         {
-          "path": "Civic EG_EK/Interior/ETi HONDA CIVIC EK 96-99 FOR RACE Carbon Fiber Dashboard",
+          "path": "Civic EG_EK/Interior/ETi HONDA CIVIC EK96-99 FOR RACE Carbon Fiber Dashboard",
           "raw_count": 4,
           "edited_count": 4,
           "status": "edited",
@@ -560,14 +560,14 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Accord/Kits/HONDA ACCORD 2003 MUGEN SKIRT KIT 6 pcs Body Kit",
+          "path": "Accord/Kits/HONDA ACCORD 2003 MUGEN SKIRT Body Kit",
           "raw_count": 7,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
         },
         {
-          "path": "Accord/Kits/HONDA ACCORD 2003 WALD SKIRT KIT 4 pcs Body Kit",
+          "path": "Accord/Kits/HONDA ACCORD 2003 WALD SKIRT Body Kit",
           "raw_count": 3,
           "edited_count": 0,
           "status": "raw_only",
@@ -581,7 +581,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Exterior/ETi 48mm Aluminum Performance Radiator  Honda Civic EG (1992-1995)",
+          "path": "Civic EG_EK/Exterior/ETi 48mm Aluminum Performance Radiator – Honda Civic EG (1992-1995)",
           "raw_count": 5,
           "edited_count": 0,
           "status": "raw_only",
@@ -616,7 +616,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Exterior/ETi Half-Size Aluminum Radiator  Honda Civic EG  EK (1992-2000)",
+          "path": "Civic EG_EK/Exterior/ETi Half-Size Aluminum Radiator – Honda Civic EG & EK (1992-2000)",
           "raw_count": 3,
           "edited_count": 0,
           "status": "raw_only",
@@ -658,14 +658,14 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Exterior/Honda Civic EK JS Racing Hood",
+          "path": "Civic EG_EK/Exterior/Honda Civic EK J'S Racing Hood",
           "raw_count": 7,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 96 MUGEN BODY KIT 5 pcs 3 door Body Kit",
+          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 96 MUGEN Body Kit",
           "raw_count": 11,
           "edited_count": 0,
           "status": "raw_only",
@@ -679,14 +679,14 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 96 TYPE-R SKIRT KIT 6 pcs Body Kit",
+          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 96 TYPE-R SKIRT Body Kit",
           "raw_count": 9,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 99 BUDDY CLUB BODY KIT 4 pcs 2 door Body Kit",
+          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 99 BUDDY CLUB Body Kit",
           "raw_count": 5,
           "edited_count": 0,
           "status": "raw_only",
@@ -749,28 +749,28 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Jazz_Fit/Exterior/ETi HONDA JAZZ GE 2007 ING1 Carbon Fiber Hood",
+          "path": "Jazz_Fit/Exterior/ETi HONDA JAZZ GE 2007 ING+1 Carbon Fiber Hood",
           "raw_count": 5,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
         },
         {
-          "path": "Jazz_Fit/Exterior/ETi Honda JazzFit GD Js Racing Spec Carbon Fiber Hood",
+          "path": "Jazz_Fit/Exterior/ETi Honda Jazz/Fit GD J's Racing Spec Carbon Fiber Hood",
           "raw_count": 7,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
         },
         {
-          "path": "Jazz_Fit/Kits/HONDA JAZZ 2007 ING1 Body Kit",
+          "path": "Jazz_Fit/Kits/HONDA JAZZ 2007 ING+1 Body Kit",
           "raw_count": 8,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
         },
         {
-          "path": "Jazz_Fit/Kits/HONDA JAZZ 2007 JS Body Kit",
+          "path": "Jazz_Fit/Kits/HONDA JAZZ 2007 JS' Body Kit",
           "raw_count": 8,
           "edited_count": 0,
           "status": "raw_only",
@@ -826,7 +826,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Other Civics/Kits/HONDA CIVIC 2006 MODULO SKIRT KIT 4 pcs Body Kit",
+          "path": "Other Civics/Kits/HONDA CIVIC 2006 MODULO SKIRT Body Kit",
           "raw_count": 8,
           "edited_count": 0,
           "status": "raw_only",
@@ -847,14 +847,14 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Other Civics/Kits/HONDA CIVIC EP3 BUDDY CLUB BODY KIT 5 pcs Body Kit",
+          "path": "Other Civics/Kits/HONDA CIVIC EP3 BUDDY CLUB Body Kit",
           "raw_count": 3,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
         },
         {
-          "path": "Other Civics/Kits/HONDA Dimention BODY KIT 5 pcs Body Kit",
+          "path": "Other Civics/Kits/HONDA Dimention Body Kit",
           "raw_count": 7,
           "edited_count": 0,
           "status": "raw_only",
@@ -945,7 +945,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Accord/Kits/HONDA ACCORD 2003 JUCTION produce BODY KIT 4 pcs Body Kit",
+          "path": "Accord/Kits/HONDA ACCORD 2003 JUCTION produce Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -1008,14 +1008,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Exterior/Honda Civic EG Dry Carbon Drag Racing Door (DUPLICATE WITH OEM CF DOOR)",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Exterior/Honda Civic EG Front Fenders (20mm)",
+          "path": "Civic EG_EK/Exterior/Honda Civic EG Front Fenders (+20mm)",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -1043,21 +1036,21 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Exterior/Honda Civic EGEK Dry Carbon Wiper Cowl Cover",
+          "path": "Civic EG_EK/Exterior/Honda Civic EG/EK Dry Carbon Wiol Cowl Cover",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Exterior/Honda Civic EK 24-Door Carbon Fiber Drag Stance Front Bumper",
+          "path": "Civic EG_EK/Exterior/Honda Civic EK 2/4-Door Carbon Fiber Drag Stance Front Bumper",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Exterior/Honda Civic EK 24-Door Wide Drag Stance Carbon Fiber Fenders",
+          "path": "Civic EG_EK/Exterior/Honda Civic EK 2/4-Door Wide Drag Stance Carbon Fiber Fenders",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -1092,14 +1085,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Exterior/Honda Civic EK MM Style Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Exterior/Honda Civic EK OEM Hood (DUPLICATE)",
+          "path": "Civic EG_EK/Exterior/Honda Civic EK M&M Style Hood",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -1120,7 +1106,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Exterior/Honda Civic EKEG Carbon Fiber Intake Pipe  Air Filter",
+          "path": "Civic EG_EK/Exterior/Honda Civic EK/EG Carbon Fiber Intake Pipe + Air Filter",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -1148,14 +1134,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 99 C-WEST Body Kit (DUPLICATE)",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 99 MUGEN SKIRT KIT 6 pcs 2 door Body Kit",
+          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 99 MUGEN SKIRT Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -1351,28 +1330,28 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Jazz_Fit/Exterior/ETi Honda JazzFit GE Carbon Fiber Hood",
+          "path": "Jazz_Fit/Exterior/ETi Honda Jazz/Fit GE Carbon Fiber Hood",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
           "upload_date": "N/A"
         },
         {
-          "path": "Jazz_Fit/Exterior/ETi Honda JazzFit GE OEM Hood",
+          "path": "Jazz_Fit/Exterior/ETi Honda Jazz/Fit GE OEM Hood",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
           "upload_date": "N/A"
         },
         {
-          "path": "Jazz_Fit/Exterior/ETi Honda JazzFit GK Carbon Fiber Hood",
+          "path": "Jazz_Fit/Exterior/ETi Honda Jazz/Fit GK Carbon Fiber Hood",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
           "upload_date": "N/A"
         },
         {
-          "path": "Jazz_Fit/Exterior/ETi Honda JazzFit GK Vented Style Hood",
+          "path": "Jazz_Fit/Exterior/ETi Honda Jazz/Fit GK Vented Style Hood",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -1386,14 +1365,14 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Jazz_Fit/Kits/HONDA JAZZ MC JS Body Kit",
+          "path": "Jazz_Fit/Kits/HONDA JAZZ MC JS' Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
           "upload_date": "N/A"
         },
         {
-          "path": "Jazz_Fit/Kits/HONDA JAZZ MC MUGEN NEW SKIRT KIT 4 pcs Body Kit",
+          "path": "Jazz_Fit/Kits/HONDA JAZZ MC MUGEN NEW SKIRT Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -1435,7 +1414,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Miscellaneous/Exterior/ETi HONDA PRELUDES15 S15 Carbon Fiber Trunk",
+          "path": "Miscellaneous/Exterior/ETi HONDA PRELUDE/S15 S15 Carbon Fiber Trunk",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -1463,7 +1442,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Miscellaneous/Exterior/ETi Honda FCFK V Shape Vented Style Hood",
+          "path": "Miscellaneous/Exterior/ETi Honda FC/FK V Shape Vented Style Hood",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -1666,7 +1645,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Other Civics/Kits/HONDA Dimention MUGEN SKIRT KIT 4 pcs Body Kit",
+          "path": "Other Civics/Kits/HONDA Dimention MUGEN SKIRT Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -8175,12 +8154,12 @@
     }
   ],
   "totals": {
-    "total_folders": 1155,
+    "total_folders": 1152,
     "folders_with_edited": 401,
     "folders_with_only_raw": 250,
-    "folders_empty": 504,
+    "folders_empty": 501,
     "total_edited_images": 2971,
     "total_raw_images": 5060,
-    "completion_percentage": 34.7
+    "completion_percentage": 34.8
   }
 }
