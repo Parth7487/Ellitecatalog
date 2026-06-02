@@ -540,9 +540,9 @@
       "make": "Honda",
       "total_folders": 163,
       "raw_images": 488,
-      "edited_images": 87,
-      "folders_with_edited": 15,
-      "folders_with_only_raw": 72,
+      "edited_images": 153,
+      "folders_with_edited": 24,
+      "folders_with_only_raw": 63,
       "folders_empty": 76,
       "folders": [
         {
@@ -572,6 +572,69 @@
           "edited_count": 4,
           "status": "edited",
           "upload_date": "2026-06-01"
+        },
+        {
+          "path": "Integra/Exterior/ETi HONDA DC5 MUGEN Carbon Fiber Hood",
+          "raw_count": 8,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-06-02"
+        },
+        {
+          "path": "Integra/Kits/HONDA NEW DC5 ING1 BODY KIT 4 pcs Body Kit",
+          "raw_count": 7,
+          "edited_count": 7,
+          "status": "edited",
+          "upload_date": "2026-06-02"
+        },
+        {
+          "path": "Integra/Kits/HONDA NEW DC5 MUGEN Body Kit",
+          "raw_count": 8,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-06-02"
+        },
+        {
+          "path": "Jazz_Fit/Exterior/ETi HONDA JAZZ GE 2007 ING+1 Carbon Fiber Hood",
+          "raw_count": 5,
+          "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-06-02"
+        },
+        {
+          "path": "Jazz_Fit/Exterior/ETi Honda Jazz-Fit GD J's Racing Spec Carbon Fiber Hood",
+          "raw_count": 10,
+          "edited_count": 10,
+          "status": "edited",
+          "upload_date": "2026-06-02"
+        },
+        {
+          "path": "Jazz_Fit/Kits/HONDA JAZZ 2007 ING+1 Body Kit",
+          "raw_count": 8,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-06-02"
+        },
+        {
+          "path": "Jazz_Fit/Kits/HONDA JAZZ 2007 JS' Body Kit",
+          "raw_count": 8,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-06-02"
+        },
+        {
+          "path": "Jazz_Fit/Kits/HONDA JAZZ MC MODULO Body Kit",
+          "raw_count": 6,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-02"
+        },
+        {
+          "path": "Miscellaneous/Kits/HONDA INTREGA TYPE-R Body Kit",
+          "raw_count": 7,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-02"
         },
         {
           "path": "Other Civics/Exterior/ETi HONDA CIVIC 2006 MUGEN Carbon Fiber Hood",
@@ -980,43 +1043,8 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Integra/Exterior/ETi HONDA DC5 MUGEN Carbon Fiber Hood",
-          "raw_count": 8,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
           "path": "Integra/Kits/HONDA NEW DC5 BUDDY CLUB Wide Body Body Kit",
           "raw_count": 7,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Integra/Kits/HONDA NEW DC5 ING1 BODY KIT 4 pcs Body Kit",
-          "raw_count": 7,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Integra/Kits/HONDA NEW DC5 MUGEN Body Kit",
-          "raw_count": 8,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Jazz_Fit/Exterior/ETi HONDA JAZZ GE 2007 ING+1 Carbon Fiber Hood",
-          "raw_count": 5,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Jazz_Fit/Exterior/ETi Honda Jazz-Fit GD J's Racing Spec Carbon Fiber Hood",
-          "raw_count": 10,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
@@ -1052,27 +1080,6 @@
         {
           "path": "Jazz_Fit/Exterior/FT86 Center Console Fits Toyota GT86 Subaru BRZ Scion FR-S",
           "raw_count": 2,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Jazz_Fit/Kits/HONDA JAZZ 2007 ING+1 Body Kit",
-          "raw_count": 8,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Jazz_Fit/Kits/HONDA JAZZ 2007 JS' Body Kit",
-          "raw_count": 8,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Jazz_Fit/Kits/HONDA JAZZ MC MODULO Body Kit",
-          "raw_count": 6,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
@@ -1122,13 +1129,6 @@
         {
           "path": "Miscellaneous/Exterior/Honda EK EG Titanium Strut Bar",
           "raw_count": 2,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Miscellaneous/Kits/HONDA INTREGA TYPE-R Body Kit",
-          "raw_count": 7,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
@@ -8176,11 +8176,11 @@
   ],
   "totals": {
     "total_folders": 1155,
-    "folders_with_edited": 415,
-    "folders_with_only_raw": 276,
+    "folders_with_edited": 424,
+    "folders_with_only_raw": 267,
     "folders_empty": 464,
-    "total_edited_images": 3054,
+    "total_edited_images": 3120,
     "total_raw_images": 5238,
-    "completion_percentage": 35.9
+    "completion_percentage": 36.7
   }
 }
