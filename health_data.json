@@ -6290,9 +6290,9 @@
       "make": "Toyota",
       "total_folders": 268,
       "raw_images": 1265,
-      "edited_images": 849,
-      "folders_with_edited": 101,
-      "folders_with_only_raw": 13,
+      "edited_images": 925,
+      "folders_with_edited": 112,
+      "folders_with_only_raw": 2,
       "folders_empty": 154,
       "folders": [
         {
@@ -6551,6 +6551,83 @@
           "path": "GT86/Exterior/GT86BRZ ZN6 Fender Emblem Cover",
           "raw_count": 4,
           "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "GT86/Exterior/Scion FR-S Toyota GT86 FT86 ZN6 CS Bottomline Style Side Front Lip",
+          "raw_count": 7,
+          "edited_count": 7,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "GT86/Exterior/Toyota FT86 GT86 FRS BRZ JDM Style Cooling Panel (2PCS)",
+          "raw_count": 5,
+          "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "GT86/Exterior/Toyota FT86 GT86 Scion FR-S TRD Style Side Skirts",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "GT86/Exterior/Toyota GT86 5-Piece GT Rear Spoiler",
+          "raw_count": 7,
+          "edited_count": 7,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "GT86/Exterior/Toyota GT86 N Spec Rear Bumper",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "GT86/Exterior/Toyota GT86 RB Carbon Fiber Trunk",
+          "raw_count": 4,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "GT86/Exterior/Toyota GT86 Rear Spoiler (2013 Model)",
+          "raw_count": 4,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "GT86/Kits/TOYOTA FT86 PD V3 Body Kit",
+          "raw_count": 10,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "GT86/Kits/TOYOTA FT86 Pandem Street Drift Body Kit",
+          "raw_count": 13,
+          "edited_count": 13,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "GT86/Kits/TOYOTA FT86 Varis Arising II Body Kit",
+          "raw_count": 11,
+          "edited_count": 11,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "GT86/Kits/Toyota GT86 Rocket Bunny V1 Style Kit",
+          "raw_count": 17,
+          "edited_count": 11,
           "status": "edited",
           "upload_date": "2026-06-04"
         },
@@ -7001,83 +7078,6 @@
           "edited_count": 7,
           "status": "edited",
           "upload_date": "2026-06-04"
-        },
-        {
-          "path": "GT86/Exterior/Scion FR-S Toyota GT86 FT86 ZN6 CS Bottomline Style Side Front Lip",
-          "raw_count": 7,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "GT86/Exterior/Toyota FT86 GT86 FRS BRZ JDM Style Cooling Panel (2PCS)",
-          "raw_count": 5,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "GT86/Exterior/Toyota FT86 GT86 Scion FR-S TRD Style Side Skirts",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "GT86/Exterior/Toyota GT86 5-Piece GT Rear Spoiler",
-          "raw_count": 7,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "GT86/Exterior/Toyota GT86 N Spec Rear Bumper",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "GT86/Exterior/Toyota GT86 RB Carbon Fiber Trunk",
-          "raw_count": 4,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "GT86/Exterior/Toyota GT86 Rear Spoiler (2013 Model)",
-          "raw_count": 4,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "GT86/Kits/TOYOTA FT86 PD V3 Body Kit",
-          "raw_count": 10,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "GT86/Kits/TOYOTA FT86 Pandem Street Drift Body Kit",
-          "raw_count": 13,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "GT86/Kits/TOYOTA FT86 Varis Arising II Body Kit",
-          "raw_count": 11,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "GT86/Kits/Toyota GT86 Rocket Bunny V1 Style Kit",
-          "raw_count": 17,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
         },
         {
           "path": "Supra_MKIV/Exterior/(Duplicate)ETi Toyota Supra MKIV Carbon Fiber Fuse Box Cover",
@@ -8176,11 +8176,11 @@
   ],
   "totals": {
     "total_folders": 1155,
-    "folders_with_edited": 536,
-    "folders_with_only_raw": 155,
+    "folders_with_edited": 547,
+    "folders_with_only_raw": 144,
     "folders_empty": 464,
-    "total_edited_images": 3733,
+    "total_edited_images": 3809,
     "total_raw_images": 5238,
-    "completion_percentage": 46.4
+    "completion_percentage": 47.4
   }
 }
