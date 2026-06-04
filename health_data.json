@@ -6290,11 +6290,39 @@
       "make": "Toyota",
       "total_folders": 268,
       "raw_images": 1265,
-      "edited_images": 640,
-      "folders_with_edited": 61,
-      "folders_with_only_raw": 53,
+      "edited_images": 671,
+      "folders_with_edited": 65,
+      "folders_with_only_raw": 49,
       "folders_empty": 154,
       "folders": [
+        {
+          "path": "Altezza/Kits/TOYOTA ALTEZA C-WEST Body Kit",
+          "raw_count": 7,
+          "edited_count": 7,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "Altezza/Kits/TOYOTA ALTEZA D-SPEED Body Kit",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "GR86/Kits/TOYOTA GR 86 Pandem V1 Body Kit",
+          "raw_count": 16,
+          "edited_count": 16,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "GR86/Kits/TOYOTA GR 86 Street Kit Body Kit",
+          "raw_count": 5,
+          "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
         {
           "path": "Supra_MKIV/Exterior/(New) Drag Bumper",
           "raw_count": 2,
@@ -6723,20 +6751,6 @@
           "upload_date": "2026-06-04"
         },
         {
-          "path": "Altezza/Kits/TOYOTA ALTEZA C-WEST Body Kit",
-          "raw_count": 7,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Altezza/Kits/TOYOTA ALTEZA D-SPEED Body Kit",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
           "path": "GR86/Exterior/Toyota GR86 Carbon Fiber Euro 1 Vented Hood",
           "raw_count": 7,
           "edited_count": 0,
@@ -6752,20 +6766,6 @@
         },
         {
           "path": "GR86/Exterior/Toyota GR86 Carbon Fiber Mod-X Euro Vented Hood",
-          "raw_count": 5,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "GR86/Kits/TOYOTA GR 86 Pandem V1 Body Kit",
-          "raw_count": 16,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "GR86/Kits/TOYOTA GR 86 Street Kit Body Kit",
           "raw_count": 5,
           "edited_count": 0,
           "status": "raw_only",
@@ -8176,11 +8176,11 @@
   ],
   "totals": {
     "total_folders": 1155,
-    "folders_with_edited": 496,
-    "folders_with_only_raw": 195,
+    "folders_with_edited": 500,
+    "folders_with_only_raw": 191,
     "folders_empty": 464,
-    "total_edited_images": 3524,
+    "total_edited_images": 3555,
     "total_raw_images": 5238,
-    "completion_percentage": 42.9
+    "completion_percentage": 43.3
   }
 }
