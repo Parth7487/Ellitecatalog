@@ -6290,9 +6290,9 @@
       "make": "Toyota",
       "total_folders": 268,
       "raw_images": 1265,
-      "edited_images": 729,
-      "folders_with_edited": 76,
-      "folders_with_only_raw": 38,
+      "edited_images": 751,
+      "folders_with_edited": 79,
+      "folders_with_only_raw": 35,
       "folders_empty": 154,
       "folders": [
         {
@@ -6397,6 +6397,27 @@
           "path": "GT86/Exterior/ETi TOYOTA FT86 Race Version Front Carbon Fiber Doors",
           "raw_count": 6,
           "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "MR2_SW20/Kits/TOYOTA MR2 AB-FULK Body Kit",
+          "raw_count": 8,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "MR2_SW20/Kits/TOYOTA MR2 BOMEX BODY KIT Body Kit",
+          "raw_count": 6,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "MR2_SW20/Kits/TOYOTA MR2 TRD GT2000 BODY KIT 10pcs Body Kit",
+          "raw_count": 8,
+          "edited_count": 8,
           "status": "edited",
           "upload_date": "2026-06-04"
         },
@@ -7054,27 +7075,6 @@
         {
           "path": "GT86/Kits/Toyota GT86 Rocket Bunny V1 Style Kit",
           "raw_count": 17,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "MR2_SW20/Kits/TOYOTA MR2 AB-FULK Body Kit",
-          "raw_count": 8,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "MR2_SW20/Kits/TOYOTA MR2 BOMEX BODY KIT Body Kit",
-          "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "MR2_SW20/Kits/TOYOTA MR2 TRD GT2000 BODY KIT 10pcs Body Kit",
-          "raw_count": 8,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
@@ -8176,11 +8176,11 @@
   ],
   "totals": {
     "total_folders": 1155,
-    "folders_with_edited": 511,
-    "folders_with_only_raw": 180,
+    "folders_with_edited": 514,
+    "folders_with_only_raw": 177,
     "folders_empty": 464,
-    "total_edited_images": 3613,
+    "total_edited_images": 3635,
     "total_raw_images": 5238,
-    "completion_percentage": 44.2
+    "completion_percentage": 44.5
   }
 }
