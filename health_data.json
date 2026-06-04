@@ -540,11 +540,18 @@
       "make": "Honda",
       "total_folders": 163,
       "raw_images": 488,
-      "edited_images": 153,
-      "folders_with_edited": 24,
-      "folders_with_only_raw": 63,
+      "edited_images": 350,
+      "folders_with_edited": 59,
+      "folders_with_only_raw": 28,
       "folders_empty": 76,
       "folders": [
+        {
+          "path": "Accord/Exterior/ETi HONDA ACCORD 09 TOP SECRET Carbon Fiber Hood",
+          "raw_count": 7,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
         {
           "path": "Accord/Kits/HONDA ACCORD 2003 MODULO Body Kit",
           "raw_count": 1,
@@ -567,11 +574,144 @@
           "upload_date": "2026-06-02"
         },
         {
+          "path": "Accord/Kits/HONDA ACCORD 2008 MUGEN Body Kit",
+          "raw_count": 7,
+          "edited_count": 7,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
           "path": "Civic EG_EK/Interior/ETi HONDA CIVIC EK96-99 FOR RACE Carbon Fiber Dashboard",
           "raw_count": 4,
           "edited_count": 4,
           "status": "edited",
           "upload_date": "2026-06-01"
+        },
+        {
+          "path": "Civic EG_EK/Interior/Honda Civic EK9 Coupe Racing Dashboard",
+          "raw_count": 4,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "Civic EG_EK/Interior/Honda Civic EK9 Coupe Racing Door Cards",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 96 MUGEN Body Kit",
+          "raw_count": 11,
+          "edited_count": 11,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 96 MUGEN C-WEST Body Kit",
+          "raw_count": 8,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 96 TYPE-R SKIRT Body Kit",
+          "raw_count": 9,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 99 BUDDY CLUB Body Kit",
+          "raw_count": 5,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "Civic EG_EK/Kits/HONDA CIVIC EK9 TYPE-R Body Kit",
+          "raw_count": 6,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "Civic EG_EK/Kits/Honda Civic EG Carbon Fiber Wide Body Kit",
+          "raw_count": 32,
+          "edited_count": 31,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "Civic EG_EK/Kits/Honda Civic EG Dry Carbon Fiber Drag Racing Body Kit",
+          "raw_count": 14,
+          "edited_count": 14,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "Civic EG_EK/Kits/Honda Civic EK Drag Stance Carbon Fiber Wide Body Kit",
+          "raw_count": 8,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "Civic FC_FK/Exterior/ETi Honda Civic FK Batman Vented Style Hood",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Civic FC_FK/Exterior/ETi Honda Civic FK Thunder Vented Style Hood",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Civic FC_FK/Exterior/ETi Honda Civic FK Type R Lambo V2 Style Hood",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Civic FC_FK/Exterior/ETi Titanium Full Exhaust FK Civic",
+          "raw_count": 2,
+          "edited_count": 2,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Civic FC_FK/Exterior/Honda Civic FC Vented Hood",
+          "raw_count": 2,
+          "edited_count": 2,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Civic FC_FK/Exterior/Honda Civic FC Wing",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Civic FC_FK/Kits/Honda Civic FC Carbon Fiber Wide Body Kit",
+          "raw_count": 9,
+          "edited_count": 9,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Civic FC_FK/Kits/Honda Civic FK Type R Wide Body Kit",
+          "raw_count": 18,
+          "edited_count": 17,
+          "status": "edited",
+          "upload_date": "2026-06-03"
         },
         {
           "path": "Integra/Exterior/ETi HONDA DC5 MUGEN Carbon Fiber Hood",
@@ -609,6 +749,41 @@
           "upload_date": "2026-06-02"
         },
         {
+          "path": "Jazz_Fit/Exterior/ETi Honda Jazz-Fit GE Carbon Fiber Hood",
+          "raw_count": 4,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Jazz_Fit/Exterior/ETi Honda Jazz-Fit GE OEM Hood",
+          "raw_count": 2,
+          "edited_count": 2,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Jazz_Fit/Exterior/ETi Honda Jazz-Fit GK Carbon Fiber Hood",
+          "raw_count": 4,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Jazz_Fit/Exterior/ETi Honda Jazz-Fit GK Vented Style Hood",
+          "raw_count": 2,
+          "edited_count": 2,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Jazz_Fit/Exterior/FT86 Center Console Fits Toyota GT86 Subaru BRZ Scion FR-S",
+          "raw_count": 2,
+          "edited_count": 2,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
           "path": "Jazz_Fit/Kits/HONDA JAZZ 2007 ING+1 Body Kit",
           "raw_count": 8,
           "edited_count": 8,
@@ -626,6 +801,55 @@
           "path": "Jazz_Fit/Kits/HONDA JAZZ MC MODULO Body Kit",
           "raw_count": 6,
           "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-02"
+        },
+        {
+          "path": "Miscellaneous/Exterior/ETi Honda EG Mod X Hybrid Style Carbon Fiber Hood",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Miscellaneous/Exterior/ETi Honda EG Mod X Vented Carbon Fiber Hood",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Miscellaneous/Exterior/ETi Honda FC-FK V Shape Vented Style Hood",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Miscellaneous/Exterior/ETi Honda FK Carbon Fiber X Clear Hybrid V3 Hood",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Miscellaneous/Exterior/ETi Honda FK Jet V1 Style Hood",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Miscellaneous/Exterior/ETi Honda FK Type R Vented Style Hood",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Miscellaneous/Exterior/Honda EK EG Titanium Strut Bar",
+          "raw_count": 2,
+          "edited_count": 2,
           "status": "edited",
           "upload_date": "2026-06-02"
         },
@@ -672,6 +896,20 @@
           "upload_date": "2026-06-02"
         },
         {
+          "path": "Other Civics/Exterior/Honda Civic GT Wing (Chassis-Mounted)",
+          "raw_count": 4,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Other Civics/Exterior/Honda Civic GT Wing (Trunk Mounted)",
+          "raw_count": 4,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
           "path": "Other Civics/Kits/HONDA CIVIC 2006 MODULO SKIRT Body Kit",
           "raw_count": 8,
           "edited_count": 7,
@@ -707,25 +945,18 @@
           "upload_date": "2026-06-02"
         },
         {
+          "path": "Other Civics/Kits/Honda Civic Engine Bay Dress Up Kit",
+          "raw_count": 4,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
           "path": "S2000/Exterior/ETi HONDA S 2000 JS Carbon Fiber Hood",
           "raw_count": 4,
           "edited_count": 4,
           "status": "edited",
           "upload_date": "2026-06-02"
-        },
-        {
-          "path": "Accord/Exterior/ETi HONDA ACCORD 09 TOP SECRET Carbon Fiber Hood",
-          "raw_count": 7,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Accord/Kits/HONDA ACCORD 2008 MUGEN Body Kit",
-          "raw_count": 7,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
         },
         {
           "path": "Civic EG_EK/Exterior/ETi 48mm Aluminum Performance Radiator – Honda Civic EG (1992-1995)",
@@ -917,239 +1148,8 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Interior/Honda Civic EK9 Coupe Racing Dashboard",
-          "raw_count": 4,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Interior/Honda Civic EK9 Coupe Racing Door Cards",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 96 MUGEN Body Kit",
-          "raw_count": 11,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 96 MUGEN C-WEST Body Kit",
-          "raw_count": 8,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 96 TYPE-R SKIRT Body Kit",
-          "raw_count": 9,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Kits/HONDA CIVIC EK big eye 99 BUDDY CLUB Body Kit",
-          "raw_count": 5,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Kits/HONDA CIVIC EK9 TYPE-R Body Kit",
-          "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Kits/Honda Civic EG Carbon Fiber Wide Body Kit",
-          "raw_count": 32,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Kits/Honda Civic EG Dry Carbon Fiber Drag Racing Body Kit",
-          "raw_count": 14,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Kits/Honda Civic EK Drag Stance Carbon Fiber Wide Body Kit",
-          "raw_count": 8,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Exterior/ETi Honda Civic FK Batman Vented Style Hood",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Exterior/ETi Honda Civic FK Thunder Vented Style Hood",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Exterior/ETi Honda Civic FK Type R Lambo V2 Style Hood",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Exterior/ETi Titanium Full Exhaust FK Civic",
-          "raw_count": 2,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Exterior/Honda Civic FC Vented Hood",
-          "raw_count": 2,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Exterior/Honda Civic FC Wing",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Kits/Honda Civic FC Carbon Fiber Wide Body Kit",
-          "raw_count": 9,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Kits/Honda Civic FK Type R Wide Body Kit",
-          "raw_count": 18,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
           "path": "Integra/Kits/HONDA NEW DC5 BUDDY CLUB Wide Body Body Kit",
           "raw_count": 7,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Jazz_Fit/Exterior/ETi Honda Jazz-Fit GE Carbon Fiber Hood",
-          "raw_count": 4,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Jazz_Fit/Exterior/ETi Honda Jazz-Fit GE OEM Hood",
-          "raw_count": 2,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Jazz_Fit/Exterior/ETi Honda Jazz-Fit GK Carbon Fiber Hood",
-          "raw_count": 4,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Jazz_Fit/Exterior/ETi Honda Jazz-Fit GK Vented Style Hood",
-          "raw_count": 2,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Jazz_Fit/Exterior/FT86 Center Console Fits Toyota GT86 Subaru BRZ Scion FR-S",
-          "raw_count": 2,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Miscellaneous/Exterior/ETi Honda EG Mod X Hybrid Style Carbon Fiber Hood",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Miscellaneous/Exterior/ETi Honda EG Mod X Vented Carbon Fiber Hood",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Miscellaneous/Exterior/ETi Honda FC-FK V Shape Vented Style Hood",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Miscellaneous/Exterior/ETi Honda FK Carbon Fiber X Clear Hybrid V3 Hood",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Miscellaneous/Exterior/ETi Honda FK Jet V1 Style Hood",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Miscellaneous/Exterior/ETi Honda FK Type R Vented Style Hood",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Miscellaneous/Exterior/Honda EK EG Titanium Strut Bar",
-          "raw_count": 2,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Other Civics/Exterior/Honda Civic GT Wing (Chassis-Mounted)",
-          "raw_count": 4,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Other Civics/Exterior/Honda Civic GT Wing (Trunk Mounted)",
-          "raw_count": 4,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Other Civics/Kits/Honda Civic Engine Bay Dress Up Kit",
-          "raw_count": 4,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
@@ -8176,11 +8176,11 @@
   ],
   "totals": {
     "total_folders": 1155,
-    "folders_with_edited": 424,
-    "folders_with_only_raw": 267,
+    "folders_with_edited": 459,
+    "folders_with_only_raw": 232,
     "folders_empty": 464,
-    "total_edited_images": 3120,
+    "total_edited_images": 3317,
     "total_raw_images": 5238,
-    "completion_percentage": 36.7
+    "completion_percentage": 39.7
   }
 }
