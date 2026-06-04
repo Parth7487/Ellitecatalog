@@ -4,11 +4,18 @@
       "make": "BMW",
       "total_folders": 75,
       "raw_images": 74,
-      "edited_images": 18,
-      "folders_with_edited": 7,
-      "folders_with_only_raw": 6,
+      "edited_images": 64,
+      "folders_with_edited": 12,
+      "folders_with_only_raw": 1,
       "folders_empty": 62,
       "folders": [
+        {
+          "path": "E90/Kits/BMW E90 M3 Body Kit",
+          "raw_count": 10,
+          "edited_count": 11,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
         {
           "path": "E92 - E93/Exterior/BMW M3 E92E93 Front Bumper Lip",
           "raw_count": 4,
@@ -22,6 +29,13 @@
           "edited_count": 3,
           "status": "edited",
           "upload_date": "2026-04-14"
+        },
+        {
+          "path": "E92 - E93/Kits/BMW E92 M3 Body Kit",
+          "raw_count": 10,
+          "edited_count": 10,
+          "status": "edited",
+          "upload_date": "2026-06-04"
         },
         {
           "path": "F10/Exterior/ETi BMW F10G30 Duckbill Trunk Spoiler",
@@ -59,42 +73,28 @@
           "upload_date": "2026-04-05"
         },
         {
-          "path": "E90/Kits/BMW E90 M3 Body Kit",
-          "raw_count": 10,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "E92 - E93/Kits/BMW E92 M3 Body Kit",
-          "raw_count": 10,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "F10/Kits/BMW F10 Eti M-sport (original) Body Kit",
-          "raw_count": 10,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
           "path": "Z4 E89/Kits/BMW Z4 E89 Eti Body Kit",
           "raw_count": 5,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
+          "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-05-28"
         },
         {
           "path": "Z4 E89/Kits/BMW Z4 E89 GT3 Widebody Body Kit",
           "raw_count": 10,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
+          "edited_count": 10,
+          "status": "edited",
+          "upload_date": "2026-05-28"
         },
         {
           "path": "Z4 E89/Kits/BMW Z4 E89 Hamann Body Kit",
+          "raw_count": 10,
+          "edited_count": 10,
+          "status": "edited",
+          "upload_date": "2026-05-28"
+        },
+        {
+          "path": "F10/Kits/BMW F10 Eti M-sport (original) Body Kit",
           "raw_count": 10,
           "edited_count": 0,
           "status": "raw_only",
@@ -8176,11 +8176,11 @@
   ],
   "totals": {
     "total_folders": 1155,
-    "folders_with_edited": 485,
-    "folders_with_only_raw": 206,
+    "folders_with_edited": 490,
+    "folders_with_only_raw": 201,
     "folders_empty": 464,
-    "total_edited_images": 3429,
+    "total_edited_images": 3475,
     "total_raw_images": 5238,
-    "completion_percentage": 42.0
+    "completion_percentage": 42.4
   }
 }
