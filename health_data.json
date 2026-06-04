@@ -4,9 +4,9 @@
       "make": "BMW",
       "total_folders": 75,
       "raw_images": 74,
-      "edited_images": 64,
-      "folders_with_edited": 12,
-      "folders_with_only_raw": 1,
+      "edited_images": 74,
+      "folders_with_edited": 13,
+      "folders_with_only_raw": 0,
       "folders_empty": 62,
       "folders": [
         {
@@ -43,6 +43,13 @@
           "edited_count": 2,
           "status": "edited",
           "upload_date": "2026-04-05"
+        },
+        {
+          "path": "F10/Kits/BMW F10 Eti M-sport (original) Body Kit",
+          "raw_count": 10,
+          "edited_count": 10,
+          "status": "edited",
+          "upload_date": "2026-05-28"
         },
         {
           "path": "M2/Exterior/BMW M2 Dry Carbon Roof",
@@ -92,13 +99,6 @@
           "edited_count": 10,
           "status": "edited",
           "upload_date": "2026-05-28"
-        },
-        {
-          "path": "F10/Kits/BMW F10 Eti M-sport (original) Body Kit/BMW F10 Eti M-sport (original) Body Kit",
-          "raw_count": 10,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
         },
         {
           "path": "1 Series/Exterior/ETi BMW S1 Race Version Rear Carbon Fiber Doors",
@@ -8176,10 +8176,10 @@
   ],
   "totals": {
     "total_folders": 1155,
-    "folders_with_edited": 495,
-    "folders_with_only_raw": 196,
+    "folders_with_edited": 496,
+    "folders_with_only_raw": 195,
     "folders_empty": 464,
-    "total_edited_images": 3514,
+    "total_edited_images": 3524,
     "total_raw_images": 5238,
     "completion_percentage": 42.9
   }
