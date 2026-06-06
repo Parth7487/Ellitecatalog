@@ -4510,9 +4510,9 @@
       "make": "Nissan",
       "total_folders": 387,
       "raw_images": 2039,
-      "edited_images": 1441,
-      "folders_with_edited": 220,
-      "folders_with_only_raw": 85,
+      "edited_images": 1465,
+      "folders_with_edited": 223,
+      "folders_with_only_raw": 82,
       "folders_empty": 82,
       "folders": [
         {
@@ -5340,6 +5340,27 @@
           "edited_count": 5,
           "status": "edited",
           "upload_date": "2026-04-20"
+        },
+        {
+          "path": "R34/Exterior/R34 GTR NI Z-Tune Style Front Bumper",
+          "raw_count": 8,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-06-06"
+        },
+        {
+          "path": "R34/Exterior/R34 GTR NI Z-Tune Style Rear Bumper",
+          "raw_count": 7,
+          "edited_count": 7,
+          "status": "edited",
+          "upload_date": "2026-06-06"
+        },
+        {
+          "path": "R34/Exterior/R34 GTR NI Z-Tune Style Side Skirt Extensions",
+          "raw_count": 9,
+          "edited_count": 9,
+          "status": "edited",
+          "upload_date": "2026-06-06"
         },
         {
           "path": "R34/Exterior/R34 GTT GTR-Style Rear Fender",
@@ -6345,27 +6366,6 @@
         {
           "path": "R34/Exterior/R34 GTR NI Style Hood",
           "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "R34/Exterior/R34 GTR NI Z-Tune Style Front Bumper",
-          "raw_count": 8,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "R34/Exterior/R34 GTR NI Z-Tune Style Rear Bumper",
-          "raw_count": 7,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "R34/Exterior/R34 GTR NI Z-Tune Style Side Skirt Extensions",
-          "raw_count": 9,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
@@ -11087,11 +11087,11 @@
   ],
   "totals": {
     "total_folders": 1131,
-    "folders_with_edited": 601,
-    "folders_with_only_raw": 90,
+    "folders_with_edited": 604,
+    "folders_with_only_raw": 87,
     "folders_empty": 440,
-    "total_edited_images": 4154,
+    "total_edited_images": 4178,
     "total_raw_images": 5238,
-    "completion_percentage": 53.1
+    "completion_percentage": 53.4
   }
 }
