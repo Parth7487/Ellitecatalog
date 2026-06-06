@@ -84,7 +84,7 @@ def parse_report(filepath, make_name):
                 })
                 
     # Section 3: Empty Placeholder Folders
-    empty_section = re.search(r"## ⚪ 3\. Empty Placeholder Folders.*?\n(.*?)(?=\n---|\Z)", content, re.DOTALL | re.IGNORECASE)
+    empty_section = re.search(r"## [⚪🟡] 3\. Empty Placeholder Folders.*?\n(.*?)(?=\n---|\Z)", content, re.DOTALL | re.IGNORECASE)
     if empty_section:
         table_text = empty_section.group(1)
         for line in table_text.splitlines():

@@ -210,9 +210,9 @@ function renderFolderTable() {
         if (f.status === 'edited') {
             statusBadge = `<span class="text-[9px] font-black text-green-400 bg-green-500/10 border border-green-500/25 px-2 py-0.5 rounded-sm uppercase tracking-wide">✅ Edited</span>`;
         } else if (f.status === 'raw_only') {
-            statusBadge = `<span class="text-[9px] font-black text-yellow-500 bg-yellow-500/10 border border-yellow-500/25 px-2 py-0.5 rounded-sm uppercase tracking-wide">⚠️ Raw Only</span>`;
+            statusBadge = `<span class="text-[9px] font-black text-red-400 bg-red-500/10 border border-red-500/25 px-2 py-0.5 rounded-sm uppercase tracking-wide">⚠️ Raw Only</span>`;
         } else {
-            statusBadge = `<span class="text-[9px] font-black text-red-400 bg-red-500/10 border border-red-500/25 px-2 py-0.5 rounded-sm uppercase tracking-wide">❌ Empty</span>`;
+            statusBadge = `<span class="text-[9px] font-black text-yellow-500 bg-yellow-500/10 border border-yellow-500/25 px-2 py-0.5 rounded-sm uppercase tracking-wide">❌ Empty</span>`;
         }
         
         const dateStr = f.upload_date && f.upload_date !== 'N/A' 
