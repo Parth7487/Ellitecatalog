@@ -4510,9 +4510,9 @@
       "make": "Nissan",
       "total_folders": 387,
       "raw_images": 2039,
-      "edited_images": 1596,
-      "folders_with_edited": 248,
-      "folders_with_only_raw": 57,
+      "edited_images": 1638,
+      "folders_with_edited": 257,
+      "folders_with_only_raw": 48,
       "folders_empty": 82,
       "folders": [
         {
@@ -5475,6 +5475,20 @@
           "upload_date": "2026-06-06"
         },
         {
+          "path": "R34/Exterior/R34 GTR Nismo Style Carbon Fiber Side Skirt Extension (189cm)",
+          "raw_count": 4,
+          "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-06-06"
+        },
+        {
+          "path": "R34/Exterior/R34 GTR Nismo Style Front Lip (must be fitted with R34 GTR NI Style Front Bumper)",
+          "raw_count": 5,
+          "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-06-06"
+        },
+        {
           "path": "R34/Exterior/R34 GTR Nismo Style Rear Spats",
           "raw_count": 6,
           "edited_count": 6,
@@ -5496,6 +5510,13 @@
           "upload_date": "2026-06-06"
         },
         {
+          "path": "R34/Exterior/R34 GTR OEM Front Fender",
+          "raw_count": 5,
+          "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-06-06"
+        },
+        {
           "path": "R34/Exterior/R34 GTR OEM Rear Spoiler (Fits R32 R33 R34 GTR GTS G35)",
           "raw_count": 4,
           "edited_count": 4,
@@ -5510,9 +5531,23 @@
           "upload_date": "2026-06-06"
         },
         {
+          "path": "R34/Exterior/R34 GTR OEM Style Front Bumper Nismo Style Bottom Lip with Undertray",
+          "raw_count": 6,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-06"
+        },
+        {
           "path": "R34/Exterior/R34 GTR RHD Radio Monitor Surround  Gear Surround",
           "raw_count": 5,
           "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-06-06"
+        },
+        {
+          "path": "R34/Exterior/R34 GTR Rear Bumper Exhaust Heatshield (OEM Rear Bumper Only)",
+          "raw_count": 3,
+          "edited_count": 3,
           "status": "edited",
           "upload_date": "2026-06-06"
         },
@@ -5531,9 +5566,37 @@
           "upload_date": "2026-06-06"
         },
         {
+          "path": "R34/Exterior/R34 GTT GTR Jun Style Spoiler Wing Higher Legs (205 cm)",
+          "raw_count": 4,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-06"
+        },
+        {
+          "path": "R34/Exterior/R34 GTT GTR Mines Style Rear Trunk Spoiler Duckbill",
+          "raw_count": 4,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-06"
+        },
+        {
+          "path": "R34/Exterior/R34 GTT GTR OEM Style Trunk with Brake Light Cutout",
+          "raw_count": 5,
+          "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-06-06"
+        },
+        {
           "path": "R34/Exterior/R34 GTT GTR-Style Rear Fender",
           "raw_count": 3,
           "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-05"
+        },
+        {
+          "path": "R34/Exterior/R34 GTT Z-Tune Front Bumper  Skyline R34 GTT 2D 4D GTR-Style Front Bumper",
+          "raw_count": 5,
+          "edited_count": 5,
           "status": "edited",
           "upload_date": "2026-06-05"
         },
@@ -6429,69 +6492,6 @@
         {
           "path": "R34/Exterior/R34 GTR NI Style Hood",
           "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "R34/Exterior/R34 GTR Nismo Style Carbon Fiber Side Skirt Extension (189cm)",
-          "raw_count": 4,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "R34/Exterior/R34 GTR Nismo Style Front Lip (must be fitted with R34 GTR NI Style Front Bumper)",
-          "raw_count": 5,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "R34/Exterior/R34 GTR OEM Front Fender",
-          "raw_count": 5,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "R34/Exterior/R34 GTR OEM Style Front Bumper Nismo Style Bottom Lip with Undertray",
-          "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "R34/Exterior/R34 GTR Rear Bumper Exhaust Heatshield (OEM Rear Bumper Only)",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "R34/Exterior/R34 GTT GTR Jun Style Spoiler Wing Higher Legs (205 cm)",
-          "raw_count": 4,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "R34/Exterior/R34 GTT GTR Mines Style Rear Trunk Spoiler Duckbill",
-          "raw_count": 4,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "R34/Exterior/R34 GTT GTR OEM Style Trunk with Brake Light Cutout",
-          "raw_count": 5,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "R34/Exterior/R34 GTT Z-Tune Front Bumper  Skyline R34 GTT 2D 4D GTR-Style Front Bumper",
-          "raw_count": 5,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
@@ -11087,11 +11087,11 @@
   ],
   "totals": {
     "total_folders": 1131,
-    "folders_with_edited": 629,
-    "folders_with_only_raw": 62,
+    "folders_with_edited": 638,
+    "folders_with_only_raw": 53,
     "folders_empty": 440,
-    "total_edited_images": 4309,
+    "total_edited_images": 4351,
     "total_raw_images": 5238,
-    "completion_percentage": 55.6
+    "completion_percentage": 56.4
   }
 }
