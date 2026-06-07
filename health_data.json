@@ -4510,9 +4510,9 @@
       "make": "Nissan",
       "total_folders": 387,
       "raw_images": 2039,
-      "edited_images": 1976,
-      "folders_with_edited": 304,
-      "folders_with_only_raw": 1,
+      "edited_images": 1980,
+      "folders_with_edited": 305,
+      "folders_with_only_raw": 0,
       "folders_empty": 82,
       "folders": [
         {
@@ -6175,6 +6175,13 @@
           "upload_date": "2026-06-05"
         },
         {
+          "path": "R35_GTR/Interior/R35 GTR Center Console Trim LHD",
+          "raw_count": 5,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-07"
+        },
+        {
           "path": "R35_GTR/Interior/R35 GTR GTR35 GT-R CBA DBA Gear Surround Trim Interior",
           "raw_count": 4,
           "edited_count": 4,
@@ -6642,13 +6649,6 @@
           "edited_count": 8,
           "status": "edited",
           "upload_date": "2026-04-15"
-        },
-        {
-          "path": "R35_GTR/Interior/R35 GTR Center Console Trim LHD",
-          "raw_count": 5,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
         },
         {
           "path": "300ZX/Exterior/ETi NISSAN 300 ZX ETi Carbon Fiber Hood",
@@ -11087,11 +11087,11 @@
   ],
   "totals": {
     "total_folders": 1131,
-    "folders_with_edited": 685,
-    "folders_with_only_raw": 6,
+    "folders_with_edited": 686,
+    "folders_with_only_raw": 5,
     "folders_empty": 440,
-    "total_edited_images": 4689,
+    "total_edited_images": 4693,
     "total_raw_images": 5238,
-    "completion_percentage": 60.6
+    "completion_percentage": 60.7
   }
 }
