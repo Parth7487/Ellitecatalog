@@ -2754,45 +2754,17 @@
     },
     {
       "make": "Mazda",
-      "total_folders": 105,
+      "total_folders": 99,
       "raw_images": 726,
       "edited_images": 688,
-      "folders_with_edited": 89,
+      "folders_with_edited": 84,
       "folders_with_only_raw": 0,
-      "folders_empty": 16,
+      "folders_empty": 15,
       "folders": [
         {
-          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 ETi Carbon Fiber Hood",
-          "raw_count": 10,
-          "edited_count": 10,
-          "status": "edited",
-          "upload_date": "2026-06-04"
-        },
-        {
-          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 VEILSIDE Carbon Fiber Trunk",
-          "raw_count": 3,
-          "edited_count": 3,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
-          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 Veilside Carbon Fiber Hood",
-          "raw_count": 7,
-          "edited_count": 7,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
-          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) 99 Elite Style Front Bumper",
-          "raw_count": 5,
-          "edited_count": 5,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
           "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) 99 Spec Wing Ends",
-          "raw_count": 3,
-          "edited_count": 3,
+          "raw_count": 12,
+          "edited_count": 12,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
@@ -2811,9 +2783,23 @@
           "upload_date": "2026-06-08"
         },
         {
+          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Carbon Fiber Door Sills",
+          "raw_count": 11,
+          "edited_count": 11,
+          "status": "edited",
+          "upload_date": "2026-06-08"
+        },
+        {
           "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Carbon Fiber Doors",
           "raw_count": 5,
           "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-08"
+        },
+        {
+          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Carbon Fiber Exhaust Heat Shield",
+          "raw_count": 9,
+          "edited_count": 11,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
@@ -2839,16 +2825,16 @@
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Door Sills",
-          "raw_count": 11,
-          "edited_count": 11,
+          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Duckbill Wing",
+          "raw_count": 6,
+          "edited_count": 6,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Duckbill Wing",
-          "raw_count": 6,
-          "edited_count": 6,
+          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) ETi Style Carbon Fiber Hood",
+          "raw_count": 30,
+          "edited_count": 29,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
@@ -2888,13 +2874,6 @@
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Odula Style Wing",
-          "raw_count": 9,
-          "edited_count": 9,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
           "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) R-Magic Style Headlights",
           "raw_count": 13,
           "edited_count": 13,
@@ -2902,23 +2881,9 @@
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 Amemiya RE GT Rear Bumper Diffuser",
-          "raw_count": 20,
-          "edited_count": 19,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
-          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 FD3S OEM Headlight Cover",
-          "raw_count": 5,
-          "edited_count": 5,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
-          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 FD3S RE Style Carbon Hood",
-          "raw_count": 13,
-          "edited_count": 13,
+          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Titanium Wheel Studs 55mm",
+          "raw_count": 9,
+          "edited_count": 8,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
@@ -2926,34 +2891,6 @@
           "path": "RX7_FD3S/Exterior/ETi Mazda RX7 Full Vacuum Carbon GT Wing",
           "raw_count": 11,
           "edited_count": 11,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
-          "path": "RX7_FD3S/Exterior/ETi RX-7 FD3S Garage Kagotoni Style Rear Diffuser",
-          "raw_count": 5,
-          "edited_count": 3,
-          "status": "edited",
-          "upload_date": "2026-05-04"
-        },
-        {
-          "path": "RX7_FD3S/Exterior/ETi RX-7 FD3S NACA Vented Style Headlight Cover",
-          "raw_count": 10,
-          "edited_count": 10,
-          "status": "edited",
-          "upload_date": "2026-05-04"
-        },
-        {
-          "path": "RX7_FD3S/Exterior/ETi RX-7 FD3S RE Amemiya Style Rear Lamp Tail Lip",
-          "raw_count": 9,
-          "edited_count": 9,
-          "status": "edited",
-          "upload_date": "2026-05-04"
-        },
-        {
-          "path": "RX7_FD3S/Exterior/ETi RX-7 Mazdaspeed Style Carbon Fiber Hood",
-          "raw_count": 8,
-          "edited_count": 15,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
@@ -2972,20 +2909,6 @@
           "upload_date": "2026-05-04"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi RX-7 V8 MS Style Hood",
-          "raw_count": 17,
-          "edited_count": 11,
-          "status": "edited",
-          "upload_date": "2026-05-02"
-        },
-        {
-          "path": "RX7_FD3S/Exterior/ETi RX7 Exhaust Heat Shield",
-          "raw_count": 9,
-          "edited_count": 11,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
           "path": "RX7_FD3S/Exterior/ETi RX7 Suzuka Style Carbon Hood",
           "raw_count": 14,
           "edited_count": 14,
@@ -2993,23 +2916,79 @@
           "upload_date": "2026-05-02"
         },
         {
-          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) Clear Carbon Fiber OEM-Style Hood",
-          "raw_count": 7,
-          "edited_count": 6,
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) 99+ Elite Style Front Bumper",
+          "raw_count": 5,
+          "edited_count": 5,
           "status": "edited",
-          "upload_date": "2026-05-02"
+          "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Exterior/RX7 RE Style Headlights",
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) Garage Kagotani Style Rear Diffuser",
+          "raw_count": 5,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-05-04"
+        },
+        {
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) Mazdaspeed Style Carbon Fiber Hood",
+          "raw_count": 8,
+          "edited_count": 15,
+          "status": "edited",
+          "upload_date": "2026-06-08"
+        },
+        {
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) NACA Vented Style Headlight Cover",
+          "raw_count": 10,
+          "edited_count": 10,
+          "status": "edited",
+          "upload_date": "2026-05-04"
+        },
+        {
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) OEM Style Headlight Cover",
+          "raw_count": 5,
+          "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-06-08"
+        },
+        {
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) RE Style Headlights",
           "raw_count": 4,
           "edited_count": 4,
           "status": "edited",
           "upload_date": "2026-05-02"
         },
         {
-          "path": "RX7_FD3S/Exterior/RX7 Titanium Wheel studs 55mm",
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) RE-Amemiya Style Rear Bumper Diffuser",
+          "raw_count": 20,
+          "edited_count": 19,
+          "status": "edited",
+          "upload_date": "2026-06-08"
+        },
+        {
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) RE-Amemiya Style Rear Lamp Tail Lip",
           "raw_count": 9,
-          "edited_count": 8,
+          "edited_count": 9,
+          "status": "edited",
+          "upload_date": "2026-05-04"
+        },
+        {
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) V8 MS Engine Swap Carbon Hood",
+          "raw_count": 17,
+          "edited_count": 11,
+          "status": "edited",
+          "upload_date": "2026-05-02"
+        },
+        {
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) Veilside Style Carbon Fiber Hood",
+          "raw_count": 7,
+          "edited_count": 7,
+          "status": "edited",
+          "upload_date": "2026-06-08"
+        },
+        {
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) Veilside Style Carbon Fiber Trunk",
+          "raw_count": 3,
+          "edited_count": 3,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
@@ -3028,11 +3007,25 @@
           "upload_date": "2026-06-08"
         },
         {
+          "path": "RX7_FD3S/Interior/ETi Mazda RX-7 (FD3S) Carbon Fiber Interior Trim Set",
+          "raw_count": 39,
+          "edited_count": 22,
+          "status": "edited",
+          "upload_date": "2026-06-08"
+        },
+        {
           "path": "RX7_FD3S/Interior/ETi Mazda RX-7 (FD3S) Carbon Fiber Race Dash (RHD)",
           "raw_count": 11,
           "edited_count": 11,
           "status": "edited",
           "upload_date": "2026-05-10"
+        },
+        {
+          "path": "RX7_FD3S/Interior/ETi Mazda RX-7 (FD3S) Carbon Fiber Racing Dash",
+          "raw_count": 7,
+          "edited_count": 7,
+          "status": "edited",
+          "upload_date": "2026-06-08"
         },
         {
           "path": "RX7_FD3S/Interior/ETi Mazda RX-7 (FD3S) Carbon Fiber Rear Strut Bar Cover (could also be chassisinterior)",
@@ -3049,7 +3042,7 @@
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Interior/ETi Mazda RX-7 (FD3S) Dry Carbon Rear Seat and Bin Delete Kit",
+          "path": "RX7_FD3S/Interior/ETi Mazda RX-7 (FD3S) Dry Carbon Rear Seat & B-Pillar Delete Kit",
           "raw_count": 8,
           "edited_count": 8,
           "status": "edited",
@@ -3063,6 +3056,13 @@
           "upload_date": "2026-06-08"
         },
         {
+          "path": "RX7_FD3S/Interior/ETi Mazda RX-7 (FD3S) UC10 Display Mount",
+          "raw_count": 7,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-08"
+        },
+        {
           "path": "RX7_FD3S/Interior/ETi RX-7 Titanium Seat Bolts",
           "raw_count": 3,
           "edited_count": 3,
@@ -3070,98 +3070,63 @@
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Interior/Full Carbon Interior Kit  Mazda RX-7 FD3S (LHD Only)",
-          "raw_count": 20,
-          "edited_count": 16,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
-          "path": "RX7_FD3S/Interior/RX7 FD3S Interior Carbon Trim Set",
-          "raw_count": 19,
-          "edited_count": 6,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
-          "path": "RX7_FD3S/Interior/RX7 UC10 Display",
-          "raw_count": 7,
-          "edited_count": 6,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
-          "path": "RX7_FD3S/Interior/Racing Dash  Mazda RX-7 FD3S (LHD  RHD)",
+          "path": "RX7_FD3S/Kits/ETi Mazda RX-7 (FD3S) Full LHD Interior Kit (Complete Set)",
           "raw_count": 7,
           "edited_count": 7,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Kits/ETi Mazda RX-7 Amemiya RE GT Full Wide Body Kit",
-          "raw_count": 17,
-          "edited_count": 17,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
-          "path": "RX7_FD3S/Kits/ETi RX-7 FD3S VRTX Style Full Kit",
-          "raw_count": 7,
-          "edited_count": 7,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
-          "path": "RX7_FD3S/Kits/MAZDA RX7 FD BN-SPORT wide body Body Kit",
+          "path": "RX7_FD3S/Kits/Mazda RX-7 (FD3S) BN-Sport Wide Body Kit",
           "raw_count": 9,
           "edited_count": 9,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Kits/MAZDA RX7 FD C-WEST BODY KIT 4 pcs Body Kit",
+          "path": "RX7_FD3S/Kits/Mazda RX-7 (FD3S) C-West Body Kit",
           "raw_count": 5,
           "edited_count": 5,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Kits/MAZDA RX7 FD KNIGHT SPORT Body Kit",
+          "path": "RX7_FD3S/Kits/Mazda RX-7 (FD3S) Knight Sport Style Body Kit",
           "raw_count": 14,
           "edited_count": 14,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Kits/MAZDA RX7 FD MAZDA SPEED BODY KIT Body Kit",
+          "path": "RX7_FD3S/Kits/Mazda RX-7 (FD3S) Mazdaspeed Body Kit",
           "raw_count": 7,
           "edited_count": 7,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Kits/MAZDA RX7 FD MINOR Change 2000 BODY KIT Body Kit",
+          "path": "RX7_FD3S/Kits/Mazda RX-7 (FD3S) Minor Change 2000 Body Kit",
           "raw_count": 3,
           "edited_count": 3,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Kits/MAZDA RX7 FD RE-Amemiya Body Kit",
+          "path": "RX7_FD3S/Kits/Mazda RX-7 (FD3S) RE-Amemiya Style Full Wide Body Kit",
+          "raw_count": 30,
+          "edited_count": 30,
+          "status": "edited",
+          "upload_date": "2026-06-08"
+        },
+        {
+          "path": "RX7_FD3S/Kits/Mazda RX-7 (FD3S) RE-Amemiya Wide Body Kit",
           "raw_count": 7,
           "edited_count": 7,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Kits/MAZDA RX7 FD RE-Amemiya wide body Body Kit",
-          "raw_count": 13,
-          "edited_count": 13,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
-          "path": "RX7_FD3S/Kits/MAZDA RX7 FD Rocket Bunny Wide body Body Kit",
+          "path": "RX7_FD3S/Kits/Mazda RX-7 (FD3S) Rocket Bunny Wide Body Kit",
           "raw_count": 13,
           "edited_count": 13,
           "status": "edited",
@@ -3385,28 +3350,14 @@
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 FRONT Carbon Fiber Doors",
+          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 ETi Carbon Fiber Hood",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 OEM Carbon Fiber Trunk",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 RE Carbon Fiber Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 RE mc Carbon Fiber Hood",
+          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Front Carbon Fiber Doors",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
@@ -3427,7 +3378,14 @@
           "upload_date": "N/A"
         },
         {
-          "path": "RX7_FD3S/Exterior/MAZDA RX7 FD Tail light covers Body Kit",
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) Clear Carbon Fiber OEM-Style Hood",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) OEM Style Carbon Fiber Trunk",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
@@ -3441,7 +3399,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "RX7_FD3S/Kits/MAZDA RX7 FD RE-Amemiya BODY KIT Body Kit",
+          "path": "RX7_FD3S/Interior/RX7 FD3S Interior Carbon Trim Set",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
@@ -3497,28 +3455,14 @@
           "upload_date": "N/A"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 FRONT Carbon Fiber Doors",
+          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 ETi Carbon Fiber Hood",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
           "upload_date": "N/A"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 OEM Carbon Fiber Trunk",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 RE Carbon Fiber Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 RE mc Carbon Fiber Hood",
+          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Front Carbon Fiber Doors",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -3539,7 +3483,14 @@
           "upload_date": "N/A"
         },
         {
-          "path": "RX7_FD3S/Exterior/MAZDA RX7 FD Tail light covers Body Kit",
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) Clear Carbon Fiber OEM-Style Hood",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "empty",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) OEM Style Carbon Fiber Trunk",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -3553,7 +3504,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "RX7_FD3S/Kits/MAZDA RX7 FD RE-Amemiya BODY KIT Body Kit",
+          "path": "RX7_FD3S/Interior/RX7 FD3S Interior Carbon Trim Set",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -11177,12 +11128,12 @@
     }
   ],
   "totals": {
-    "total_folders": 1137,
-    "folders_with_edited": 684,
+    "total_folders": 1131,
+    "folders_with_edited": 679,
     "folders_with_only_raw": 6,
-    "folders_empty": 447,
+    "folders_empty": 446,
     "total_edited_images": 4673,
     "total_raw_images": 5018,
-    "completion_percentage": 60.2
+    "completion_percentage": 60.0
   }
 }
