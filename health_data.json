@@ -150,27 +150,6 @@
           "upload_date": "N/A"
         },
         {
-          "path": "BMW Series/Kits/BMW S-class W140 ETi SKIRT1 Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "BMW Series/Kits/BMW S-class W140 ETi SKIRT2 Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "BMW Series/Kits/BMW S-class W140 SKIRT Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
           "path": "BMW Series/Kits/BMW Series 3 M-Technic Body Kit",
           "raw_count": 0,
           "edited_count": 0,
@@ -192,7 +171,28 @@
           "upload_date": "N/A"
         },
         {
-          "path": "E30/Kits/BMW E30 2doors Pandem Wide Body Body Kit",
+          "path": "BMW Series/Kits/Mercedes S-Class W140 ETi Skirt1 Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "BMW Series/Kits/Mercedes S-Class W140 ETi Skirt2 Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "BMW Series/Kits/Mercedes S-Class W140 Skirt Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "E30/Kits/BMW E30 2-Door Pandem Wide Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
@@ -633,27 +633,6 @@
           "upload_date": "N/A"
         },
         {
-          "path": "BMW Series/Kits/BMW S-class W140 ETi SKIRT1 Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "BMW Series/Kits/BMW S-class W140 ETi SKIRT2 Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "BMW Series/Kits/BMW S-class W140 SKIRT Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
           "path": "BMW Series/Kits/BMW Series 3 M-Technic Body Kit",
           "raw_count": 0,
           "edited_count": 0,
@@ -675,7 +654,28 @@
           "upload_date": "N/A"
         },
         {
-          "path": "E30/Kits/BMW E30 2doors Pandem Wide Body Body Kit",
+          "path": "BMW Series/Kits/Mercedes S-Class W140 ETi Skirt1 Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "empty",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "BMW Series/Kits/Mercedes S-Class W140 ETi Skirt2 Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "empty",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "BMW Series/Kits/Mercedes S-Class W140 Skirt Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "empty",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "E30/Kits/BMW E30 2-Door Pandem Wide Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -8373,11 +8373,11 @@
     },
     {
       "make": "Toyota",
-      "total_folders": 257,
-      "raw_images": 1265,
+      "total_folders": 256,
+      "raw_images": 1045,
       "edited_images": 925,
       "folders_with_edited": 112,
-      "folders_with_only_raw": 2,
+      "folders_with_only_raw": 1,
       "folders_empty": 143,
       "folders": [
         {
@@ -9167,13 +9167,6 @@
         {
           "path": "Supra_MKIV/Exterior/(Duplicate)ETi Toyota Supra MKIV Carbon Fiber Fuse Box Cover",
           "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Supra_MKIV/Interior/ARRANGE ",
-          "raw_count": 220,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
@@ -11184,12 +11177,12 @@
     }
   ],
   "totals": {
-    "total_folders": 1138,
+    "total_folders": 1137,
     "folders_with_edited": 684,
-    "folders_with_only_raw": 7,
+    "folders_with_only_raw": 6,
     "folders_empty": 447,
     "total_edited_images": 4673,
-    "total_raw_images": 5238,
-    "completion_percentage": 60.1
+    "total_raw_images": 5018,
+    "completion_percentage": 60.2
   }
 }
