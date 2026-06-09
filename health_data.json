@@ -1070,12 +1070,12 @@
     },
     {
       "make": "Honda",
-      "total_folders": 163,
-      "raw_images": 488,
-      "edited_images": 452,
-      "folders_with_edited": 84,
+      "total_folders": 156,
+      "raw_images": 468,
+      "edited_images": 446,
+      "folders_with_edited": 82,
       "folders_with_only_raw": 3,
-      "folders_empty": 76,
+      "folders_empty": 71,
       "folders": [
         {
           "path": "Accord/Exterior/Honda Accord 09 Top Secret Style Carbon Fiber Hood",
@@ -1089,21 +1089,21 @@
           "raw_count": 1,
           "edited_count": 1,
           "status": "edited",
-          "upload_date": "2026-06-08"
+          "upload_date": "2026-06-09"
         },
         {
           "path": "Accord/Kits/Honda Accord 2003 Mugen Skirt Style Body Kit",
           "raw_count": 7,
           "edited_count": 6,
           "status": "edited",
-          "upload_date": "2026-06-08"
+          "upload_date": "2026-06-09"
         },
         {
           "path": "Accord/Kits/Honda Accord 2003 Wald Skirt Style Body Kit",
           "raw_count": 3,
           "edited_count": 3,
           "status": "edited",
-          "upload_date": "2026-06-08"
+          "upload_date": "2026-06-09"
         },
         {
           "path": "Accord/Kits/Honda Accord 2008 Mugen Style Body Kit",
@@ -1267,6 +1267,13 @@
           "upload_date": "2026-06-04"
         },
         {
+          "path": "Civic EG_EK/Exterior/ETi Honda EK- EG Titanium Strut Bar",
+          "raw_count": 0,
+          "edited_count": 2,
+          "status": "edited",
+          "upload_date": "2026-06-02"
+        },
+        {
           "path": "Civic EG_EK/Exterior/Honda Civic EK J's Racing Style Hood",
           "raw_count": 10,
           "edited_count": 10,
@@ -1379,6 +1386,13 @@
           "upload_date": "2026-06-03"
         },
         {
+          "path": "Civic FC_FK/Exterior/ETi Honda FK Carbon Fiber X Clear Hybrid V3 Hood",
+          "raw_count": 0,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
           "path": "Civic FC_FK/Exterior/ETi Titanium Full Exhaust FK Civic",
           "raw_count": 2,
           "edited_count": 2,
@@ -1402,6 +1416,27 @@
         {
           "path": "Civic FC_FK/Exterior/Honda Civic FK Type R Lambo V2 Style Hood",
           "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Civic FC_FK/Exterior/Honda FC-FK V Shape Vented Style Hood",
+          "raw_count": 0,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Civic FC_FK/Exterior/Honda FK Jet V1 Style Hood",
+          "raw_count": 0,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-03"
+        },
+        {
+          "path": "Civic FC_FK/Exterior/Honda FK Type R Vented Style Hood",
+          "raw_count": 0,
           "edited_count": 3,
           "status": "edited",
           "upload_date": "2026-06-03"
@@ -1510,55 +1545,6 @@
           "edited_count": 6,
           "status": "edited",
           "upload_date": "2026-06-02"
-        },
-        {
-          "path": "Miscellaneous/Exterior/ETi Honda EG Mod X Vented Carbon Fiber Hood",
-          "raw_count": 3,
-          "edited_count": 3,
-          "status": "edited",
-          "upload_date": "2026-06-03"
-        },
-        {
-          "path": "Miscellaneous/Exterior/ETi Honda EK- EG Titanium Strut Bar",
-          "raw_count": 2,
-          "edited_count": 2,
-          "status": "edited",
-          "upload_date": "2026-06-02"
-        },
-        {
-          "path": "Miscellaneous/Exterior/ETi Honda FK Carbon Fiber X Clear Hybrid V3 Hood",
-          "raw_count": 3,
-          "edited_count": 3,
-          "status": "edited",
-          "upload_date": "2026-06-03"
-        },
-        {
-          "path": "Miscellaneous/Exterior/Honda EG Mod X Hybrid Style Carbon Fiber Hood",
-          "raw_count": 3,
-          "edited_count": 3,
-          "status": "edited",
-          "upload_date": "2026-06-03"
-        },
-        {
-          "path": "Miscellaneous/Exterior/Honda FC-FK V Shape Vented Style Hood",
-          "raw_count": 3,
-          "edited_count": 3,
-          "status": "edited",
-          "upload_date": "2026-06-03"
-        },
-        {
-          "path": "Miscellaneous/Exterior/Honda FK Jet V1 Style Hood",
-          "raw_count": 3,
-          "edited_count": 3,
-          "status": "edited",
-          "upload_date": "2026-06-03"
-        },
-        {
-          "path": "Miscellaneous/Exterior/Honda FK Type R Vented Style Hood",
-          "raw_count": 3,
-          "edited_count": 3,
-          "status": "edited",
-          "upload_date": "2026-06-03"
         },
         {
           "path": "Miscellaneous/Kits/Honda Integra Type R Style Body Kit",
@@ -1820,14 +1806,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Exterior/ETi Honda EK- EG Titanium Strut Bar",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Exterior/Honda Civic EG-EK Dry Carbon Wiol Cowl Cover",
+          "path": "Civic EG_EK/Exterior/ETi Honda Civic EG-EK Dry Carbon Wiper Cowl Cover",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
@@ -1849,34 +1828,6 @@
         },
         {
           "path": "Civic FC_FK/Exterior/ETi Honda Civic 2012 FC-FK OEM Carbon Fiber Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Exterior/ETi Honda FK Carbon Fiber X Clear Hybrid V3 Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Exterior/Honda FC-FK V Shape Vented Style Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Exterior/Honda FK Jet V1 Style Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Exterior/Honda FK Type R Vented Style Hood",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
@@ -2170,14 +2121,14 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Other Civics/Kits/HONDA CIVIC EF ETi Body Kit",
+          "path": "Other Civics/Kits/ETi Honda Dimension Carbon Fiber Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A"
         },
         {
-          "path": "Other Civics/Kits/HONDA Dimention carbon Body Kit",
+          "path": "Other Civics/Kits/HONDA CIVIC EF ETi Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
@@ -2352,14 +2303,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Civic EG_EK/Exterior/ETi Honda EK- EG Titanium Strut Bar",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic EG_EK/Exterior/Honda Civic EG-EK Dry Carbon Wiol Cowl Cover",
+          "path": "Civic EG_EK/Exterior/ETi Honda Civic EG-EK Dry Carbon Wiper Cowl Cover",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -2381,34 +2325,6 @@
         },
         {
           "path": "Civic FC_FK/Exterior/ETi Honda Civic 2012 FC-FK OEM Carbon Fiber Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Exterior/ETi Honda FK Carbon Fiber X Clear Hybrid V3 Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Exterior/Honda FC-FK V Shape Vented Style Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Exterior/Honda FK Jet V1 Style Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "Civic FC_FK/Exterior/Honda FK Type R Vented Style Hood",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -2702,14 +2618,14 @@
           "upload_date": "N/A"
         },
         {
-          "path": "Other Civics/Kits/HONDA CIVIC EF ETi Body Kit",
+          "path": "Other Civics/Kits/ETi Honda Dimension Carbon Fiber Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
           "upload_date": "N/A"
         },
         {
-          "path": "Other Civics/Kits/HONDA Dimention carbon Body Kit",
+          "path": "Other Civics/Kits/HONDA CIVIC EF ETi Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -2754,12 +2670,12 @@
     },
     {
       "make": "Mazda",
-      "total_folders": 99,
+      "total_folders": 95,
       "raw_images": 726,
       "edited_images": 688,
       "folders_with_edited": 84,
       "folders_with_only_raw": 0,
-      "folders_empty": 15,
+      "folders_empty": 11,
       "folders": [
         {
           "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) 99 Spec Wing Ends",
@@ -2839,13 +2755,6 @@
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) FEED-Style Front Fenders",
-          "raw_count": 8,
-          "edited_count": 8,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
           "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Front Lip",
           "raw_count": 5,
           "edited_count": 4,
@@ -2853,23 +2762,9 @@
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Mazdaspeed Rear Wing",
-          "raw_count": 9,
-          "edited_count": 9,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
           "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Mazdaspeed Style Front Diffuser",
           "raw_count": 4,
           "edited_count": 4,
-          "status": "edited",
-          "upload_date": "2026-06-08"
-        },
-        {
-          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Mod-X Vented Carbon Hood",
-          "raw_count": 5,
-          "edited_count": 5,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
@@ -2888,11 +2783,18 @@
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi Mazda RX7 Full Vacuum Carbon GT Wing",
+          "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 Full Vacuum Carbon GT Wing",
           "raw_count": 11,
           "edited_count": 11,
           "status": "edited",
           "upload_date": "2026-06-08"
+        },
+        {
+          "path": "RX7_FD3S/Exterior/ETi RX-7 Suzuka Style Carbon Hood",
+          "raw_count": 14,
+          "edited_count": 14,
+          "status": "edited",
+          "upload_date": "2026-05-02"
         },
         {
           "path": "RX7_FD3S/Exterior/ETi RX-7 Titanium Key",
@@ -2909,16 +2811,16 @@
           "upload_date": "2026-05-04"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi RX7 Suzuka Style Carbon Hood",
-          "raw_count": 14,
-          "edited_count": 14,
-          "status": "edited",
-          "upload_date": "2026-05-02"
-        },
-        {
           "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) 99+ Elite Style Front Bumper",
           "raw_count": 5,
           "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-06-08"
+        },
+        {
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) FEED Style Front Fenders",
+          "raw_count": 8,
+          "edited_count": 8,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
@@ -2930,9 +2832,23 @@
           "upload_date": "2026-05-04"
         },
         {
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) Mazdaspeed Rear Wing",
+          "raw_count": 9,
+          "edited_count": 9,
+          "status": "edited",
+          "upload_date": "2026-06-08"
+        },
+        {
           "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) Mazdaspeed Style Carbon Fiber Hood",
           "raw_count": 8,
           "edited_count": 15,
+          "status": "edited",
+          "upload_date": "2026-06-08"
+        },
+        {
+          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) Mod-X Vented Carbon Hood",
+          "raw_count": 5,
+          "edited_count": 5,
           "status": "edited",
           "upload_date": "2026-06-08"
         },
@@ -2993,7 +2909,7 @@
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Interior/ETi Mazda RX-7 (FD3S) Carbon Fiber Door Cards",
+          "path": "RX7_FD3S/Interior/ETi Mazda RX-7 (FD3S) Carbon Fiber Door Cards (RHD)",
           "raw_count": 9,
           "edited_count": 5,
           "status": "edited",
@@ -3014,7 +2930,7 @@
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Interior/ETi Mazda RX-7 (FD3S) Carbon Fiber Race Dash (RHD)",
+          "path": "RX7_FD3S/Interior/ETi Mazda RX-7 (FD3S) Carbon Fiber Race Dash",
           "raw_count": 11,
           "edited_count": 11,
           "status": "edited",
@@ -3028,7 +2944,7 @@
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Interior/ETi Mazda RX-7 (FD3S) Carbon Fiber Rear Strut Bar Cover (could also be chassisinterior)",
+          "path": "RX7_FD3S/Interior/ETi Mazda RX-7 (FD3S) Carbon Fiber Rear Strut Bar Cover",
           "raw_count": 2,
           "edited_count": 2,
           "status": "edited",
@@ -3350,13 +3266,6 @@
           "upload_date": "2026-06-08"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 ETi Carbon Fiber Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
           "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Front Carbon Fiber Doors",
           "raw_count": 0,
           "edited_count": 0,
@@ -3378,28 +3287,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) Clear Carbon Fiber OEM-Style Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
           "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) OEM Style Carbon Fiber Trunk",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "RX7_FD3S/Interior/ETi Mazda RX-7 FD3S Carbon Fiber Race Dash  (duplicate entry  same as above)",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "RX7_FD3S/Interior/RX7 FD3S Interior Carbon Trim Set",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
@@ -3455,13 +3343,6 @@
           "upload_date": "N/A"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi MAZDA RX7 ETi Carbon Fiber Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
           "path": "RX7_FD3S/Exterior/ETi Mazda RX-7 (FD3S) Front Carbon Fiber Doors",
           "raw_count": 0,
           "edited_count": 0,
@@ -3483,28 +3364,7 @@
           "upload_date": "N/A"
         },
         {
-          "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) Clear Carbon Fiber OEM-Style Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
           "path": "RX7_FD3S/Exterior/Mazda RX-7 (FD3S) OEM Style Carbon Fiber Trunk",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "RX7_FD3S/Interior/ETi Mazda RX-7 FD3S Carbon Fiber Race Dash  (duplicate entry  same as above)",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A"
-        },
-        {
-          "path": "RX7_FD3S/Interior/RX7 FD3S Interior Carbon Trim Set",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -11128,12 +10988,12 @@
     }
   ],
   "totals": {
-    "total_folders": 1131,
-    "folders_with_edited": 679,
+    "total_folders": 1120,
+    "folders_with_edited": 677,
     "folders_with_only_raw": 6,
-    "folders_empty": 446,
-    "total_edited_images": 4673,
-    "total_raw_images": 5018,
-    "completion_percentage": 60.0
+    "folders_empty": 437,
+    "total_edited_images": 4667,
+    "total_raw_images": 4998,
+    "completion_percentage": 60.4
   }
 }
