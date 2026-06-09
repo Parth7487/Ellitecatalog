@@ -219,9 +219,28 @@ function renderFolderTable() {
             ? `<span class="text-zinc-300 font-semibold">${f.upload_date}</span>`
             : '<span class="text-zinc-600 italic">—</span>';
             
+        let linksHtml = `<div class="flex items-center justify-center gap-3">`;
+        if (f.drive_url) {
+            linksHtml += `<a href="${f.drive_url}" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors" title="Open Google Drive Folder">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M7.71,3.5L1.15,15L4.58,21L11.13,9.5M9.73,15L6.3,21H19.42L22.85,15M22.28,14L15.72,2.5H8.85L15.41,14H22.28Z" /></svg>
+            </a>`;
+        } else {
+            linksHtml += `<span class="text-zinc-800" title="No Drive Link"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M7.71,3.5L1.15,15L4.58,21L11.13,9.5M9.73,15L6.3,21H19.42L22.85,15M22.28,14L15.72,2.5H8.85L15.41,14H22.28Z" /></svg></span>`;
+        }
+        
+        if (f.shopify_url) {
+            linksHtml += `<a href="${f.shopify_url}" target="_blank" class="text-brand-lime hover:text-white transition-colors" title="Open Live Shopify Product">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12,18H6V14H12M21,14V12L20,7H4L3,12V14H4V20H14V14H18V20H20V14M20,4H4V6H20V4Z" /></svg>
+            </a>`;
+        } else {
+             linksHtml += `<span class="text-zinc-800" title="No Shopify Link"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12,18H6V14H12M21,14V12L20,7H4L3,12V14H4V20H14V14H18V20H20V14M20,4H4V6H20V4Z" /></svg></span>`;
+        }
+        linksHtml += `</div>`;
+            
         return `
             <tr class="${rowClass}">
                 <td class="p-3 text-xs font-semibold text-zinc-300 select-all leading-relaxed">${f.displayPath}</td>
+                <td class="p-3 text-center border-x border-zinc-800/30">${linksHtml}</td>
                 <td class="p-3 text-center">${statusBadge}</td>
                 <td class="p-3 text-center text-xs font-bold ${f.raw_count > 0 ? 'text-white' : 'text-zinc-600'}">${f.raw_count}</td>
                 <td class="p-3 text-center text-xs font-bold ${f.edited_count > 0 ? 'text-brand-lime' : 'text-zinc-600'}">${f.edited_count}</td>
