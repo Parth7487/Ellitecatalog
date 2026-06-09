@@ -66,7 +66,7 @@ def parse_report(filepath, make_name):
                 })
                 
     # Section 2: Folders with Only Raw Images
-    raw_section = re.search(r"## 🔴 2\. Folders with Only Raw Images.*?\n(.*?)(?=\n## ⚪|\Z)", content, re.DOTALL | re.IGNORECASE)
+    raw_section = re.search(r"## 🔴 2\. Folders with Only Raw Images.*?\n(.*?)(?=\n## [⚪🟡]|\Z)", content, re.DOTALL | re.IGNORECASE)
     if raw_section:
         table_text = raw_section.group(1)
         for line in table_text.splitlines():
