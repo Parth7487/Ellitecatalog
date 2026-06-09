@@ -2,12 +2,12 @@
   "brands": [
     {
       "make": "BMW",
-      "total_folders": 70,
-      "raw_images": 64,
-      "edited_images": 64,
-      "folders_with_edited": 12,
+      "total_folders": 73,
+      "raw_images": 74,
+      "edited_images": 74,
+      "folders_with_edited": 13,
       "folders_with_only_raw": 0,
-      "folders_empty": 58,
+      "folders_empty": 60,
       "folders": [
         {
           "path": "E90/Kits/BMW E90 M3 Body Kit",
@@ -53,6 +53,15 @@
           "upload_date": "2026-06-08",
           "drive_url": "https://drive.google.com/drive/folders/1pjYRzzhGRqtL7EX6XiUbA5nyLQi6cNjT",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-bmw-f10-g30-duckbill-trunk-spoiler"
+        },
+        {
+          "path": "F10/Kits/BMW F10 Eti M-sport (original) Body Kit",
+          "raw_count": 10,
+          "edited_count": 10,
+          "status": "edited",
+          "upload_date": "2026-05-28",
+          "drive_url": "https://drive.google.com/drive/folders/11k-nZ4Pzzna2jpdhp1FTJ4NSJEcHmlIu",
+          "shopify_url": "https://myeliteti.myshopify.com/products/bmw-f10-eti-m-sport-original-body-kit"
         },
         {
           "path": "M2/Exterior/BMW M2 Dry Carbon Roof",
@@ -478,13 +487,13 @@
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-bmw-e93-oem-hood"
         },
         {
-          "path": "F10/Kits",
+          "path": "F10/Kits/BMW F10 Conversion G30 Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1a64Sa1PBFh-JUlPvJb1vSiMYe5DGsRAj",
-          "shopify_url": "https://myeliteti.myshopify.com/products/bmw-w-140-2door-fab-design-body-kit-4-pcs-body-kit"
+          "drive_url": "https://drive.google.com/drive/folders/18nDMoBMXdX0itIcQc0aU0Aqj-C08jsa-",
+          "shopify_url": "https://myeliteti.myshopify.com/products/bmw-f10-conversion-g30-body-kit"
         },
         {
           "path": "F30/Exterior/ETi BMW F30 M3 Carbon Fiber Roof",
@@ -559,22 +568,40 @@
           "shopify_url": "https://myeliteti.myshopify.com/products/bmw-bmw-i8-vorstainer-body-kit"
         },
         {
-          "path": "M4/Exterior",
+          "path": "M4/Exterior/ETi BMW F32 M4 Original Carbon Fiber Roof",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1sX31alJdxR4ZQX5sNm635RVI4ZKXs57C",
-          "shopify_url": "https://myeliteti.myshopify.com/products/bmw-wide-body-body-kit"
+          "drive_url": "https://drive.google.com/drive/folders/14SJ1CfiMXl7v9x2YHcXMwctDSXKTvApe",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-bmw-f32-m4-original-roof"
         },
         {
-          "path": "M4/Kits",
+          "path": "M4/Kits/BMW M4 GTS Standard Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1xCPBLcC4rMrrSvBQuJVFXVLTXMa_U92I",
-          "shopify_url": "https://myeliteti.myshopify.com/products/bmw-w-140-2door-fab-design-body-kit-4-pcs-body-kit"
+          "drive_url": "https://drive.google.com/drive/folders/1Uubqds-ippeh0xTt2kItxzek3On-lWmY",
+          "shopify_url": "https://myeliteti.myshopify.com/products/bmw-m4-gts-standard-body-kit"
+        },
+        {
+          "path": "M4/Kits/BMW M4 Original Factory Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A",
+          "drive_url": "https://drive.google.com/drive/folders/1EVGfELNRK-lYve5X13BPzLvVQ48McRQZ",
+          "shopify_url": "https://myeliteti.myshopify.com/products/bmw-m4-original-factory-body-kit"
+        },
+        {
+          "path": "M4/Kits/BMW M4 Vorsteiner Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A",
+          "drive_url": "https://drive.google.com/drive/folders/18Y5gYSBMxghJa9NwnlDD0R1qp66cZt1z",
+          "shopify_url": "https://myeliteti.myshopify.com/products/bmw-m4-vorsteinner-body-kit"
         },
         {
           "path": "M6 - F06-F12-F13/Exterior/ETi BMW F12 Series6 Convertible (Carbon) Carbon Fiber Roof",
@@ -1000,13 +1027,13 @@
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-bmw-e93-oem-hood"
         },
         {
-          "path": "F10/Kits",
+          "path": "F10/Kits/BMW F10 Conversion G30 Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
           "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1a64Sa1PBFh-JUlPvJb1vSiMYe5DGsRAj",
-          "shopify_url": "https://myeliteti.myshopify.com/products/bmw-w-140-2door-fab-design-body-kit-4-pcs-body-kit"
+          "drive_url": "https://drive.google.com/drive/folders/18nDMoBMXdX0itIcQc0aU0Aqj-C08jsa-",
+          "shopify_url": "https://myeliteti.myshopify.com/products/bmw-f10-conversion-g30-body-kit"
         },
         {
           "path": "F30/Exterior/ETi BMW F30 M3 Carbon Fiber Roof",
@@ -1081,22 +1108,40 @@
           "shopify_url": "https://myeliteti.myshopify.com/products/bmw-bmw-i8-vorstainer-body-kit"
         },
         {
-          "path": "M4/Exterior",
+          "path": "M4/Exterior/ETi BMW F32 M4 Original Carbon Fiber Roof",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
           "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1sX31alJdxR4ZQX5sNm635RVI4ZKXs57C",
-          "shopify_url": "https://myeliteti.myshopify.com/products/bmw-wide-body-body-kit"
+          "drive_url": "https://drive.google.com/drive/folders/14SJ1CfiMXl7v9x2YHcXMwctDSXKTvApe",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-bmw-f32-m4-original-roof"
         },
         {
-          "path": "M4/Kits",
+          "path": "M4/Kits/BMW M4 GTS Standard Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
           "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1xCPBLcC4rMrrSvBQuJVFXVLTXMa_U92I",
-          "shopify_url": "https://myeliteti.myshopify.com/products/bmw-w-140-2door-fab-design-body-kit-4-pcs-body-kit"
+          "drive_url": "https://drive.google.com/drive/folders/1Uubqds-ippeh0xTt2kItxzek3On-lWmY",
+          "shopify_url": "https://myeliteti.myshopify.com/products/bmw-m4-gts-standard-body-kit"
+        },
+        {
+          "path": "M4/Kits/BMW M4 Original Factory Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "empty",
+          "upload_date": "N/A",
+          "drive_url": "https://drive.google.com/drive/folders/1EVGfELNRK-lYve5X13BPzLvVQ48McRQZ",
+          "shopify_url": "https://myeliteti.myshopify.com/products/bmw-m4-original-factory-body-kit"
+        },
+        {
+          "path": "M4/Kits/BMW M4 Vorsteiner Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "empty",
+          "upload_date": "N/A",
+          "drive_url": "https://drive.google.com/drive/folders/18Y5gYSBMxghJa9NwnlDD0R1qp66cZt1z",
+          "shopify_url": "https://myeliteti.myshopify.com/products/bmw-m4-vorsteinner-body-kit"
         },
         {
           "path": "M6 - F06-F12-F13/Exterior/ETi BMW F12 Series6 Convertible (Carbon) Carbon Fiber Roof",
@@ -4045,13 +4090,13 @@
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-rx-7-13b-turbo-manifold"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi RX-7 Titanium Key (FB FC FD)/ FC / FD)",
+          "path": "RX7_FD3S/Exterior/ETi RX-7 Titanium Key (FB FC FD)",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1pOVD7zawKkWYVclryGcjvWMW9QCl0Gkn",
-          "shopify_url": "https://myeliteti.myshopify.com/products/rx7-fd3s-interior-carbon-trim-set"
+          "drive_url": "https://drive.google.com/drive/folders/1hFba2UIDqEM9sImHWFc-UiVazxtPGE-9",
+          "shopify_url": "https://myeliteti.myshopify.com/products/rx7-eti-titanium-key"
         },
         {
           "path": "RX7_FD3S/Exterior/ETi RX7 Titanium Bolt Kit",
@@ -4153,13 +4198,13 @@
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-rx-7-13b-turbo-manifold"
         },
         {
-          "path": "RX7_FD3S/Exterior/ETi RX-7 Titanium Key (FB FC FD)/ FC / FD)",
+          "path": "RX7_FD3S/Exterior/ETi RX-7 Titanium Key (FB FC FD)",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
           "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1pOVD7zawKkWYVclryGcjvWMW9QCl0Gkn",
-          "shopify_url": "https://myeliteti.myshopify.com/products/rx7-fd3s-interior-carbon-trim-set"
+          "drive_url": "https://drive.google.com/drive/folders/1hFba2UIDqEM9sImHWFc-UiVazxtPGE-9",
+          "shopify_url": "https://myeliteti.myshopify.com/products/rx7-eti-titanium-key"
         },
         {
           "path": "RX7_FD3S/Exterior/ETi RX7 Titanium Bolt Kit",
@@ -4465,12 +4510,12 @@
     },
     {
       "make": "Mitsubishi",
-      "total_folders": 81,
-      "raw_images": 327,
-      "edited_images": 279,
-      "folders_with_edited": 47,
+      "total_folders": 105,
+      "raw_images": 501,
+      "edited_images": 442,
+      "folders_with_edited": 69,
       "folders_with_only_raw": 0,
-      "folders_empty": 34,
+      "folders_empty": 36,
       "folders": [
         {
           "path": "Evo 7 8 9/Exterior/ETi Evo 8 9 Carbon Fiber Vented Headlight Air Duct LHD",
@@ -4886,13 +4931,211 @@
           "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-evo9-voltex-for-street-body-kit"
         },
         {
-          "path": "Evo X",
-          "raw_count": 0,
+          "path": "Evo X/Exterior/ETi MITSUBISHI EVO10 CHARGE SPEED Carbon Fiber Hood",
+          "raw_count": 6,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-05-16",
+          "drive_url": "https://drive.google.com/drive/folders/1J0n-qmqmtRcsW7uuYBUXCjseMjEbLMU-",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-evo10-charge-speed-carbon-fiber-hood"
+        },
+        {
+          "path": "Evo X/Exterior/ETi Mitsubishi EVO 6 Front Carbon Fiber Doors",
+          "raw_count": 8,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-05-16",
+          "drive_url": "https://drive.google.com/drive/folders/1ecnF3awT-sjoKVxsBZaYhAgMKOJcVkG_",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-mitsu-evo6-front-doors"
+        },
+        {
+          "path": "Evo X/Exterior/ETi Mitsubishi EVO 7 Carbon Fiber Trunk",
+          "raw_count": 5,
+          "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/1rMWYhTsaGmJ4RGAMcB-sTmaFIEr_p8Y6",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-mitsu-evo7-evo7-trunk"
+        },
+        {
+          "path": "Evo X/Exterior/ETi Mitsubishi EVO X Carbon Fiber Hood",
+          "raw_count": 5,
+          "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-05-16",
+          "drive_url": "https://drive.google.com/drive/folders/1fFzRuFJOw4hZ4FpciLG8sWd0HCrzvxo7",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-evo10-evo10-hood"
+        },
+        {
+          "path": "Evo X/Exterior/ETi Mitsubishi EVO X Carbon Fiber Roof",
+          "raw_count": 3,
+          "edited_count": 2,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/1rlfhJ80xw9wPU8vjKr_CrtTwnmxqdRly",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-evo10-roof"
+        },
+        {
+          "path": "Evo X/Exterior/ETi Mitsubishi EVO X Carbon Fiber Trunk",
+          "raw_count": 7,
+          "edited_count": 7,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/1ra_9cfZhPlmEKefaQDrG46gDrtkpSXa0",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-evo10-evo10-trunk"
+        },
+        {
+          "path": "Evo X/Exterior/ETi Mitsubishi EVO X Charge Speed Carbon Fiber Hood",
+          "raw_count": 7,
+          "edited_count": 7,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/1VVQ1-05IT3WPVjMHf2Hi-NOXIyLf760y",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-evo10-chard-speed-hood"
+        },
+        {
+          "path": "Evo X/Exterior/ETi Mitsubishi EVO X OEM Carbon Fiber Spoiler",
+          "raw_count": 4,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-05-16",
+          "drive_url": "https://drive.google.com/drive/folders/1v5_Yqhnm7LVRLUo77Ad1onLiuiyN639H",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-evo10-oem-spoiler"
+        },
+        {
+          "path": "Evo X/Exterior/ETi Mitsubishi EVO X Rear Carbon Fiber Doors",
+          "raw_count": 8,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-05-16",
+          "drive_url": "https://drive.google.com/drive/folders/1h14eXcv0h5GsfAj5QmjmoZsA7qqteB-8",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-mitsu-evo10-rear-doors"
+        },
+        {
+          "path": "Evo X/Exterior/ETi Mitsubishi EVO X Varis Carbon Fiber Spoiler",
+          "raw_count": 4,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-05-16",
+          "drive_url": "https://drive.google.com/drive/folders/1azhtFwSbqwkPWnqhfhFLWpcx7g-yvyou",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-evo10-varis-spoiler"
+        },
+        {
+          "path": "Evo X/Exterior/ETi Mitsubishi GTO 99 ETi Carbon Fiber Hood",
+          "raw_count": 6,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/1jR0sB406RYBhaPisOS3jCu5H9UPTDZ9G",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-gto-99-eti-hood"
+        },
+        {
+          "path": "Evo X/Exterior/ETi Mitsubishi GTO Carbon Fiber Roof",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/15Gx8yyQY475fb0QhQAqSYth-CBOyFF9y",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-gto-roof"
+        },
+        {
+          "path": "Evo X/Exterior/ETi Mitsubishi Space Wagon ETi Carbon Fiber Spoiler",
+          "raw_count": 5,
+          "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/10XBIllrrdRZqtPGUGb-lwMEuIiNey9Vi",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-spacewagon-eti-spoiler"
+        },
+        {
+          "path": "Evo X/Exterior/Mitsubishi Lancer Evolution X Carbon Fiber Front Bumper Splitter",
+          "raw_count": 5,
+          "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/1zAwYKa-bHKXOu7j6MlcBi53HRsPNZJyT",
+          "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-lancer-evolution-x-carbon-fiber-front-bumper-splitter"
+        },
+        {
+          "path": "Evo X/Exterior/Mitsubishi Lancer Evolution X Carbon Fiber Front Fender Flare",
+          "raw_count": 6,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/1Egu9quvHgFyE3zELttKPKotnQTft_Ba2",
+          "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-lancer-evolution-x-frp-front-fender-flare"
+        },
+        {
+          "path": "Evo X/Kits/Mitsubishi EVO X Charge Speed Body Kit",
+          "raw_count": 11,
+          "edited_count": 11,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/1qzCP2admrr3wMueu2isPG7G3hQPxGONm",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-evo10-chard-speed-hood"
+        },
+        {
+          "path": "Evo X/Kits/Mitsubishi EVO X Ralliart Body Kit",
+          "raw_count": 13,
+          "edited_count": 12,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/1gPgEJqwUJFh-5C1QzCsp9mI2zbd3moKG",
+          "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-evo10-ralliart-body-kit"
+        },
+        {
+          "path": "Evo X/Kits/Mitsubishi EVO X Standard Body Kit",
+          "raw_count": 5,
+          "edited_count": 5,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/1UrguzAU7Qr-1Ul_T7XhcQ4iU3MnicEUj",
+          "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-evo10-standard-body-kit"
+        },
+        {
+          "path": "Evo X/Kits/Mitsubishi EVO X Varis (Carbon) Body Kit",
+          "raw_count": 10,
+          "edited_count": 10,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/1M15246OuYTAOtrQlQxFix8Oq1CSw9xkB",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-evo10-varis-spoiler"
+        },
+        {
+          "path": "Evo X/Kits/Mitsubishi EVO X Varis ABS Body Kit",
+          "raw_count": 9,
           "edited_count": 9,
           "status": "edited",
           "upload_date": "2026-05-15",
-          "drive_url": "https://drive.google.com/drive/folders/1ArEN5rVvBDiBk5m918FKiHJv0vkn1dAi",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-evo10-evo10-hood"
+          "drive_url": "https://drive.google.com/drive/folders/1ZdQDdhxDIHNLFHjPxxJja6W6gnhxmRGH",
+          "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-evo10-varis-abs-body-kit"
+        },
+        {
+          "path": "Evo X/Kits/Mitsubishi EVO X Voltex Body Kit",
+          "raw_count": 6,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/1-7tC5ygiUaPUFpSRICfwU31XsMnJ7oS-",
+          "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-evo10-voltex-body-kit"
+        },
+        {
+          "path": "Evo X/Kits/Mitsubishi Lancer EVO X (EX-Body Conversion) V2 Body Kit",
+          "raw_count": 22,
+          "edited_count": 22,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/1l7LujSTeQLkU-MMXb_Xm2Cqnoj980pUV",
+          "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-lancer-ex-evo10-ex-ver2-body-kit"
+        },
+        {
+          "path": "Evo X/Kits/Mitsubishi Lancer EVO X Varis Body Kit",
+          "raw_count": 16,
+          "edited_count": 16,
+          "status": "edited",
+          "upload_date": "2026-05-15",
+          "drive_url": "https://drive.google.com/drive/folders/1nX24wnwPCkISdmeC1bU1ruqLLDwbB1iK",
+          "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-evo10-varis-carbon-body-kit"
         },
         {
           "path": "Attack/Exterior/ETi Mitsubishi Attack OEM Carbon Fiber Hood",
@@ -5019,6 +5262,24 @@
           "upload_date": "N/A",
           "drive_url": "https://drive.google.com/drive/folders/1Lmh5Takx6vUtiuIzdKkixWA3qG3g-j7R",
           "shopify_url": "https://myeliteti.myshopify.com/products/evo-voltex-time-attack-kit"
+        },
+        {
+          "path": "Evo X/Kits/Mitsubishi Lancer EVO X Step 1 Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A",
+          "drive_url": "https://drive.google.com/drive/folders/1q6V1CTiga7If7yYOqHdJSVHgKTVuVrLO",
+          "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-lancer-ex-step1-evo10-body-kit"
+        },
+        {
+          "path": "Evo X/Kits/Mitsubishi Lancer EVO X Step 2 Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A",
+          "drive_url": "https://drive.google.com/drive/folders/1jUNRkcpVu5YSZldPWtjmbLdZFgYR0ikv",
+          "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-lancer-ex-step2-evo10-body-kit"
         },
         {
           "path": "FTO/Kits/MITSUBISHI FTO Bozz Speed Body Kit",
@@ -5325,6 +5586,24 @@
           "upload_date": "N/A",
           "drive_url": "https://drive.google.com/drive/folders/1Lmh5Takx6vUtiuIzdKkixWA3qG3g-j7R",
           "shopify_url": "https://myeliteti.myshopify.com/products/evo-voltex-time-attack-kit"
+        },
+        {
+          "path": "Evo X/Kits/Mitsubishi Lancer EVO X Step 1 Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "empty",
+          "upload_date": "N/A",
+          "drive_url": "https://drive.google.com/drive/folders/1q6V1CTiga7If7yYOqHdJSVHgKTVuVrLO",
+          "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-lancer-ex-step1-evo10-body-kit"
+        },
+        {
+          "path": "Evo X/Kits/Mitsubishi Lancer EVO X Step 2 Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "empty",
+          "upload_date": "N/A",
+          "drive_url": "https://drive.google.com/drive/folders/1jUNRkcpVu5YSZldPWtjmbLdZFgYR0ikv",
+          "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-lancer-ex-step2-evo10-body-kit"
         },
         {
           "path": "FTO/Kits/MITSUBISHI FTO Bozz Speed Body Kit",
@@ -5510,12 +5789,12 @@
     },
     {
       "make": "Nissan",
-      "total_folders": 388,
+      "total_folders": 387,
       "raw_images": 2039,
       "edited_images": 1960,
       "folders_with_edited": 303,
       "folders_with_only_raw": 2,
-      "folders_empty": 83,
+      "folders_empty": 82,
       "folders": [
         {
           "path": "300ZX/Kits/Nissan 300ZX Trust Style Body Kit",
@@ -8932,15 +9211,6 @@
           "shopify_url": "https://myeliteti.myshopify.com/products/nissan-200-sx-widebody-body-kit"
         },
         {
-          "path": "S13_180SX_200SX/Interior",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1EpZWJoNhPxaf6HB7z0cclOD-6KRyiw_z",
-          "shopify_url": "https://myeliteti.myshopify.com/products/r35-gtr-gtr35-gt-r-cba-dba-gear-surround-trim-interior"
-        },
-        {
           "path": "S13_180SX_200SX/Kits/ETi Nissan 200SX Widebody Kit",
           "raw_count": 0,
           "edited_count": 0,
@@ -9679,15 +9949,6 @@
           "shopify_url": "https://myeliteti.myshopify.com/products/nissan-200-sx-widebody-body-kit"
         },
         {
-          "path": "S13_180SX_200SX/Interior",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1EpZWJoNhPxaf6HB7z0cclOD-6KRyiw_z",
-          "shopify_url": "https://myeliteti.myshopify.com/products/r35-gtr-gtr35-gt-r-cba-dba-gear-surround-trim-interior"
-        },
-        {
           "path": "S13_180SX_200SX/Kits/ETi Nissan 200SX Widebody Kit",
           "raw_count": 0,
           "edited_count": 0,
@@ -9754,12 +10015,12 @@
     },
     {
       "make": "Porsche",
-      "total_folders": 44,
+      "total_folders": 38,
       "raw_images": 142,
       "edited_images": 129,
       "folders_with_edited": 13,
       "folders_with_only_raw": 0,
-      "folders_empty": 31,
+      "folders_empty": 25,
       "folders": [
         {
           "path": "911/Kits/Porsche 911 GT3 Body Kit",
@@ -9951,14 +10212,6 @@
           "shopify_url": "https://myeliteti.myshopify.com/products/porsche-981-cayman-tech-art-body-kit"
         },
         {
-          "path": "986 987/Exterior",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1E1O3RAglgAIZt_TM--ip7Yc0NnZekJw9"
-        },
-        {
           "path": "986 987/Kits/PORSCHE 986   987 Cayman Full Kit Only Body Kit",
           "raw_count": 0,
           "edited_count": 0,
@@ -10022,14 +10275,6 @@
           "shopify_url": "https://myeliteti.myshopify.com/products/porsche-eti-gt1-29-900-body-kit"
         },
         {
-          "path": "991/Exterior",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/13vR7QVnaDmQqBQuDSlb_T46xhgj1AsHG"
-        },
-        {
           "path": "991/Kits/PORSCHE 9912 Carrera 2017 GT3 RS ETi Body Kit",
           "raw_count": 0,
           "edited_count": 0,
@@ -10064,42 +10309,6 @@
           "upload_date": "N/A",
           "drive_url": "https://drive.google.com/drive/folders/1qmkjMOr4tqRkNR9O_FNJNZ1CTZYHT1nV",
           "shopify_url": "https://myeliteti.myshopify.com/products/porsche-cayanne-fairy-design-body-kit"
-        },
-        {
-          "path": "ETi Porsche Cayman 987 TechArt Widebody Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1WoAl8Jpamrtd9l__NwC12xRJFqbwvVnz",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-porsche-cayman-987-techart-widebody-kit"
-        },
-        {
-          "path": "Porsche 981 Boxster GT4 Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1OVVTbsoZEryF4yNQaVFRHJMaor8VT9Y0",
-          "shopify_url": "https://myeliteti.myshopify.com/products/porsche-981-boxster-gt4-body-kit"
-        },
-        {
-          "path": "Porsche 986 987 Cayman TechArt Wide Body Sold As Kit Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1UhKfgqZerxxYLr4mDoVsKHCT9HMatFMP",
-          "shopify_url": "https://myeliteti.myshopify.com/products/porsche-986-987-cayman-techart-wide-body-body-kit"
-        },
-        {
-          "path": "Porsche ETi GT1 Wide Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1p1hFn7B8bcq58xjIMrbjWtB83DZSILNz",
-          "shopify_url": "https://myeliteti.myshopify.com/products/porsche-eti-gt1-29-900-body-kit"
         },
         {
           "path": "Taycan/Kits/PORSCHE Taycan Factory Body Kit",
@@ -10228,14 +10437,6 @@
           "shopify_url": "https://myeliteti.myshopify.com/products/porsche-981-cayman-tech-art-body-kit"
         },
         {
-          "path": "986 987/Exterior",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1E1O3RAglgAIZt_TM--ip7Yc0NnZekJw9"
-        },
-        {
           "path": "986 987/Kits/PORSCHE 986   987 Cayman Full Kit Only Body Kit",
           "raw_count": 0,
           "edited_count": 0,
@@ -10299,14 +10500,6 @@
           "shopify_url": "https://myeliteti.myshopify.com/products/porsche-eti-gt1-29-900-body-kit"
         },
         {
-          "path": "991/Exterior",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/13vR7QVnaDmQqBQuDSlb_T46xhgj1AsHG"
-        },
-        {
           "path": "991/Kits/PORSCHE 9912 Carrera 2017 GT3 RS ETi Body Kit",
           "raw_count": 0,
           "edited_count": 0,
@@ -10341,42 +10534,6 @@
           "upload_date": "N/A",
           "drive_url": "https://drive.google.com/drive/folders/1qmkjMOr4tqRkNR9O_FNJNZ1CTZYHT1nV",
           "shopify_url": "https://myeliteti.myshopify.com/products/porsche-cayanne-fairy-design-body-kit"
-        },
-        {
-          "path": "ETi Porsche Cayman 987 TechArt Widebody Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1WoAl8Jpamrtd9l__NwC12xRJFqbwvVnz",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-porsche-cayman-987-techart-widebody-kit"
-        },
-        {
-          "path": "Porsche 981 Boxster GT4 Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1OVVTbsoZEryF4yNQaVFRHJMaor8VT9Y0",
-          "shopify_url": "https://myeliteti.myshopify.com/products/porsche-981-boxster-gt4-body-kit"
-        },
-        {
-          "path": "Porsche 986 987 Cayman TechArt Wide Body Sold As Kit Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1UhKfgqZerxxYLr4mDoVsKHCT9HMatFMP",
-          "shopify_url": "https://myeliteti.myshopify.com/products/porsche-986-987-cayman-techart-wide-body-body-kit"
-        },
-        {
-          "path": "Porsche ETi GT1 Wide Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1p1hFn7B8bcq58xjIMrbjWtB83DZSILNz",
-          "shopify_url": "https://myeliteti.myshopify.com/products/porsche-eti-gt1-29-900-body-kit"
         },
         {
           "path": "Taycan/Kits/PORSCHE Taycan Factory Body Kit",
@@ -10436,12 +10593,12 @@
     },
     {
       "make": "Toyota",
-      "total_folders": 260,
+      "total_folders": 252,
       "raw_images": 1265,
       "edited_images": 912,
       "folders_with_edited": 111,
       "folders_with_only_raw": 2,
-      "folders_empty": 147,
+      "folders_empty": 139,
       "folders": [
         {
           "path": "Altezza/Kits/Toyota Altezza C-West Body Kit",
@@ -11921,85 +12078,21 @@
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-land-cruiser-eti-hood"
         },
         {
-          "path": "Lexus/Lexus/Exterior/ETi LEXUS ARISTO GS300 Carbon Fiber Roof",
+          "path": "Lexus/Lexus/Exterior",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1ZQzrl237xXPF_nt9drJxoyd4NG_AgpJs",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-lexus-aristo-gs300-roof"
+          "drive_url": "https://drive.google.com/drive/folders/1wakoty9YeipJrpIkYp--XrKtl7hnwLGr"
         },
         {
-          "path": "Lexus/Lexus/Exterior/ETi TOYOTA LEXUS Aristo OEM Carbon Fiber Trunk",
+          "path": "Lexus/Lexus/Kits",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
           "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/13MUIStQMPOsS16o_nA0zZkA0vkrpDoPL",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-lexus-aristo-oem-trunk"
-        },
-        {
-          "path": "Lexus/Lexus/Exterior/ETi TOYOTA LEXUS GS300 ETi Carbon Fiber Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1Hs9bUXOP2QTnD86pSYiiqjpGDLjaMO3i",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-gs300-eti-body-kit"
-        },
-        {
-          "path": "Lexus/Lexus/Exterior/ETi TOYOTA LEXUS GS300 OEM Carbon Fiber Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1e4MtCW5-57KGUMpx--JEMQjTHAoUvW1m",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-gs300-eti-body-kit"
-        },
-        {
-          "path": "Lexus/Lexus/Kits/TOYOTA LEXUS IS 250 BLITZ Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1Jr9o5mhhVmoNRWSf2CivASosVPtTfNA2",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-is-250-blitz-body-kit"
-        },
-        {
-          "path": "Lexus/Lexus/Kits/TOYOTA LEXUS LS 430 ETi Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1dojUpBGvZeokDFqbOZfXJ9VdYVag5PpW",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-ls-430-vertex-body-kit-5-pcs-body-kit"
-        },
-        {
-          "path": "Lexus/Lexus/Kits/TOYOTA LEXUS LS 430 VERTEX BODY KIT 5 pcs Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1Wvy4OWWHeFRhpszV8YxvXWWQ9X2gf_wH",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-ls-430-vertex-body-kit-5-pcs-body-kit"
-        },
-        {
-          "path": "Lexus/Lexus/Kits/Toyota Lexus IS 250 TOM'S Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1L9hYfP3uZ0mIgQuWdTvsZNr0QolOOWUO",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-is-250-tom-s-body-kit"
-        },
-        {
-          "path": "Lexus/Lexus/Kits/Toyota Lexus RX Branew Skirt Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1PlW0SaJnUC5n3CHgTrpJO7Tj8J-_6qHH",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-rx-branew-skirt-kit-8-pcs-body-kit"
+          "drive_url": "https://drive.google.com/drive/folders/1Q0N_x_BYOiCFMYvw0G41Sp6flSjkqSmI",
+          "shopify_url": "https://myeliteti.myshopify.com/products/rx7-titanium-oil-dipstick"
         },
         {
           "path": "MR2_SW20/Exterior/ETi TOYOTA MR2 Carbon Fiber Hood",
@@ -12216,15 +12309,6 @@
           "upload_date": "N/A",
           "drive_url": "https://drive.google.com/drive/folders/1zz3musqvLyb2AVqNQyzd3rwdHQx8Fn9c",
           "shopify_url": "https://myeliteti.myshopify.com/products/toyota-new-camry-factory-body-kit"
-        },
-        {
-          "path": "MRS/Toyota MRS Porsche Carrera GT Widebody Core Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1dtaCpHkeS2wea1s9DBvNksgxwhCWMkQ6",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-mrs-porsche-carrera-gt-wide-body-core-kit-body-kit"
         },
         {
           "path": "Majesty/Kits/TOYOTA Majesty OP Aimgen Body Kit",
@@ -13230,85 +13314,21 @@
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-land-cruiser-eti-hood"
         },
         {
-          "path": "Lexus/Lexus/Exterior/ETi LEXUS ARISTO GS300 Carbon Fiber Roof",
+          "path": "Lexus/Lexus/Exterior",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
           "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1ZQzrl237xXPF_nt9drJxoyd4NG_AgpJs",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-lexus-aristo-gs300-roof"
+          "drive_url": "https://drive.google.com/drive/folders/1wakoty9YeipJrpIkYp--XrKtl7hnwLGr"
         },
         {
-          "path": "Lexus/Lexus/Exterior/ETi TOYOTA LEXUS Aristo OEM Carbon Fiber Trunk",
+          "path": "Lexus/Lexus/Kits",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
           "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/13MUIStQMPOsS16o_nA0zZkA0vkrpDoPL",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-lexus-aristo-oem-trunk"
-        },
-        {
-          "path": "Lexus/Lexus/Exterior/ETi TOYOTA LEXUS GS300 ETi Carbon Fiber Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1Hs9bUXOP2QTnD86pSYiiqjpGDLjaMO3i",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-gs300-eti-body-kit"
-        },
-        {
-          "path": "Lexus/Lexus/Exterior/ETi TOYOTA LEXUS GS300 OEM Carbon Fiber Hood",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1e4MtCW5-57KGUMpx--JEMQjTHAoUvW1m",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-gs300-eti-body-kit"
-        },
-        {
-          "path": "Lexus/Lexus/Kits/TOYOTA LEXUS IS 250 BLITZ Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1Jr9o5mhhVmoNRWSf2CivASosVPtTfNA2",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-is-250-blitz-body-kit"
-        },
-        {
-          "path": "Lexus/Lexus/Kits/TOYOTA LEXUS LS 430 ETi Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1dojUpBGvZeokDFqbOZfXJ9VdYVag5PpW",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-ls-430-vertex-body-kit-5-pcs-body-kit"
-        },
-        {
-          "path": "Lexus/Lexus/Kits/TOYOTA LEXUS LS 430 VERTEX BODY KIT 5 pcs Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1Wvy4OWWHeFRhpszV8YxvXWWQ9X2gf_wH",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-ls-430-vertex-body-kit-5-pcs-body-kit"
-        },
-        {
-          "path": "Lexus/Lexus/Kits/Toyota Lexus IS 250 TOM'S Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1L9hYfP3uZ0mIgQuWdTvsZNr0QolOOWUO",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-is-250-tom-s-body-kit"
-        },
-        {
-          "path": "Lexus/Lexus/Kits/Toyota Lexus RX Branew Skirt Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1PlW0SaJnUC5n3CHgTrpJO7Tj8J-_6qHH",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-rx-branew-skirt-kit-8-pcs-body-kit"
+          "drive_url": "https://drive.google.com/drive/folders/1Q0N_x_BYOiCFMYvw0G41Sp6flSjkqSmI",
+          "shopify_url": "https://myeliteti.myshopify.com/products/rx7-titanium-oil-dipstick"
         },
         {
           "path": "MR2_SW20/Exterior/ETi TOYOTA MR2 Carbon Fiber Hood",
@@ -13525,15 +13545,6 @@
           "upload_date": "N/A",
           "drive_url": "https://drive.google.com/drive/folders/1zz3musqvLyb2AVqNQyzd3rwdHQx8Fn9c",
           "shopify_url": "https://myeliteti.myshopify.com/products/toyota-new-camry-factory-body-kit"
-        },
-        {
-          "path": "MRS/Toyota MRS Porsche Carrera GT Widebody Core Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1dtaCpHkeS2wea1s9DBvNksgxwhCWMkQ6",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-mrs-porsche-carrera-gt-wide-body-core-kit-body-kit"
         },
         {
           "path": "Majesty/Kits/TOYOTA Majesty OP Aimgen Body Kit",
@@ -14020,12 +14031,12 @@
     }
   ],
   "totals": {
-    "total_folders": 1111,
-    "folders_with_edited": 653,
+    "total_folders": 1123,
+    "folders_with_edited": 676,
     "folders_with_only_raw": 7,
-    "folders_empty": 451,
-    "total_edited_images": 4492,
-    "total_raw_images": 5031,
-    "completion_percentage": 58.8
+    "folders_empty": 440,
+    "total_edited_images": 4665,
+    "total_raw_images": 5215,
+    "completion_percentage": 60.2
   }
 }
