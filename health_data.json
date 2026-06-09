@@ -1070,12 +1070,12 @@
     },
     {
       "make": "Honda",
-      "total_folders": 156,
+      "total_folders": 162,
       "raw_images": 468,
-      "edited_images": 446,
-      "folders_with_edited": 82,
+      "edited_images": 460,
+      "folders_with_edited": 83,
       "folders_with_only_raw": 3,
-      "folders_empty": 71,
+      "folders_empty": 76,
       "folders": [
         {
           "path": "Accord/Exterior/Honda Accord 09 Top Secret Style Carbon Fiber Hood",
@@ -1325,6 +1325,13 @@
         {
           "path": "Civic EG_EK/Kits/ETi Honda Civic EG Dry Carbon Drag Racing Door",
           "raw_count": 14,
+          "edited_count": 14,
+          "status": "edited",
+          "upload_date": "2026-06-04"
+        },
+        {
+          "path": "Civic EG_EK/Kits/ETi Honda Civic EG Dry Carbon Fiber Drag Racing Body Kit",
+          "raw_count": 0,
           "edited_count": 14,
           "status": "edited",
           "upload_date": "2026-06-04"
@@ -1764,6 +1771,13 @@
           "upload_date": "N/A"
         },
         {
+          "path": "Accord/Kits/Honda Accord 2003 ETi Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A"
+        },
+        {
           "path": "Accord/Kits/Honda Accord 2003 Junction Produce Style Body Kit",
           "raw_count": 0,
           "edited_count": 0,
@@ -1807,6 +1821,27 @@
         },
         {
           "path": "Civic EG_EK/Exterior/ETi Honda Civic EG-EK Dry Carbon Wiper Cowl Cover",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "Civic EG_EK/Exterior/ETi Honda Civic EK OEM Hood",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "Civic EG_EK/Exterior/ETi Honda EK9 OEM Hood",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "Civic EG_EK/Kits/Honda Civic EK Big Eye 99 C-West Style Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
@@ -2164,6 +2199,13 @@
         },
         {
           "path": "S2000/Exterior/ETi Honda S2000 OEM Carbon Fiber Hood",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "raw_only",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "S2000/Exterior/ETi Honda S2000 OEM Carbon Fiber Trunk",
           "raw_count": 0,
           "edited_count": 0,
           "status": "raw_only",
@@ -2261,6 +2303,13 @@
           "upload_date": "N/A"
         },
         {
+          "path": "Accord/Kits/Honda Accord 2003 ETi Body Kit",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "empty",
+          "upload_date": "N/A"
+        },
+        {
           "path": "Accord/Kits/Honda Accord 2003 Junction Produce Style Body Kit",
           "raw_count": 0,
           "edited_count": 0,
@@ -2304,6 +2353,27 @@
         },
         {
           "path": "Civic EG_EK/Exterior/ETi Honda Civic EG-EK Dry Carbon Wiper Cowl Cover",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "empty",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "Civic EG_EK/Exterior/ETi Honda Civic EK OEM Hood",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "empty",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "Civic EG_EK/Exterior/ETi Honda EK9 OEM Hood",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "empty",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "Civic EG_EK/Kits/Honda Civic EK Big Eye 99 C-West Style Body Kit",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -2661,6 +2731,13 @@
         },
         {
           "path": "S2000/Exterior/ETi Honda S2000 OEM Carbon Fiber Hood",
+          "raw_count": 0,
+          "edited_count": 0,
+          "status": "empty",
+          "upload_date": "N/A"
+        },
+        {
+          "path": "S2000/Exterior/ETi Honda S2000 OEM Carbon Fiber Trunk",
           "raw_count": 0,
           "edited_count": 0,
           "status": "empty",
@@ -10988,12 +11065,12 @@
     }
   ],
   "totals": {
-    "total_folders": 1120,
-    "folders_with_edited": 677,
+    "total_folders": 1126,
+    "folders_with_edited": 678,
     "folders_with_only_raw": 6,
-    "folders_empty": 437,
-    "total_edited_images": 4667,
+    "folders_empty": 442,
+    "total_edited_images": 4681,
     "total_raw_images": 4998,
-    "completion_percentage": 60.4
+    "completion_percentage": 60.2
   }
 }
