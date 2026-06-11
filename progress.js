@@ -64,11 +64,21 @@ function calculateMismatchStats(folders) {
     let edited_ne_live = 0;
     let total_mismatches = 0;
     
+    // Group folder edited counts by shopify_url to handle merged folders
+    const urlEditedSums = {};
+    folders.forEach(f => {
+        if (f.shopify_url) {
+            urlEditedSums[f.shopify_url] = (urlEditedSums[f.shopify_url] || 0) + (f.edited_count || 0);
+        }
+    });
+    
     folders.forEach(f => {
         const photosLiveVal = f.photos_live !== undefined ? f.photos_live : 0;
         const has_e_0 = f.status === 'edited' && f.edited_count > 0 && photosLiveVal === 0;
         const has_r_e = f.edited_count > f.raw_count;
-        const has_e_l = f.status === 'edited' && photosLiveVal > 0 && f.edited_count !== photosLiveVal;
+        
+        const compareEditedCount = f.shopify_url ? urlEditedSums[f.shopify_url] : f.edited_count;
+        const has_e_l = f.status === 'edited' && photosLiveVal > 0 && compareEditedCount !== photosLiveVal;
         
         if (has_e_0) e_but_0_live++;
         if (has_r_e) raw_ne_edited++;
@@ -244,6 +254,14 @@ function renderFolderTable() {
         }));
     }
     
+    // Group folder edited counts by shopify_url to handle merged folders
+    const urlEditedSums = {};
+    folders.forEach(f => {
+        if (f.shopify_url) {
+            urlEditedSums[f.shopify_url] = (urlEditedSums[f.shopify_url] || 0) + (f.edited_count || 0);
+        }
+    });
+    
     // Apply filters
     const searchVal = currentSearch.trim().toLowerCase();
     const filteredFolders = folders.filter(f => {
@@ -255,15 +273,16 @@ function renderFolderTable() {
         // Mismatch / Status filter
         let matchesMismatch = true;
         const photosLiveVal = f.photos_live !== undefined ? f.photos_live : 0;
+        const compareEditedCount = f.shopify_url ? urlEditedSums[f.shopify_url] : f.edited_count;
         
         if (currentMismatchFilter === 'all_mismatches') {
-            matchesMismatch = (f.edited_count > f.raw_count) || (f.status === 'edited' && f.edited_count !== photosLiveVal);
+            matchesMismatch = (f.edited_count > f.raw_count) || (f.status === 'edited' && compareEditedCount !== photosLiveVal);
         } else if (currentMismatchFilter === 'edited_but_0_live') {
             matchesMismatch = f.status === 'edited' && f.edited_count > 0 && photosLiveVal === 0;
         } else if (currentMismatchFilter === 'raw_ne_edited') {
             matchesMismatch = f.edited_count > f.raw_count;
         } else if (currentMismatchFilter === 'edited_ne_live') {
-            matchesMismatch = f.status === 'edited' && photosLiveVal > 0 && f.edited_count !== photosLiveVal;
+            matchesMismatch = f.status === 'edited' && photosLiveVal > 0 && compareEditedCount !== photosLiveVal;
         } else if (currentMismatchFilter === 'status_edited') {
             matchesMismatch = f.status === 'edited';
         } else if (currentMismatchFilter === 'status_raw_only') {
@@ -312,9 +331,10 @@ function renderFolderTable() {
         let badgesHtml = '<div class="flex flex-wrap gap-1 justify-center">';
         
         const photosLiveVal = f.photos_live !== undefined ? f.photos_live : 0;
+        const compareEditedCount = f.shopify_url ? urlEditedSums[f.shopify_url] : f.edited_count;
         const has_e_0 = f.status === 'edited' && f.edited_count > 0 && photosLiveVal === 0;
         const has_r_e = f.edited_count > f.raw_count;
-        const has_e_l = f.status === 'edited' && photosLiveVal > 0 && f.edited_count !== photosLiveVal;
+        const has_e_l = f.status === 'edited' && photosLiveVal > 0 && compareEditedCount !== photosLiveVal;
         
         if (f.status === 'edited') {
             badgesHtml += `<span class="text-[8px] font-black text-green-400 bg-green-500/10 border border-green-500/25 px-1.5 py-0.5 rounded-sm uppercase tracking-wider">Edited</span>`;
