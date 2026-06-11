@@ -67,7 +67,7 @@ function calculateMismatchStats(folders) {
     folders.forEach(f => {
         const photosLiveVal = f.photos_live !== undefined ? f.photos_live : 0;
         const has_e_0 = f.status === 'edited' && f.edited_count > 0 && photosLiveVal === 0;
-        const has_r_e = f.raw_count !== f.edited_count;
+        const has_r_e = f.edited_count > f.raw_count;
         const has_e_l = f.status === 'edited' && photosLiveVal > 0 && f.edited_count !== photosLiveVal;
         
         if (has_e_0) e_but_0_live++;
@@ -257,11 +257,11 @@ function renderFolderTable() {
         const photosLiveVal = f.photos_live !== undefined ? f.photos_live : 0;
         
         if (currentMismatchFilter === 'all_mismatches') {
-            matchesMismatch = (f.raw_count !== f.edited_count) || (f.status === 'edited' && f.edited_count !== photosLiveVal);
+            matchesMismatch = (f.edited_count > f.raw_count) || (f.status === 'edited' && f.edited_count !== photosLiveVal);
         } else if (currentMismatchFilter === 'edited_but_0_live') {
             matchesMismatch = f.status === 'edited' && f.edited_count > 0 && photosLiveVal === 0;
         } else if (currentMismatchFilter === 'raw_ne_edited') {
-            matchesMismatch = f.raw_count !== f.edited_count;
+            matchesMismatch = f.edited_count > f.raw_count;
         } else if (currentMismatchFilter === 'edited_ne_live') {
             matchesMismatch = f.status === 'edited' && photosLiveVal > 0 && f.edited_count !== photosLiveVal;
         } else if (currentMismatchFilter === 'status_edited') {
@@ -313,7 +313,7 @@ function renderFolderTable() {
         
         const photosLiveVal = f.photos_live !== undefined ? f.photos_live : 0;
         const has_e_0 = f.status === 'edited' && f.edited_count > 0 && photosLiveVal === 0;
-        const has_r_e = f.raw_count !== f.edited_count;
+        const has_r_e = f.edited_count > f.raw_count;
         const has_e_l = f.status === 'edited' && photosLiveVal > 0 && f.edited_count !== photosLiveVal;
         
         if (f.status === 'edited') {
