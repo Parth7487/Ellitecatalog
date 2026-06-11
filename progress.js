@@ -26,7 +26,7 @@ async function init() {
         console.error('CRITICAL: Health data could not be loaded.', error);
         document.getElementById('folder-table-body').innerHTML = `
             <tr>
-                <td colspan="5" class="p-20 text-center">
+                <td colspan="7" class="p-20 text-center">
                     <p class="text-red-500 font-black uppercase text-xs tracking-widest mb-2">
                         ERROR: ${error.message}
                     </p>
@@ -237,6 +237,8 @@ function renderFolderTable() {
         }
         linksHtml += `</div>`;
             
+        const photosLiveVal = f.photos_live !== undefined ? f.photos_live : 0;
+        const liveColor = photosLiveVal > 0 ? 'text-brand-lime' : 'text-zinc-600';
         return `
             <tr class="${rowClass}">
                 <td class="p-3 text-xs font-semibold text-zinc-300 select-all leading-relaxed">${f.displayPath}</td>
@@ -244,6 +246,7 @@ function renderFolderTable() {
                 <td class="p-3 text-center">${statusBadge}</td>
                 <td class="p-3 text-center text-xs font-bold ${f.raw_count > 0 ? 'text-white' : 'text-zinc-600'}">${f.raw_count}</td>
                 <td class="p-3 text-center text-xs font-bold ${f.edited_count > 0 ? 'text-brand-lime' : 'text-zinc-600'}">${f.edited_count}</td>
+                <td class="p-3 text-center text-xs font-bold ${liveColor}">${photosLiveVal}</td>
                 <td class="p-3 text-right text-xs font-mono">${dateStr}</td>
             </tr>
         `;
