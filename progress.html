@@ -166,18 +166,64 @@
             <!-- Right Panel: Folder Table List -->
             <div class="lg:col-span-3 bg-brand-card border border-brand-border rounded-md overflow-hidden flex flex-col">
                 
+                <!-- Mismatch Stats Cards -->
+                <div class="p-4 border-b border-brand-border grid grid-cols-2 sm:grid-cols-4 gap-4 bg-brand-dark/20">
+                    <!-- Total Mismatches -->
+                    <div id="card-total-mismatches" onclick="applyQuickFilter('all_mismatches')" class="bg-zinc-950/40 border border-brand-border p-4 rounded-sm flex flex-col justify-between hover:border-zinc-750 hover:bg-zinc-900/10 transition-all cursor-pointer select-none">
+                        <span class="text-[9px] font-black tracking-widest uppercase text-zinc-400">Total Mismatches</span>
+                        <div class="flex items-baseline justify-between mt-1">
+                            <span id="val-total-mismatches" class="text-xl font-black text-white">0</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+                        </div>
+                    </div>
+                    <!-- Edited but 0 Live -->
+                    <div id="card-edited-but-0-live" onclick="applyQuickFilter('edited_but_0_live')" class="bg-zinc-950/40 border border-brand-border p-4 rounded-sm flex flex-col justify-between hover:border-red-500/30 hover:bg-red-500/[0.02] transition-all cursor-pointer select-none">
+                        <span class="text-[9px] font-black tracking-widest uppercase text-zinc-400">Edited but 0 Live</span>
+                        <div class="flex items-baseline justify-between mt-1">
+                            <span id="val-edited-but-0-live" class="text-xl font-black text-red-400">0</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_8px_#EF4444]"></span>
+                        </div>
+                    </div>
+                    <!-- Raw != Edited -->
+                    <div id="card-raw-ne-edited" onclick="applyQuickFilter('raw_ne_edited')" class="bg-zinc-950/40 border border-brand-border p-4 rounded-sm flex flex-col justify-between hover:border-yellow-500/30 hover:bg-yellow-500/[0.02] transition-all cursor-pointer select-none">
+                        <span class="text-[9px] font-black tracking-widest uppercase text-zinc-400">Raw ≠ Edited</span>
+                        <div class="flex items-baseline justify-between mt-1">
+                            <span id="val-raw-ne-edited" class="text-xl font-black text-yellow-500">0</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 shadow-[0_0_8px_#F59E0B]"></span>
+                        </div>
+                    </div>
+                    <!-- Edited != Live -->
+                    <div id="card-edited-ne-live" onclick="applyQuickFilter('edited_ne_live')" class="bg-zinc-950/40 border border-brand-border p-4 rounded-sm flex flex-col justify-between hover:border-purple-500/30 hover:bg-purple-500/[0.02] transition-all cursor-pointer select-none">
+                        <span class="text-[9px] font-black tracking-widest uppercase text-zinc-400">Edited ≠ Live</span>
+                        <div class="flex items-baseline justify-between mt-1">
+                            <span id="val-edited-ne-live" class="text-xl font-black text-purple-400">0</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_#8B5CF6]"></span>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Controls Area -->
                 <div class="p-4 border-b border-brand-border flex flex-col sm:flex-row gap-4 justify-between items-stretch sm:items-center bg-brand-dark/40">
                     <div class="flex-grow max-w-md">
                         <input type="text" id="folder-search" oninput="handleFolderSearch()" placeholder="SEARCH FOLDERS IN THIS MAKE..." class="w-full bg-zinc-950 border border-brand-border text-white text-xs italic font-bold p-3 outline-none focus:border-brand-lime transition-all rounded-sm shadow-inner uppercase">
                     </div>
                     
-                    <!-- Filters Pill Row -->
-                    <div class="flex flex-wrap gap-1.5 items-center">
-                        <button onclick="setFilter('all')" id="filter-all" class="text-[9px] font-black uppercase tracking-wider px-3.5 py-2 border-2 border-brand-lime bg-brand-lime text-black transition-all rounded-sm">All</button>
-                        <button onclick="setFilter('edited')" id="filter-edited" class="text-[9px] font-black uppercase tracking-wider px-3.5 py-2 border border-brand-border text-zinc-400 hover:text-white hover:border-zinc-700 transition-all rounded-sm">✅ Edited</button>
-                        <button onclick="setFilter('raw_only')" id="filter-raw_only" class="text-[9px] font-black uppercase tracking-wider px-3.5 py-2 border border-brand-border text-zinc-400 hover:text-white hover:border-zinc-700 transition-all rounded-sm">⚠️ Raw Only</button>
-                        <button onclick="setFilter('empty')" id="filter-empty" class="text-[9px] font-black uppercase tracking-wider px-3.5 py-2 border border-brand-border text-zinc-400 hover:text-white hover:border-zinc-700 transition-all rounded-sm">❌ Empty</button>
+                    <!-- Filters Dropdown Row -->
+                    <div class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
+                        <select id="filter-mismatch" onchange="handleMismatchFilterChange()" class="bg-zinc-950 border border-brand-border text-white text-[10px] font-bold py-2.5 px-4 outline-none focus:border-brand-lime transition-all rounded-sm uppercase cursor-pointer">
+                            <option value="all">Show All Folders</option>
+                            <option value="all_mismatches">All Mismatches</option>
+                            <option value="edited_but_0_live">Edited but 0 Live</option>
+                            <option value="raw_ne_edited">Raw ≠ Edited</option>
+                            <option value="edited_ne_live">Edited ≠ Live</option>
+                            <option value="status_edited">Status: Edited (Done)</option>
+                            <option value="status_raw_only">Status: Raw Only</option>
+                            <option value="status_empty">Status: Empty</option>
+                        </select>
+                        
+                        <select id="filter-model" onchange="handleModelFilterChange()" class="bg-zinc-950 border border-brand-border text-white text-[10px] font-bold py-2.5 px-4 outline-none focus:border-brand-lime transition-all rounded-sm uppercase cursor-pointer min-w-[125px]">
+                            <option value="all">All Models</option>
+                        </select>
                     </div>
                 </div>
 

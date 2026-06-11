@@ -1,14 +1,8 @@
 let healthData = null;
 let currentMake = 'all';
-let currentFilter = 'all';
+let currentMismatchFilter = 'all';
+let currentModelFilter = 'all';
 let currentSearch = '';
-
-const FILTER_PILL_IDS = {
-    'all': 'filter-all',
-    'edited': 'filter-edited',
-    'raw_only': 'filter-raw',
-    'empty': 'filter-empty'
-};
 
 async function init() {
     try {
@@ -64,6 +58,32 @@ function calculateGlobalStats() {
     };
 }
 
+function calculateMismatchStats(folders) {
+    let e_but_0_live = 0;
+    let raw_ne_edited = 0;
+    let edited_ne_live = 0;
+    let total_mismatches = 0;
+    
+    folders.forEach(f => {
+        const photosLiveVal = f.photos_live !== undefined ? f.photos_live : 0;
+        const has_e_0 = f.status === 'edited' && f.edited_count > 0 && photosLiveVal === 0;
+        const has_r_e = f.raw_count !== f.edited_count;
+        const has_e_l = f.status === 'edited' && photosLiveVal > 0 && f.edited_count !== photosLiveVal;
+        
+        if (has_e_0) e_but_0_live++;
+        if (has_r_e) raw_ne_edited++;
+        if (has_e_l) edited_ne_live++;
+        if (has_e_0 || has_r_e || has_e_l) total_mismatches++;
+    });
+    
+    return {
+        e_but_0_live,
+        raw_ne_edited,
+        edited_ne_live,
+        total_mismatches
+    };
+}
+
 function renderBrandList() {
     const list = document.getElementById('sidebar-brand-list');
     list.innerHTML = '';
@@ -112,8 +132,15 @@ function createBrandButton(makeId, makeLabel, stats) {
 
 function selectBrand(make) {
     currentMake = make;
+    currentMismatchFilter = 'all';
+    currentModelFilter = 'all';
+    document.getElementById('filter-mismatch').value = 'all';
+    document.getElementById('folder-search').value = '';
+    currentSearch = '';
+    
     renderBrandList();
     updateStats(make);
+    rebuildModelDropdown();
     renderFolderTable();
 }
 
@@ -138,6 +165,57 @@ function updateStats(make) {
     // Image Asset Counters Card
     document.getElementById('stats-images-edited').textContent = stats.edited_images;
     document.getElementById('stats-images-raw').textContent = stats.raw_images;
+    
+    // Gather all folders for mismatch calculation
+    let folders = [];
+    if (make === 'all') {
+        healthData.brands.forEach(b => {
+            folders = folders.concat(b.folders);
+        });
+    } else {
+        const brand = healthData.brands.find(b => b.make === make);
+        folders = brand.folders;
+    }
+    
+    // Calculate mismatch stats
+    const mStats = calculateMismatchStats(folders);
+    document.getElementById('val-total-mismatches').textContent = mStats.total_mismatches;
+    document.getElementById('val-edited-but-0-live').textContent = mStats.e_but_0_live;
+    document.getElementById('val-raw-ne-edited').textContent = mStats.raw_ne_edited;
+    document.getElementById('val-edited-ne-live').textContent = mStats.edited_ne_live;
+}
+
+function rebuildModelDropdown() {
+    let folders = [];
+    if (currentMake === 'all') {
+        healthData.brands.forEach(b => {
+            folders = folders.concat(b.folders);
+        });
+    } else {
+        const brand = healthData.brands.find(b => b.make === currentMake);
+        folders = brand.folders;
+    }
+    
+    // Extract unique models
+    const models = new Set();
+    folders.forEach(f => {
+        const model = f.path.split('/')[0];
+        if (model) models.add(model);
+    });
+    
+    const sortedModels = Array.from(models).sort();
+    
+    const modelSelect = document.getElementById('filter-model');
+    modelSelect.innerHTML = '<option value="all">All Models</option>';
+    
+    sortedModels.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.textContent = m;
+        modelSelect.appendChild(opt);
+    });
+    
+    currentModelFilter = 'all';
 }
 
 function renderFolderTable() {
@@ -174,13 +252,34 @@ function renderFolderTable() {
             f.path.toLowerCase().includes(searchVal) ||
             f.make.toLowerCase().includes(searchVal);
             
-        // Status filter
-        let matchesStatus = true;
-        if (currentFilter !== 'all') {
-            matchesStatus = f.status === currentFilter;
+        // Mismatch / Status filter
+        let matchesMismatch = true;
+        const photosLiveVal = f.photos_live !== undefined ? f.photos_live : 0;
+        
+        if (currentMismatchFilter === 'all_mismatches') {
+            matchesMismatch = (f.raw_count !== f.edited_count) || (f.status === 'edited' && f.edited_count !== photosLiveVal);
+        } else if (currentMismatchFilter === 'edited_but_0_live') {
+            matchesMismatch = f.status === 'edited' && f.edited_count > 0 && photosLiveVal === 0;
+        } else if (currentMismatchFilter === 'raw_ne_edited') {
+            matchesMismatch = f.raw_count !== f.edited_count;
+        } else if (currentMismatchFilter === 'edited_ne_live') {
+            matchesMismatch = f.status === 'edited' && photosLiveVal > 0 && f.edited_count !== photosLiveVal;
+        } else if (currentMismatchFilter === 'status_edited') {
+            matchesMismatch = f.status === 'edited';
+        } else if (currentMismatchFilter === 'status_raw_only') {
+            matchesMismatch = f.status === 'raw_only';
+        } else if (currentMismatchFilter === 'status_empty') {
+            matchesMismatch = f.status === 'empty';
         }
         
-        return matchesSearch && matchesStatus;
+        // Model filter
+        let matchesModel = true;
+        if (currentModelFilter !== 'all') {
+            const folderModel = f.path.split('/')[0];
+            matchesModel = folderModel === currentModelFilter;
+        }
+        
+        return matchesSearch && matchesMismatch && matchesModel;
     });
     
     // Update headers info
@@ -197,6 +296,9 @@ function renderFolderTable() {
     const brandSubtitle = `${makeStats.total_folders} Folders | ${makeStats.folders_with_edited} Completed | ${makeStats.folders_with_only_raw} In Progress | ${makeStats.folders_empty} Empty`;
     document.getElementById('selected-brand-subtitle').textContent = brandSubtitle;
     
+    // Update active visual states for the mismatch cards
+    updateActiveCardStyles();
+    
     if (visibleCount === 0) {
         emptyState.classList.remove('hidden');
         return;
@@ -204,16 +306,34 @@ function renderFolderTable() {
     emptyState.classList.add('hidden');
     
     const rows = filteredFolders.map(f => {
-        let statusBadge = '';
         let rowClass = 'hover:bg-brand-card-hover/50 transition-all';
         
+        // Setup mismatch/status badges (can display multiple badges if there are multiple mismatches)
+        let badgesHtml = '<div class="flex flex-wrap gap-1 justify-center">';
+        
+        const photosLiveVal = f.photos_live !== undefined ? f.photos_live : 0;
+        const has_e_0 = f.status === 'edited' && f.edited_count > 0 && photosLiveVal === 0;
+        const has_r_e = f.raw_count !== f.edited_count;
+        const has_e_l = f.status === 'edited' && photosLiveVal > 0 && f.edited_count !== photosLiveVal;
+        
         if (f.status === 'edited') {
-            statusBadge = `<span class="text-[9px] font-black text-green-400 bg-green-500/10 border border-green-500/25 px-2 py-0.5 rounded-sm uppercase tracking-wide">✅ Edited</span>`;
+            badgesHtml += `<span class="text-[8px] font-black text-green-400 bg-green-500/10 border border-green-500/25 px-1.5 py-0.5 rounded-sm uppercase tracking-wider">Edited</span>`;
         } else if (f.status === 'raw_only') {
-            statusBadge = `<span class="text-[9px] font-black text-red-400 bg-red-500/10 border border-red-500/25 px-2 py-0.5 rounded-sm uppercase tracking-wide">⚠️ Raw Only</span>`;
+            badgesHtml += `<span class="text-[8px] font-black text-red-400 bg-red-500/10 border border-red-500/25 px-1.5 py-0.5 rounded-sm uppercase tracking-wider">Raw Only</span>`;
         } else {
-            statusBadge = `<span class="text-[9px] font-black text-yellow-500 bg-yellow-500/10 border border-yellow-500/25 px-2 py-0.5 rounded-sm uppercase tracking-wide">❌ Empty</span>`;
+            badgesHtml += `<span class="text-[8px] font-black text-yellow-500 bg-yellow-500/10 border border-yellow-500/25 px-1.5 py-0.5 rounded-sm uppercase tracking-wider">Empty</span>`;
         }
+        
+        if (has_e_0) {
+            badgesHtml += `<span class="text-[8px] font-black text-red-400 bg-red-500/10 border border-red-500/30 px-1.5 py-0.5 rounded-sm uppercase tracking-wider shadow-[0_0_8px_rgba(239,68,68,0.1)]">0 Live</span>`;
+        }
+        if (has_r_e) {
+            badgesHtml += `<span class="text-[8px] font-black text-yellow-500 bg-yellow-500/10 border border-yellow-500/30 px-1.5 py-0.5 rounded-sm uppercase tracking-wider shadow-[0_0_8px_rgba(245,158,11,0.1)]">Raw ≠ Edited</span>`;
+        }
+        if (has_e_l) {
+            badgesHtml += `<span class="text-[8px] font-black text-purple-400 bg-purple-500/10 border border-purple-500/30 px-1.5 py-0.5 rounded-sm uppercase tracking-wider shadow-[0_0_8px_rgba(139,92,246,0.1)]">Edited ≠ Live</span>`;
+        }
+        badgesHtml += '</div>';
         
         const dateStr = f.upload_date && f.upload_date !== 'N/A' 
             ? `<span class="text-zinc-300 font-semibold">${f.upload_date}</span>`
@@ -237,13 +357,12 @@ function renderFolderTable() {
         }
         linksHtml += `</div>`;
             
-        const photosLiveVal = f.photos_live !== undefined ? f.photos_live : 0;
         const liveColor = photosLiveVal > 0 ? 'text-brand-lime' : 'text-zinc-600';
         return `
             <tr class="${rowClass}">
                 <td class="p-3 text-xs font-semibold text-zinc-300 select-all leading-relaxed">${f.displayPath}</td>
                 <td class="p-3 text-center border-x border-zinc-800/30">${linksHtml}</td>
-                <td class="p-3 text-center">${statusBadge}</td>
+                <td class="p-3 text-center">${badgesHtml}</td>
                 <td class="p-3 text-center text-xs font-bold ${f.raw_count > 0 ? 'text-white' : 'text-zinc-600'}">${f.raw_count}</td>
                 <td class="p-3 text-center text-xs font-bold ${f.edited_count > 0 ? 'text-brand-lime' : 'text-zinc-600'}">${f.edited_count}</td>
                 <td class="p-3 text-center text-xs font-bold ${liveColor}">${photosLiveVal}</td>
@@ -255,32 +374,61 @@ function renderFolderTable() {
     body.innerHTML = rows;
 }
 
-function handleFolderSearch() {
-    currentSearch = document.getElementById('folder-search').value;
+function updateActiveCardStyles() {
+    const cardIds = {
+        'all_mismatches': 'card-total-mismatches',
+        'edited_but_0_live': 'card-edited-but-0-live',
+        'raw_ne_edited': 'card-raw-ne-edited',
+        'edited_ne_live': 'card-edited-ne-live'
+    };
+    
+    Object.keys(cardIds).forEach(filter => {
+        const el = document.getElementById(cardIds[filter]);
+        if (!el) return;
+        
+        if (currentMismatchFilter === filter) {
+            el.classList.remove('border-brand-border', 'bg-zinc-950/40');
+            el.classList.add('border-brand-lime/60', 'bg-brand-lime/[0.03]', 'glow-lime-sm');
+        } else {
+            el.classList.remove('border-brand-lime/60', 'bg-brand-lime/[0.03]', 'glow-lime-sm');
+            el.classList.add('border-brand-border', 'bg-zinc-950/40');
+        }
+    });
+}
+
+function handleMismatchFilterChange() {
+    currentMismatchFilter = document.getElementById('filter-mismatch').value;
     renderFolderTable();
 }
 
-function setFilter(filter) {
-    currentFilter = filter;
-    
-    // Update filter pills classes
-    Object.keys(FILTER_PILL_IDS).forEach(f => {
-        const el = document.getElementById(FILTER_PILL_IDS[f]);
-        if (!el) return;
-        if (f === filter) {
-            el.className = `text-[9px] font-black uppercase tracking-wider px-3.5 py-2 border-2 border-brand-lime bg-brand-lime text-black transition-all rounded-sm`;
-        } else {
-            el.className = `text-[9px] font-black uppercase tracking-wider px-3.5 py-2 border border-brand-border text-zinc-400 hover:text-white hover:border-zinc-700 transition-all rounded-sm`;
-        }
-    });
-    
+function handleModelFilterChange() {
+    currentModelFilter = document.getElementById('filter-model').value;
+    renderFolderTable();
+}
+
+function applyQuickFilter(filter) {
+    if (currentMismatchFilter === filter) {
+        currentMismatchFilter = 'all';
+    } else {
+        currentMismatchFilter = filter;
+    }
+    document.getElementById('filter-mismatch').value = currentMismatchFilter;
+    renderFolderTable();
+}
+
+function handleFolderSearch() {
+    currentSearch = document.getElementById('folder-search').value;
     renderFolderTable();
 }
 
 function resetTableFilters() {
     document.getElementById('folder-search').value = '';
     currentSearch = '';
-    setFilter('all');
+    currentMismatchFilter = 'all';
+    currentModelFilter = 'all';
+    document.getElementById('filter-mismatch').value = 'all';
+    document.getElementById('filter-model').value = 'all';
+    renderFolderTable();
 }
 
 // Start Dashboard
