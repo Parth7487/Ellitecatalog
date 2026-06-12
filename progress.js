@@ -265,10 +265,13 @@ function renderFolderTable() {
     // Apply filters
     const searchVal = currentSearch.trim().toLowerCase();
     const filteredFolders = folders.filter(f => {
-        // Search filter
-        const matchesSearch = searchVal === '' || 
-            f.path.toLowerCase().includes(searchVal) ||
-            f.make.toLowerCase().includes(searchVal);
+        // Search filter (multi-word keyword matching)
+        let matchesSearch = true;
+        if (searchVal !== '') {
+            const searchTerms = searchVal.split(/\s+/).filter(t => t !== '');
+            const searchText = `${f.make} ${f.path} ${f.shopify_url || ''} ${f.status || ''}`.toLowerCase();
+            matchesSearch = searchTerms.every(term => searchText.includes(term));
+        }
             
         // Mismatch / Status filter
         let matchesMismatch = true;
