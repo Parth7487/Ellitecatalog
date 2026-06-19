@@ -70,17 +70,18 @@ def parse_report(filepath, make_name):
     if raw_section:
         table_text = raw_section.group(1)
         for line in table_text.splitlines():
-            # Match | 1 | `GT86/Exterior/BRZ ZC6...` | 6 |
+            # Match | 1 | `GT86/Exterior/BRZ ZC6...` | 6 | `2026-05-18` |
             parts = [p.strip() for p in line.split("|")]
             if len(parts) >= 4 and parts[1].isdigit():
                 folder_path = parts[2].replace("`", "")
                 raw_count = int(parts[3]) if parts[3].isdigit() else 0
+                upload_date = parts[4].replace("`", "") if len(parts) >= 5 and parts[4] else "N/A"
                 stats["folders"].append({
                     "path": folder_path,
                     "raw_count": raw_count,
                     "edited_count": 0,
                     "status": "raw_only",
-                    "upload_date": "N/A"
+                    "upload_date": upload_date
                 })
                 
     # Section 3: Empty Placeholder Folders

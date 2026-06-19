@@ -3,6 +3,7 @@ let currentMake = 'all';
 let currentMismatchFilter = 'all';
 let currentModelFilter = 'all';
 let currentSearch = '';
+let currentSort = 'default';
 
 async function init() {
     try {
@@ -304,6 +305,27 @@ function renderFolderTable() {
         return matchesSearch && matchesMismatch && matchesModel;
     });
     
+    // Apply sorting
+    if (currentSort === 'date_desc') {
+        filteredFolders.sort((a, b) => {
+            const dA = a.upload_date && a.upload_date !== 'N/A' ? a.upload_date : '';
+            const dB = b.upload_date && b.upload_date !== 'N/A' ? b.upload_date : '';
+            if (!dA) return 1;
+            if (!dB) return -1;
+            return dB.localeCompare(dA); // Newest first
+        });
+    } else if (currentSort === 'date_asc') {
+        filteredFolders.sort((a, b) => {
+            const dA = a.upload_date && a.upload_date !== 'N/A' ? a.upload_date : '';
+            const dB = b.upload_date && b.upload_date !== 'N/A' ? b.upload_date : '';
+            if (!dA) return 1;
+            if (!dB) return -1;
+            return dA.localeCompare(dB); // Oldest first
+        });
+    } else if (currentSort === 'raw_desc') {
+        filteredFolders.sort((a, b) => b.raw_count - a.raw_count);
+    }
+    
     // Update headers info
     const totalCount = folders.length;
     const visibleCount = filteredFolders.length;
@@ -444,13 +466,21 @@ function handleFolderSearch() {
     renderFolderTable();
 }
 
+function handleSortChange() {
+    currentSort = document.getElementById('sort-order').value;
+    renderFolderTable();
+}
+
+// Reset Table Filters
 function resetTableFilters() {
     document.getElementById('folder-search').value = '';
     currentSearch = '';
     currentMismatchFilter = 'all';
     currentModelFilter = 'all';
+    currentSort = 'default';
     document.getElementById('filter-mismatch').value = 'all';
     document.getElementById('filter-model').value = 'all';
+    document.getElementById('sort-order').value = 'default';
     renderFolderTable();
 }
 

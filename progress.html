@@ -224,6 +224,13 @@
                         <select id="filter-model" onchange="handleModelFilterChange()" class="bg-zinc-950 border border-brand-border text-white text-[10px] font-bold py-2.5 px-4 outline-none focus:border-brand-lime transition-all rounded-sm uppercase cursor-pointer min-w-[125px]">
                             <option value="all">All Models</option>
                         </select>
+                        
+                        <select id="sort-order" onchange="handleSortChange()" class="bg-zinc-950 border border-brand-border text-white text-[10px] font-bold py-2.5 px-4 outline-none focus:border-brand-lime transition-all rounded-sm uppercase cursor-pointer min-w-[160px]">
+                            <option value="default">Sort: Default (Path)</option>
+                            <option value="date_desc">Sort: Date (Newest First)</option>
+                            <option value="date_asc">Sort: Date (Oldest First)</option>
+                            <option value="raw_desc">Sort: Raw Count (Highest First)</option>
+                        </select>
                     </div>
                 </div>
 
