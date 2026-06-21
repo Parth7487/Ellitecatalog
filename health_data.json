@@ -17,7 +17,7 @@
           "upload_date": "2026-06-04",
           "drive_url": "https://drive.google.com/drive/folders/1H2sptOpwrEI50tbmpyU8jNznkSVC3yef",
           "shopify_url": "https://myeliteti.myshopify.com/products/bmw-e90-m3-body-kit",
-          "photos_live": 11
+          "photos_live": 7
         },
         {
           "path": "E92 - E93/Exterior/BMW M3 E92-E93 Front Bumper Lip",
@@ -47,7 +47,7 @@
           "upload_date": "2026-06-04",
           "drive_url": "https://drive.google.com/drive/folders/12VSYMhq2IXwrFkMXn8umyGg7KmS44a6X",
           "shopify_url": "https://myeliteti.myshopify.com/products/bmw-e92-m3-body-kit",
-          "photos_live": 10
+          "photos_live": 8
         },
         {
           "path": "F10/Exterior/ETi BMW F10-G30 Duckbill Trunk Spoiler",
@@ -127,7 +127,7 @@
           "upload_date": "2026-05-28",
           "drive_url": "https://drive.google.com/drive/folders/1_4V9lDBA0WxrAdXjqrPEidSxswH8h7qK",
           "shopify_url": "https://myeliteti.myshopify.com/products/bmw-z4-e89-gt3-widebody-body-kit",
-          "photos_live": 10
+          "photos_live": 9
         },
         {
           "path": "Z4 E89/Kits/BMW Z4 E89 Hamann Body Kit",
@@ -137,7 +137,7 @@
           "upload_date": "2026-05-28",
           "drive_url": "https://drive.google.com/drive/folders/1DiR-ZJsi1YWUXBALW_FAkhVxcb6ZrMR4",
           "shopify_url": "https://myeliteti.myshopify.com/products/bmw-z4-e89-hamann-body-kit",
-          "photos_live": 10
+          "photos_live": 9
         },
         {
           "path": "BMW Series/Kits/BMW Series 5 Hamann Body Kit",
@@ -744,21 +744,21 @@
     {
       "make": "Honda",
       "total_folders": 160,
-      "raw_images": 634,
-      "edited_images": 460,
+      "raw_images": 626,
+      "edited_images": 458,
       "folders_with_edited": 83,
       "folders_with_only_raw": 30,
       "folders_empty": 47,
       "folders": [
         {
           "path": "Accord/Exterior/Honda Accord 09 Top Secret Style Carbon Fiber Hood",
-          "raw_count": 7,
-          "edited_count": 6,
+          "raw_count": 5,
+          "edited_count": 4,
           "status": "edited",
           "upload_date": "2026-06-04",
           "drive_url": "https://drive.google.com/drive/folders/1y6OEocR7rVOU5w21XfP_WXAFem8cDxBr",
           "shopify_url": "https://myeliteti.myshopify.com/products/honda-accord-09-top-secret-style-carbon-fiber-hood",
-          "photos_live": 6
+          "photos_live": 4
         },
         {
           "path": "Accord/Kits/Honda Accord 2003 Modulo Style Body Kit",
@@ -778,7 +778,7 @@
           "upload_date": "2026-06-09",
           "drive_url": "https://drive.google.com/drive/folders/1YjZoS_A4Qbh5HVFGTsRImdhMiUSSLskX",
           "shopify_url": "https://myeliteti.myshopify.com/products/honda-accord-2003-mugen-skirt-style-body-kit",
-          "photos_live": 6
+          "photos_live": 5
         },
         {
           "path": "Accord/Kits/Honda Accord 2003 Wald Skirt Style Body Kit",
@@ -798,7 +798,7 @@
           "upload_date": "2026-06-04",
           "drive_url": "https://drive.google.com/drive/folders/19i2YRV_8Hs5GER12Af46I5RvXnIPu6BS",
           "shopify_url": "https://myeliteti.myshopify.com/products/honda-accord-2008-mugen-style-body-kit",
-          "photos_live": 7
+          "photos_live": 6
         },
         {
           "path": "Civic EG_EK/Exterior/ETi HONDA CIVIC EK9 Carbon Fiber Doors",
@@ -1102,13 +1102,13 @@
         },
         {
           "path": "Civic EG_EK/Kits/ETi Honda Civic EG Dry Carbon Drag Racing Door",
-          "raw_count": 14,
+          "raw_count": 8,
           "edited_count": 14,
           "status": "edited",
           "upload_date": "2026-06-04",
           "drive_url": "https://drive.google.com/drive/folders/1TI-vE1mkAHb2j1moydlyw1bkiP-KnIVB",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-eg-dry-carbon-drag-racing-door",
-          "photos_live": 14
+          "photos_live": 8
         },
         {
           "path": "Civic EG_EK/Kits/ETi Honda Civic EG Dry Carbon Fiber Drag Racing Body Kit",
@@ -1148,7 +1148,7 @@
           "upload_date": "2026-06-04",
           "drive_url": "https://drive.google.com/drive/folders/1yXolkDy2mbr04Qx1MIBJiskwBxr48x0Y",
           "shopify_url": "https://myeliteti.myshopify.com/products/honda-civic-ek-big-eye-96-mugen-style-body-kit",
-          "photos_live": 11
+          "photos_live": 10
         },
         {
           "path": "Civic EG_EK/Kits/Honda Civic EK Big Eye 96 Type R Style Skirt Body Kit",
@@ -1387,7 +1387,7 @@
           "upload_date": "2026-06-02",
           "drive_url": "https://drive.google.com/drive/folders/1mISPrtgzEVryDb87QYCr34RHoaV_ST7g",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-jazz-fit-gd-js-racing-spec-carbon-fiber-hood",
-          "photos_live": 10
+          "photos_live": 8
         },
         {
           "path": "Jazz_Fit/Exterior/Honda Jazz-Fit GK Vented Style Hood",
@@ -1407,7 +1407,7 @@
           "upload_date": "2026-06-02",
           "drive_url": "https://drive.google.com/drive/folders/1nxXFm2B9Io0G-JyjDar4CbDiVQkDlx_h",
           "shopify_url": "https://myeliteti.myshopify.com/products/honda-jazz-2007-ingsplus1-style-body-kit",
-          "photos_live": 8
+          "photos_live": 6
         },
         {
           "path": "Jazz_Fit/Kits/Honda Jazz 2007 J's Racing Style' Body Kit",
@@ -2087,7 +2087,7 @@
           "upload_date": "N/A",
           "drive_url": "https://drive.google.com/drive/folders/1_IeBB3DZBKoMupm-ApRMxm8IiM8-ZRzv",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-jazz-carbon-fiber-roof",
-          "photos_live": 8
+          "photos_live": 0
         },
         {
           "path": "Jazz_Fit/Exterior/ETi HONDA JAZZ GE 2007 ETi Carbon Fiber Hood",
@@ -3096,7 +3096,7 @@
           "edited_count": 16,
           "status": "edited",
           "upload_date": "2026-05-18",
-          "drive_url": "https://drive.google.com/drive/folders/1CV3iyBVEkizimUcshf37sFTScTlW02Uz",
+          "drive_url": "https://drive.google.com/drive/folders/1LXFttFc5ZJIZNSkwXJEfTtKWjZhK3GsP",
           "shopify_url": "https://myeliteti.myshopify.com/products/mazda-rx8-ing-1-body-kit-4-pcs-body-kit",
           "photos_live": 9
         },
@@ -3620,7 +3620,7 @@
           "upload_date": "2026-05-18",
           "drive_url": "https://drive.google.com/drive/folders/1l-xvBuy0JuUU5OANBuXj6tGUaqNl7H8a",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-evolution-8-9-fq-type-carbon-fiber-trunk-wing",
-          "photos_live": 12
+          "photos_live": 10
         },
         {
           "path": "Evo 7 8 9/Exterior/ETi Evolution 8-9 Type-5 Carbon Fiber GT Wing",
@@ -3859,7 +3859,7 @@
           "upload_date": "2026-05-18",
           "drive_url": "https://drive.google.com/drive/folders/1C1fFvuTJ9xH7axbmog8wFSCuYfc6QmT3",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-evo-8-9-project-oni-type-zero-full-carbon-fiber-bodykit",
-          "photos_live": 13
+          "photos_live": 11
         },
         {
           "path": "Evo 7 8 9/Kits/ETi Mitsubishi Evo 89 Time Attack Full Body Kit (Voltex)",
@@ -3869,7 +3869,7 @@
           "upload_date": "2026-05-16",
           "drive_url": "https://drive.google.com/drive/folders/1kJvzBFO3I_5MuTPCWgx1EOmOzRLTvpcw",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-evo-8-9-time-attack-full-body-kit",
-          "photos_live": 24
+          "photos_live": 16
         },
         {
           "path": "Evo 7 8 9/Kits/MITSUBISHI EVO 7-8 ING1 Body Kit",
@@ -3908,7 +3908,7 @@
           "upload_date": "2026-05-18",
           "drive_url": "https://drive.google.com/drive/folders/1DKQIm8xLeJgHKvrgzVSRZjIIiskyOQrN",
           "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-evo7-monter-body-kit",
-          "photos_live": 13
+          "photos_live": 11
         },
         {
           "path": "Evo 7 8 9/Kits/Mitsubishi EVO 7-8 EVO 8 Body Kit",
@@ -3948,7 +3948,7 @@
           "upload_date": "2026-05-18",
           "drive_url": "https://drive.google.com/drive/folders/1hO9w5hcQsye_66BILfLDZJ5_zTYVHLkV",
           "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-evo9-voltex-for-street-body-kit",
-          "photos_live": 6
+          "photos_live": 5
         },
         {
           "path": "Evo X/Exterior/ETi MITSUBISHI EVO10 CHARGE SPEED Carbon Fiber Hood",
@@ -3958,7 +3958,7 @@
           "upload_date": "2026-05-16",
           "drive_url": "https://drive.google.com/drive/folders/1CZCKCT45nO4J66_Fj1g-KqOrzHSzMucr",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-evo10-charge-speed-carbon-fiber-hood",
-          "photos_live": 10
+          "photos_live": 6
         },
         {
           "path": "Evo X/Exterior/ETi Mitsubishi EVO 6 Front Carbon Fiber Doors",
@@ -3988,7 +3988,7 @@
           "upload_date": "2026-05-16",
           "drive_url": "https://drive.google.com/drive/folders/1FBgQ4RBKp4thiy8D4994PkULNk2xmick",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-evo10-evo10-hood",
-          "photos_live": 7
+          "photos_live": 2
         },
         {
           "path": "Evo X/Exterior/ETi Mitsubishi EVO X Carbon Fiber Roof",
@@ -4008,7 +4008,7 @@
           "upload_date": "2026-05-15",
           "drive_url": "https://drive.google.com/drive/folders/1R04yfZOwBwrfLdJU7u6nB6AjoDV3rmHG",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-evo10-evo10-trunk",
-          "photos_live": 7
+          "photos_live": 6
         },
         {
           "path": "Evo X/Exterior/ETi Mitsubishi EVO X Charge Speed Carbon Fiber Hood",
@@ -4038,7 +4038,7 @@
           "upload_date": "2026-05-16",
           "drive_url": "https://drive.google.com/drive/folders/1L1_ekAKMyn6hoQopBbT03Au_Rgd5qX2X",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-mitsubishi-mitsu-evo10-rear-doors",
-          "photos_live": 8
+          "photos_live": 7
         },
         {
           "path": "Evo X/Exterior/ETi Mitsubishi EVO X Varis Carbon Fiber Spoiler",
@@ -4098,7 +4098,7 @@
           "upload_date": "2026-05-15",
           "drive_url": "https://drive.google.com/drive/folders/1eUXC_Lp_KimHsxVZU91aNgJBD_LimpaL",
           "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-lancer-evolution-x-frp-front-fender-flare",
-          "photos_live": 6
+          "photos_live": 5
         },
         {
           "path": "Evo X/Kits/Mitsubishi EVO X Charge Speed Body Kit",
@@ -4118,7 +4118,7 @@
           "upload_date": "2026-05-15",
           "drive_url": "https://drive.google.com/drive/folders/1g5TZxb0McwwveC0nc3QSpibd766KZUDC",
           "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-evo10-ralliart-body-kit",
-          "photos_live": 12
+          "photos_live": 11
         },
         {
           "path": "Evo X/Kits/Mitsubishi EVO X Standard Body Kit",
@@ -4158,7 +4158,7 @@
           "upload_date": "2026-05-15",
           "drive_url": "https://drive.google.com/drive/folders/1XFcQKsPt0tkZe8-RbzE22awNbdYoOL6j",
           "shopify_url": "https://myeliteti.myshopify.com/products/mitsubishi-evo10-voltex-body-kit",
-          "photos_live": 6
+          "photos_live": 5
         },
         {
           "path": "Evo X/Kits/Mitsubishi Lancer EVO X (EX-Body Conversion) V2 Body Kit",
@@ -6359,7 +6359,7 @@
           "upload_date": "2026-06-05",
           "drive_url": "https://drive.google.com/drive/folders/1BFlyyHZtbsgY5M8NpSnMsBI66JXUxi2R",
           "shopify_url": "https://myeliteti.myshopify.com/products/r34-gtt-z-tune-front-bumper-skyline-r34-gtt-2d-4d-gtr-style-front-bumper",
-          "photos_live": 5
+          "photos_live": 3
         },
         {
           "path": "R34/Exterior/R34 GTT Z-Tune Hood 1999-2000 Skyline R34 GTT 2D 4D GTR-Style Bonnet with Duct",
@@ -8423,7 +8423,7 @@
       "make": "Porsche",
       "total_folders": 38,
       "raw_images": 199,
-      "edited_images": 129,
+      "edited_images": 133,
       "folders_with_edited": 13,
       "folders_with_only_raw": 9,
       "folders_empty": 16,
@@ -8436,7 +8436,7 @@
           "upload_date": "2026-06-08",
           "drive_url": "https://drive.google.com/drive/folders/1vz5xfQ-IuagQ4o5PlYfXaTP3EKPZQyLO",
           "shopify_url": "https://myeliteti.myshopify.com/products/porsche-911-gt3-gt3-body-kit",
-          "photos_live": 21
+          "photos_live": 20
         },
         {
           "path": "981/Exterior/ETi Carbon Fiber Hood  Porsche 987  981  991",
@@ -8526,7 +8526,7 @@
           "upload_date": "2026-06-08",
           "drive_url": "https://drive.google.com/drive/folders/1JzEjXh0abFG3wFsMRWKyj9S1q8JTIwtK",
           "shopify_url": "https://myeliteti.myshopify.com/products/porsche-996-gt3rs-body-kit",
-          "photos_live": 9
+          "photos_live": 8
         },
         {
           "path": "Cayenne/Kits/ETi Porsche Cayenne Gravis Bodykit",
@@ -8541,7 +8541,7 @@
         {
           "path": "Cayenne/Kits/Porsche Cayenne Lumma Wide Body Kit",
           "raw_count": 10,
-          "edited_count": 10,
+          "edited_count": 14,
           "status": "edited",
           "upload_date": "2026-05-19",
           "drive_url": "https://drive.google.com/drive/folders/1LSyYeiGMTjmjSCc_sTE1DG-_8kDkddiJ",
@@ -8813,7 +8813,7 @@
     {
       "make": "Toyota",
       "total_folders": 252,
-      "raw_images": 1647,
+      "raw_images": 1605,
       "edited_images": 1352,
       "folders_with_edited": 111,
       "folders_with_only_raw": 79,
@@ -9376,7 +9376,7 @@
         },
         {
           "path": "Supra_MKIV/Exterior/(New) Supra Roof Wing",
-          "raw_count": 15,
+          "raw_count": 9,
           "edited_count": 30,
           "status": "edited",
           "upload_date": "2026-06-19",
@@ -9394,7 +9394,7 @@
         },
         {
           "path": "Supra_MKIV/Exterior/ETi SUPRA Top Secret GT Wing Spoiler",
-          "raw_count": 21,
+          "raw_count": 15,
           "edited_count": 43,
           "status": "edited",
           "upload_date": "2026-06-19",
@@ -9553,7 +9553,7 @@
         },
         {
           "path": "Supra_MKIV/Exterior/ETi Toyota Supra MKIV OEM Wing",
-          "raw_count": 10,
+          "raw_count": 7,
           "edited_count": 17,
           "status": "edited",
           "upload_date": "2026-06-19",
@@ -9583,7 +9583,7 @@
         },
         {
           "path": "Supra_MKIV/Exterior/ETi Toyota Supra MKIV Vertex Style Hood",
-          "raw_count": 16,
+          "raw_count": 14,
           "edited_count": 14,
           "status": "edited",
           "upload_date": "2026-06-08",
@@ -9689,7 +9689,7 @@
         },
         {
           "path": "Supra_MKIV/Kits/ETi Supra MKIV Ridox Style (Non-Widebody Kit)",
-          "raw_count": 43,
+          "raw_count": 29,
           "edited_count": 84,
           "status": "edited",
           "upload_date": "2026-06-19",
@@ -9719,7 +9719,7 @@
         },
         {
           "path": "Supra_MKIV/Kits/ETi Toyota Supra MKIV TRD 3000GT Body Kit",
-          "raw_count": 78,
+          "raw_count": 67,
           "edited_count": 88,
           "status": "edited",
           "upload_date": "2026-06-19",
@@ -11330,8 +11330,8 @@
     "folders_with_edited": 679,
     "folders_with_only_raw": 206,
     "folders_empty": 241,
-    "total_edited_images": 5131,
-    "total_raw_images": 6483,
+    "total_edited_images": 5133,
+    "total_raw_images": 6433,
     "completion_percentage": 60.3
   }
 }
