@@ -711,10 +711,10 @@
     {
       "make": "Honda",
       "total_folders": 160,
-      "raw_images": 623,
-      "edited_images": 475,
-      "folders_with_edited": 93,
-      "folders_with_only_raw": 20,
+      "raw_images": 626,
+      "edited_images": 549,
+      "folders_with_edited": 113,
+      "folders_with_only_raw": 0,
       "folders_empty": 47,
       "folders": [
         {
@@ -838,6 +838,16 @@
           "photos_live": 0
         },
         {
+          "path": "Civic EG_EK/Exterior/ETi 48mm Aluminum Performance Radiator – Honda Civic EG (1992-1995)",
+          "raw_count": 10,
+          "edited_count": 10,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1x1gKtBUqyk9IKcb4ywIzpO1HcyJBc5ak",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-48mm-aluminum-performance-radiator-honda-civic-eg-1992-1995",
+          "photos_live": 0
+        },
+        {
           "path": "Civic EG_EK/Exterior/ETi HONDA CIVIC EK9 Carbon Fiber Doors",
           "raw_count": 3,
           "edited_count": 3,
@@ -866,6 +876,16 @@
           "drive_url": "https://drive.google.com/drive/folders/1cz7RWYkW0jflJ8oEPbaE-c0UHjbSu5m8",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-ek99-oem-carbon-fiber-hood",
           "photos_live": 6
+        },
+        {
+          "path": "Civic EG_EK/Exterior/ETi Half-Size Aluminum Radiator – Honda Civic EG & EK (1992-2000)",
+          "raw_count": 6,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/13nXzScvklY3VLleYoTpzMmNU0NZxyFW4",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-half-size-aluminum-radiator-honda-civic-eg-and-ek-1992-2000",
+          "photos_live": 0
         },
         {
           "path": "Civic EG_EK/Exterior/ETi Honda Civic EG 3-Door Carbon Fiber Doors",
@@ -1238,6 +1258,26 @@
           "photos_live": 3
         },
         {
+          "path": "Civic EG_EK/Kits/Honda Civic EK Big Eye 99 C-West Style Body Kit",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1PEwupreNPeMwU_FzgTL7_dqIVy9UHLrb",
+          "shopify_url": "https://myeliteti.myshopify.com/products/honda-civic-ek-big-eye-99-c-west-style-body-kit",
+          "photos_live": 0
+        },
+        {
+          "path": "Civic EG_EK/Kits/Honda Civic EK Big Eye 99 Mugen Skirt Style Body Kit",
+          "raw_count": 7,
+          "edited_count": 7,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1kA28gbt90utCMyQC5VRShBKCtlA81VIH",
+          "shopify_url": "https://myeliteti.myshopify.com/products/honda-civic-ek-big-eye-99-mugen-skirt-style-body-kit",
+          "photos_live": 0
+        },
+        {
           "path": "Civic EG_EK/Kits/Honda Civic EK9 Type R Style Body Kit",
           "raw_count": 6,
           "edited_count": 6,
@@ -1246,6 +1286,16 @@
           "drive_url": "https://drive.google.com/drive/folders/1EvKGJNJ5QN_szyhBnhodhABiFXrAhMMU",
           "shopify_url": "https://myeliteti.myshopify.com/products/honda-civic-ek9-type-r-style-body-kit",
           "photos_live": 6
+        },
+        {
+          "path": "Civic FC_FK/Exterior/ETi Honda Civic 2012 FC-FK ETi Carbon Fiber Hood",
+          "raw_count": 4,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1lxIeQ781sBEt9pNavSnqAC-q2h7ND2QZ",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-2012-fc-fk-eti-carbon-fiber-hood",
+          "photos_live": 0
         },
         {
           "path": "Civic FC_FK/Exterior/ETi Honda Civic FC Vented Hood",
@@ -1368,6 +1418,16 @@
           "photos_live": 17
         },
         {
+          "path": "Integra/Exterior/ETi HONDA DC5 OEM Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1i9_h5Pkxo0x9ou0LAsdPh5hER6pYa3XU",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-dc5-oem-carbon-fiber-hood",
+          "photos_live": 0
+        },
+        {
           "path": "Integra/Exterior/Honda DC5 Mugen Style Carbon Fiber Hood",
           "raw_count": 8,
           "edited_count": 8,
@@ -1376,6 +1436,16 @@
           "drive_url": "https://drive.google.com/drive/folders/1d6YafepqvokmndeW9FauDHzKzb-frCi2",
           "shopify_url": "https://myeliteti.myshopify.com/products/honda-dc5-mugen-style-carbon-fiber-hood",
           "photos_live": 8
+        },
+        {
+          "path": "Integra/Kits/Honda DC5 Buddy Club Widebody Style Kit",
+          "raw_count": 7,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1QH7e8iG4cZP5eeRko6T7JdVJHyxjzqTY",
+          "shopify_url": "https://myeliteti.myshopify.com/products/honda-dc5-buddy-club-widebody-style-kit",
+          "photos_live": 0
         },
         {
           "path": "Integra/Kits/Honda DC5 INGS+1 Style Body Kit",
@@ -1404,6 +1474,16 @@
           "status": "edited",
           "upload_date": "2026-06-03",
           "drive_url": "https://drive.google.com/drive/folders/1sWpIKEKNsiJdshfZv2yLoqBJN2YNi5q6",
+          "photos_live": 0
+        },
+        {
+          "path": "Jazz_Fit/Exterior/ETi HONDA JAZZ GE 2007 OEM Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1CGNyWF3sjcDRH07_HEKONa9fz_sKJYBQ",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-jazz-ge-2007-oem-carbon-fiber-hood",
           "photos_live": 0
         },
         {
@@ -1487,6 +1567,16 @@
           "photos_live": 8
         },
         {
+          "path": "Jazz_Fit/Kits/Honda Jazz MC J's Racing Style' Body Kit",
+          "raw_count": 8,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1yZQIZKYaHQTwQTT30GqNn6y3NnR3apN6",
+          "shopify_url": "https://myeliteti.myshopify.com/products/honda-jazz-mc-js-racing-style-body-kit",
+          "photos_live": 0
+        },
+        {
           "path": "Jazz_Fit/Kits/Honda Jazz MC Modulo Style Body Kit",
           "raw_count": 6,
           "edited_count": 6,
@@ -1495,6 +1585,16 @@
           "drive_url": "https://drive.google.com/drive/folders/1pRxqSGs-SJyLmB8I5G8jY_7FpIUlV3kB",
           "shopify_url": "https://myeliteti.myshopify.com/products/honda-jazz-mc-modulo-style-body-kit",
           "photos_live": 6
+        },
+        {
+          "path": "Jazz_Fit/Kits/Honda Jazz MC Mugen Style New Skirt Body Kit",
+          "raw_count": 9,
+          "edited_count": 9,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1-YnwXa6pY2m1w3fbQAK4S6op9EmkFw36",
+          "shopify_url": "https://myeliteti.myshopify.com/products/honda-jazz-mc-mugen-style-new-skirt-body-kit",
+          "photos_live": 0
         },
         {
           "path": "Miscellaneous/Kits/Honda Integra Type R Style Body Kit",
@@ -1507,6 +1607,46 @@
           "photos_live": 6
         },
         {
+          "path": "Other Civics/Exterior/ETi HONDA CIVIC 2006 ETi Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/19tnuT8663Rldg3iJhJGIUiNmK786uiwe",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-2006-eti-carbon-fiber-hood",
+          "photos_live": 0
+        },
+        {
+          "path": "Other Civics/Exterior/ETi HONDA CIVIC 2006 OEM Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1xyysVc7U1Wq6tObo4l9kSR8kz2z8y3HQ",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-2006-oem-carbon-fiber-hood",
+          "photos_live": 0
+        },
+        {
+          "path": "Other Civics/Exterior/ETi HONDA CIVIC 2012 FB OEM Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1T-T50OTjJN_HiKFMnjcNKu3wu_CjD2Qm",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-2012-fb-oem-carbon-fiber-hood",
+          "photos_live": 0
+        },
+        {
+          "path": "Other Civics/Exterior/ETi HONDA CIVIC 4D ETi Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1heZ_d3cgOaLF_jGmkAmGGYtGEwXdu6Fh",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-4d-eti-carbon-fiber-hood",
+          "photos_live": 0
+        },
+        {
           "path": "Other Civics/Exterior/ETi HONDA CIVIC EP3 Carbon Fiber Spoiler",
           "raw_count": 8,
           "edited_count": 8,
@@ -1515,6 +1655,16 @@
           "drive_url": "https://drive.google.com/drive/folders/1LW3UHNZpDnfnDCZxtecEqeFrv1v-oIGD",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-ep3-carbon-fiber-spoiler",
           "photos_live": 8
+        },
+        {
+          "path": "Other Civics/Exterior/ETi HONDA CIVIC EP3 OEM Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1wnrveG1xDqGs3EnYQFLoCxrceUC7x3PL",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-ep3-oem-carbon-fiber-hood",
+          "photos_live": 0
         },
         {
           "path": "Other Civics/Exterior/ETi Honda Civic GT Wing (Chassis-Mounted)",
@@ -1535,6 +1685,26 @@
           "drive_url": "https://drive.google.com/drive/folders/155I1opFBK_3zLsBFJ3w7EGmLTbS6JM9I",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-gt-wing-trunk-mounted",
           "photos_live": 4
+        },
+        {
+          "path": "Other Civics/Exterior/ETi Honda Dimension 01 OEM Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1Jmj5AUNKmkoSTVegZ2NppumTZDxGY9l1",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-dimension-01-oem-carbon-fiber-hood",
+          "photos_live": 0
+        },
+        {
+          "path": "Other Civics/Exterior/ETi Honda Dimension 04 OEM Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1_tG_zH-mr4-W5cbbuQVSOaL75vRMVohh",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-dimension-04-oem-carbon-fiber-hood",
+          "photos_live": 0
         },
         {
           "path": "Other Civics/Exterior/Honda Civic 2006 Mugen Style Carbon Fiber Hood",
@@ -1597,6 +1767,16 @@
           "photos_live": 7
         },
         {
+          "path": "Other Civics/Kits/ETi Honda Dimension Carbon Fiber Body Kit",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1Q-_fcXrTnQNA-MvD8SvCQIBEKQ5kwaP6",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-dimension-carbon-fiber-body-kit",
+          "photos_live": 0
+        },
+        {
           "path": "Other Civics/Kits/Honda Civic 2006 Modulo Skirt Style Body Kit",
           "raw_count": 8,
           "edited_count": 7,
@@ -1615,6 +1795,16 @@
           "drive_url": "https://drive.google.com/drive/folders/1Ss01Pqe9zcxYOJK03u8aKw2kRMCx3MMl",
           "shopify_url": "https://myeliteti.myshopify.com/products/honda-civic-2006-mugen-rr-style-body-kit",
           "photos_live": 9
+        },
+        {
+          "path": "Other Civics/Kits/Honda Civic 2006 Mugen Skirt Style Body Kit",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1G701KSeHbZc0fYZQ6Y1BpX1FaF4BPJt6",
+          "shopify_url": "https://myeliteti.myshopify.com/products/honda-civic-2006-mugen-skirt-style-body-kit",
+          "photos_live": 0
         },
         {
           "path": "Other Civics/Kits/Honda Civic 2006 for Type R Style Body Kit",
@@ -1637,6 +1827,16 @@
           "photos_live": 3
         },
         {
+          "path": "Other Civics/Kits/Honda Dimension Mugen Skirt Style Body Kit",
+          "raw_count": 8,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1iGeT48IVeITBOwthbGdqrpu8ngpaG-YF",
+          "shopify_url": "https://myeliteti.myshopify.com/products/honda-dimension-mugen-skirt-style-body-kit",
+          "photos_live": 0
+        },
+        {
           "path": "S2000/Exterior/Honda S2000 J's Racing Style Carbon Fiber Hood",
           "raw_count": 4,
           "edited_count": 4,
@@ -1645,206 +1845,6 @@
           "drive_url": "https://drive.google.com/drive/folders/17Bxk0TkwQ1KDCcpeHismxX-48iFAKOKy",
           "shopify_url": "https://myeliteti.myshopify.com/products/honda-s2000-js-racing-style-carbon-fiber-hood",
           "photos_live": 4
-        },
-        {
-          "path": "Civic EG_EK/Exterior/ETi 48mm Aluminum Performance Radiator – Honda Civic EG (1992-1995)/ETi 48mm Aluminum Performance Radiator – Honda Civic EG (1992-1995)",
-          "raw_count": 10,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1x1gKtBUqyk9IKcb4ywIzpO1HcyJBc5ak",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-48mm-aluminum-performance-radiator-honda-civic-eg-1992-1995",
-          "photos_live": 0
-        },
-        {
-          "path": "Civic EG_EK/Exterior/ETi Half-Size Aluminum Radiator – Honda Civic EG & EK (1992-2000)/ETi Half-Size Aluminum Radiator – Honda Civic EG & EK (1992-2000)",
-          "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/13nXzScvklY3VLleYoTpzMmNU0NZxyFW4",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-half-size-aluminum-radiator-honda-civic-eg-and-ek-1992-2000",
-          "photos_live": 0
-        },
-        {
-          "path": "Civic EG_EK/Kits/Honda Civic EK Big Eye 99 C-West Style Body Kit/Honda Civic EK Big Eye 99 C-West Style Body Kit",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1PEwupreNPeMwU_FzgTL7_dqIVy9UHLrb",
-          "shopify_url": "https://myeliteti.myshopify.com/products/honda-civic-ek-big-eye-99-c-west-style-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Civic EG_EK/Kits/Honda Civic EK Big Eye 99 Mugen Skirt Style Body Kit/Honda Civic EK Big Eye 99 Mugen Skirt Style Body Kit",
-          "raw_count": 7,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1kA28gbt90utCMyQC5VRShBKCtlA81VIH",
-          "shopify_url": "https://myeliteti.myshopify.com/products/honda-civic-ek-big-eye-99-mugen-skirt-style-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Civic FC_FK/Exterior/ETi Honda Civic 2012 FC-FK ETi Carbon Fiber Hood/ETi Honda Civic 2012 FC-FK ETi Carbon Fiber Hood",
-          "raw_count": 4,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1lxIeQ781sBEt9pNavSnqAC-q2h7ND2QZ",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-2012-fc-fk-eti-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Integra/Exterior/ETi HONDA DC5 OEM Carbon Fiber Hood/ETi HONDA DC5 OEM Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1i9_h5Pkxo0x9ou0LAsdPh5hER6pYa3XU",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-dc5-oem-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Integra/Kits/Honda DC5 Buddy Club Widebody Style Kit/Honda DC5 Buddy Club Widebody Style Kit",
-          "raw_count": 4,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1QH7e8iG4cZP5eeRko6T7JdVJHyxjzqTY",
-          "shopify_url": "https://myeliteti.myshopify.com/products/honda-dc5-buddy-club-widebody-style-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Jazz_Fit/Exterior/ETi HONDA JAZZ GE 2007 OEM Carbon Fiber Hood/ETi HONDA JAZZ GE 2007 OEM Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1CGNyWF3sjcDRH07_HEKONa9fz_sKJYBQ",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-jazz-ge-2007-oem-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Jazz_Fit/Kits/Honda Jazz MC J's Racing Style' Body Kit/Honda Jazz MC J's Racing Style' Body Kit",
-          "raw_count": 8,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1yZQIZKYaHQTwQTT30GqNn6y3NnR3apN6",
-          "shopify_url": "https://myeliteti.myshopify.com/products/honda-jazz-mc-js-racing-style-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Jazz_Fit/Kits/Honda Jazz MC Mugen Style New Skirt Body Kit/Honda Jazz MC Mugen Style New Skirt Body Kit",
-          "raw_count": 9,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1-YnwXa6pY2m1w3fbQAK4S6op9EmkFw36",
-          "shopify_url": "https://myeliteti.myshopify.com/products/honda-jazz-mc-mugen-style-new-skirt-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Other Civics/Exterior/ETi HONDA CIVIC 2006 ETi Carbon Fiber Hood/ETi HONDA CIVIC 2006 ETi Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/19tnuT8663Rldg3iJhJGIUiNmK786uiwe",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-2006-eti-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Other Civics/Exterior/ETi HONDA CIVIC 2006 OEM Carbon Fiber Hood/ETi HONDA CIVIC 2006 OEM Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1xyysVc7U1Wq6tObo4l9kSR8kz2z8y3HQ",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-2006-oem-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Other Civics/Exterior/ETi HONDA CIVIC 2012 FB OEM Carbon Fiber Hood/ETi HONDA CIVIC 2012 FB OEM Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1T-T50OTjJN_HiKFMnjcNKu3wu_CjD2Qm",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-2012-fb-oem-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Other Civics/Exterior/ETi HONDA CIVIC 4D ETi Carbon Fiber Hood/ETi HONDA CIVIC 4D ETi Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1heZ_d3cgOaLF_jGmkAmGGYtGEwXdu6Fh",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-4d-eti-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Other Civics/Exterior/ETi HONDA CIVIC EP3 OEM Carbon Fiber Hood/ETi HONDA CIVIC EP3 OEM Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1wnrveG1xDqGs3EnYQFLoCxrceUC7x3PL",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-ep3-oem-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Other Civics/Exterior/ETi Honda Dimension 01 OEM Carbon Fiber Hood/ETi Honda Dimension 01 OEM Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1Jmj5AUNKmkoSTVegZ2NppumTZDxGY9l1",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-dimension-01-oem-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Other Civics/Exterior/ETi Honda Dimension 04 OEM Carbon Fiber Hood/ETi Honda Dimension 04 OEM Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1_tG_zH-mr4-W5cbbuQVSOaL75vRMVohh",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-dimension-04-oem-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Other Civics/Kits/ETi Honda Dimension Carbon Fiber Body Kit/ETi Honda Dimension Carbon Fiber Body Kit",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1Q-_fcXrTnQNA-MvD8SvCQIBEKQ5kwaP6",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-dimension-carbon-fiber-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Other Civics/Kits/Honda Civic 2006 Mugen Skirt Style Body Kit/Honda Civic 2006 Mugen Skirt Style Body Kit",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1G701KSeHbZc0fYZQ6Y1BpX1FaF4BPJt6",
-          "shopify_url": "https://myeliteti.myshopify.com/products/honda-civic-2006-mugen-skirt-style-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Other Civics/Kits/Honda Dimension Mugen Skirt Style Body Kit/Honda Dimension Mugen Skirt Style Body Kit",
-          "raw_count": 8,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-22",
-          "drive_url": "https://drive.google.com/drive/folders/1iGeT48IVeITBOwthbGdqrpu8ngpaG-YF",
-          "shopify_url": "https://myeliteti.myshopify.com/products/honda-dimension-mugen-skirt-style-body-kit",
-          "photos_live": 0
         },
         {
           "path": "Accord/Exterior/ETi HONDA ACCORD 03 ETi wide Carbon Fiber Hood",
@@ -8607,12 +8607,12 @@
     },
     {
       "make": "Toyota",
-      "total_folders": 260,
-      "raw_images": 1607,
-      "edited_images": 1352,
-      "folders_with_edited": 111,
-      "folders_with_only_raw": 81,
-      "folders_empty": 68,
+      "total_folders": 252,
+      "raw_images": 1605,
+      "edited_images": 1354,
+      "folders_with_edited": 112,
+      "folders_with_only_raw": 79,
+      "folders_empty": 61,
       "folders": [
         {
           "path": "Altezza/Kits/Toyota Altezza C-West Body Kit",
@@ -9083,6 +9083,16 @@
           "drive_url": "https://drive.google.com/drive/folders/1b37VpG0C8MJ51eQUCZk_Pf5qMuCmE9Aj",
           "shopify_url": "https://myeliteti.myshopify.com/products/gt86-rocket-bunny-v1-kit",
           "photos_live": 11
+        },
+        {
+          "path": "Lexus",
+          "raw_count": 0,
+          "edited_count": 2,
+          "status": "edited",
+          "upload_date": "2026-06-13",
+          "drive_url": "https://drive.google.com/drive/folders/1Bfl_n5lUn_VFQVpYQGJUXURNB0BF4KNi",
+          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-gs300-eti-body-kit",
+          "photos_live": 0
         },
         {
           "path": "MR2_SW20/Kits/TOYOTA MR2 AB-FULK Body Kit",
@@ -10141,26 +10151,6 @@
           "photos_live": 2
         },
         {
-          "path": "Lexus/Lexus/Exterior/ETi TOYOTA LEXUS GS300 ETi Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1Hs9bUXOP2QTnD86pSYiiqjpGDLjaMO3i",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-lexus-gs300-eti-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Lexus/Lexus/Exterior/ETi TOYOTA LEXUS GS300 OEM Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1e4MtCW5-57KGUMpx--JEMQjTHAoUvW1m",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-lexus-gs300-oem-hood",
-          "photos_live": 0
-        },
-        {
           "path": "MR2_SW20/Exterior/ETi TOYOTA MR2 ETi Carbon Fiber Hood",
           "raw_count": 2,
           "edited_count": 0,
@@ -10680,76 +10670,6 @@
           "photos_live": 0
         },
         {
-          "path": "Lexus/Lexus/Exterior/ETi LEXUS ARISTO GS300 Carbon Fiber Roof",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1ZQzrl237xXPF_nt9drJxoyd4NG_AgpJs",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-lexus-aristo-gs300-roof",
-          "photos_live": 0
-        },
-        {
-          "path": "Lexus/Lexus/Exterior/ETi TOYOTA LEXUS Aristo OEM Carbon Fiber Trunk",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/13MUIStQMPOsS16o_nA0zZkA0vkrpDoPL",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-lexus-aristo-oem-trunk",
-          "photos_live": 0
-        },
-        {
-          "path": "Lexus/Lexus/Kits/TOYOTA LEXUS IS 250 BLITZ Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1Jr9o5mhhVmoNRWSf2CivASosVPtTfNA2",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-is-250-blitz-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Lexus/Lexus/Kits/TOYOTA LEXUS LS 430 ETi Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1dojUpBGvZeokDFqbOZfXJ9VdYVag5PpW",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-ls-430-eti-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Lexus/Lexus/Kits/TOYOTA LEXUS LS 430 VERTEX BODY KIT 5 pcs Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1Wvy4OWWHeFRhpszV8YxvXWWQ9X2gf_wH",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-ls-430-vertex-body-kit-5-pcs-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Lexus/Lexus/Kits/Toyota Lexus IS 250 TOM'S Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1L9hYfP3uZ0mIgQuWdTvsZNr0QolOOWUO",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-is-250-tom-s-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Lexus/Lexus/Kits/Toyota Lexus RX Branew Skirt Body Kit",
-          "raw_count": 0,
-          "edited_count": 0,
-          "status": "empty",
-          "upload_date": "N/A",
-          "drive_url": "https://drive.google.com/drive/folders/1PlW0SaJnUC5n3CHgTrpJO7Tj8J-_6qHH",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-lexus-rx-branew-skirt-kit-8-pcs-body-kit",
-          "photos_live": 0
-        },
-        {
           "path": "MR2_SW20/Exterior/ETi TOYOTA MR2 Carbon Fiber Hood",
           "raw_count": 0,
           "edited_count": 0,
@@ -11203,12 +11123,12 @@
     }
   ],
   "totals": {
-    "total_folders": 1114,
-    "folders_with_edited": 666,
-    "folders_with_only_raw": 196,
-    "folders_empty": 252,
-    "total_edited_images": 5020,
-    "total_raw_images": 6230,
-    "completion_percentage": 59.8
+    "total_folders": 1106,
+    "folders_with_edited": 687,
+    "folders_with_only_raw": 174,
+    "folders_empty": 245,
+    "total_edited_images": 5096,
+    "total_raw_images": 6231,
+    "completion_percentage": 62.1
   }
 }
