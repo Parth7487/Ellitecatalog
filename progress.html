@@ -70,7 +70,7 @@
             
             <div class="flex items-center gap-3">
                 <span class="text-lg font-black tracking-tight text-white">ELITE <span class="text-brand-lime">TI</span></span>
-                <span class="text-[9px] font-extrabold uppercase tracking-widest px-2 py-0.5 border border-brand-lime/20 text-brand-lime bg-brand-lime/10 rounded-sm">STATUS DASHBOARD</span>
+                <span onclick="promptDevAccess()" class="cursor-pointer text-[9px] font-extrabold uppercase tracking-widest px-2 py-0.5 border border-brand-lime/20 text-brand-lime bg-brand-lime/10 rounded-sm hover:bg-brand-lime hover:text-black transition-all">STATUS DASHBOARD</span>
             </div>
         </div>
     </header>
@@ -166,8 +166,8 @@
             <!-- Right Panel: Folder Table List -->
             <div class="lg:col-span-3 bg-brand-card border border-brand-border rounded-md overflow-hidden flex flex-col">
                 
-                <!-- Mismatch Stats Cards -->
-                <div class="p-4 border-b border-brand-border grid grid-cols-2 sm:grid-cols-4 gap-4 bg-brand-dark/20">
+                <!-- Mismatch Stats Cards (Hidden by default) -->
+                <div id="dev-stats-container" class="hidden p-4 border-b border-brand-border grid grid-cols-2 sm:grid-cols-4 gap-4 bg-brand-dark/20">
                     <!-- Total Mismatches -->
                     <div id="card-total-mismatches" onclick="applyQuickFilter('all_mismatches')" class="bg-zinc-950/40 border border-brand-border p-4 rounded-sm flex flex-col justify-between hover:border-zinc-750 hover:bg-zinc-900/10 transition-all cursor-pointer select-none">
                         <span class="text-[9px] font-black tracking-widest uppercase text-zinc-400">Total Mismatches</span>
@@ -212,10 +212,10 @@
                     <div class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
                         <select id="filter-mismatch" onchange="handleMismatchFilterChange()" class="bg-zinc-950 border border-brand-border text-white text-[10px] font-bold py-2.5 px-4 outline-none focus:border-brand-lime transition-all rounded-sm uppercase cursor-pointer">
                             <option value="all">Show All Folders</option>
-                            <option value="all_mismatches">All Mismatches</option>
-                            <option value="edited_but_0_live">Edited but 0 Live</option>
-                            <option value="raw_ne_edited">Raw ≠ Edited</option>
-                            <option value="edited_ne_live">Edited ≠ Live</option>
+                            <option value="all_mismatches" class="dev-only hidden">All Mismatches</option>
+                            <option value="edited_but_0_live" class="dev-only hidden">Edited but 0 Live</option>
+                            <option value="raw_ne_edited" class="dev-only hidden">Raw ≠ Edited</option>
+                            <option value="edited_ne_live" class="dev-only hidden">Edited ≠ Live</option>
                             <option value="status_edited">Status: Edited (Done)</option>
                             <option value="status_raw_only">Status: Raw Only</option>
                             <option value="status_empty">Status: Empty</option>
@@ -293,6 +293,19 @@
         <div>DEVELOPER CONTROL CENTER <a href="https://Shopifydevstudio.com" target="_blank" class="text-zinc-400 hover:text-white border-b border-zinc-600 hover:border-white transition-all">SHOPIFYDEVSTUDIO.COM</a></div>
     </footer>
 
+    <script>
+        function promptDevAccess() {
+            const pwd = prompt("Enter Developer Password to unlock Mismatch Filters:");
+            if (pwd === "admin123") {
+                document.getElementById('dev-stats-container').classList.remove('hidden');
+                document.querySelectorAll('.dev-only').forEach(el => el.classList.remove('hidden'));
+                // Trigger a filter refresh if they were on a hidden filter
+                if (typeof handleMismatchFilterChange === 'function') handleMismatchFilterChange();
+            } else if (pwd !== null && pwd.trim() !== "") {
+                alert("Incorrect password.");
+            }
+        }
+    </script>
     <script src="progress.js?v=2026-05-27"></script>
 </body>
 </html>
