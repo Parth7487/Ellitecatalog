@@ -1,0 +1,1453 @@
+import os
+import json
+import urllib.request
+import ssl
+import re
+import time
+
+STORE = 'myeliteti.myshopify.com'
+
+def load_token():
+    env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.env')
+    if os.path.exists(env_path):
+        with open(env_path, 'r') as f:
+            for line in f:
+                if line.startswith('SHOPIFY_TOKEN='):
+                    return line.strip().split('=', 1)[1].strip('"\'')
+    return os.environ.get('SHOPIFY_TOKEN', '')
+
+TOKEN = load_token()
+HEALTH_DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'health_data.json')
+OUTPUT_HTML_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'visual_audit_sheet.html')
+
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+brand_mappings = [
+    {
+        "make": "BMW",
+        "base_dir": "/Users/parth/Downloads/Shopifydevstudio/BMW",
+        "collections": [
+            "gid://shopify/Collection/472264245529",
+            "gid://shopify/Collection/493542867225",
+            "gid://shopify/Collection/494958018841",
+            "gid://shopify/Collection/512300155161"
+        ]
+    },
+    {
+        "make": "Honda",
+        "base_dir": "/Users/parth/Downloads/Shopifydevstudio/Honda",
+        "collections": [
+            "gid://shopify/Collection/491729191193",
+            "gid://shopify/Collection/491759272217",
+            "gid://shopify/Collection/494449262873",
+            "gid://shopify/Collection/513247969561"
+        ]
+    },
+    {
+        "make": "Mazda",
+        "base_dir": "/Users/parth/Downloads/Shopifydevstudio/Mazda",
+        "collections": [
+            "gid://shopify/Collection/467566100761",
+            "gid://shopify/Collection/476770599193",
+            "gid://shopify/Collection/491759632665",
+            "gid://shopify/Collection/513398243609",
+            "gid://shopify/Collection/512334561561"
+        ]
+    },
+    {
+        "make": "Mercedes-Benz",
+        "base_dir": "/Users/parth/Downloads/Shopifydevstudio/Mercedes-Benz",
+        "collections": [
+            "gid://shopify/Collection/513104412953",
+            "gid://shopify/Collection/513104445721"
+        ]
+    },
+    {
+        "make": "Mitsubishi",
+        "base_dir": "/Users/parth/Downloads/Shopifydevstudio/Mitsubishi",
+        "collections": [
+            "gid://shopify/Collection/468666482969",
+            "gid://shopify/Collection/491976720665",
+            "gid://shopify/Collection/493713457433",
+            "gid://shopify/Collection/496729325849",
+            "gid://shopify/Collection/512298778905",
+            "gid://shopify/Collection/512350683417"
+        ]
+    },
+    {
+        "make": "Porsche",
+        "base_dir": "/Users/parth/Downloads/Shopifydevstudio/Porsche",
+        "collections": [
+            "gid://shopify/Collection/467589366041",
+            "gid://shopify/Collection/505526288665",
+            "gid://shopify/Collection/505526485273",
+            "gid://shopify/Collection/505527304473",
+            "gid://shopify/Collection/505527435545",
+            "gid://shopify/Collection/505527566617",
+            "gid://shopify/Collection/505527795993",
+            "gid://shopify/Collection/505527861529",
+            "gid://shopify/Collection/512367886617"
+        ]
+    },
+    {
+        "make": "Toyota",
+        "base_dir": "/Users/parth/Downloads/Shopifydevstudio/Toyota",
+        "collections": [
+            "gid://shopify/Collection/467479986457",
+            "gid://shopify/Collection/467589693721",
+            "gid://shopify/Collection/486336659737",
+            "gid://shopify/Collection/487731429657",
+            "gid://shopify/Collection/493826703641",
+            "gid://shopify/Collection/503339417881",
+            "gid://shopify/Collection/503339450649",
+            "gid://shopify/Collection/513418395929"
+        ]
+    },
+    {
+        "make": "Nissan",
+        "base_dir": "/Users/parth/Downloads/Shopifydevstudio/Nissan",
+        "collections": [
+            "gid://shopify/Collection/467557581081",
+            "gid://shopify/Collection/467589792025",
+            "gid://shopify/Collection/467589890329",
+            "gid://shopify/Collection/467591233817",
+            "gid://shopify/Collection/467614761241",
+            "gid://shopify/Collection/493300711705",
+            "gid://shopify/Collection/494909128985",
+            "gid://shopify/Collection/495877914905",
+            "gid://shopify/Collection/498956435737",
+            "gid://shopify/Collection/513440612633"
+        ]
+    }
+]
+
+def graphql_query(query, variables=None):
+    url = f"https://{STORE}/admin/api/2024-01/graphql.json"
+    headers = {"X-Shopify-Access-Token": TOKEN, "Content-Type": "application/json"}
+    data = {"query": query}
+    if variables: data["variables"] = variables
+    req = urllib.request.Request(url, data=json.dumps(data).encode('utf-8'), headers=headers, method="POST")
+    try:
+        with urllib.request.urlopen(req, context=ctx, timeout=30) as response:
+            return json.loads(response.read().decode('utf-8'))
+    except Exception as e:
+        print(f"GraphQL request failed: {e}")
+        return None
+
+def fetch_products(collection_id):
+    products = []
+    has_next = True
+    cursor = None
+    query = """
+    query getProducts($cursor: String, $colId: ID!) {
+      collection(id: $colId) {
+        products(first: 250, after: $cursor) {
+          pageInfo { hasNextPage endCursor }
+          edges {
+            node {
+              id
+              title
+              handle
+              media(first: 100) {
+                nodes {
+                  id
+                  mediaContentType
+                  ... on MediaImage {
+                    image {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    """
+    while has_next:
+        variables = {"cursor": cursor, "colId": collection_id} if cursor else {"colId": collection_id}
+        res = graphql_query(query, variables)
+        if not res or 'errors' in res or 'data' not in res or not res['data']['collection']: 
+            break
+        conn = res['data']['collection']['products']
+        for edge in conn['edges']:
+            products.append(edge['node'])
+        has_next = conn['pageInfo']['hasNextPage']
+        cursor = conn['pageInfo']['endCursor']
+        time.sleep(0.1)
+    return products
+
+def get_edited_images(prod_path):
+    edit_kw = ['edited', 'edit', 'final', 'cleaned', 'ediited', 'editted', 'photoroom', 'editing', 'edits', 'completed']
+    img_extensions = {'.png', '.jpg', '.jpeg', '.webp', '.tiff', '.bmp', '.gif', '.heic', '.heif'}
+    
+    if not os.path.exists(prod_path):
+        return []
+    try:
+        for sub in os.listdir(prod_path):
+            sub_path = os.path.join(prod_path, sub)
+            if os.path.isdir(sub_path) and any(kw in sub.lower() for kw in edit_kw):
+                files = []
+                for f in sorted(os.listdir(sub_path)):
+                    if not f.startswith('.') and os.path.splitext(f.lower())[1] in img_extensions:
+                        files.append(os.path.join(sub_path, f))
+                return files
+    except Exception as e:
+        print(f"Error reading path {prod_path}: {e}")
+    return []
+
+def get_raw_images(prod_path):
+    img_extensions = {'.png', '.jpg', '.jpeg', '.webp', '.tiff', '.bmp', '.gif', '.heic', '.heif'}
+    if not os.path.exists(prod_path):
+        return []
+    try:
+        files = []
+        for f in sorted(os.listdir(prod_path)):
+            full_f_path = os.path.join(prod_path, f)
+            if os.path.isfile(full_f_path) and not f.startswith('.') and os.path.splitext(f.lower())[1] in img_extensions:
+                files.append(full_f_path)
+        return files
+    except Exception as e:
+        print(f"Error reading raw path {prod_path}: {e}")
+    return []
+
+def run():
+    print("⏳ Loading local catalog data...")
+    with open(HEALTH_DATA_PATH, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+        
+    product_records = []
+    
+    for mapping in brand_mappings:
+        make = mapping['make']
+        base_dir = mapping['base_dir']
+        collections = mapping['collections']
+        
+        if not collections:
+            print(f"⚠️ Skipping {make} (No collections configured).")
+            continue
+            
+        print(f"⏳ Fetching live {make} products from Shopify...")
+        shopify_products = []
+        for col in collections:
+            shopify_products.extend(fetch_products(col))
+        print(f"✅ Fetched {len(shopify_products)} live products for {make}.")
+        shopify_map = {}
+        for p in shopify_products:
+            shopify_map[p['handle']] = p
+            if 'id' in p:
+                num_id = p['id'].split('/')[-1]
+                shopify_map[num_id] = p
+        
+        brand_data = next((b for b in data['brands'] if b['make'].upper() == make.upper()), None)
+        if not brand_data:
+            print(f"⚠️ Brand {make} not found in health_data.json. Skipping.")
+            continue
+            
+        for folder in brand_data['folders']:
+            path = folder['path']
+            status = folder['status']
+            raw_count = folder['raw_count']
+            edited_count = folder['edited_count']
+            shopify_url = folder.get('shopify_url', '')
+            drive_url = folder.get('drive_url', '')
+            
+            photos_live = folder.get('photos_live', 0)
+            has_e_0 = status == 'edited' and edited_count > 0 and photos_live == 0
+            has_r_e = edited_count > raw_count
+            has_e_l = status == 'edited' and photos_live > 0 and edited_count != photos_live
+            
+            is_mismatch = has_e_0 or has_r_e or has_e_l
+            
+            full_path = os.path.join(base_dir, path)
+            drive_images = get_edited_images(full_path)
+            raw_images = get_raw_images(full_path)
+            
+            live_images = []
+            product_id = ""
+            if shopify_url:
+                clean_url = shopify_url.split('?')[0].split('#')[0].rstrip('/')
+                handle = clean_url.split('/')[-1]
+                prod = shopify_map.get(handle)
+                if prod:
+                    product_id = prod['id']
+                    live_images = []
+                    for m in prod['media']['nodes']:
+                        if m['mediaContentType'] == 'IMAGE' and m.get('image'):
+                            img_url = m['image']['url']
+                            if 'placeholder' not in img_url.lower():
+                                live_images.append({
+                                    "id": m['id'],
+                                    "url": img_url
+                                })
+                                   
+            product_records.append({
+                "make": make,
+                "name": os.path.basename(path),
+                "path": path,
+                "status": status,
+                "is_mismatch": is_mismatch,
+                "mismatch_reasons": {
+                    "Edited but 0 Live": has_e_0,
+                    "Raw ≠ Edited": has_r_e,
+                    "Edited ≠ Live": has_e_l
+                },
+                "product_id": product_id,
+                "drive_count": len(drive_images),
+                "raw_count": len(raw_images),
+                "shopify_count": len(live_images),
+                "drive_images": drive_images,
+                "raw_images": raw_images,
+                "live_images": live_images,
+                "shopify_url": shopify_url,
+                "drive_url": drive_url
+            })
+
+    print("⏳ Generating HTML Contact Sheet...")
+    
+    # Calculate global stats
+    total_mismatches = sum(1 for p in product_records if p['is_mismatch'])
+    total_products = len(product_records)
+    
+    html_content = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Ti - Visual Image Verifier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tile-size: 128px;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #070708;
+            color: #E4E4E7;
+            -webkit-font-smoothing: antialiased;
+        }
+        .mismatch-card {
+            background-color: #171011;
+            border: 2px solid #EF4444;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.1);
+        }
+        .match-card {
+            background-color: #141416;
+            border: 1px solid #27272A;
+        }
+        img {
+            object-fit: cover;
+            border-radius: 4px;
+            background-color: #222;
+        }
+        .tile-img {
+            width: var(--tile-size) !important;
+            height: var(--tile-size) !important;
+            object-fit: cover;
+        }
+        .image-card {
+            width: var(--tile-size) !important;
+            height: var(--tile-size) !important;
+        }
+        .image-card img {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0B0C;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272A;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C4F101;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="border-b border-zinc-800 bg-[#0B0B0C]/80 backdrop-blur sticky top-0 z-50 px-4 py-4 md:px-8">
+        <div class="max-w-[1850px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <a href="progress.html" class="flex items-center gap-2 border border-zinc-800 hover:border-[#C4F101] text-xs font-black tracking-widest px-4 py-2 bg-[#141416] hover:bg-black text-gray-300 hover:text-[#C4F101] transition-all uppercase rounded-sm">
+                    <span>← SYNC CONTROL CENTER</span>
+                </a>
+                <div class="h-6 w-px bg-zinc-800 hidden sm:block"></div>
+                <div class="flex items-center gap-2">
+                    <span id="server-dot" class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+                    <span id="server-text" class="text-xs font-bold uppercase tracking-wider text-red-500">Shopify Helper Offline</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <!-- Grid Tile Size Slider -->
+                <div class="flex items-center gap-2 bg-[#141416] border border-zinc-800 px-3 py-1.5 rounded-sm">
+                    <span class="text-[9px] font-black text-zinc-400 uppercase tracking-wider">Tile Size:</span>
+                    <input type="range" id="size-slider" min="64" max="256" step="16" value="128" oninput="updateTileSize(this.value)" class="w-20 sm:w-28 accent-[#C4F101] cursor-pointer">
+                    <span id="size-value" class="text-[9px] font-black text-[#C4F101] w-10 text-right">128px</span>
+                </div>
+
+                <div class="flex gap-2">
+                    <button onclick="setFilter('all')" id="btn-filter-all" class="bg-[#C4F101] text-black font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-[#C4F101]">Show All</button>
+                    <button onclick="setFilter('mismatch')" id="btn-filter-mismatch" class="bg-zinc-900 hover:bg-zinc-850 text-zinc-400 font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-zinc-800">Mismatches (0)</button>
+                </div>
+                <span class="text-lg font-black tracking-tight text-white">ELITE <span class="text-[#C4F101]">TI</span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="flex-grow max-w-[1850px] w-full mx-auto p-4 md:p-8 flex flex-col lg:flex-row gap-6">
+        
+        <!-- Left Sidebar: Brand Navigation list -->
+        <aside class="w-full lg:w-64 flex-shrink-0 flex flex-col gap-4 bg-[#141416] border border-zinc-800 p-4 rounded-md h-fit">
+            <div class="border-b border-zinc-800 pb-3">
+                <span class="text-[10px] font-black tracking-widest uppercase text-gray-400">Select Brand</span>
+            </div>
+            <div id="brand-list" class="flex flex-col gap-1">
+                <!-- Dynamically populated -->
+            </div>
+        </aside>
+
+        <!-- Right Content: Products Grid -->
+        <main class="flex-grow flex flex-col gap-6">
+            <div class="bg-[#141416] border border-zinc-800 p-4 rounded-md flex justify-between items-center">
+                <h2 id="active-brand-title" class="text-base font-black text-white uppercase tracking-tight">All Brands Portfolio</h2>
+                <div class="text-[10px] font-black text-zinc-400 uppercase tracking-widest bg-zinc-950 px-3 py-1.5 border border-zinc-800 rounded-sm">
+                    Showing <span id="visible-count" class="text-[#C4F101]">0</span> of <span id="total-count">0</span> products
+                </div>
+            </div>
+
+            <!-- Products List -->
+            <div id="products-list" class="flex flex-col gap-6">
+                <!-- Dynamic Product Columns Injected Here -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="hidden py-32 text-center flex flex-col items-center justify-center border border-zinc-800/40 bg-zinc-950/20 rounded-md">
+                <span class="text-[10px] font-black tracking-widest text-zinc-500 uppercase">No Products Match Filters</span>
+            </div>
+        </main>
+    </div>
+
+    <!-- Lightbox Overlay -->
+    <div id="lightbox" onclick="closeLightbox()" class="fixed inset-0 bg-black/95 z-50 hidden flex items-center justify-center p-4">
+        <img id="lightbox-img" src="" class="max-w-full max-h-full object-contain rounded-sm shadow-2xl">
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-zinc-900 border border-zinc-800 text-white text-xs font-bold py-3 px-6 rounded-md shadow-2xl transition-all duration-300 opacity-0 translate-y-2 pointer-events-none uppercase tracking-wide flex items-center gap-2">
+        <span id="toast-status-icon" class="w-2 h-2 rounded-full bg-[#C4F101]"></span>
+        <span id="toast-msg"></span>
+    </div>
+
+    <!-- Data Injection -->
+    <script>
+        const productsData = %PRODUCT_DATA%;
+        let currentMake = 'BMW';
+        let currentFilter = 'all'; // 'all' or 'mismatch'
+        let serverActive = false;
+
+        function updateTileSize(val) {
+            document.documentElement.style.setProperty('--tile-size', val + 'px');
+            document.getElementById('size-value').textContent = val + 'px';
+        }
+
+        // Check if helper backend server is running
+        async function checkServerStatus() {
+            try {
+                const res = await fetch('http://localhost:8000/api/status', { method: 'GET' });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.status === 'running') {
+                        document.getElementById('server-dot').className = "w-2.5 h-2.5 rounded-full bg-[#C4F101] shadow-[0_0_8px_#C4F101]";
+                        document.getElementById('server-text').className = "text-xs font-bold uppercase tracking-wider text-[#C4F101]";
+                        document.getElementById('server-text').textContent = "Shopify Helper Online";
+                        serverActive = true;
+                    }
+                }
+            } catch (e) {
+                // Keep offline status
+            }
+        }
+
+        function showToast(msg, type = "success") {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-msg');
+            const icon = document.getElementById('toast-status-icon');
+            
+            icon.className = type === "success" ? "w-2 h-2 rounded-full bg-[#C4F101]" : "w-2 h-2 rounded-full bg-red-500";
+            msgEl.textContent = msg;
+            
+            toast.classList.remove('opacity-0', 'translate-y-2', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+            }, 3000);
+        }
+
+        // Initialize brand list sidebar
+        function initSidebar() {
+            const list = document.getElementById('brand-list');
+            list.innerHTML = '';
+
+            // Calculate brand sizes
+            const brandCounts = {};
+            const brandMismatches = {};
+            
+            productsData.forEach(p => {
+                brandCounts[p.make] = (brandCounts[p.make] || 0) + 1;
+                if (p.is_mismatch) {
+                    brandMismatches[p.make] = (brandMismatches[p.make] || 0) + 1;
+                }
+            });
+
+            // Global stats
+            const totalMismatches = productsData.filter(p => p.is_mismatch).length;
+            document.getElementById('btn-filter-mismatch').textContent = `Mismatches (${totalMismatches})`;
+
+            // All button
+            const allBtn = document.createElement('button');
+            allBtn.onclick = () => selectBrand('all');
+            allBtn.className = `brand-btn text-left p-3 rounded-sm border transition-all flex flex-col gap-1 w-full ${currentMake === 'all' ? 'bg-[#C4F101] border-[#C4F101] text-black font-semibold shadow-[0_0_10px_rgba(196,241,1,0.15)]' : 'bg-zinc-950 border-zinc-800 text-zinc-400'}`;
+            allBtn.innerHTML = `
+                <div class="flex justify-between items-center w-full">
+                    <span class="font-extrabold text-xs uppercase ${currentMake === 'all' ? 'text-black' : 'text-white'}">ALL PORTFOLIO</span>
+                    <span class="text-[10px] font-black ${currentMake === 'all' ? 'text-black' : 'text-[#C4F101]'}">${totalMismatches} Bad</span>
+                </div>
+            `;
+            list.appendChild(allBtn);
+
+            // Per brand
+            const uniqueMakes = [...new Set(productsData.map(p => p.make))].sort();
+            uniqueMakes.forEach(make => {
+                const count = brandCounts[make] || 0;
+                const mis = brandMismatches[make] || 0;
+                const active = currentMake === make;
+
+                const btn = document.createElement('button');
+                btn.onclick = () => selectBrand(make);
+                btn.className = `brand-btn text-left p-3 rounded-sm border transition-all flex flex-col gap-1 w-full ${active ? 'bg-[#C4F101] border-[#C4F101] text-black font-semibold shadow-[0_0_10px_rgba(196,241,1,0.15)]' : 'bg-zinc-950 border-zinc-800 text-zinc-400'}`;
+                btn.innerHTML = `
+                    <div class="flex justify-between items-center w-full">
+                        <span class="font-extrabold text-xs uppercase ${active ? 'text-black' : 'text-white'}">${make}</span>
+                        <span class="text-[10px] font-black ${active ? 'text-black' : (mis > 0 ? 'text-red-400' : 'text-[#C4F101]')}">${mis} Mismatches</span>
+                    </div>
+                `;
+                list.appendChild(btn);
+            });
+        }
+
+        function selectBrand(make) {
+            currentMake = make;
+            document.getElementById('active-brand-title').textContent = make === 'all' ? 'All Brands Portfolio' : `${make} Portfolio`;
+            initSidebar();
+            renderProducts();
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            const btnAll = document.getElementById('btn-filter-all');
+            const btnMis = document.getElementById('btn-filter-mismatch');
+
+            if (filter === 'all') {
+                btnAll.className = "bg-[#C4F101] text-black font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-[#C4F101]";
+                btnMis.className = "bg-zinc-900 hover:bg-zinc-850 text-zinc-400 font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-zinc-800";
+            } else {
+                btnAll.className = "bg-zinc-900 hover:bg-zinc-850 text-zinc-400 font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-zinc-800";
+                btnMis.className = "bg-red-950 text-red-400 font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-red-800 shadow-[0_0_10px_rgba(239,68,68,0.1)]";
+            }
+            renderProducts();
+        }
+
+        // Live Action: Delete Image from Shopify
+        async function deleteImage(btnElement, mediaId, productId) {
+            if (!serverActive) {
+                showToast("Helper Server is Offline! Run visual_manager_server.py first.", "error");
+                return;
+            }
+            
+            if (!confirm("Are you sure you want to delete this image from your Shopify product? This cannot be undone!")) {
+                return;
+            }
+
+            const imgCard = btnElement.closest('.image-card');
+            imgCard.style.opacity = '0.4';
+
+            try {
+                const response = await fetch('http://localhost:8000/api/delete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ mediaId, productId })
+                });
+
+                if (!response.ok) throw new Error("HTTP request failed");
+                const resData = await response.json();
+
+                if (resData.errors && resData.errors.length > 0) {
+                    throw new Error(resData.errors[0].message);
+                }
+
+                if (resData.data && resData.data.productDeleteMedia && resData.data.productDeleteMedia.userErrors.length > 0) {
+                    throw new Error(resData.data.productDeleteMedia.userErrors[0].message);
+                }
+
+                imgCard.remove();
+                showToast("Image successfully deleted from Shopify storefront!");
+                
+                // Update live count label
+                const countContainer = document.getElementById(`live-count-${productId.split('/').pop()}`);
+                if (countContainer) {
+                    const currentVal = parseInt(countContainer.textContent);
+                    countContainer.textContent = `${currentVal - 1} Images`;
+                }
+
+            } catch (error) {
+                imgCard.style.opacity = '1';
+                showToast(error.message, "error");
+            }
+        }
+
+        // Drag and drop variables
+        let draggedElement = null;
+
+        // Store selected local images per product
+        const selectedLocalImages = {};
+
+        function handleLocalCheckboxChange(chk, productId, shortProdId) {
+            const path = chk.getAttribute('data-path');
+            if (!selectedLocalImages[productId]) {
+                selectedLocalImages[productId] = [];
+            }
+            if (chk.checked) {
+                if (!selectedLocalImages[productId].includes(path)) {
+                    selectedLocalImages[productId].push(path);
+                }
+            } else {
+                selectedLocalImages[productId] = selectedLocalImages[productId].filter(p => p !== path);
+            }
+
+            const btn = document.getElementById(`bulk-local-btn-${shortProdId}`);
+            if (btn) {
+                const count = selectedLocalImages[productId].length;
+                btn.textContent = `Delete Selected (${count})`;
+                if (count > 0) {
+                    btn.classList.remove('hidden');
+                } else {
+                    btn.classList.add('hidden');
+                }
+            }
+        }
+
+        async function bulkDeleteLocal(productId, shortProdId) {
+            const paths = selectedLocalImages[productId] || [];
+            if (paths.length === 0) return;
+
+            if (!serverActive) {
+                showToast("Helper Server Offline! Run visual_manager_server.py first.", "error");
+                return;
+            }
+
+            if (!confirm(`Are you sure you want to move the ${paths.length} selected local edited images to trash?`)) {
+                return;
+            }
+
+            const btnEl = document.getElementById(`bulk-local-btn-${shortProdId}`);
+            const container = btnEl.closest('section').querySelector('.local-images-list');
+            showLoadingOverlay(container, true);
+
+            let successCount = 0;
+            for (const path of paths) {
+                try {
+                    const response = await fetch('http://localhost:8000/api/delete_local_image', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ filePath: path })
+                    });
+                    if (response.ok) {
+                        const resData = await response.json();
+                        if (!resData.error) {
+                            successCount++;
+                            const card = Array.from(container.querySelectorAll('.local-image-card')).find(c => c.getAttribute('data-path') === path);
+                            if (card) card.remove();
+                        }
+                    }
+                } catch (e) {
+                    console.error("Error deleting local image:", e);
+                }
+            }
+
+            showLoadingOverlay(container, false);
+            showToast(`Moved ${successCount} local edited images to trash!`);
+
+            selectedLocalImages[productId] = [];
+            btnEl.classList.add('hidden');
+            btnEl.textContent = `Delete Selected (0)`;
+        }
+
+        function handleDragStart(e) {
+            if (e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'button') {
+                e.preventDefault();
+                return;
+            }
+            draggedElement = this;
+            const path = this.getAttribute('data-path');
+            if (path) {
+                const listEl = this.closest('.local-images-list');
+                if (listEl) {
+                    const productId = listEl.getAttribute('data-product-id');
+                    const chk = this.querySelector('.local-select-chk');
+                    if (chk && chk.checked && selectedLocalImages[productId] && selectedLocalImages[productId].length > 0) {
+                        e.dataTransfer.setData('text/plain', JSON.stringify({ 
+                            type: 'local-images-bulk', 
+                            paths: selectedLocalImages[productId] 
+                        }));
+                    } else {
+                        e.dataTransfer.setData('text/plain', JSON.stringify({ type: 'local-image', path: path }));
+                    }
+                } else {
+                    e.dataTransfer.setData('text/plain', JSON.stringify({ type: 'local-image', path: path }));
+                }
+                e.dataTransfer.effectAllowed = 'copy';
+            } else {
+                e.dataTransfer.effectAllowed = 'move';
+            }
+            this.style.opacity = '0.4';
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            
+            // Check if dragging internal local image or Shopify image
+            if (draggedElement && !draggedElement.getAttribute('data-path')) {
+                e.dataTransfer.dropEffect = 'move';
+                if (draggedElement !== this) {
+                    const container = this.parentNode;
+                    const children = Array.from(container.children);
+                    const draggedIndex = children.indexOf(draggedElement);
+                    const targetIndex = children.indexOf(this);
+                    
+                    if (draggedIndex < targetIndex) {
+                        container.insertBefore(draggedElement, this.nextSibling);
+                    } else {
+                        container.insertBefore(draggedElement, this);
+                    }
+                }
+            } else {
+                e.dataTransfer.dropEffect = 'copy';
+            }
+            return false;
+        }
+
+        function handleDragEnter(e) {
+            if (draggedElement && !draggedElement.getAttribute('data-path')) {
+                this.classList.add('border-[#C4F101]', 'border-dashed');
+            }
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove('border-[#C4F101]', 'border-dashed');
+        }
+
+        function handleDrop(e) {
+            // If dragging files or local images, do NOT stop propagation so it bubbles to handleZoneDrop
+            const isFile = e.dataTransfer.files && e.dataTransfer.files.length > 0;
+            const dragDataStr = e.dataTransfer.getData('text/plain');
+            let isLocalImage = false;
+            if (dragDataStr) {
+                try {
+                    const dragData = JSON.parse(dragDataStr);
+                    if (dragData && dragData.type === 'local-image') {
+                        isLocalImage = true;
+                    }
+                } catch(err) {}
+            }
+            if (isFile || isLocalImage) {
+                return;
+            }
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+            e.preventDefault();
+            return false;
+        }
+
+        async function handleDragEnd(e) {
+            this.style.opacity = '1';
+            const container = this.closest('.shopify-images-list');
+            if (container) {
+                const cards = container.querySelectorAll('.image-card');
+                cards.forEach(card => {
+                    card.classList.remove('border-[#C4F101]', 'border-dashed');
+                });
+                
+                const productId = container.getAttribute('data-product-id');
+                await saveReorder(container, productId);
+            }
+        }
+
+        // Zone Drag & Drop Handlers for direct uploads
+        function handleZoneDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+            this.classList.add('bg-[#C4F101]/10', 'border-2', 'border-[#C4F101]', 'border-dashed', 'p-2', 'rounded-md');
+            return false;
+        }
+
+        function handleZoneDragEnter(e) {
+            e.preventDefault();
+            this.classList.add('bg-[#C4F101]/10', 'border-2', 'border-[#C4F101]', 'border-dashed', 'p-2', 'rounded-md');
+        }
+
+        function handleZoneDragLeave(e) {
+            this.classList.remove('bg-[#C4F101]/10', 'border-2', 'border-[#C4F101]', 'border-dashed', 'p-2', 'rounded-md');
+        }
+
+        async function handleZoneDrop(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            this.classList.remove('bg-[#C4F101]/10', 'border-2', 'border-[#C4F101]', 'border-dashed', 'p-2', 'rounded-md');
+
+            const productId = this.getAttribute('data-product-id');
+            const shortProdId = productId.split('/').pop();
+
+            // Case 1: Dropped files from OS
+            if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                const files = Array.from(e.dataTransfer.files);
+                await handleFileUploads(files, productId, this, shortProdId);
+                return false;
+            }
+
+            // Case 2: Dropped internal local image from raw/edited column
+            const dragDataStr = e.dataTransfer.getData('text/plain');
+            if (dragDataStr) {
+                try {
+                    const dragData = JSON.parse(dragDataStr);
+                    if (dragData) {
+                        if (dragData.type === 'local-images-bulk' && dragData.paths && dragData.paths.length > 0) {
+                            await handleLocalPathsBulkUpload(dragData.paths, productId, this, shortProdId);
+                        } else if (dragData.type === 'local-image' && dragData.path) {
+                            await handleLocalPathUpload(dragData.path, productId, this, shortProdId);
+                        }
+                    }
+                } catch (err) {
+                    console.log("Error parsing drop data:", err);
+                }
+            }
+            return false;
+        }
+
+        async function handleLocalPathsBulkUpload(paths, productId, container, shortProdId) {
+            if (!serverActive) {
+                showToast("Helper Server Offline! Cannot upload images.", "error");
+                return;
+            }
+
+            showLoadingOverlay(container, true);
+
+            for (const localPath of paths) {
+                const fileName = localPath.includes('/') ? localPath.split('/').pop() : localPath.split(String.fromCharCode(92)).pop();
+                try {
+                    const response = await fetch('http://localhost:8000/api/upload_image', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            productId: productId,
+                            localPath: localPath
+                        })
+                    });
+
+                    if (!response.ok) throw new Error(`HTTP upload failed: ${response.statusText}`);
+                    const resData = await response.json();
+
+                    if (resData.errors && resData.errors.length > 0) {
+                        throw new Error(resData.errors[0].message);
+                    }
+
+                    const userErrors = resData.data?.productCreateMedia?.userErrors || [];
+                    if (userErrors.length > 0) {
+                        throw new Error(userErrors[0].message);
+                    }
+
+                    const media = resData.data?.productCreateMedia?.media || [];
+                    if (media.length > 0) {
+                        const newMedia = media[0];
+                        appendUploadedImageToUI(container, newMedia, productId, shortProdId);
+                        showToast(`Successfully uploaded ${fileName} to Shopify!`);
+                    } else {
+                        throw new Error("No media record returned from Shopify.");
+                    }
+                } catch (error) {
+                    showToast(error.message, "error");
+                }
+            }
+
+            showLoadingOverlay(container, false);
+        }
+
+        async function handleFileUploads(files, productId, container, shortProdId) {
+            if (!serverActive) {
+                showToast("Helper Server Offline! Cannot upload images.", "error");
+                return;
+            }
+
+            showLoadingOverlay(container, true);
+
+            for (const file of files) {
+                try {
+                    const fileData = await readFileAsBase64(file);
+                    
+                    const response = await fetch('http://localhost:8000/api/upload_image', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            productId: productId,
+                            fileName: file.name,
+                            fileData: fileData
+                        })
+                    });
+
+                    if (!response.ok) throw new Error(`HTTP upload failed: ${response.statusText}`);
+                    const resData = await response.json();
+
+                    if (resData.errors && resData.errors.length > 0) {
+                        throw new Error(resData.errors[0].message);
+                    }
+
+                    const userErrors = resData.data?.productCreateMedia?.userErrors || [];
+                    if (userErrors.length > 0) {
+                        throw new Error(userErrors[0].message);
+                    }
+
+                    const media = resData.data?.productCreateMedia?.media || [];
+                    if (media.length > 0) {
+                        const newMedia = media[0];
+                        appendUploadedImageToUI(container, newMedia, productId, shortProdId);
+                        showToast(`Successfully uploaded ${file.name} to Shopify!`);
+                    } else {
+                        throw new Error("No media record returned from Shopify.");
+                    }
+                } catch (error) {
+                    showToast(error.message, "error");
+                }
+            }
+
+            showLoadingOverlay(container, false);
+        }
+
+        async function handleLocalPathUpload(localPath, productId, container, shortProdId) {
+            if (!serverActive) {
+                showToast("Helper Server Offline! Cannot upload images.", "error");
+                return;
+            }
+
+            showLoadingOverlay(container, true);
+            const fileName = localPath.includes('/') ? localPath.split('/').pop() : localPath.split(String.fromCharCode(92)).pop();
+
+            try {
+                const response = await fetch('http://localhost:8000/api/upload_image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        productId: productId,
+                        localPath: localPath
+                    })
+                });
+
+                if (!response.ok) throw new Error(`HTTP upload failed: ${response.statusText}`);
+                const resData = await response.json();
+
+                if (resData.errors && resData.errors.length > 0) {
+                    throw new Error(resData.errors[0].message);
+                }
+
+                const userErrors = resData.data?.productCreateMedia?.userErrors || [];
+                if (userErrors.length > 0) {
+                    throw new Error(userErrors[0].message);
+                }
+
+                const media = resData.data?.productCreateMedia?.media || [];
+                if (media.length > 0) {
+                    const newMedia = media[0];
+                    appendUploadedImageToUI(container, newMedia, productId, shortProdId);
+                    showToast(`Successfully uploaded ${fileName} to Shopify!`);
+                } else {
+                    throw new Error("No media record returned from Shopify.");
+                }
+            } catch (error) {
+                showToast(error.message, "error");
+            }
+
+            showLoadingOverlay(container, false);
+        }
+
+        function readFileAsBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function showLoadingOverlay(container, show) {
+            let overlay = container.querySelector('.upload-loading-overlay');
+            if (show) {
+                if (!overlay) {
+                    overlay = document.createElement('div');
+                    overlay.className = "upload-loading-overlay absolute inset-0 bg-black/60 flex items-center justify-center rounded z-20";
+                    overlay.innerHTML = `
+                        <div class="flex flex-col items-center gap-2">
+                            <svg class="animate-spin h-6 w-6 text-[#C4F101]" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span class="text-[10px] font-bold text-white uppercase tracking-wider">Uploading...</span>
+                        </div>
+                    `;
+                    container.style.position = 'relative';
+                    container.appendChild(overlay);
+                }
+            } else {
+                if (overlay) overlay.remove();
+            }
+        }
+
+        function appendUploadedImageToUI(container, media, productId, shortProdId) {
+            const emptyTxt = container.querySelector('p');
+            if (emptyTxt && emptyTxt.textContent.includes('No live images')) {
+                emptyTxt.remove();
+            }
+
+            const imgUrl = media.image?.url || 'https://via.placeholder.com/150';
+            const imgCard = document.createElement('div');
+            imgCard.className = "image-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-grab";
+            imgCard.draggable = true;
+            imgCard.setAttribute('data-media-id', media.id);
+            imgCard.setAttribute('onclick', `handleCardClick(event, '${imgUrl}')`);
+            imgCard.innerHTML = `
+                <img src="${imgUrl}" class="tile-img select-none pointer-events-none">
+                <input type="checkbox" class="bulk-select-chk absolute bottom-1 left-1 w-3.5 h-3.5 z-10 accent-red-600 rounded cursor-pointer" data-media-id="${media.id}" onchange="handleCheckboxChange('${productId}', '${shortProdId}')">
+                <button class="delete-btn absolute -top-1 -right-1 bg-red-600 hover:bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[9px] font-black border border-black shadow z-10 cursor-pointer" title="Delete from Shopify">×</button>
+            `;
+
+            container.appendChild(imgCard);
+
+            imgCard.addEventListener('dragstart', handleDragStart, false);
+            imgCard.addEventListener('dragover', handleDragOver, false);
+            imgCard.addEventListener('dragenter', handleDragEnter, false);
+            imgCard.addEventListener('dragleave', handleDragLeave, false);
+            imgCard.addEventListener('drop', handleDrop, false);
+            imgCard.addEventListener('dragend', handleDragEnd, false);
+            bindDeleteListeners(imgCard);
+
+            const countContainer = document.getElementById(`live-count-${shortProdId}`);
+            if (countContainer) {
+                const currentVal = parseInt(countContainer.textContent) || 0;
+                countContainer.textContent = `${currentVal + 1} Images`;
+            }
+        }
+
+        async function deleteLocalImage(event, filePath, button) {
+            event.stopPropagation();
+            event.preventDefault();
+
+            if (!serverActive) {
+                showToast("Helper Server Offline! Run visual_manager_server.py first.", "error");
+                return;
+            }
+
+            if (!confirm(`Are you sure you want to move this local edited image to trash?`)) {
+                return;
+            }
+
+            const card = button.closest('.local-image-card');
+            card.style.opacity = '0.4';
+
+            try {
+                const response = await fetch('http://localhost:8000/api/delete_local_image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ filePath })
+                });
+
+                if (!response.ok) throw new Error("HTTP request failed");
+                const resData = await response.json();
+
+                if (resData.error) {
+                    throw new Error(resData.error);
+                }
+
+                card.style.transform = 'scale(0.8)';
+                card.style.opacity = '0';
+                setTimeout(() => {
+                    const parent = card.parentNode;
+                    card.remove();
+                    const countHeader = parent.previousElementSibling?.querySelector('span:nth-child(2)');
+                    if (countHeader) {
+                        const currentVal = parseInt(countHeader.textContent) || 0;
+                        countHeader.textContent = `${Math.max(0, currentVal - 1)} Images`;
+                    }
+                }, 300);
+
+                showToast("Local file successfully moved to .trash folder.");
+            } catch (error) {
+                card.style.opacity = '1';
+                showToast(error.message, "error");
+            }
+        }
+
+        function bindDeleteListeners(card) {
+            const delBtn = card.querySelector('.delete-btn');
+            if (delBtn) {
+                const mediaId = card.getAttribute('data-media-id');
+                const productId = card.closest('.shopify-images-list').getAttribute('data-product-id');
+                delBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    deleteImage(delBtn, mediaId, productId);
+                };
+            }
+        }
+
+        function handleCheckboxChange(productId, shortProdId) {
+            const list = document.querySelector(`.shopify-images-list[data-product-id="${productId}"]`);
+            const checked = list.querySelectorAll('.bulk-select-chk:checked');
+            const btn = document.getElementById(`bulk-btn-${shortProdId}`);
+            if (checked.length > 0) {
+                btn.classList.remove('hidden');
+                btn.textContent = `Delete Selected (${checked.length})`;
+            } else {
+                btn.classList.add('hidden');
+            }
+        }
+
+        async function bulkDelete(productId, shortProdId) {
+            if (!serverActive) {
+                showToast("Helper Server is Offline! Run visual_manager_server.py first.", "error");
+                return;
+            }
+            
+            const list = document.querySelector(`.shopify-images-list[data-product-id="${productId}"]`);
+            const checked = list.querySelectorAll('.bulk-select-chk:checked');
+            if (checked.length === 0) return;
+            
+            if (!confirm(`Are you sure you want to delete these ${checked.length} images from Shopify? This cannot be undone!`)) {
+                return;
+            }
+            
+            const btn = document.getElementById(`bulk-btn-${shortProdId}`);
+            btn.textContent = "Deleting...";
+            btn.disabled = true;
+            
+            const promises = Array.from(checked).map(async (chk) => {
+                const mediaId = chk.getAttribute('data-media-id');
+                const imgCard = chk.closest('.image-card');
+                imgCard.style.opacity = '0.4';
+                try {
+                    const response = await fetch('http://localhost:8000/api/delete', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ mediaId, productId })
+                    });
+                    if (response.ok) {
+                        const resData = await response.json();
+                        if (!resData.errors && (!resData.data || !resData.data.productDeleteMedia || resData.data.productDeleteMedia.userErrors.length === 0)) {
+                            imgCard.remove();
+                            return true;
+                        }
+                    }
+                } catch (e) {
+                    // ignore
+                }
+                imgCard.style.opacity = '1';
+                return false;
+            });
+            
+            const results = await Promise.all(promises);
+            const successCount = results.filter(Boolean).length;
+            
+            showToast(`Successfully deleted ${successCount} images from Shopify!`);
+            
+            // Sync local HTML cache on disk for all deleted images
+            const htmlPath = 'website-catalog/visual_audit_sheet.html';
+            try {
+                const response = await fetch('http://localhost:8000/api/status'); // Dummy read to ensure server is still there
+                // We let the Python server sync handle disk updates
+            } catch (e) {}
+
+            // Update live count label
+            const countContainer = document.getElementById(`live-count-${shortProdId}`);
+            if (countContainer) {
+                const currentVal = parseInt(countContainer.textContent);
+                countContainer.textContent = `${currentVal - successCount} Images`;
+            }
+            
+            btn.disabled = false;
+            btn.classList.add('hidden');
+        }
+
+        async function saveReorder(container, productId) {
+            if (!serverActive) {
+                showToast("Helper Server Offline! Cannot save image order.", "error");
+                return;
+            }
+
+            const cards = container.querySelectorAll('.image-card');
+            const moves = [];
+            
+            cards.forEach((card, index) => {
+                const mediaId = card.getAttribute('data-media-id');
+                moves.push({
+                    id: mediaId,
+                    newPosition: String(index)
+                });
+            });
+
+            try {
+                const response = await fetch('http://localhost:8000/api/reorder', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ productId, moves })
+                });
+
+                if (!response.ok) throw new Error("HTTP request failed");
+                const resData = await response.json();
+
+                if (resData.errors && resData.errors.length > 0) {
+                    throw new Error(resData.errors[0].message);
+                }
+
+                if (resData.data && resData.data.productReorderMedia && resData.data.productReorderMedia.userErrors.length > 0) {
+                    throw new Error(resData.data.productReorderMedia.userErrors[0].message);
+                }
+
+                showToast("Shopify image order successfully updated!");
+            } catch (error) {
+                showToast(error.message, "error");
+            }
+        }
+
+        function renderProducts() {
+            const container = document.getElementById('products-list');
+            const emptyState = document.getElementById('empty-state');
+            container.innerHTML = '';
+
+            const filtered = productsData.filter(p => {
+                const matchesMake = currentMake === 'all' || p.make === currentMake;
+                const matchesFilter = currentFilter === 'all' || p.is_mismatch;
+                return matchesMake && matchesFilter;
+            });
+
+            document.getElementById('visible-count').textContent = filtered.length;
+            document.getElementById('total-count').textContent = productsData.length;
+
+            if (filtered.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            emptyState.classList.add('hidden');
+
+            filtered.forEach(p => {
+                const cardClass = p.is_mismatch ? "mismatch-card" : "match-card";
+                const type = p.is_mismatch ? "mismatch" : "match";
+
+                let statusBadge = "";
+                if (p.is_mismatch) {
+                    const reasons = Object.keys(p.mismatch_reasons).filter(k => p.mismatch_reasons[k]);
+                    statusBadge = `<span class="bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-1 text-[10px] font-black rounded-sm uppercase tracking-wider mr-2">${reasons.join(', ')}</span>`;
+                } else {
+                    statusBadge = '<span class="bg-green-500/20 text-green-400 border border-green-500/30 px-3 py-1 text-[10px] font-black rounded-sm uppercase tracking-wider mr-2">VERIFIED MATCH</span>';
+                }
+
+                const shortProdId = p.product_id ? p.product_id.split('/').pop() : 'none';
+
+                let rawImgsHtml = "";
+                if (p.raw_images.length > 0) {
+                    p.raw_images.forEach(img => {
+                        const fileUrl = `http://localhost:8000/api/image?path=` + encodeURIComponent(img);
+                        rawImgsHtml += `
+                            <div class="local-drag-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-grab" draggable="true" data-path="${img}" onclick="handleCardClick(event, '${fileUrl}')">
+                                <img src="${fileUrl}" class="tile-img select-none pointer-events-none" title="${img.split('/').pop()}">
+                            </div>
+                        `;
+                    });
+                } else {
+                    rawImgsHtml = '<p class="text-zinc-600 text-xs italic py-4">No raw images.</p>';
+                }
+
+                let driveImgsHtml = "";
+                if (p.drive_images.length > 0) {
+                    p.drive_images.forEach(img => {
+                        const fileUrl = `http://localhost:8000/api/image?path=` + encodeURIComponent(img);
+                        driveImgsHtml += `
+                            <div class="local-image-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-grab" draggable="true" data-path="${img}" onclick="handleCardClick(event, '${fileUrl}')">
+                                <img src="${fileUrl}" class="tile-img select-none pointer-events-none" title="${img.split('/').pop()}">
+                                <input type="checkbox" class="local-select-chk absolute bottom-1 left-1 w-3.5 h-3.5 z-10 accent-[#C4F101] rounded cursor-pointer" data-path="${img}" onchange="handleLocalCheckboxChange(this, '${p.product_id}', '${shortProdId}')">
+                                <button class="delete-local-btn absolute -top-1 -right-1 bg-red-600/90 hover:bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[9px] font-black border border-black shadow z-10 cursor-pointer" title="Move to Trash" onclick="deleteLocalImage(event, '${img}', this)">×</button>
+                            </div>
+                        `;
+                    });
+                } else {
+                    driveImgsHtml = '<p class="text-zinc-600 text-xs italic py-4">No edited images.</p>';
+                }
+
+                let liveImgsHtml = "";
+                if (p.live_images.length > 0) {
+                    p.live_images.forEach(img => {
+                        liveImgsHtml += `
+                            <div class="image-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-grab" draggable="true" data-media-id="${img.id}" onclick="handleCardClick(event, '${img.url}')">
+                                <img src="${img.url}" class="tile-img select-none pointer-events-none">
+                                <input type="checkbox" class="bulk-select-chk absolute bottom-1 left-1 w-3.5 h-3.5 z-10 accent-red-600 rounded cursor-pointer" data-media-id="${img.id}" onchange="handleCheckboxChange('${p.product_id}', '${shortProdId}')">
+                                <button class="delete-btn absolute -top-1 -right-1 bg-red-600 hover:bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[9px] font-black border border-black shadow z-10 cursor-pointer" title="Delete from Shopify">×</button>
+                            </div>
+                        `;
+                    });
+                } else {
+                    liveImgsHtml = '<p class="text-zinc-600 text-xs italic py-4">No live images.</p>';
+                }
+
+                const item = document.createElement('section');
+                item.className = `rounded-lg overflow-hidden transition-all duration-300 p-6 flex flex-col gap-4 ${cardClass}`;
+                item.innerHTML = `
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-zinc-800/50 pb-4 gap-4">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-zinc-600 font-extrabold text-[9px] uppercase tracking-widest bg-zinc-950 px-2 py-0.5 border border-zinc-850 rounded-sm">${p.make}</span>
+                                <h2 class="text-base font-black text-white uppercase tracking-tight">${p.name}</h2>
+                            </div>
+                            <span class="text-zinc-500 text-[10px] font-mono select-all block mt-1">${p.path}</span>
+                        </div>
+                        <div class="flex items-center gap-2.5">
+                            ${statusBadge}
+                            <a href="${p.drive_url || '#'}" target="_blank" class="bg-blue-950 hover:bg-blue-900 text-blue-400 border border-blue-800 font-extrabold text-[8px] uppercase tracking-wider py-2 px-3 rounded-sm transition-all ${p.drive_url ? '' : 'pointer-events-none opacity-40'}">Drive Folder</a>
+                            <a href="${p.shopify_url || '#'}" target="_blank" class="bg-emerald-950 hover:bg-emerald-900 text-[#C4F101] border border-emerald-800 font-extrabold text-[8px] uppercase tracking-wider py-2 px-3 rounded-sm transition-all ${p.shopify_url ? '' : 'pointer-events-none opacity-40'}">Shopify Live</a>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Column 1: Raw images -->
+                        <div class="border-r border-zinc-800/30 pr-4">
+                            <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 flex justify-between">
+                                <span>🔴 Local Raw Folder</span>
+                                <span class="text-zinc-500 font-extrabold text-[10px]">${p.raw_count} Images</span>
+                            </h3>
+                            <div class="flex flex-wrap gap-2">
+                                ${rawImgsHtml}
+                            </div>
+                        </div>
+
+                        <!-- Column 2: Edited images -->
+                        <div class="border-r border-zinc-800/30 pr-4">
+                            <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 flex justify-between items-center">
+                                <span>🟢 Local Edited Folder</span>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="bulkDeleteLocal('${p.product_id}', '${shortProdId}')" class="bulk-delete-local-btn bg-red-950 hover:bg-red-900 text-red-400 border border-red-800 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all hidden" id="bulk-local-btn-${shortProdId}">Delete Selected (0)</button>
+                                    <span class="text-zinc-500 font-extrabold text-[10px]">${p.drive_count} Images</span>
+                                </div>
+                            </h3>
+                            <div class="local-images-list flex flex-wrap gap-2" data-product-id="${p.product_id}">
+                                ${driveImgsHtml}
+                            </div>
+                        </div>
+
+                        <!-- Column 3: Shopify live images (Drag-and-Drop) -->
+                        <div>
+                            <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 flex justify-between items-center">
+                                <span>🛍️ Shopify Live CDN</span>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="bulkDelete('${p.product_id}', '${shortProdId}')" class="bulk-delete-btn bg-red-950 hover:bg-red-900 text-red-400 border border-red-800 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all hidden" id="bulk-btn-${shortProdId}">Delete Selected (0)</button>
+                                    <span id="live-count-${shortProdId}" class="text-white font-extrabold text-[10px]">${p.shopify_count} Images</span>
+                                </div>
+                            </h3>
+                            <div class="shopify-images-list flex flex-wrap gap-2 min-h-[130px] min-w-[200px] p-2 border border-transparent transition-all rounded-md" data-product-id="${p.product_id}">
+                                ${liveImgsHtml}
+                            </div>
+                            ${p.shopify_count > 1 ? '<p class="text-[9px] text-zinc-600 font-semibold italic mt-2">💡 DRAG & DROP PHOTOS TO REARRANGE THEM LIVE ON THE SITE.</p>' : ''}
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(item);
+
+                // Bind drag-and-drop event listeners to live images
+                const liveList = item.querySelector('.shopify-images-list');
+                const cards = liveList.querySelectorAll('.image-card');
+                cards.forEach(card => {
+                    card.addEventListener('dragstart', handleDragStart, false);
+                    card.addEventListener('dragover', handleDragOver, false);
+                    card.addEventListener('dragenter', handleDragEnter, false);
+                    card.addEventListener('dragleave', handleDragLeave, false);
+                    card.addEventListener('drop', handleDrop, false);
+                    card.addEventListener('dragend', handleDragEnd, false);
+                    bindDeleteListeners(card);
+                });
+
+                // Add container drop zone listeners for uploading files/local images
+                liveList.addEventListener('dragover', handleZoneDragOver, false);
+                liveList.addEventListener('dragenter', handleZoneDragEnter, false);
+                liveList.addEventListener('dragleave', handleZoneDragLeave, false);
+                liveList.addEventListener('drop', handleZoneDrop, false);
+
+                // Bind drag listeners to local raw & edited cards
+                const localDragCards = item.querySelectorAll('.local-drag-card, .local-image-card');
+                localDragCards.forEach(card => {
+                    card.addEventListener('dragstart', handleDragStart, false);
+                    card.addEventListener('dragend', handleDragEnd, false);
+                });
+            });
+        }
+
+        function handleCardClick(e, url) {
+            if (e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'button') {
+                return;
+            }
+            openLightbox(url);
+        }
+
+        function openLightbox(url) {
+            document.getElementById('lightbox-img').src = url;
+            document.getElementById('lightbox').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        // Boot
+        async function init() {
+            await checkServerStatus();
+            initSidebar();
+            renderProducts();
+        }
+
+        init();
+    </script>
+</body>
+</html>
+    """
+    
+    # Inject JSON representation of records
+    serialized_data = json.dumps(product_records, ensure_ascii=False)
+    html_content = html_content.replace("%PRODUCT_DATA%", serialized_data)
+    
+    with open(OUTPUT_HTML_PATH, 'w', encoding='utf-8') as f:
+        f.write(html_content)
+        
+    print(f"🎉 Success! Generated full visual audit sheet at {OUTPUT_HTML_PATH}")
+
+if __name__ == '__main__':
+    run()
