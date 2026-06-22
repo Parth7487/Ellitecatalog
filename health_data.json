@@ -712,11 +712,71 @@
       "make": "Honda",
       "total_folders": 160,
       "raw_images": 623,
-      "edited_images": 452,
-      "folders_with_edited": 83,
-      "folders_with_only_raw": 30,
+      "edited_images": 475,
+      "folders_with_edited": 93,
+      "folders_with_only_raw": 20,
       "folders_empty": 47,
       "folders": [
+        {
+          "path": "Accord/Exterior/ETi HONDA ACCORD 03 OEM Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1dKb4xjWgCt_UkM2wiPlKLAfM7N07GmRo",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-accord-03-oem-carbon-fiber-hood",
+          "photos_live": 0
+        },
+        {
+          "path": "Accord/Exterior/ETi HONDA ACCORD 09 ETi Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/13nPGb2tFB4wjvy-q4XQMPKrHl1X09cYC",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-accord-09-eti-carbon-fiber-hood",
+          "photos_live": 0
+        },
+        {
+          "path": "Accord/Exterior/ETi HONDA ACCORD 09 OEM Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/13nPGb2tFB4wjvy-q4XQMPKrHl1X09cYC",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-accord-09-oem-carbon-fiber-hood",
+          "photos_live": 0
+        },
+        {
+          "path": "Accord/Exterior/ETi HONDA ACCORD 96 ETi Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1bdrZhQgB74Y-oOfuomKJRNdotXwmPxQi",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-accord-96-eti-carbon-fiber-hood",
+          "photos_live": 0
+        },
+        {
+          "path": "Accord/Exterior/ETi HONDA ACCORD 96 OEM Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/13nPGb2tFB4wjvy-q4XQMPKrHl1X09cYC",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-accord-96-oem-carbon-fiber-hood",
+          "photos_live": 0
+        },
+        {
+          "path": "Accord/Exterior/ETi HONDA ACCORD 98 OEM Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1mAC87aioNZERsp9t0aIR54n7T8LGVWiT",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-accord-98-oem-carbon-fiber-hood",
+          "photos_live": 0
+        },
         {
           "path": "Accord/Exterior/Honda Accord 09 Top Secret Style Carbon Fiber Hood",
           "raw_count": 5,
@@ -766,6 +826,16 @@
           "drive_url": "https://drive.google.com/drive/folders/19i2YRV_8Hs5GER12Af46I5RvXnIPu6BS",
           "shopify_url": "https://myeliteti.myshopify.com/products/honda-accord-2008-mugen-style-body-kit",
           "photos_live": 6
+        },
+        {
+          "path": "City/Exterior/ETi HONDA CITY 2011 OEM Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/13nPGb2tFB4wjvy-q4XQMPKrHl1X09cYC",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-city-2011-oem-carbon-fiber-hood",
+          "photos_live": 0
         },
         {
           "path": "Civic EG_EK/Exterior/ETi HONDA CIVIC EK9 Carbon Fiber Doors",
@@ -888,6 +958,16 @@
           "photos_live": 3
         },
         {
+          "path": "Civic EG_EK/Exterior/ETi Honda Civic EG-EK Dry Carbon Wiper Cowl Cover",
+          "raw_count": 7,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1kgB_WpeNzLlgbzBDWIGwzfd1tOxnGeCy",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-eg-ek-dry-carbon-wiper-cowl-cover",
+          "photos_live": 0
+        },
+        {
           "path": "Civic EG_EK/Exterior/ETi Honda Civic EK 2-4-Door Carbon Fiber Drag Stance Front Bumper",
           "raw_count": 3,
           "edited_count": 3,
@@ -948,6 +1028,16 @@
           "photos_live": 3
         },
         {
+          "path": "Civic EG_EK/Exterior/ETi Honda Civic EK OEM Hood",
+          "raw_count": 6,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/19wdPYXLhttSo4LSfnnt9iLk8o-58scx5",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-ek-oem-hood",
+          "photos_live": 0
+        },
+        {
           "path": "Civic EG_EK/Exterior/ETi Honda Civic EK Racing Door 2pcs",
           "raw_count": 6,
           "edited_count": 3,
@@ -996,6 +1086,16 @@
           "drive_url": "https://drive.google.com/drive/folders/153-h0H7Obm21ox-SaULgvMgnlFIAr5LG",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-ek-eg-titanium-strut-bar",
           "photos_live": 2
+        },
+        {
+          "path": "Civic EG_EK/Exterior/ETi Honda EK9 OEM Hood",
+          "raw_count": 6,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-22",
+          "drive_url": "https://drive.google.com/drive/folders/1q3SDYwi_BmBNPWnI0IwjwpdxLjy7TGro",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-ek9-oem-hood",
+          "photos_live": 0
         },
         {
           "path": "Civic EG_EK/Exterior/Honda Civic EK J's Racing Style Hood",
@@ -1547,76 +1647,6 @@
           "photos_live": 4
         },
         {
-          "path": "Accord/Exterior/ETi HONDA ACCORD 03 OEM Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1JMIBt6f9QMIcM4gdgn-nZG9yYrMP4yNi",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-accord-03-oem-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Accord/Exterior/ETi HONDA ACCORD 09 ETi Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1ep_NWksBDr7fzwfIGXqwPOgExPTmmwpm",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-accord-09-eti-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Accord/Exterior/ETi HONDA ACCORD 09 OEM Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1b2ejrR62nuezuYWQ42dj-aclwsA-JZZq",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-accord-09-oem-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Accord/Exterior/ETi HONDA ACCORD 96 ETi Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1b5aYEJ5ZuwCML6BQ0eagJZMz7WHwB-pA",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-accord-96-eti-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Accord/Exterior/ETi HONDA ACCORD 96 OEM Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1sVaNnQNF2PPBWlPuTzwEO5MU1CS9P_l3",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-accord-96-oem-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Accord/Exterior/ETi HONDA ACCORD 98 OEM Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1CMPkGA4lFaUVm8Vx66zLfnzE8Uy3HFRi",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-accord-98-oem-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "City/Exterior/ETi HONDA CITY 2011 OEM Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1K4MAk-nx_Edj3-FqtDO9HCHWh96Bm8Ya",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-city-2011-oem-carbon-fiber-hood",
-          "photos_live": 0
-        },
-        {
           "path": "Civic EG_EK/Exterior/ETi 48mm Aluminum Performance Radiator – Honda Civic EG (1992-1995)/ETi 48mm Aluminum Performance Radiator – Honda Civic EG (1992-1995)",
           "raw_count": 10,
           "edited_count": 0,
@@ -1634,36 +1664,6 @@
           "upload_date": "2026-06-22",
           "drive_url": "https://drive.google.com/drive/folders/13nXzScvklY3VLleYoTpzMmNU0NZxyFW4",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-half-size-aluminum-radiator-honda-civic-eg-and-ek-1992-2000",
-          "photos_live": 0
-        },
-        {
-          "path": "Civic EG_EK/Exterior/ETi Honda Civic EG-EK Dry Carbon Wiper Cowl Cover",
-          "raw_count": 7,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-15",
-          "drive_url": "https://drive.google.com/drive/folders/1Qj1Ae1P1nuTS8UR_SWixT8nDpQ8s4J0d",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-eg-ek-dry-carbon-wiper-cowl-cover",
-          "photos_live": 0
-        },
-        {
-          "path": "Civic EG_EK/Exterior/ETi Honda Civic EK OEM Hood",
-          "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-15",
-          "drive_url": "https://drive.google.com/drive/folders/1lVOPqTm1vqAI_75jGmjMV88_lGQuIs6O",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-ek-oem-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Civic EG_EK/Exterior/ETi Honda EK9 OEM Hood",
-          "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-15",
-          "drive_url": "https://drive.google.com/drive/folders/1S-sKIPU6EaOiVyMjuL2C7ngNMJb_V81N",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-ek9-oem-hood",
           "photos_live": 0
         },
         {
@@ -11204,11 +11204,11 @@
   ],
   "totals": {
     "total_folders": 1114,
-    "folders_with_edited": 656,
-    "folders_with_only_raw": 206,
+    "folders_with_edited": 666,
+    "folders_with_only_raw": 196,
     "folders_empty": 252,
-    "total_edited_images": 4997,
+    "total_edited_images": 5020,
     "total_raw_images": 6230,
-    "completion_percentage": 58.9
+    "completion_percentage": 59.8
   }
 }
