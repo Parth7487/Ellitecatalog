@@ -364,9 +364,9 @@ function renderFolderTable() {
         if (f.status === 'edited') {
             badgesHtml += `<span class="text-[8px] font-black text-green-400 bg-green-500/10 border border-green-500/25 px-1.5 py-0.5 rounded-sm uppercase tracking-wider">Edited</span>`;
         } else if (f.status === 'raw_only') {
-            badgesHtml += `<span class="text-[8px] font-black text-red-400 bg-red-500/10 border border-red-500/25 px-1.5 py-0.5 rounded-sm uppercase tracking-wider">Raw Only</span>`;
-        } else {
-            badgesHtml += `<span class="text-[8px] font-black text-yellow-500 bg-yellow-500/10 border border-yellow-500/25 px-1.5 py-0.5 rounded-sm uppercase tracking-wider">Empty</span>`;
+            badgesHtml += `<span class="text-[8px] font-black text-yellow-400 bg-yellow-500/10 border border-yellow-500/25 px-1.5 py-0.5 rounded-sm uppercase tracking-wider">Raw Only</span>`;
+        } else if (f.status === 'empty') {
+            badgesHtml += `<span class="text-[8px] font-black text-red-500 bg-red-500/10 border border-red-500/25 px-1.5 py-0.5 rounded-sm uppercase tracking-wider">Empty</span>`;
         }
         
         if (has_e_0) {
