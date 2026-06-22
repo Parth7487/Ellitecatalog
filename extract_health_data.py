@@ -46,7 +46,7 @@ def parse_report(filepath, make_name):
     # Let's parse tables section by section
     # Section 1: Folders with Edited Images
     # Look for table after the header
-    edited_section = re.search(r"## 🟢 1\. Folders with Edited Images.*?\n(.*?)(?=\n## 🔴|\Z)", content, re.DOTALL | re.IGNORECASE)
+    edited_section = re.search(r"## \S+ 1\. Folders with Edited Images.*?\n(.*?)(?=\n## \S+ 2\.|\Z)", content, re.DOTALL | re.IGNORECASE)
     if edited_section:
         table_text = edited_section.group(1)
         for line in table_text.splitlines():
@@ -66,7 +66,7 @@ def parse_report(filepath, make_name):
                 })
                 
     # Section 2: Folders with Only Raw Images
-    raw_section = re.search(r"## 🔴 2\. Folders with Only Raw Images.*?\n(.*?)(?=\n## [⚪🟡]|\Z)", content, re.DOTALL | re.IGNORECASE)
+    raw_section = re.search(r"## \S+ 2\. Folders with Only Raw Images.*?\n(.*?)(?=\n## \S+ 3\.|\Z)", content, re.DOTALL | re.IGNORECASE)
     if raw_section:
         table_text = raw_section.group(1)
         for line in table_text.splitlines():
@@ -85,7 +85,7 @@ def parse_report(filepath, make_name):
                 })
                 
     # Section 3: Empty Placeholder Folders
-    empty_section = re.search(r"## [⚪🟡] 3\. Empty Placeholder Folders.*?\n(.*?)(?=\n---|\Z)", content, re.DOTALL | re.IGNORECASE)
+    empty_section = re.search(r"## \S+ 3\. Empty Placeholder Folders.*?\n(.*?)(?=\n---|\Z)", content, re.DOTALL | re.IGNORECASE)
     if empty_section:
         table_text = empty_section.group(1)
         for line in table_text.splitlines():
