@@ -187,14 +187,16 @@ def get_edited_images(prod_path):
     if not os.path.exists(prod_path):
         return []
     try:
+        parent_name = os.path.basename(prod_path).lower()
         for sub in os.listdir(prod_path):
             sub_path = os.path.join(prod_path, sub)
-            if os.path.isdir(sub_path) and any(kw in sub.lower() for kw in edit_kw):
-                files = []
-                for f in sorted(os.listdir(sub_path)):
-                    if not f.startswith('.') and os.path.splitext(f.lower())[1] in img_extensions:
-                        files.append(os.path.join(sub_path, f))
-                return files
+            if os.path.isdir(sub_path):
+                if any(kw in sub.lower() for kw in edit_kw) or sub.lower() == parent_name:
+                    files = []
+                    for f in sorted(os.listdir(sub_path)):
+                        if not f.startswith('.') and os.path.splitext(f.lower())[1] in img_extensions:
+                            files.append(os.path.join(sub_path, f))
+                    return files
     except Exception as e:
         print(f"Error reading path {prod_path}: {e}")
     return []
@@ -266,25 +268,26 @@ def run():
             drive_images = get_edited_images(full_path)
             raw_images = get_raw_images(full_path)
             
-            live_images = []
+            shopify_title = ""
             product_id = ""
+            live_images = []
             if shopify_url:
                 clean_url = shopify_url.split('?')[0].split('#')[0].rstrip('/')
                 handle = clean_url.split('/')[-1]
                 prod = shopify_map.get(handle)
                 if prod:
                     product_id = prod['id']
-                    live_images = []
+                    shopify_title = prod.get('title', '')
                     for m in prod['media']['nodes']:
                         if m['mediaContentType'] == 'IMAGE' and m.get('image'):
                             img_url = m['image']['url']
-                            if 'placeholder' not in img_url.lower():
-                                live_images.append({
-                                    "id": m['id'],
-                                    "url": img_url
-                                })
+                            live_images.append({
+                                "id": m['id'],
+                                "url": img_url
+                            })
                                    
             product_records.append({
+                "shopify_title": shopify_title,
                 "make": make,
                 "name": os.path.basename(path),
                 "path": path,
@@ -734,7 +737,7 @@ def run():
             // Check if dragging internal local image or Shopify image
             if (draggedElement && !draggedElement.getAttribute('data-path')) {
                 e.dataTransfer.dropEffect = 'move';
-                if (draggedElement !== this) {
+                if (draggedElement !== this && this.classList.contains('image-card')) {
                     const container = this.parentNode;
                     const children = Array.from(container.children);
                     const draggedIndex = children.indexOf(draggedElement);
@@ -1200,6 +1203,112 @@ def run():
             btn.classList.add('hidden');
         }
 
+        async function syncLocalToShopify(productId, shortProdId) {
+            if (!serverActive) {
+                showToast("Helper Server is Offline! Run visual_manager_server.py first.", "error");
+                return;
+            }
+
+            const p = productsData.find(record => record.product_id === productId || (record.product_id && record.product_id.endsWith(shortProdId)));
+            if (!p) {
+                showToast("Product data not found in cache!", "error");
+                return;
+            }
+
+            const liveCount = p.live_images ? p.live_images.length : 0;
+            const localCount = p.drive_images ? p.drive_images.length : 0;
+
+            if (localCount === 0) {
+                showToast("No local edited images found to upload!", "error");
+                return;
+            }
+
+            const msg = `Are you sure you want to SYNC this product?\n\nThis will:\n1. DELETE all ${liveCount} existing images from Shopify.\n2. UPLOAD all ${localCount} local edited images.\n\nThis cannot be undone!`;
+            if (!confirm(msg)) {
+                return;
+            }
+
+            const liveList = document.querySelector(`.shopify-images-list[data-product-id="${productId}"]`);
+            if (liveList) {
+                showLoadingOverlay(liveList, true);
+                const overlayText = liveList.querySelector('.upload-loading-overlay span');
+                if (overlayText) overlayText.textContent = "Syncing...";
+            }
+
+            const liveImageIds = p.live_images ? p.live_images.map(img => img.id) : [];
+            const localPaths = p.drive_images || [];
+
+            try {
+                const response = await fetch('http://localhost:8000/api/sync_product_images', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        productId,
+                        liveImageIds,
+                        localPaths
+                    })
+                });
+
+                if (!response.ok) throw new Error("Server request failed");
+                const resData = await response.json();
+
+                if (resData.errors && resData.errors.length > 0) {
+                    showToast(`Sync warnings: ${resData.errors.join(', ')}`, "error");
+                }
+
+                p.live_images = resData.uploadedImages || [];
+                p.shopify_count = p.live_images.length;
+                p.is_mismatch = false;
+
+                let liveImgsHtml = "";
+                if (p.live_images.length > 0) {
+                    p.live_images.forEach(img => {
+                        liveImgsHtml += `
+                            <div class="image-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-grab" draggable="true" data-media-id="${img.id}" onclick="handleCardClick(event, '${img.url}')">
+                                <img src="${img.url}" class="tile-img select-none pointer-events-none">
+                                <input type="checkbox" class="bulk-select-chk absolute bottom-1 left-1 w-3.5 h-3.5 z-10 accent-red-600 rounded cursor-pointer" data-media-id="${img.id}" onchange="handleCheckboxChange('${p.product_id}', '${shortProdId}')">
+                                <button class="delete-btn absolute -top-1 -right-1 bg-red-600 hover:bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[9px] font-black border border-black shadow z-10 cursor-pointer" title="Delete from Shopify">×</button>
+                            </div>
+                        `;
+                    });
+                } else {
+                    liveImgsHtml = '<p class="text-zinc-600 text-xs italic py-4">No live images.</p>';
+                }
+                
+                if (liveList) {
+                    showLoadingOverlay(liveList, false);
+                    liveList.innerHTML = liveImgsHtml;
+                }
+
+                const countContainer = document.getElementById(`live-count-${shortProdId}`);
+                if (countContainer) {
+                    countContainer.textContent = `${p.shopify_count} Images`;
+                }
+
+                const cardSection = liveList ? liveList.closest('section') : null;
+                if (cardSection) {
+                    cardSection.className = "rounded-lg overflow-hidden transition-all duration-300 p-6 flex flex-col gap-4 match-card";
+                    const badgeContainer = cardSection.querySelector('.badge-container');
+                    if (badgeContainer) {
+                        badgeContainer.innerHTML = `
+                            <span class="bg-green-500/20 text-green-400 border border-green-500/30 px-3 py-1 text-[10px] font-black rounded-sm uppercase tracking-wider mr-2">VERIFIED MATCH</span>
+                            <button onclick="syncLocalToShopify('${p.product_id}', '${shortProdId}')" class="bg-amber-950 hover:bg-amber-900 text-amber-400 border border-amber-800 font-extrabold text-[8px] uppercase tracking-wider py-2 px-3 rounded-sm transition-all" title="Delete all Shopify images and upload all local edited images">Sync Local to Shopify</button>
+                            <a href="${p.drive_url || '#'}" target="_blank" class="bg-blue-950 hover:bg-blue-900 text-blue-400 border border-blue-800 font-extrabold text-[8px] uppercase tracking-wider py-2 px-3 rounded-sm transition-all ${p.drive_url ? '' : 'pointer-events-none opacity-40'}">Drive Folder</a>
+                            <a href="${p.shopify_url || '#'}" target="_blank" class="bg-emerald-950 hover:bg-emerald-900 text-[#C4F101] border border-emerald-800 font-extrabold text-[8px] uppercase tracking-wider py-2 px-3 rounded-sm transition-all ${p.shopify_url ? '' : 'pointer-events-none opacity-40'}">Shopify Live</a>
+                        `;
+                    }
+                }
+
+                initSidebar();
+
+            } catch (e) {
+                showToast(`Sync failed: ${e.message}`, "error");
+                if (liveList) {
+                    showLoadingOverlay(liveList, false);
+                }
+            }
+        }
+
         async function saveReorder(container, productId) {
             if (!serverActive) {
                 showToast("Helper Server Offline! Cannot save image order.", "error");
@@ -1331,8 +1440,9 @@ def run():
                             </div>
                             <span class="text-zinc-500 text-[10px] font-mono select-all block mt-1">${p.path}</span>
                         </div>
-                        <div class="flex items-center gap-2.5">
+                        <div class="badge-container flex items-center gap-2.5">
                             ${statusBadge}
+                            <button onclick="syncLocalToShopify('${p.product_id}', '${shortProdId}')" class="bg-amber-950 hover:bg-amber-900 text-amber-400 border border-amber-800 font-extrabold text-[8px] uppercase tracking-wider py-2 px-3 rounded-sm transition-all" title="Delete all Shopify images and upload all local edited images">Sync Local to Shopify</button>
                             <a href="${p.drive_url || '#'}" target="_blank" class="bg-blue-950 hover:bg-blue-900 text-blue-400 border border-blue-800 font-extrabold text-[8px] uppercase tracking-wider py-2 px-3 rounded-sm transition-all ${p.drive_url ? '' : 'pointer-events-none opacity-40'}">Drive Folder</a>
                             <a href="${p.shopify_url || '#'}" target="_blank" class="bg-emerald-950 hover:bg-emerald-900 text-[#C4F101] border border-emerald-800 font-extrabold text-[8px] uppercase tracking-wider py-2 px-3 rounded-sm transition-all ${p.shopify_url ? '' : 'pointer-events-none opacity-40'}">Shopify Live</a>
                         </div>
@@ -1364,15 +1474,18 @@ def run():
                             </div>
                         </div>
 
-                        <!-- Column 3: Shopify live images (Drag-and-Drop) -->
+                         <!-- Column 3: Shopify live images (Drag-and-Drop) -->
                         <div>
-                            <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 flex justify-between items-center">
+                            <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1 flex justify-between items-center">
                                 <span>🛍️ Shopify Live CDN</span>
                                 <div class="flex items-center gap-2">
                                     <button onclick="bulkDelete('${p.product_id}', '${shortProdId}')" class="bulk-delete-btn bg-red-950 hover:bg-red-900 text-red-400 border border-red-800 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all hidden" id="bulk-btn-${shortProdId}">Delete Selected (0)</button>
                                     <span id="live-count-${shortProdId}" class="text-white font-extrabold text-[10px]">${p.shopify_count} Images</span>
                                 </div>
                             </h3>
+                            <div class="text-[9px] font-bold text-emerald-400 uppercase tracking-tight mb-3 truncate max-w-[400px] border border-emerald-950/40 bg-emerald-950/10 px-2 py-1 rounded" title="${p.shopify_title || 'N/A'}">
+                                Shopify Title: <span class="text-zinc-300 font-bold select-all">${p.shopify_title || 'Not Linked / Not Found'}</span>
+                            </div>
                             <div class="shopify-images-list flex flex-wrap gap-2 min-h-[130px] min-w-[200px] p-2 border border-transparent transition-all rounded-md" data-product-id="${p.product_id}">
                                 ${liveImgsHtml}
                             </div>

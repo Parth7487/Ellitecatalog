@@ -530,6 +530,118 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps({"error": str(ex)}).encode('utf-8'))
                 return
 
+        elif self.path == '/api/sync_product_images':
+            product_id = params.get('productId')
+            live_image_ids = params.get('liveImageIds', [])
+            local_paths = params.get('localPaths', [])
+            
+            if not product_id:
+                self.send_response(400)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": "Missing productId"}).encode('utf-8'))
+                return
+                
+            print(f"Syncing product {product_id}: deleting {len(live_image_ids)} images, uploading {len(local_paths)} images...")
+            
+            # 1. Delete existing images
+            deleted_ids = []
+            if live_image_ids:
+                del_mutation = """
+                mutation productDeleteMedia($mediaIds: [ID!]!, $productId: ID!) {
+                  productDeleteMedia(mediaIds: $mediaIds, productId: $productId) {
+                    deletedMediaIds
+                    userErrors {
+                      field
+                      message
+                    }
+                  }
+                }
+                """
+                del_res = graphql_query(del_mutation, {"mediaIds": live_image_ids, "productId": product_id})
+                if del_res and 'errors' not in del_res:
+                    user_errors = del_res.get('data', {}).get('productDeleteMedia', {}).get('userErrors', [])
+                    if user_errors:
+                        print(f"Delete user errors: {user_errors}")
+                    deleted_ids = del_res.get('data', {}).get('productDeleteMedia', {}).get('deletedMediaIds', [])
+            
+            # 2. Upload new images
+            uploaded_images = []
+            upload_errors = []
+            for path in local_paths:
+                if not os.path.exists(path):
+                    upload_errors.append(f"File not found: {path}")
+                    continue
+                try:
+                    with open(path, 'rb') as f:
+                        file_bytes = f.read()
+                    filename = os.path.basename(path)
+                    import mimetypes
+                    mime_type, _ = mimetypes.guess_type(path)
+                    if not mime_type:
+                        mime_type = 'image/jpeg'
+                        
+                    res = upload_to_shopify_bytes(file_bytes, filename, mime_type, product_id)
+                    if res and 'errors' not in res and not (res.get('data', {}).get('productCreateMedia', {}).get('userErrors')):
+                        media_list = res['data']['productCreateMedia'].get('media', [])
+                        if media_list:
+                            new_media_item = media_list[0]
+                            uploaded_images.append({
+                                "id": new_media_item['id'],
+                                "url": new_media_item.get('image', {}).get('url', '') if new_media_item.get('image') else ''
+                            })
+                    else:
+                        err_msg = res.get('errors', [{}])[0].get('message', 'Unknown error') if res else 'No response'
+                        user_errs = res.get('data', {}).get('productCreateMedia', {}).get('userErrors', []) if res else []
+                        if user_errs:
+                            err_msg = f"{err_msg}; UserErrors: {user_errs}"
+                        upload_errors.append(f"Upload failed for {filename}: {err_msg}")
+                except Exception as ex:
+                    upload_errors.append(f"Error uploading {path}: {str(ex)}")
+            
+            # 3. Update local HTML cache
+            html_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'visual_audit_sheet.html')
+            if os.path.exists(html_path):
+                try:
+                    with open(html_path, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                    match = re.search(r'const productsData = (\[.*?\]);', content, re.DOTALL)
+                    if match:
+                        json_str = match.group(1)
+                        products = json.loads(json_str)
+                        updated = False
+                        for p in products:
+                            if p.get('product_id') == product_id or product_id in p.get('product_id', ''):
+                                # Remove deleted ones
+                                if 'live_images' in p:
+                                    p['live_images'] = [img for img in p['live_images'] if img['id'] not in deleted_ids]
+                                else:
+                                    p['live_images'] = []
+                                # Add uploaded ones
+                                p['live_images'].extend([img for img in uploaded_images if img['url']])
+                                p['shopify_count'] = len(p['live_images'])
+                                updated = True
+                                break
+                        if updated:
+                            new_json_str = json.dumps(products, ensure_ascii=False)
+                            new_content = content.replace(json_str, new_json_str, 1)
+                            with open(html_path, 'w', encoding='utf-8') as f:
+                                f.write(new_content)
+                            print(f"Updated local HTML cache with sync results.")
+                except Exception as ex:
+                    print(f"Error updating local HTML cache for sync: {ex}")
+            
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "success": len(upload_errors) == 0,
+                "deletedMediaIds": deleted_ids,
+                "uploadedImages": uploaded_images,
+                "errors": upload_errors
+            }).encode('utf-8'))
+            return
+
         else:
             self.send_response(404)
             self.end_headers()
