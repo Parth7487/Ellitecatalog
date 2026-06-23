@@ -269,7 +269,6 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                                     if len(p['live_images']) != old_len:
                                         p['shopify_count'] = len(p['live_images'])
                                         updated = True
-                                        break
                             if updated:
                                 new_json_str = json.dumps(products, ensure_ascii=False)
                                 new_content = content.replace(json_str, new_json_str, 1)
@@ -327,7 +326,6 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                                     new_positions = {move['id']: int(move['newPosition']) for move in moves}
                                     p['live_images'].sort(key=lambda img: new_positions.get(img['id'], 999))
                                     updated = True
-                                    break
                             if updated:
                                 new_json_str = json.dumps(products, ensure_ascii=False)
                                 new_content = content.replace(json_str, new_json_str, 1)
@@ -509,7 +507,6 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                                             p['live_images'].append(img_data)
                                             p['shopify_count'] = len(p['live_images'])
                                             updated = True
-                                            break
                                     if updated:
                                         new_json_str = json.dumps(products, ensure_ascii=False)
                                         new_content = content.replace(json_str, new_json_str, 1)
@@ -621,7 +618,6 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                                 p['live_images'].extend([img for img in uploaded_images if img['url']])
                                 p['shopify_count'] = len(p['live_images'])
                                 updated = True
-                                break
                         if updated:
                             new_json_str = json.dumps(products, ensure_ascii=False)
                             new_content = content.replace(json_str, new_json_str, 1)
