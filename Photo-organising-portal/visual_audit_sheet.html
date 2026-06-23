@@ -1175,7 +1175,7 @@ This cannot be undone!`;
                             </h3>
                             <div class="text-[9px] font-bold text-emerald-400 uppercase tracking-tight mb-3 truncate max-w-[400px] border border-emerald-950/40 bg-emerald-950/10 px-2 py-1 rounded flex items-center justify-between" title="${p.shopify_title || 'N/A'}">
                                 <div>Shopify Title: <span class="text-zinc-300 font-bold select-all">${p.shopify_title || 'Not Linked / Not Found'}</span></div>
-                                ${p.shopify_status ? \`<span class="\${p.shopify_status.toLowerCase() === 'active' ? 'bg-emerald-900 text-emerald-400 border-emerald-700' : p.shopify_status.toLowerCase() === 'draft' ? 'bg-amber-900 text-amber-400 border-amber-700' : 'bg-red-900 text-red-400 border-red-700'} border px-1.5 py-0.5 rounded text-[8px] font-black tracking-widest">\${p.shopify_status}</span>\` : ''}
+                                ${p.shopify_status ? `<span class="${p.shopify_status.toLowerCase() === 'active' ? 'bg-emerald-900 text-emerald-400 border-emerald-700' : p.shopify_status.toLowerCase() === 'draft' ? 'bg-amber-900 text-amber-400 border-amber-700' : 'bg-red-900 text-red-400 border-red-700'} border px-1.5 py-0.5 rounded text-[8px] font-black tracking-widest">${p.shopify_status}</span>` : ''}
                             </div>
                             <div class="shopify-images-list flex flex-wrap gap-2 min-h-[130px] min-w-[200px] p-2 border border-transparent transition-all rounded-md" data-product-id="${p.product_id}">
                                 ${liveImgsHtml}
