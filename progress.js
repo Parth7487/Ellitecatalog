@@ -343,11 +343,24 @@ function renderFolderTable() {
     // Update active visual states for the mismatch cards
     updateActiveCardStyles();
     
+    const footer = document.getElementById('folder-table-footer');
+    
     if (visibleCount === 0) {
+        if (footer) footer.innerHTML = '';
         emptyState.classList.remove('hidden');
         return;
     }
     emptyState.classList.add('hidden');
+    
+    // Calculate subtotals
+    let totalRaw = 0;
+    let totalEdited = 0;
+    let totalLive = 0;
+    filteredFolders.forEach(f => {
+        totalRaw += f.raw_count || 0;
+        totalEdited += f.edited_count || 0;
+        totalLive += (f.photos_live !== undefined ? f.photos_live : 0);
+    });
     
     const rows = filteredFolders.map(f => {
         let rowClass = 'hover:bg-brand-card-hover/50 transition-all';
@@ -417,6 +430,20 @@ function renderFolderTable() {
     }).join('');
     
     body.innerHTML = rows;
+    
+    if (footer) {
+        footer.innerHTML = `
+            <tr class="bg-zinc-950 font-black uppercase text-[10px] tracking-wider text-zinc-400 border-t border-brand-border">
+                <td class="p-3 text-left text-zinc-300">Subtotal</td>
+                <td class="p-3 text-center border-x border-zinc-800/30 text-zinc-600">—</td>
+                <td class="p-3 text-center text-zinc-600">—</td>
+                <td class="p-3 text-center text-xs font-bold text-white">${totalRaw}</td>
+                <td class="p-3 text-center text-xs font-bold text-brand-lime">${totalEdited}</td>
+                <td class="p-3 text-center text-xs font-bold ${totalLive > 0 ? 'text-brand-lime' : 'text-zinc-600'}">${totalLive}</td>
+                <td class="p-3 text-right text-zinc-600">—</td>
+            </tr>
+        `;
+    }
 }
 
 function updateActiveCardStyles() {
