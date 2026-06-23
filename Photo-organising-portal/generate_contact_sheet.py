@@ -150,6 +150,7 @@ def fetch_products(collection_id):
               id
               title
               handle
+              status
               media(first: 100) {
                 nodes {
                   id
@@ -271,6 +272,7 @@ def run():
             shopify_title = ""
             product_id = ""
             live_images = []
+            shopify_status = ""
             if shopify_url:
                 clean_url = shopify_url.split('?')[0].split('#')[0].rstrip('/')
                 handle = clean_url.split('/')[-1]
@@ -278,6 +280,7 @@ def run():
                 if prod:
                     product_id = prod['id']
                     shopify_title = prod.get('title', '')
+                    shopify_status = prod.get('status', '')
                     for m in prod['media']['nodes']:
                         if m['mediaContentType'] == 'IMAGE' and m.get('image'):
                             img_url = m['image']['url']
@@ -306,7 +309,8 @@ def run():
                 "raw_images": raw_images,
                 "live_images": live_images,
                 "shopify_url": shopify_url,
-                "drive_url": drive_url
+                "drive_url": drive_url,
+                "shopify_status": shopify_status
             })
 
     print("⏳ Generating HTML Contact Sheet...")
@@ -724,6 +728,7 @@ def run():
                 }
                 e.dataTransfer.effectAllowed = 'copy';
             } else {
+                e.dataTransfer.setData('text/plain', 'shopify-image');
                 e.dataTransfer.effectAllowed = 'move';
             }
             this.style.opacity = '0.4';
@@ -1483,8 +1488,9 @@ def run():
                                     <span id="live-count-${shortProdId}" class="text-white font-extrabold text-[10px]">${p.shopify_count} Images</span>
                                 </div>
                             </h3>
-                            <div class="text-[9px] font-bold text-emerald-400 uppercase tracking-tight mb-3 truncate max-w-[400px] border border-emerald-950/40 bg-emerald-950/10 px-2 py-1 rounded" title="${p.shopify_title || 'N/A'}">
-                                Shopify Title: <span class="text-zinc-300 font-bold select-all">${p.shopify_title || 'Not Linked / Not Found'}</span>
+                            <div class="text-[9px] font-bold text-emerald-400 uppercase tracking-tight mb-3 truncate max-w-[400px] border border-emerald-950/40 bg-emerald-950/10 px-2 py-1 rounded flex items-center justify-between" title="${p.shopify_title || 'N/A'}">
+                                <div>Shopify Title: <span class="text-zinc-300 font-bold select-all">${p.shopify_title || 'Not Linked / Not Found'}</span></div>
+                                ${p.shopify_status ? \`<span class="\${p.shopify_status.toLowerCase() === 'active' ? 'bg-emerald-900 text-emerald-400 border-emerald-700' : p.shopify_status.toLowerCase() === 'draft' ? 'bg-amber-900 text-amber-400 border-amber-700' : 'bg-red-900 text-red-400 border-red-700'} border px-1.5 py-0.5 rounded text-[8px] font-black tracking-widest">\${p.shopify_status}</span>\` : ''}
                             </div>
                             <div class="shopify-images-list flex flex-wrap gap-2 min-h-[130px] min-w-[200px] p-2 border border-transparent transition-all rounded-md" data-product-id="${p.product_id}">
                                 ${liveImgsHtml}
