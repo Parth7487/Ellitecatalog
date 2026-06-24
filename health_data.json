@@ -4284,9 +4284,9 @@
       "make": "Nissan",
       "total_folders": 387,
       "raw_images": 2345,
-      "edited_images": 2107,
-      "folders_with_edited": 338,
-      "folders_with_only_raw": 1,
+      "edited_images": 2108,
+      "folders_with_edited": 339,
+      "folders_with_only_raw": 0,
       "folders_empty": 48,
       "folders": [
         {
@@ -4948,6 +4948,16 @@
           "drive_url": "https://drive.google.com/drive/folders/1HpGL8KajqMSKnHT8OooXYkw1NNCZc42H",
           "shopify_url": "https://myeliteti.myshopify.com/products/nissan-370z-varis-style-body-kit",
           "photos_live": 12
+        },
+        {
+          "path": "Cefiro_A31/Exterior/ETi NISSAN CEFIRO A31 ETi V3 Carbon Fiber Hood",
+          "raw_count": 1,
+          "edited_count": 1,
+          "status": "edited",
+          "upload_date": "2026-06-24",
+          "drive_url": "https://drive.google.com/drive/folders/1PrFq7OVQk__LtYhfg-8ZB8wCt2c4Few1",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-nissan-cefiro-a31-eti-v3-hood",
+          "photos_live": 0
         },
         {
           "path": "G35/Exterior/R34 GTR OEM Style Rear Spoiler (Fits- R32 R33 R34 GTR GTS G35)",
@@ -7667,15 +7677,6 @@
           "photos_live": 8
         },
         {
-          "path": "Cefiro_A31/Exterior/ETi NISSAN CEFIRO A31 ETi V3 Carbon Fiber Hood/untitled folder",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-24",
-          "drive_url": "https://drive.google.com/drive/folders/1PrFq7OVQk__LtYhfg-8ZB8wCt2c4Few1",
-          "photos_live": 0
-        },
-        {
           "path": "300ZX/Exterior/ETi Nissan 300ZX Carbon Fiber Doors",
           "raw_count": 0,
           "edited_count": 0,
@@ -8213,7 +8214,7 @@
           "upload_date": "2026-06-08",
           "drive_url": "https://drive.google.com/drive/folders/1_M8rj1PY937SvbwkBbFEh31xB_cCCDSk",
           "shopify_url": "https://myeliteti.myshopify.com/products/porsche-981-cayman-dif-techart-body-kit",
-          "photos_live": 12
+          "photos_live": 13
         },
         {
           "path": "981/Kits/PORSCHE 981 Face off 718 Body Kit",
@@ -8253,7 +8254,7 @@
           "upload_date": "2026-06-23",
           "drive_url": "https://drive.google.com/drive/folders/1w0Bo5alWRkZtntsdqrlJFFQDiohpnza4",
           "shopify_url": "https://myeliteti.myshopify.com/products/porsche-981-cayman-dif-techart-body-kit",
-          "photos_live": 12
+          "photos_live": 13
         },
         {
           "path": "986 987/Kits/ETi Porsche 987 Aeris GT1 Widebody Kit",
@@ -11124,11 +11125,11 @@
   ],
   "totals": {
     "total_folders": 1106,
-    "folders_with_edited": 781,
-    "folders_with_only_raw": 80,
+    "folders_with_edited": 782,
+    "folders_with_only_raw": 79,
     "folders_empty": 245,
-    "total_edited_images": 5761,
+    "total_edited_images": 5762,
     "total_raw_images": 6171,
-    "completion_percentage": 70.6
+    "completion_percentage": 70.7
   }
 }
