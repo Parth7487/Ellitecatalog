@@ -554,6 +554,21 @@ def run():
                     } else if (newStatus === 'Reedits') {
                         btnElement.className = 'status-btn bg-red-500/20 text-red-400 border border-red-500/50 px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all';
                     }
+                    
+                    if (currentStatusFilter !== 'all' && currentStatusFilter !== newStatus) {
+                        const section = btnElement.closest('section');
+                        if (section) {
+                            section.remove();
+                            const visibleSpan = document.getElementById('visible-count');
+                            if (visibleSpan) {
+                                const newCount = parseInt(visibleSpan.textContent) - 1;
+                                visibleSpan.textContent = newCount;
+                                if (newCount <= 0) {
+                                    document.getElementById('empty-state').classList.remove('hidden');
+                                }
+                            }
+                        }
+                    }
                 }
                 
                 updateStats();
