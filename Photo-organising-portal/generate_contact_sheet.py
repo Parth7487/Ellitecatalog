@@ -467,8 +467,13 @@ def run():
                         <span class="text-[9px] font-extrabold uppercase tracking-widest text-red-400 bg-red-500/10 border border-red-500/30 px-2 py-1 rounded">🔄 Reedits: <span id="stat-reedits" class="text-white ml-1">0</span></span>
                     </div>
                 </div>
-                <div class="text-[10px] font-black text-zinc-400 uppercase tracking-widest bg-zinc-950 px-3 py-1.5 border border-zinc-800 rounded-sm">
-                    Showing <span id="visible-count" class="text-[#C4F101]">0</span> of <span id="total-count">0</span> products
+                <div class="flex items-center gap-4 w-full md:w-auto">
+                    <div class="relative w-full md:w-64">
+                        <input type="text" id="product-search" oninput="renderProducts()" placeholder="SEARCH PRODUCTS..." class="w-full bg-zinc-950 border border-zinc-800 text-white text-[10px] p-2 outline-none focus:border-[#C4F101] transition-all rounded shadow-inner uppercase font-bold tracking-wider">
+                    </div>
+                    <div class="text-[10px] font-black text-zinc-400 uppercase tracking-widest bg-zinc-950 px-3 py-1.5 border border-zinc-800 rounded-sm flex-shrink-0">
+                        Showing <span id="visible-count" class="text-[#C4F101]">0</span> of <span id="total-count">0</span> products
+                    </div>
                 </div>
             </div>
 
@@ -618,6 +623,28 @@ def run():
                         document.getElementById('server-text').className = "text-xs font-bold uppercase tracking-wider text-[#C4F101]";
                         document.getElementById('server-text').textContent = "Shopify Helper Online";
                         serverActive = true;
+                        
+                        // Fetch the latest statuses to prevent regression on page refresh
+                        try {
+                            const statusRes = await fetch('http://localhost:8000/api/get_statuses', { method: 'GET' });
+                            if (statusRes.ok) {
+                                const latestStatuses = await statusRes.json();
+                                let updated = false;
+                                productsData.forEach(p => {
+                                    const shortId = p.product_id.split('/').pop();
+                                    if (latestStatuses[shortId] && p.review_status !== latestStatuses[shortId]) {
+                                        p.review_status = latestStatuses[shortId];
+                                        updated = true;
+                                    }
+                                });
+                                if (updated) {
+                                    renderProducts();
+                                    initSidebar();
+                                }
+                            }
+                        } catch (err) {
+                            console.error("Failed to fetch latest statuses", err);
+                        }
                     }
                 }
             } catch (e) {
@@ -1522,11 +1549,23 @@ def run():
             const emptyState = document.getElementById('empty-state');
             container.innerHTML = '';
 
+            const searchInput = document.getElementById('product-search');
+            const searchQuery = searchInput ? searchInput.value.toLowerCase().trim() : '';
+            const searchTerms = searchQuery.split(' ').filter(t => t.length > 0);
+
             const filtered = productsData.filter(p => {
                 const matchesMake = currentMake === 'all' || p.make === currentMake;
                 const matchesFilter = currentFilter === 'all' || p.is_mismatch;
                 const matchesStatus = currentStatusFilter === 'all' || p.review_status === currentStatusFilter;
-                return matchesMake && matchesFilter && matchesStatus;
+                
+                let matchesSearch = true;
+                if (searchTerms.length > 0) {
+                    const nameLower = p.name.toLowerCase();
+                    const makeLower = p.make.toLowerCase();
+                    matchesSearch = searchTerms.every(term => nameLower.includes(term) || makeLower.includes(term));
+                }
+
+                return matchesMake && matchesFilter && matchesStatus && matchesSearch;
             });
 
             document.getElementById('visible-count').textContent = filtered.length;

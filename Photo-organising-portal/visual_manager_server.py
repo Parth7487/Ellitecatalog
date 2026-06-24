@@ -181,6 +181,19 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps({"status": "running"}).encode('utf-8'))
+        elif parsed.path == '/api/get_statuses':
+            status_file = os.path.join(os.path.dirname(__file__), 'review_status.json')
+            statuses = {}
+            if os.path.exists(status_file):
+                try:
+                    with open(status_file, 'r') as f:
+                        statuses = json.load(f)
+                except Exception:
+                    pass
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(statuses).encode('utf-8'))
         elif parsed.path == '/api/image':
             query = urllib.parse.parse_qs(parsed.query)
             file_path = query.get('path', [None])[0]
