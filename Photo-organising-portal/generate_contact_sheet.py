@@ -557,6 +557,7 @@ def run():
                 }
                 
                 updateStats();
+                initSidebar(); // Refresh percentages on the left sidebar
                 showToast("Review status saved!");
             } catch (err) {
                 console.error(err);
@@ -634,26 +635,37 @@ def run():
             // Calculate brand sizes
             const brandCounts = {};
             const brandMismatches = {};
+            const brandPerfect = {};
             
             productsData.forEach(p => {
                 brandCounts[p.make] = (brandCounts[p.make] || 0) + 1;
                 if (p.is_mismatch) {
                     brandMismatches[p.make] = (brandMismatches[p.make] || 0) + 1;
                 }
+                if (p.review_status === 'Perfect verified') {
+                    brandPerfect[p.make] = (brandPerfect[p.make] || 0) + 1;
+                }
             });
 
             // Global stats
+            const totalProducts = productsData.length;
             const totalMismatches = productsData.filter(p => p.is_mismatch).length;
+            const totalPerfect = productsData.filter(p => p.review_status === 'Perfect verified').length;
+            const totalPercent = totalProducts > 0 ? Math.round((totalPerfect / totalProducts) * 100) : 0;
+            
             document.getElementById('btn-filter-mismatch').textContent = `Mismatches (${totalMismatches})`;
 
             // All button
             const allBtn = document.createElement('button');
             allBtn.onclick = () => selectBrand('all');
-            allBtn.className = `brand-btn text-left p-3 rounded-sm border transition-all flex flex-col gap-1 w-full ${currentMake === 'all' ? 'bg-[#C4F101] border-[#C4F101] text-black font-semibold shadow-[0_0_10px_rgba(196,241,1,0.15)]' : 'bg-zinc-950 border-zinc-800 text-zinc-400'}`;
+            allBtn.className = `brand-btn text-left p-3 rounded-sm border transition-all flex flex-col w-full ${currentMake === 'all' ? 'bg-[#C4F101] border-[#C4F101] text-black font-semibold shadow-[0_0_10px_rgba(196,241,1,0.15)]' : 'bg-zinc-950 hover:bg-zinc-900 border-zinc-800 text-zinc-400'}`;
             allBtn.innerHTML = `
-                <div class="flex justify-between items-center w-full">
+                <div class="flex justify-between items-center w-full mb-1.5">
                     <span class="font-extrabold text-xs uppercase ${currentMake === 'all' ? 'text-black' : 'text-white'}">ALL PORTFOLIO</span>
-                    <span class="text-[10px] font-black ${currentMake === 'all' ? 'text-black' : 'text-[#C4F101]'}">${totalMismatches} Bad</span>
+                    <span class="text-[10px] font-black ${currentMake === 'all' ? 'text-black' : 'text-[#C4F101]'}">${totalPercent}% Done</span>
+                </div>
+                <div class="w-full ${currentMake === 'all' ? 'bg-black/20' : 'bg-black/40'} rounded-full h-1 overflow-hidden">
+                    <div class="${currentMake === 'all' ? 'bg-black' : 'bg-[#C4F101]'} h-1 rounded-full transition-all duration-500" style="width: ${totalPercent}%"></div>
                 </div>
             `;
             list.appendChild(allBtn);
@@ -663,15 +675,23 @@ def run():
             uniqueMakes.forEach(make => {
                 const count = brandCounts[make] || 0;
                 const mis = brandMismatches[make] || 0;
+                const perf = brandPerfect[make] || 0;
+                const percent = count > 0 ? Math.round((perf / count) * 100) : 0;
                 const active = currentMake === make;
 
                 const btn = document.createElement('button');
                 btn.onclick = () => selectBrand(make);
-                btn.className = `brand-btn text-left p-3 rounded-sm border transition-all flex flex-col gap-1 w-full ${active ? 'bg-[#C4F101] border-[#C4F101] text-black font-semibold shadow-[0_0_10px_rgba(196,241,1,0.15)]' : 'bg-zinc-950 border-zinc-800 text-zinc-400'}`;
+                btn.className = `brand-btn text-left p-3 rounded-sm border transition-all flex flex-col w-full ${active ? 'bg-[#C4F101] border-[#C4F101] text-black font-semibold shadow-[0_0_10px_rgba(196,241,1,0.15)]' : 'bg-zinc-950 hover:bg-zinc-900 border-zinc-800 text-zinc-400'}`;
                 btn.innerHTML = `
-                    <div class="flex justify-between items-center w-full">
+                    <div class="flex justify-between items-center w-full mb-1.5">
                         <span class="font-extrabold text-xs uppercase ${active ? 'text-black' : 'text-white'}">${make}</span>
-                        <span class="text-[10px] font-black ${active ? 'text-black' : (mis > 0 ? 'text-red-400' : 'text-[#C4F101]')}">${mis} Mismatches</span>
+                        <div class="flex items-center gap-2">
+                            ${mis > 0 ? `<span class="text-[9px] font-bold px-1.5 py-0.5 rounded-sm ${active ? 'bg-red-500/20 text-red-900' : 'bg-red-500/10 text-red-400'}">${mis} Bad</span>` : ''}
+                            <span class="text-[10px] font-black ${active ? 'text-black' : 'text-[#C4F101]'}">${percent}%</span>
+                        </div>
+                    </div>
+                    <div class="w-full ${active ? 'bg-black/20' : 'bg-black/40'} rounded-full h-1 overflow-hidden">
+                        <div class="${active ? 'bg-black' : 'bg-[#C4F101]'} h-1 rounded-full transition-all duration-500" style="width: ${percent}%"></div>
                     </div>
                 `;
                 list.appendChild(btn);
