@@ -495,11 +495,9 @@ def run():
         let currentStatusFilter = 'all';
         let serverActive = false;
 
-        async function updateReviewStatus(shortProdId, newStatus) {
+        async function updateReviewStatus(shortProdId, newStatus, btnElement = null) {
             if (!serverActive) {
                 showToast("Helper Server is Offline! Run visual_manager_server.py first.", "error");
-                // Revert selection visually if offline
-                renderProducts();
                 return;
             }
             try {
@@ -512,6 +510,23 @@ def run():
                 
                 const prod = productsData.find(p => p.product_id.endsWith(shortProdId));
                 if (prod) prod.review_status = newStatus;
+                
+                if (btnElement) {
+                    const container = btnElement.parentElement;
+                    container.querySelectorAll('.status-btn').forEach(b => {
+                        b.className = 'status-btn text-zinc-500 hover:text-zinc-300 border border-transparent px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all';
+                    });
+                    
+                    if (newStatus === 'Unreviewed') {
+                        btnElement.className = 'status-btn bg-zinc-800 text-white border border-zinc-600 px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all';
+                    } else if (newStatus === 'Perfect verified') {
+                        btnElement.className = 'status-btn bg-[#C4F101]/20 text-[#C4F101] border border-[#C4F101]/50 px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all';
+                    } else if (newStatus === 'Recheck') {
+                        btnElement.className = 'status-btn bg-orange-500/20 text-orange-400 border border-orange-500/50 px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all';
+                    } else if (newStatus === 'Reedits') {
+                        btnElement.className = 'status-btn bg-red-500/20 text-red-400 border border-red-500/50 px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all';
+                    }
+                }
                 
                 showToast("Review status saved!");
             } catch (err) {
@@ -1526,12 +1541,12 @@ def run():
                             <div class="flex items-center gap-2">
                                 <span class="text-zinc-600 font-extrabold text-[9px] uppercase tracking-widest bg-zinc-950 px-2 py-0.5 border border-zinc-850 rounded-sm">${p.make}</span>
                                 <h2 class="text-base font-black text-white uppercase tracking-tight">${p.name}</h2>
-                                <select class="ml-2 bg-[#0B0B0C] hover:bg-black text-zinc-400 border border-zinc-800 text-[9px] uppercase tracking-wider font-extrabold px-2 py-1 rounded cursor-pointer outline-none transition-all" data-id="${shortProdId}" onchange="updateReviewStatus('${shortProdId}', this.value)">
-                                    <option value="Unreviewed" ${p.review_status === 'Unreviewed' ? 'selected' : ''}>⏳ Unreviewed</option>
-                                    <option value="Perfect verified" ${p.review_status === 'Perfect verified' ? 'selected' : ''}>✅ Perfect Verified</option>
-                                    <option value="Recheck" ${p.review_status === 'Recheck' ? 'selected' : ''}>⚠️ Recheck</option>
-                                    <option value="Reedits" ${p.review_status === 'Reedits' ? 'selected' : ''}>🔄 Need Reedits / Review</option>
-                                </select>
+                                <div class="ml-4 flex items-center gap-1 bg-[#0B0B0C] border border-zinc-800 p-0.5 rounded">
+                                    <button onclick="updateReviewStatus('${shortProdId}', 'Unreviewed', this)" class="status-btn ${p.review_status === 'Unreviewed' ? 'bg-zinc-800 text-white border-zinc-600' : 'text-zinc-500 hover:text-zinc-300 border-transparent'} border px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all">⏳ Unreviewed</button>
+                                    <button onclick="updateReviewStatus('${shortProdId}', 'Perfect verified', this)" class="status-btn ${p.review_status === 'Perfect verified' ? 'bg-[#C4F101]/20 text-[#C4F101] border-[#C4F101]/50' : 'text-zinc-500 hover:text-zinc-300 border-transparent'} border px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all">✅ Perfect</button>
+                                    <button onclick="updateReviewStatus('${shortProdId}', 'Recheck', this)" class="status-btn ${p.review_status === 'Recheck' ? 'bg-orange-500/20 text-orange-400 border-orange-500/50' : 'text-zinc-500 hover:text-zinc-300 border-transparent'} border px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all">⚠️ Recheck</button>
+                                    <button onclick="updateReviewStatus('${shortProdId}', 'Reedits', this)" class="status-btn ${p.review_status === 'Reedits' ? 'bg-red-500/20 text-red-400 border-red-500/50' : 'text-zinc-500 hover:text-zinc-300 border-transparent'} border px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all">🔄 Need Reedits</button>
+                                </div>
                             </div>
                             <span class="text-zinc-500 text-[10px] font-mono select-all block mt-1">${p.path}</span>
                         </div>
