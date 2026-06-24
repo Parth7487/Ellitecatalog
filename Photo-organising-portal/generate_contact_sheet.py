@@ -269,6 +269,9 @@ def run():
             drive_images = get_edited_images(full_path)
             raw_images = get_raw_images(full_path)
             
+            edited_folder_path = os.path.dirname(drive_images[0]) if drive_images else ""
+            raw_folder_path = full_path
+            
             shopify_title = ""
             product_id = ""
             live_images = []
@@ -303,7 +306,9 @@ def run():
                 },
                 "product_id": product_id,
                 "drive_count": len(drive_images),
-                "raw_count": len(raw_images),
+                "raw_count": raw_count,
+                "raw_folder_path": raw_folder_path,
+                "edited_folder_path": edited_folder_path,
                 "shopify_count": len(live_images),
                 "drive_images": drive_images,
                 "raw_images": raw_images,
@@ -463,6 +468,28 @@ def run():
         let currentMake = 'BMW';
         let currentFilter = 'all'; // 'all' or 'mismatch'
         let serverActive = false;
+
+        async function openInFinder(folderPath) {
+            if (!folderPath) {
+                showToast("Folder path not found", "error");
+                return;
+            }
+            if (!serverActive) {
+                showToast("Helper Server is Offline! Run visual_manager_server.py first.", "error");
+                return;
+            }
+            try {
+                const response = await fetch('http://localhost:8000/api/open_folder', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ path: folderPath })
+                });
+                if (!response.ok) throw new Error("Server request failed");
+            } catch (err) {
+                console.error(err);
+                showToast("Error opening folder.", "error");
+            }
+        }
 
         function updateTileSize(val) {
             document.documentElement.style.setProperty('--tile-size', val + 'px');
@@ -657,7 +684,7 @@ def run():
             }
         }
 
-        async function bulkDeleteLocal(productId, shortProdId) {
+        async function bulkDeleteLocal(productId, shortProdId, path) {
             const paths = selectedLocalImages[productId] || [];
             if (paths.length === 0) return;
 
@@ -1208,13 +1235,13 @@ def run():
             btn.classList.add('hidden');
         }
 
-        async function syncLocalToShopify(productId, shortProdId) {
+        async function syncLocalToShopify(productId, shortProdId, path) {
             if (!serverActive) {
                 showToast("Helper Server is Offline! Run visual_manager_server.py first.", "error");
                 return;
             }
 
-            const p = productsData.find(record => record.product_id === productId || (record.product_id && record.product_id.endsWith(shortProdId)));
+            const p = productsData.find(record => record.path === path);
             if (!p) {
                 showToast("Product data not found in cache!", "error");
                 return;
@@ -1447,7 +1474,7 @@ def run():
                         </div>
                         <div class="badge-container flex items-center gap-2.5">
                             ${statusBadge}
-                            <button onclick="syncLocalToShopify('${p.product_id}', '${shortProdId}')" class="bg-amber-950 hover:bg-amber-900 text-amber-400 border border-amber-800 font-extrabold text-[8px] uppercase tracking-wider py-2 px-3 rounded-sm transition-all" title="Delete all Shopify images and upload all local edited images">Sync Local to Shopify</button>
+                            <button onclick="syncLocalToShopify('${p.product_id}', '${shortProdId}', \`${p.path}\`)" class="bg-amber-950 hover:bg-amber-900 text-amber-400 border border-amber-800 font-extrabold text-[8px] uppercase tracking-wider py-2 px-3 rounded-sm transition-all" title="Delete all Shopify images and upload all local edited images">Sync Local to Shopify</button>
                             <a href="${p.drive_url || '#'}" target="_blank" class="bg-blue-950 hover:bg-blue-900 text-blue-400 border border-blue-800 font-extrabold text-[8px] uppercase tracking-wider py-2 px-3 rounded-sm transition-all ${p.drive_url ? '' : 'pointer-events-none opacity-40'}">Drive Folder</a>
                             <a href="${p.shopify_url || '#'}" target="_blank" class="bg-emerald-950 hover:bg-emerald-900 text-[#C4F101] border border-emerald-800 font-extrabold text-[8px] uppercase tracking-wider py-2 px-3 rounded-sm transition-all ${p.shopify_url ? '' : 'pointer-events-none opacity-40'}">Shopify Live</a>
                         </div>
@@ -1456,8 +1483,11 @@ def run():
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <!-- Column 1: Raw images -->
                         <div class="border-r border-zinc-800/30 pr-4">
-                            <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 flex justify-between">
-                                <span>🔴 Local Raw Folder</span>
+                            <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 flex justify-between items-center">
+                                <div class="flex items-center gap-2">
+                                    <span>🔴 Local Raw Folder</span>
+                                    <button onclick="openInFinder(\`${p.raw_folder_path}\`)" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-[8px] uppercase tracking-wider font-extrabold px-1.5 py-0.5 rounded transition-all" title="Open folder in Finder">Open in Finder</button>
+                                </div>
                                 <span class="text-zinc-500 font-extrabold text-[10px]">${p.raw_count} Images</span>
                             </h3>
                             <div class="flex flex-wrap gap-2">
@@ -1468,9 +1498,12 @@ def run():
                         <!-- Column 2: Edited images -->
                         <div class="border-r border-zinc-800/30 pr-4">
                             <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 flex justify-between items-center">
-                                <span>🟢 Local Edited Folder</span>
                                 <div class="flex items-center gap-2">
-                                    <button onclick="bulkDeleteLocal('${p.product_id}', '${shortProdId}')" class="bulk-delete-local-btn bg-red-950 hover:bg-red-900 text-red-400 border border-red-800 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all hidden" id="bulk-local-btn-${shortProdId}">Delete Selected (0)</button>
+                                    <span>🟢 Local Edited Folder</span>
+                                    ${p.edited_folder_path ? `<button onclick="openInFinder(\`${p.edited_folder_path}\`)" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-[8px] uppercase tracking-wider font-extrabold px-1.5 py-0.5 rounded transition-all" title="Open folder in Finder">Open in Finder</button>` : ''}
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="bulkDeleteLocal('${p.product_id}', '${shortProdId}', \`${p.path}\`)" class="bulk-delete-local-btn bg-red-950 hover:bg-red-900 text-red-400 border border-red-800 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all hidden" id="bulk-local-btn-${shortProdId}">Delete Selected (0)</button>
                                     <span class="text-zinc-500 font-extrabold text-[10px]">${p.drive_count} Images</span>
                                 </div>
                             </h3>
@@ -1484,13 +1517,13 @@ def run():
                             <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1 flex justify-between items-center">
                                 <span>🛍️ Shopify Live CDN</span>
                                 <div class="flex items-center gap-2">
-                                    <button onclick="bulkDelete('${p.product_id}', '${shortProdId}')" class="bulk-delete-btn bg-red-950 hover:bg-red-900 text-red-400 border border-red-800 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all hidden" id="bulk-btn-${shortProdId}">Delete Selected (0)</button>
+                                    <button onclick="bulkDelete('${p.product_id}', '${shortProdId}', \`${p.path}\`)" class="bulk-delete-btn bg-red-950 hover:bg-red-900 text-red-400 border border-red-800 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all hidden" id="bulk-btn-${shortProdId}">Delete Selected (0)</button>
                                     <span id="live-count-${shortProdId}" class="text-white font-extrabold text-[10px]">${p.shopify_count} Images</span>
                                 </div>
                             </h3>
                             <div class="text-[9px] font-bold text-emerald-400 uppercase tracking-tight mb-3 truncate max-w-[400px] border border-emerald-950/40 bg-emerald-950/10 px-2 py-1 rounded flex items-center justify-between" title="${p.shopify_title || 'N/A'}">
                                 <div>Shopify Title: <span class="text-zinc-300 font-bold select-all">${p.shopify_title || 'Not Linked / Not Found'}</span></div>
-                                ${p.shopify_status ? \`<span class="\${p.shopify_status.toLowerCase() === 'active' ? 'bg-emerald-900 text-emerald-400 border-emerald-700' : p.shopify_status.toLowerCase() === 'draft' ? 'bg-amber-900 text-amber-400 border-amber-700' : 'bg-red-900 text-red-400 border-red-700'} border px-1.5 py-0.5 rounded text-[8px] font-black tracking-widest">\${p.shopify_status}</span>\` : ''}
+                                ${p.shopify_status ? `<span class="${p.shopify_status.toLowerCase() === 'active' ? 'bg-emerald-900 text-emerald-400 border-emerald-700' : p.shopify_status.toLowerCase() === 'draft' ? 'bg-amber-900 text-amber-400 border-amber-700' : 'bg-red-900 text-red-400 border-red-700'} border px-1.5 py-0.5 rounded text-[8px] font-black tracking-widest">${p.shopify_status}</span>` : ''}
                             </div>
                             <div class="shopify-images-list flex flex-wrap gap-2 min-h-[130px] min-w-[200px] p-2 border border-transparent transition-all rounded-md" data-product-id="${p.product_id}">
                                 ${liveImgsHtml}

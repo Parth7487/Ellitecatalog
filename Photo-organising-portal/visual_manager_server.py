@@ -638,6 +638,25 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
             }).encode('utf-8'))
             return
 
+        elif self.path == '/api/open_folder':
+            content_length = int(self.headers.get('Content-Length', 0))
+            if content_length > 0:
+                body = self.rfile.read(content_length)
+                params = json.loads(body.decode('utf-8'))
+                folder_path = params.get('path', '')
+                if os.path.exists(folder_path):
+                    import subprocess
+                    try:
+                        subprocess.run(['open', folder_path], check=True)
+                    except Exception as e:
+                        print(f"Failed to open folder {folder_path}: {e}")
+            
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
+            return
+
         else:
             self.send_response(404)
             self.end_headers()
