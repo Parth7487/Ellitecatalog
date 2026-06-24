@@ -1515,7 +1515,10 @@ def run():
                          <!-- Column 3: Shopify live images (Drag-and-Drop) -->
                         <div>
                             <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1 flex justify-between items-center">
-                                <span>🛍️ Shopify Live CDN</span>
+                                <div class="flex items-center gap-2">
+                                    <span>🛍️ Shopify Live CDN</span>
+                                    <a href="https://admin.shopify.com/store/myeliteti/products/${shortProdId}?link_source=search" target="_blank" class="bg-[#C4F101]/10 hover:bg-[#C4F101]/20 text-[#C4F101] border border-[#C4F101]/30 text-[8px] uppercase tracking-wider font-extrabold px-1.5 py-0.5 rounded transition-all" title="Open Product in Shopify Admin">Store Link</a>
+                                </div>
                                 <div class="flex items-center gap-2">
                                     <button onclick="bulkDelete('${p.product_id}', '${shortProdId}', \`${p.path}\`)" class="bulk-delete-btn bg-red-950 hover:bg-red-900 text-red-400 border border-red-800 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all hidden" id="bulk-btn-${shortProdId}">Delete Selected (0)</button>
                                     <span id="live-count-${shortProdId}" class="text-white font-extrabold text-[10px]">${p.shopify_count} Images</span>
