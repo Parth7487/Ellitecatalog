@@ -659,6 +659,7 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
 
 class ThreadingHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
     daemon_threads = True
+    allow_reuse_address = True
 
 def run_server():
     server_address = ('', PORT)
