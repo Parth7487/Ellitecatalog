@@ -636,7 +636,32 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                 "uploadedImages": uploaded_images,
                 "errors": upload_errors
             }).encode('utf-8'))
-            return
+        elif self.path == '/api/update_status':
+            product_id = params.get('id')
+            status = params.get('status')
+            if product_id and status:
+                status_file = os.path.join(os.path.dirname(__file__), 'review_status.json')
+                statuses = {}
+                if os.path.exists(status_file):
+                    try:
+                        with open(status_file, 'r') as f:
+                            statuses = json.load(f)
+                    except Exception:
+                        pass
+                
+                statuses[product_id] = status
+                with open(status_file, 'w') as f:
+                    json.dump(statuses, f, indent=4)
+                    
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
+                return
+            else:
+                self.send_response(400)
+                self.end_headers()
+                return
 
         elif self.path == '/api/open_folder':
             folder_path = params.get('path', '')

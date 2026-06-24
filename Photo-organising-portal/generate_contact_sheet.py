@@ -222,6 +222,15 @@ def run():
     with open(HEALTH_DATA_PATH, 'r', encoding='utf-8') as f:
         data = json.load(f)
         
+    status_file = os.path.join(os.path.dirname(__file__), 'review_status.json')
+    review_statuses = {}
+    if os.path.exists(status_file):
+        try:
+            with open(status_file, 'r') as f:
+                review_statuses = json.load(f)
+        except Exception:
+            pass
+        
     product_records = []
     
     for mapping in brand_mappings:
@@ -274,6 +283,7 @@ def run():
             
             shopify_title = ""
             product_id = ""
+            shortProdId = ""
             live_images = []
             shopify_status = ""
             if shopify_url:
@@ -282,6 +292,7 @@ def run():
                 prod = shopify_map.get(handle)
                 if prod:
                     product_id = prod['id']
+                    shortProdId = product_id.split('/')[-1]
                     shopify_title = prod.get('title', '')
                     shopify_status = prod.get('status', '')
                     for m in prod['media']['nodes']:
@@ -309,6 +320,7 @@ def run():
                 "raw_count": raw_count,
                 "raw_folder_path": raw_folder_path,
                 "edited_folder_path": edited_folder_path,
+                "review_status": review_statuses.get(shortProdId, 'Unreviewed'),
                 "shopify_count": len(live_images),
                 "drive_images": drive_images,
                 "raw_images": raw_images,
@@ -409,6 +421,13 @@ def run():
                 </div>
 
                 <div class="flex gap-2">
+                    <select id="status-filter" class="bg-zinc-900 text-zinc-300 border border-zinc-700 text-[9px] uppercase tracking-wider font-extrabold px-3 py-2 rounded-sm cursor-pointer outline-none" onchange="setStatusFilter(this.value)">
+                        <option value="all">All Statuses</option>
+                        <option value="Unreviewed">⏳ Unreviewed</option>
+                        <option value="Perfect verified">✅ Perfect Verified</option>
+                        <option value="Recheck">⚠️ Recheck</option>
+                        <option value="Reedits">🔄 Need Reedits</option>
+                    </select>
                     <button onclick="setFilter('all')" id="btn-filter-all" class="bg-[#C4F101] text-black font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-[#C4F101]">Show All</button>
                     <button onclick="setFilter('mismatch')" id="btn-filter-mismatch" class="bg-zinc-900 hover:bg-zinc-850 text-zinc-400 font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-zinc-800">Mismatches (0)</button>
                 </div>
@@ -467,7 +486,33 @@ def run():
         const productsData = %PRODUCT_DATA%;
         let currentMake = 'BMW';
         let currentFilter = 'all'; // 'all' or 'mismatch'
+        let currentStatusFilter = 'all';
         let serverActive = false;
+
+        async function updateReviewStatus(shortProdId, newStatus) {
+            if (!serverActive) {
+                showToast("Helper Server is Offline! Run visual_manager_server.py first.", "error");
+                // Revert selection visually if offline
+                renderProducts();
+                return;
+            }
+            try {
+                const response = await fetch('http://localhost:8000/api/update_status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: shortProdId, status: newStatus })
+                });
+                if (!response.ok) throw new Error("Server request failed");
+                
+                const prod = productsData.find(p => p.product_id.endsWith(shortProdId));
+                if (prod) prod.review_status = newStatus;
+                
+                showToast("Review status saved!");
+            } catch (err) {
+                console.error(err);
+                showToast("Error saving status.", "error");
+            }
+        }
 
         async function openInFinder(folderPath) {
             if (!folderPath) {
@@ -602,6 +647,11 @@ def run():
                 btnAll.className = "bg-zinc-900 hover:bg-zinc-850 text-zinc-400 font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-zinc-800";
                 btnMis.className = "bg-red-950 text-red-400 font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-red-800 shadow-[0_0_10px_rgba(239,68,68,0.1)]";
             }
+            renderProducts();
+        }
+
+        function setStatusFilter(val) {
+            currentStatusFilter = val;
             renderProducts();
         }
 
@@ -1390,7 +1440,8 @@ def run():
             const filtered = productsData.filter(p => {
                 const matchesMake = currentMake === 'all' || p.make === currentMake;
                 const matchesFilter = currentFilter === 'all' || p.is_mismatch;
-                return matchesMake && matchesFilter;
+                const matchesStatus = currentStatusFilter === 'all' || p.review_status === currentStatusFilter;
+                return matchesMake && matchesFilter && matchesStatus;
             });
 
             document.getElementById('visible-count').textContent = filtered.length;
@@ -1469,6 +1520,12 @@ def run():
                             <div class="flex items-center gap-2">
                                 <span class="text-zinc-600 font-extrabold text-[9px] uppercase tracking-widest bg-zinc-950 px-2 py-0.5 border border-zinc-850 rounded-sm">${p.make}</span>
                                 <h2 class="text-base font-black text-white uppercase tracking-tight">${p.name}</h2>
+                                <select class="ml-2 bg-[#0B0B0C] hover:bg-black text-zinc-400 border border-zinc-800 text-[9px] uppercase tracking-wider font-extrabold px-2 py-1 rounded cursor-pointer outline-none transition-all" data-id="${shortProdId}" onchange="updateReviewStatus('${shortProdId}', this.value)">
+                                    <option value="Unreviewed" ${p.review_status === 'Unreviewed' ? 'selected' : ''}>⏳ Unreviewed</option>
+                                    <option value="Perfect verified" ${p.review_status === 'Perfect verified' ? 'selected' : ''}>✅ Perfect Verified</option>
+                                    <option value="Recheck" ${p.review_status === 'Recheck' ? 'selected' : ''}>⚠️ Recheck</option>
+                                    <option value="Reedits" ${p.review_status === 'Reedits' ? 'selected' : ''}>🔄 Need Reedits / Review</option>
+                                </select>
                             </div>
                             <span class="text-zinc-500 text-[10px] font-mono select-all block mt-1">${p.path}</span>
                         </div>
