@@ -458,7 +458,15 @@ def run():
         <!-- Right Content: Products Grid -->
         <main class="flex-grow flex flex-col gap-6">
             <div class="bg-[#141416] border border-zinc-800 p-4 rounded-md flex justify-between items-center">
-                <h2 id="active-brand-title" class="text-base font-black text-white uppercase tracking-tight">All Brands Portfolio</h2>
+                <div class="flex items-center gap-6">
+                    <h2 id="active-brand-title" class="text-base font-black text-white uppercase tracking-tight">All Brands Portfolio</h2>
+                    <div id="status-stats" class="hidden sm:flex items-center gap-3">
+                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-zinc-400 bg-zinc-900 border border-zinc-800 px-2 py-1 rounded">⏳ Unreviewed: <span id="stat-unreviewed" class="text-white ml-1">0</span></span>
+                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-[#C4F101] bg-[#C4F101]/10 border border-[#C4F101]/30 px-2 py-1 rounded">✅ Perfect: <span id="stat-perfect" class="text-white ml-1">0</span></span>
+                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-orange-400 bg-orange-500/10 border border-orange-500/30 px-2 py-1 rounded">⚠️ Recheck: <span id="stat-recheck" class="text-white ml-1">0</span></span>
+                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-red-400 bg-red-500/10 border border-red-500/30 px-2 py-1 rounded">🔄 Reedits: <span id="stat-reedits" class="text-white ml-1">0</span></span>
+                    </div>
+                </div>
                 <div class="text-[10px] font-black text-zinc-400 uppercase tracking-widest bg-zinc-950 px-3 py-1.5 border border-zinc-800 rounded-sm">
                     Showing <span id="visible-count" class="text-[#C4F101]">0</span> of <span id="total-count">0</span> products
                 </div>
@@ -495,6 +503,26 @@ def run():
         let currentStatusFilter = 'all';
         let serverActive = false;
 
+        function updateStats() {
+            let countUnreviewed = 0;
+            let countPerfect = 0;
+            let countRecheck = 0;
+            let countReedits = 0;
+            
+            const makeFiltered = productsData.filter(p => currentMake === 'all' || p.make === currentMake);
+            makeFiltered.forEach(p => {
+                if (p.review_status === 'Unreviewed') countUnreviewed++;
+                else if (p.review_status === 'Perfect verified') countPerfect++;
+                else if (p.review_status === 'Recheck') countRecheck++;
+                else if (p.review_status === 'Reedits') countReedits++;
+            });
+            
+            document.getElementById('stat-unreviewed').textContent = countUnreviewed;
+            document.getElementById('stat-perfect').textContent = countPerfect;
+            document.getElementById('stat-recheck').textContent = countRecheck;
+            document.getElementById('stat-reedits').textContent = countReedits;
+        }
+
         async function updateReviewStatus(shortProdId, newStatus, btnElement = null) {
             if (!serverActive) {
                 showToast("Helper Server is Offline! Run visual_manager_server.py first.", "error");
@@ -528,6 +556,7 @@ def run():
                     }
                 }
                 
+                updateStats();
                 showToast("Review status saved!");
             } catch (err) {
                 console.error(err);
@@ -1466,7 +1495,10 @@ def run():
             });
 
             document.getElementById('visible-count').textContent = filtered.length;
-            document.getElementById('total-count').textContent = productsData.length;
+            const makeFilteredTotal = productsData.filter(p => currentMake === 'all' || p.make === currentMake).length;
+            document.getElementById('total-count').textContent = makeFilteredTotal;
+            
+            updateStats();
 
             if (filtered.length === 0) {
                 emptyState.classList.remove('hidden');
