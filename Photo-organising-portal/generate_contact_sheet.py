@@ -129,12 +129,18 @@ def graphql_query(query, variables=None):
     data = {"query": query}
     if variables: data["variables"] = variables
     req = urllib.request.Request(url, data=json.dumps(data).encode('utf-8'), headers=headers, method="POST")
-    try:
-        with urllib.request.urlopen(req, context=ctx, timeout=30) as response:
-            return json.loads(response.read().decode('utf-8'))
-    except Exception as e:
-        print(f"GraphQL request failed: {e}")
-        return None
+    
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            with urllib.request.urlopen(req, context=ctx, timeout=60) as response:
+                return json.loads(response.read().decode('utf-8'))
+        except Exception as e:
+            print(f"GraphQL request failed (attempt {attempt+1}/{max_retries}): {e}")
+            if attempt < max_retries - 1:
+                time.sleep(2)
+            else:
+                return None
 
 def fetch_products(collection_id):
     products = []
