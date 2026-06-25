@@ -308,6 +308,10 @@ def run():
                                 "id": m['id'],
                                 "url": img_url
                             })
+            
+            if not shortProdId:
+                import hashlib
+                shortProdId = "local_" + hashlib.md5(full_path.encode('utf-8')).hexdigest()[:12]
                                    
             product_records.append({
                 "shopify_title": shopify_title,
@@ -322,6 +326,7 @@ def run():
                     "Edited ≠ Live": has_e_l
                 },
                 "product_id": product_id,
+                "short_id": shortProdId,
                 "drive_count": len(drive_images),
                 "raw_count": raw_count,
                 "raw_folder_path": raw_folder_path,
@@ -553,7 +558,7 @@ def run():
                 });
                 if (!response.ok) throw new Error("Server request failed");
                 
-                const prod = productsData.find(p => p.product_id.endsWith(shortProdId));
+                const prod = productsData.find(p => p.short_id === shortProdId);
                 if (prod) prod.review_status = newStatus;
                 
                 if (btnElement) {
@@ -1663,7 +1668,7 @@ def run():
                     statusBadge = '<span class="bg-green-500/20 text-green-400 border border-green-500/30 px-3 py-1 text-[10px] font-black rounded-sm uppercase tracking-wider mr-2">VERIFIED MATCH</span>';
                 }
 
-                const shortProdId = p.product_id ? p.product_id.split('/').pop() : 'none';
+                const shortProdId = p.short_id;
 
                 let rawImgsHtml = "";
                 if (p.raw_images.length > 0) {
