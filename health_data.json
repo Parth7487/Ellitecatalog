@@ -8609,10 +8609,10 @@
     {
       "make": "Toyota",
       "total_folders": 252,
-      "raw_images": 1545,
-      "edited_images": 1801,
-      "folders_with_edited": 166,
-      "folders_with_only_raw": 25,
+      "raw_images": 1452,
+      "edited_images": 1976,
+      "folders_with_edited": 191,
+      "folders_with_only_raw": 0,
       "folders_empty": 61,
       "folders": [
         {
@@ -8653,6 +8653,16 @@
           "upload_date": "2026-06-25",
           "drive_url": "https://drive.google.com/drive/folders/1LOj1QN3lyPaOsw7ssrf5wJj-xFUR6ufp",
           "shopify_url": "https://myeliteti.myshopify.com/products/toyota-alphard-30-trd-body-kit",
+          "photos_live": 0
+        },
+        {
+          "path": "Alphard_Vellfire/Kits/Toyota Vellfire 20 Wald Body Kit",
+          "raw_count": 0,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-06-25",
+          "drive_url": "https://drive.google.com/drive/folders/1WgiaDyNsF9DmCTPQGpkZvsAqO8n0TwIy",
+          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-vellfire-20-wald-body-kit",
           "photos_live": 0
         },
         {
@@ -8753,6 +8763,86 @@
           "upload_date": "2026-06-25",
           "drive_url": "https://drive.google.com/drive/folders/1OngWp2DGm1FERhy1uuGOZnyuaiDoYcLu",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-camry-hybrid-oem-fender",
+          "photos_live": 0
+        },
+        {
+          "path": "Camry/Kits/Toyota New Camry ETi Street Body Kit",
+          "raw_count": 0,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-13",
+          "drive_url": "https://drive.google.com/drive/folders/1GVkZyXyK_wp551sAMDd_8gexupZZDoJp",
+          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-new-camry-eti-street-kit-5-pcs-body-kit",
+          "photos_live": 0
+        },
+        {
+          "path": "Camry/Kits/Toyota New Camry ETi VIP1 Body Kit",
+          "raw_count": 0,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-13",
+          "drive_url": "https://drive.google.com/drive/folders/1fEkuuxwYvqhGTkpAKM5zQ_T70p4ztW9P",
+          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-new-camry-eti-vip1-body-kit",
+          "photos_live": 0
+        },
+        {
+          "path": "Camry/Kits/Toyota New Camry Factory Body Kit",
+          "raw_count": 0,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-13",
+          "drive_url": "https://drive.google.com/drive/folders/1Sn4wnA4zoKeGhSK9YM-ALOIvArvsWpQm",
+          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-new-camry-factory-body-kit",
+          "photos_live": 0
+        },
+        {
+          "path": "Camry/Kits/Toyota New Camry Wald Wide Body Kit",
+          "raw_count": 0,
+          "edited_count": 6,
+          "status": "edited",
+          "upload_date": "2026-06-13",
+          "drive_url": "https://drive.google.com/drive/folders/1FkvAszGXGKbMuBOFVrEcPPRQSYxH_LdE",
+          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-new-camry-wald-ขยาย-body-kit",
+          "photos_live": 0
+        },
+        {
+          "path": "Celica/Exterior/ETi Toyota Celica (Pop) OEM Carbon Fiber Hood",
+          "raw_count": 0,
+          "edited_count": 2,
+          "status": "edited",
+          "upload_date": "2026-06-25",
+          "drive_url": "https://drive.google.com/drive/folders/1YJuiL4eNXC9nZa1yMmOIQpVPNWbVgSmL",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-celica-pop-oem-hood",
+          "photos_live": 0
+        },
+        {
+          "path": "Celica/Exterior/ETi Toyota Celica (Round Headlight) ETi Carbon Fiber Hood",
+          "raw_count": 0,
+          "edited_count": 10,
+          "status": "edited",
+          "upload_date": "2026-06-25",
+          "drive_url": "https://drive.google.com/drive/folders/1sc30wy4wrxk8JScGF6U8iqbhg-Lsl7Dc",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-celica-eti-hood",
+          "photos_live": 0
+        },
+        {
+          "path": "Celica/Exterior/ETi Toyota Celica New ETi2 Carbon Fiber Hood",
+          "raw_count": 0,
+          "edited_count": 2,
+          "status": "edited",
+          "upload_date": "2026-06-25",
+          "drive_url": "https://drive.google.com/drive/folders/1K9LB5fUWsu0i68i8HXmanFop0ObbqsS2",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-celica-new-eti2-hood",
+          "photos_live": 0
+        },
+        {
+          "path": "Chaser/Exterior/ETi Toyota Chaser JP 95-00 ETi Carbon Fiber Hood",
+          "raw_count": 0,
+          "edited_count": 2,
+          "status": "edited",
+          "upload_date": "2026-06-25",
+          "drive_url": "https://drive.google.com/drive/folders/1XVdQCsCIUvgXCC0XNHjcY7oMg6xKjJx5",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-chaser-jp-95-00-eti-hood",
           "photos_live": 0
         },
         {
@@ -9385,6 +9475,16 @@
           "photos_live": 3
         },
         {
+          "path": "GT86/Kits/GT86 GFB Widebody Fender Seals (4pcs)",
+          "raw_count": 0,
+          "edited_count": 4,
+          "status": "edited",
+          "upload_date": "2026-06-25",
+          "drive_url": "https://drive.google.com/drive/folders/1vDFJHTbm57pA9ZeTl3hZ2YaavCxX6KF-",
+          "shopify_url": "https://myeliteti.myshopify.com/products/gt86-gfb-widebody-fender-seals-4pcs",
+          "photos_live": 2
+        },
+        {
           "path": "GT86/Kits/Toyota FT86 Pandem V3 Body Kit",
           "raw_count": 23,
           "edited_count": 8,
@@ -9495,6 +9595,36 @@
           "photos_live": 8
         },
         {
+          "path": "MRS/Exterior/ETi TOYOTA MRS ETi Carbon Fiber Hood",
+          "raw_count": 0,
+          "edited_count": 2,
+          "status": "edited",
+          "upload_date": "2026-06-25",
+          "drive_url": "https://drive.google.com/drive/folders/1IbGDIKZnAEpLjE87XkB0xrW2_pxkQdJu",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-mrs-eti-hood",
+          "photos_live": 0
+        },
+        {
+          "path": "MRS/Exterior/ETi TOYOTA MRS ETi2 Carbon Fiber Hood",
+          "raw_count": 0,
+          "edited_count": 2,
+          "status": "edited",
+          "upload_date": "2026-06-25",
+          "drive_url": "https://drive.google.com/drive/folders/1-mmSlG27Dy7O8VZzjuT4jeR4GRB2QHDO",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-mrs-eti2-hood",
+          "photos_live": 0
+        },
+        {
+          "path": "MRS/Exterior/ETi Toyota MR-S (ZZW30) Vented Style Hood",
+          "raw_count": 0,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-13",
+          "drive_url": "https://drive.google.com/drive/folders/1GgpaJWNuq5NBo9bLvN0hxbbjkHoPoaub",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-mr-s-zzw30-vented-style-hood",
+          "photos_live": 2
+        },
+        {
           "path": "MRS/Kits/TOYOTA MRS Aero Kit Body Kit",
           "raw_count": 3,
           "edited_count": 3,
@@ -9515,6 +9645,26 @@
           "photos_live": 0
         },
         {
+          "path": "MRS/Kits/Toyota MRS Gemballa Mirage Body Kit",
+          "raw_count": 0,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-06-24",
+          "drive_url": "https://drive.google.com/drive/folders/1nr0Sz5OkGz5OjEhlnFSqecdCIQCvkOz8",
+          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-mrs-gemballa-mirage-body-kit",
+          "photos_live": 0
+        },
+        {
+          "path": "MRS/Kits/Toyota MRS Porsche Carrera GT Widebody Core Kit",
+          "raw_count": 0,
+          "edited_count": 8,
+          "status": "edited",
+          "upload_date": "2026-06-24",
+          "drive_url": "https://drive.google.com/drive/folders/1Miu0d2tEkbB7fxChAIUpCA8HbMaDSaD9",
+          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-mrs-porsche-carrera-gt-wide-body-core-kit-body-kit",
+          "photos_live": 0
+        },
+        {
           "path": "MarkII/Exterior/ETi TOYOTA MARK 2 JP 95-00 ETi Carbon Fiber Hood",
           "raw_count": 2,
           "edited_count": 2,
@@ -9523,6 +9673,16 @@
           "drive_url": "https://drive.google.com/drive/folders/1mfRW9qOqpdtf1LNLBTciFPLjxB0w8m7_",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-mark-2-jp-95-00-eti-hood",
           "photos_live": 0
+        },
+        {
+          "path": "Supra_MKIV/Exterior/(Duplicate)ETi Toyota Supra MKIV Carbon Fiber Fuse Box Cover",
+          "raw_count": 0,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-03-10",
+          "drive_url": "https://drive.google.com/drive/folders/1lPhMf9IDoIdo8D2ts6VLpjuuJgg-1E1e",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkiv-carbon-fiber-fuse-box-cover",
+          "photos_live": 3
         },
         {
           "path": "Supra_MKIV/Exterior/(New) Drag Bumper",
@@ -9685,6 +9845,16 @@
           "drive_url": "https://drive.google.com/drive/folders/1iktyx2aXihNnefVMnDuYgS2GtwOpt8Di",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkiv-varis-style-hood",
           "photos_live": 5
+        },
+        {
+          "path": "Supra_MKIV/Exterior/ETi Toyota Supra MK4 (JZA80) Carbon Fiber Cowl Panel",
+          "raw_count": 0,
+          "edited_count": 12,
+          "status": "edited",
+          "upload_date": "2026-06-24",
+          "drive_url": "https://drive.google.com/drive/folders/1_3BOEN-yomPi9YCqHIPaCHGqXNY5omII",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkiv-cowl-panel",
+          "photos_live": 2
         },
         {
           "path": "Supra_MKIV/Exterior/ETi Toyota Supra MK4 48mm Aluminum Performance Radiator",
@@ -10171,6 +10341,76 @@
           "photos_live": 8
         },
         {
+          "path": "Supra_MKV/Exterior/ETi Toyota Supra MK5 (A90) Carbon Fiber Door Blades",
+          "raw_count": 0,
+          "edited_count": 12,
+          "status": "edited",
+          "upload_date": "2026-06-24",
+          "drive_url": "https://drive.google.com/drive/folders/1K4x0e5NQacEHQO223WjSeg-gWV2paBXi",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkv-carbon-fiber-door-blades",
+          "photos_live": 0
+        },
+        {
+          "path": "Supra_MKV/Exterior/ETi Toyota Supra MK5 (A90) Carbon Fiber Duckbill Wing",
+          "raw_count": 0,
+          "edited_count": 9,
+          "status": "edited",
+          "upload_date": "2026-06-24",
+          "drive_url": "https://drive.google.com/drive/folders/1gTXoDU-cdtK2zM1PyGR-xuMBPDq9onEI",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkv-carbon-fiber-duckbill-wing",
+          "photos_live": 0
+        },
+        {
+          "path": "Supra_MKV/Exterior/ETi Toyota Supra MK5 (A90) Carbon Fiber Hood Vent Scoop Covers",
+          "raw_count": 0,
+          "edited_count": 10,
+          "status": "edited",
+          "upload_date": "2026-06-24",
+          "drive_url": "https://drive.google.com/drive/folders/1LerciuF7cq7vOrN73w745iXlmQQ4ULhR",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkv-carbon-fiber-hood-vent-scoop-covers",
+          "photos_live": 0
+        },
+        {
+          "path": "Supra_MKV/Exterior/ETi Toyota Supra MK5 (A90) Carbon Fiber Side Mirror Covers",
+          "raw_count": 0,
+          "edited_count": 10,
+          "status": "edited",
+          "upload_date": "2026-06-24",
+          "drive_url": "https://drive.google.com/drive/folders/1pSfS_Kjw0YAddxjeZ40IGxWoDovXqR19",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkv-carbon-fiber-side-mirror-covers",
+          "photos_live": 0
+        },
+        {
+          "path": "Supra_MKV/Exterior/ETi Toyota Supra MK5 (A90) Carbon Fiber Side Skirts",
+          "raw_count": 0,
+          "edited_count": 12,
+          "status": "edited",
+          "upload_date": "2026-06-24",
+          "drive_url": "https://drive.google.com/drive/folders/1tC_YGmidmX-CLkM_qFSXBVpqlSUIiYHD",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkv-carbon-fiber-side-skirts",
+          "photos_live": 0
+        },
+        {
+          "path": "Supra_MKV/Exterior/ETi Toyota Supra MK5 (A90) Carbon Rear Diffuser",
+          "raw_count": 0,
+          "edited_count": 12,
+          "status": "edited",
+          "upload_date": "2026-06-24",
+          "drive_url": "https://drive.google.com/drive/folders/1tRIdXBYxU_aWXVXj6lHZc6_r1w1IuWok",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkv-carbon-rear-diffuser",
+          "photos_live": 0
+        },
+        {
+          "path": "Supra_MKV/Exterior/ETi Toyota Supra MK5 (A90) PRO Front Lip",
+          "raw_count": 0,
+          "edited_count": 11,
+          "status": "edited",
+          "upload_date": "2026-06-24",
+          "drive_url": "https://drive.google.com/drive/folders/1OrZFlTQcuCTFX_AAUt8wE7osvsQ6PY8b",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkv-pro-front-lip",
+          "photos_live": 0
+        },
+        {
           "path": "Supra_MKV/Exterior/Toyota Supra MK5 (A90) Dry Carbon Wing",
           "raw_count": 6,
           "edited_count": 4,
@@ -10251,6 +10491,16 @@
           "photos_live": 0
         },
         {
+          "path": "Yaris/Kits/TOYOTA YARIS KEN STYLE Body Kit",
+          "raw_count": 0,
+          "edited_count": 9,
+          "status": "edited",
+          "upload_date": "2026-06-25",
+          "drive_url": "https://drive.google.com/drive/folders/11yfVM6xlKCRIveSZnQxtlH4u1eKzdwOu",
+          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-yaris-ken-style-body-kit",
+          "photos_live": 0
+        },
+        {
           "path": "Yaris/Kits/Toyota Yaris ING+1 Body Kit",
           "raw_count": 9,
           "edited_count": 9,
@@ -10258,256 +10508,6 @@
           "upload_date": "2026-06-24",
           "drive_url": "https://drive.google.com/drive/folders/1zscUgr_LKQSxNI2dcDr_YeoQ5ReDyIBc",
           "shopify_url": "https://myeliteti.myshopify.com/products/toyota-yaris-ing-1-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Alphard_Vellfire/Kits/Toyota Vellfire 20 Wald Body Kit",
-          "raw_count": 4,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1rWLZ_-onMU3kr7BrnITxbTDUUJlSCHl6",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-vellfire-20-wald-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Camry/Kits/Toyota New Camry ETi Street Body Kit",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1WJNUXUOjPDL0a5AS86DwFRWQeznQ_eYN",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-new-camry-eti-street-kit-5-pcs-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Camry/Kits/Toyota New Camry ETi VIP1 Body Kit",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/19A_vfeXayej5nBhorkWoM9TZyQIpUSaa",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-new-camry-eti-vip1-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Camry/Kits/Toyota New Camry Factory Body Kit",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1AJ66f7WtuoiOFWlwimrqSrsYJlNWlVi5",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-new-camry-factory-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Camry/Kits/Toyota New Camry Wald Wide Body Kit",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1Oe6CJ1IfmErP7_d6KoAoPIW-uFqtFPKs",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-new-camry-wald-ขยาย-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Celica/Exterior/ETi Toyota Celica (Pop) OEM Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/18WDKxikWqpKp2YyVjRMnIFDnDLj_Dqre",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-celica-pop-oem-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Celica/Exterior/ETi Toyota Celica (Round Headlight) ETi Carbon Fiber Hood",
-          "raw_count": 5,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1whfDBBaYjb-Wz8NhnEpN-K9YQfiDX6WZ",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-celica-eti-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Celica/Exterior/ETi Toyota Celica New ETi2 Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1cAgWKO1pyhH_2721CW6KYryOx2BMPA4m",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-celica-new-eti2-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "Chaser/Exterior/ETi Toyota Chaser JP 95-00 ETi Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/13JOwLBKWpj_hcuE5SNqq3hqwsRs3EzvN",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-chaser-jp-95-00-eti-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "GT86/Kits/GT86 GFB Widebody Fender Seals (4pcs)",
-          "raw_count": 2,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1hpmREVYNjrNtzr7h0FtnSUliUf7tURpM",
-          "shopify_url": "https://myeliteti.myshopify.com/products/gt86-gfb-widebody-fender-seals-4pcs",
-          "photos_live": 2
-        },
-        {
-          "path": "MRS/Exterior/ETi TOYOTA MRS ETi Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1nBx8G4iejdmJrOcxF2iBNr1AalpHhLiE",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-mrs-eti-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "MRS/Exterior/ETi TOYOTA MRS ETi2 Carbon Fiber Hood",
-          "raw_count": 1,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1jodR8kD4gq5GOIA8CCSD_dJf0X6xWtja",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-mrs-eti2-hood",
-          "photos_live": 0
-        },
-        {
-          "path": "MRS/Exterior/ETi Toyota MR-S (ZZW30) Vented Style Hood",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1GgpaJWNuq5NBo9bLvN0hxbbjkHoPoaub",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-mr-s-zzw30-vented-style-hood",
-          "photos_live": 2
-        },
-        {
-          "path": "MRS/Kits/Toyota MRS Gemballa Mirage Body Kit",
-          "raw_count": 4,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1DJ14sTiCaCf-5RNNp1DwjpVeAL6V0BDi",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-mrs-gemballa-mirage-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "MRS/Kits/Toyota MRS Porsche Carrera GT Widebody Core Kit",
-          "raw_count": 4,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1qsz-FTLsrvQcy6Ws8wzREoqV6Joojxj1",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-mrs-porsche-carrera-gt-wide-body-core-kit-body-kit",
-          "photos_live": 0
-        },
-        {
-          "path": "Supra_MKIV/Exterior/(Duplicate)ETi Toyota Supra MKIV Carbon Fiber Fuse Box Cover",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-03-10",
-          "drive_url": "https://drive.google.com/drive/folders/1lPhMf9IDoIdo8D2ts6VLpjuuJgg-1E1e",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkiv-carbon-fiber-fuse-box-cover",
-          "photos_live": 3
-        },
-        {
-          "path": "Supra_MKIV/Exterior/ETi Toyota Supra MK4 (JZA80) Carbon Fiber Cowl Panel",
-          "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-15",
-          "drive_url": "https://drive.google.com/drive/folders/1jZvqDF5_7Ux3hvWSWirqdZSdr6AGJrXP",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkiv-cowl-panel",
-          "photos_live": 2
-        },
-        {
-          "path": "Supra_MKV/Exterior/ETi Toyota Supra MK5 (A90) Carbon Fiber Door Blades",
-          "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-15",
-          "drive_url": "https://drive.google.com/drive/folders/1cUMvNpJZ0pUZ1nNy9O3_a3ebV7YitJeV",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkv-carbon-fiber-door-blades",
-          "photos_live": 0
-        },
-        {
-          "path": "Supra_MKV/Exterior/ETi Toyota Supra MK5 (A90) Carbon Fiber Duckbill Wing",
-          "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-15",
-          "drive_url": "https://drive.google.com/drive/folders/1ylNnds6OqI6alhWeWzBj9_d0R81esBre",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkv-carbon-fiber-duckbill-wing",
-          "photos_live": 0
-        },
-        {
-          "path": "Supra_MKV/Exterior/ETi Toyota Supra MK5 (A90) Carbon Fiber Hood Vent Scoop Covers",
-          "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-15",
-          "drive_url": "https://drive.google.com/drive/folders/1MRzWvwnX0pnOZbeKAE3DdCDqy--5Bhxl",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkv-carbon-fiber-hood-vent-scoop-covers",
-          "photos_live": 0
-        },
-        {
-          "path": "Supra_MKV/Exterior/ETi Toyota Supra MK5 (A90) Carbon Fiber Side Mirror Covers",
-          "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-15",
-          "drive_url": "https://drive.google.com/drive/folders/1AqjUL8IeDxjUSs_R2k_R5PBrPXCcLaoh",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkv-carbon-fiber-side-mirror-covers",
-          "photos_live": 0
-        },
-        {
-          "path": "Supra_MKV/Exterior/ETi Toyota Supra MK5 (A90) Carbon Fiber Side Skirts",
-          "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-15",
-          "drive_url": "https://drive.google.com/drive/folders/14vVrn5Huzb1Q8neGVYPU5DGuTCitjy-v",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkv-carbon-fiber-side-skirts",
-          "photos_live": 0
-        },
-        {
-          "path": "Supra_MKV/Exterior/ETi Toyota Supra MK5 (A90) Carbon Rear Diffuser",
-          "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-15",
-          "drive_url": "https://drive.google.com/drive/folders/1Og0nttR1VAXV6MDcH2SxoEbUR-eHhAFv",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkv-carbon-rear-diffuser",
-          "photos_live": 0
-        },
-        {
-          "path": "Supra_MKV/Exterior/ETi Toyota Supra MK5 (A90) PRO Front Lip",
-          "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-15",
-          "drive_url": "https://drive.google.com/drive/folders/1rWmXYLfInE09zyXndExUQzVGjJJ2-c9U",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkv-pro-front-lip",
-          "photos_live": 0
-        },
-        {
-          "path": "Yaris/Kits/TOYOTA YARIS KEN STYLE Body Kit",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-14",
-          "drive_url": "https://drive.google.com/drive/folders/1AAKj_F_brzirLQuEjAsFcGuIdAlvWolx",
-          "shopify_url": "https://myeliteti.myshopify.com/products/toyota-yaris-ken-style-body-kit",
           "photos_live": 0
         },
         {
@@ -11125,11 +11125,11 @@
   ],
   "totals": {
     "total_folders": 1106,
-    "folders_with_edited": 835,
-    "folders_with_only_raw": 26,
+    "folders_with_edited": 860,
+    "folders_with_only_raw": 1,
     "folders_empty": 245,
-    "total_edited_images": 5989,
-    "total_raw_images": 6171,
-    "completion_percentage": 75.5
+    "total_edited_images": 6164,
+    "total_raw_images": 6078,
+    "completion_percentage": 77.8
   }
 }
