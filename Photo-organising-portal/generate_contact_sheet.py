@@ -433,6 +433,10 @@ def run():
                         <option value="Perfect verified">✅ Perfect Verified</option>
                         <option value="Recheck">⚠️ Recheck</option>
                         <option value="Reedits">🔄 Need Reedits</option>
+                        <option value="Product missing">❌ Product Missing</option>
+                        <option value="Incorrect link">🔗 Incorrect Link</option>
+                        <option disabled>──────────</option>
+                        <option value="shopify_draft_archived">📦 Draft/Archived Products</option>
                     </select>
                     <button onclick="setFilter('all')" id="btn-filter-all" class="bg-[#C4F101] text-black font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-[#C4F101]">Show All</button>
                     <button onclick="setFilter('mismatch')" id="btn-filter-mismatch" class="bg-zinc-900 hover:bg-zinc-850 text-zinc-400 font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-zinc-800">Mismatches (0)</button>
@@ -465,6 +469,8 @@ def run():
                         <span class="text-[9px] font-extrabold uppercase tracking-widest text-[#C4F101] bg-[#C4F101]/10 border border-[#C4F101]/30 px-2 py-1 rounded">✅ Perfect: <span id="stat-perfect" class="text-white ml-1">0</span></span>
                         <span class="text-[9px] font-extrabold uppercase tracking-widest text-orange-400 bg-orange-500/10 border border-orange-500/30 px-2 py-1 rounded">⚠️ Recheck: <span id="stat-recheck" class="text-white ml-1">0</span></span>
                         <span class="text-[9px] font-extrabold uppercase tracking-widest text-red-400 bg-red-500/10 border border-red-500/30 px-2 py-1 rounded">🔄 Reedits: <span id="stat-reedits" class="text-white ml-1">0</span></span>
+                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-purple-400 bg-purple-500/10 border border-purple-500/30 px-2 py-1 rounded">❌ Missing: <span id="stat-missing" class="text-white ml-1">0</span></span>
+                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-pink-400 bg-pink-500/10 border border-pink-500/30 px-2 py-1 rounded">🔗 Bad Link: <span id="stat-link" class="text-white ml-1">0</span></span>
                     </div>
                 </div>
                 <div class="flex items-center gap-4 w-full md:w-auto">
@@ -513,6 +519,8 @@ def run():
             let countPerfect = 0;
             let countRecheck = 0;
             let countReedits = 0;
+            let countMissing = 0;
+            let countLink = 0;
             
             const makeFiltered = productsData.filter(p => currentMake === 'all' || p.make === currentMake);
             makeFiltered.forEach(p => {
@@ -520,12 +528,16 @@ def run():
                 else if (p.review_status === 'Perfect verified') countPerfect++;
                 else if (p.review_status === 'Recheck') countRecheck++;
                 else if (p.review_status === 'Reedits') countReedits++;
+                else if (p.review_status === 'Product missing') countMissing++;
+                else if (p.review_status === 'Incorrect link') countLink++;
             });
             
             document.getElementById('stat-unreviewed').textContent = countUnreviewed;
             document.getElementById('stat-perfect').textContent = countPerfect;
             document.getElementById('stat-recheck').textContent = countRecheck;
             document.getElementById('stat-reedits').textContent = countReedits;
+            document.getElementById('stat-missing').textContent = countMissing;
+            document.getElementById('stat-link').textContent = countLink;
         }
 
         async function updateReviewStatus(shortProdId, newStatus, btnElement = null) {
@@ -558,9 +570,13 @@ def run():
                         btnElement.className = 'status-btn bg-orange-500/20 text-orange-400 border border-orange-500/50 px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all';
                     } else if (newStatus === 'Reedits') {
                         btnElement.className = 'status-btn bg-red-500/20 text-red-400 border border-red-500/50 px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all';
+                    } else if (newStatus === 'Product missing') {
+                        btnElement.className = 'status-btn bg-purple-500/20 text-purple-400 border border-purple-500/50 px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all';
+                    } else if (newStatus === 'Incorrect link') {
+                        btnElement.className = 'status-btn bg-pink-500/20 text-pink-400 border border-pink-500/50 px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all';
                     }
                     
-                    if (currentStatusFilter !== 'all' && currentStatusFilter !== newStatus) {
+                    if (currentStatusFilter !== 'all' && currentStatusFilter !== newStatus && currentStatusFilter !== 'shopify_draft_archived') {
                         const section = btnElement.closest('section');
                         if (section) {
                             section.remove();
@@ -1544,6 +1560,55 @@ def run():
             }
         }
 
+        async function makeProductActive(productId, shortProdId) {
+            if (!serverActive) {
+                showToast("Helper Server is Offline! Run visual_manager_server.py first.", "error");
+                return;
+            }
+            
+            if (!confirm("Are you sure you want to make this product ACTIVE on Shopify?")) {
+                return;
+            }
+            
+            const btn = document.getElementById(`activate-btn-${shortProdId}`);
+            if (btn) {
+                btn.textContent = "Updating...";
+                btn.disabled = true;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:8000/api/update_product_status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ productId, status: 'ACTIVE' })
+                });
+                
+                if (!response.ok) throw new Error("HTTP request failed");
+                const resData = await response.json();
+                
+                if (resData.errors && resData.errors.length > 0) {
+                    throw new Error(resData.errors[0].message);
+                }
+                
+                const userErrors = resData.data?.productUpdate?.userErrors || [];
+                if (userErrors.length > 0) {
+                    throw new Error(userErrors[0].message);
+                }
+                
+                showToast("Shopify product successfully marked as ACTIVE!");
+                
+                const p = productsData.find(record => record.product_id === productId);
+                if (p) p.shopify_status = 'ACTIVE';
+                renderProducts();
+            } catch (error) {
+                showToast(error.message, "error");
+                if (btn) {
+                    btn.textContent = "Make Active";
+                    btn.disabled = false;
+                }
+            }
+        }
+
         function renderProducts() {
             const container = document.getElementById('products-list');
             const emptyState = document.getElementById('empty-state');
@@ -1556,7 +1621,13 @@ def run():
             const filtered = productsData.filter(p => {
                 const matchesMake = currentMake === 'all' || p.make === currentMake;
                 const matchesFilter = currentFilter === 'all' || p.is_mismatch;
-                const matchesStatus = currentStatusFilter === 'all' || p.review_status === currentStatusFilter;
+                
+                let matchesStatus = true;
+                if (currentStatusFilter === 'shopify_draft_archived') {
+                    matchesStatus = (p.shopify_status && (p.shopify_status.toUpperCase() === 'DRAFT' || p.shopify_status.toUpperCase() === 'ARCHIVED'));
+                } else {
+                    matchesStatus = currentStatusFilter === 'all' || p.review_status === currentStatusFilter;
+                }
                 
                 let matchesSearch = true;
                 if (searchTerms.length > 0) {
@@ -1647,11 +1718,13 @@ def run():
                             <div class="flex items-center gap-2">
                                 <span class="text-zinc-600 font-extrabold text-[9px] uppercase tracking-widest bg-zinc-950 px-2 py-0.5 border border-zinc-850 rounded-sm">${p.make}</span>
                                 <h2 class="text-base font-black text-white uppercase tracking-tight">${p.name}</h2>
-                                <div class="ml-4 flex items-center gap-1 bg-[#0B0B0C] border border-zinc-800 p-0.5 rounded">
+                                <div class="ml-4 flex items-center gap-1 bg-[#0B0B0C] border border-zinc-800 p-0.5 rounded flex-wrap">
                                     <button onclick="updateReviewStatus('${shortProdId}', 'Unreviewed', this)" class="status-btn ${p.review_status === 'Unreviewed' ? 'bg-zinc-800 text-white border-zinc-600' : 'text-zinc-500 hover:text-zinc-300 border-transparent'} border px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all">⏳ Unreviewed</button>
                                     <button onclick="updateReviewStatus('${shortProdId}', 'Perfect verified', this)" class="status-btn ${p.review_status === 'Perfect verified' ? 'bg-[#C4F101]/20 text-[#C4F101] border-[#C4F101]/50' : 'text-zinc-500 hover:text-zinc-300 border-transparent'} border px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all">✅ Perfect</button>
                                     <button onclick="updateReviewStatus('${shortProdId}', 'Recheck', this)" class="status-btn ${p.review_status === 'Recheck' ? 'bg-orange-500/20 text-orange-400 border-orange-500/50' : 'text-zinc-500 hover:text-zinc-300 border-transparent'} border px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all">⚠️ Recheck</button>
                                     <button onclick="updateReviewStatus('${shortProdId}', 'Reedits', this)" class="status-btn ${p.review_status === 'Reedits' ? 'bg-red-500/20 text-red-400 border-red-500/50' : 'text-zinc-500 hover:text-zinc-300 border-transparent'} border px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all">🔄 Need Reedits</button>
+                                    <button onclick="updateReviewStatus('${shortProdId}', 'Product missing', this)" class="status-btn ${p.review_status === 'Product missing' ? 'bg-purple-500/20 text-purple-400 border-purple-500/50' : 'text-zinc-500 hover:text-zinc-300 border-transparent'} border px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all">❌ Product missing</button>
+                                    <button onclick="updateReviewStatus('${shortProdId}', 'Incorrect link', this)" class="status-btn ${p.review_status === 'Incorrect link' ? 'bg-pink-500/20 text-pink-400 border-pink-500/50' : 'text-zinc-500 hover:text-zinc-300 border-transparent'} border px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all">🔗 Incorrect link</button>
                                 </div>
                             </div>
                             <span class="text-zinc-500 text-[10px] font-mono select-all block mt-1">${p.path}</span>
@@ -1710,7 +1783,10 @@ def run():
                             </h3>
                             <div class="text-[9px] font-bold text-emerald-400 uppercase tracking-tight mb-3 truncate max-w-[400px] border border-emerald-950/40 bg-emerald-950/10 px-2 py-1 rounded flex items-center justify-between" title="${p.shopify_title || 'N/A'}">
                                 <div>Shopify Title: <span class="text-zinc-300 font-bold select-all">${p.shopify_title || 'Not Linked / Not Found'}</span></div>
-                                ${p.shopify_status ? `<span class="${p.shopify_status.toLowerCase() === 'active' ? 'bg-emerald-900 text-emerald-400 border-emerald-700' : p.shopify_status.toLowerCase() === 'draft' ? 'bg-amber-900 text-amber-400 border-amber-700' : 'bg-red-900 text-red-400 border-red-700'} border px-1.5 py-0.5 rounded text-[8px] font-black tracking-widest">${p.shopify_status}</span>` : ''}
+                                <div class="flex items-center">
+                                    ${p.shopify_status ? `<span class="${p.shopify_status.toLowerCase() === 'active' ? 'bg-emerald-900 text-emerald-400 border-emerald-700' : p.shopify_status.toLowerCase() === 'draft' ? 'bg-amber-900 text-amber-400 border-amber-700' : 'bg-red-900 text-red-400 border-red-700'} border px-1.5 py-0.5 rounded text-[8px] font-black tracking-widest">${p.shopify_status}</span>` : ''}
+                                    ${p.shopify_status && p.shopify_status.toLowerCase() !== 'active' ? `<button onclick="makeProductActive('${p.product_id}', '${shortProdId}')" id="activate-btn-${shortProdId}" class="ml-2 bg-emerald-600 hover:bg-emerald-500 text-white border border-emerald-700 px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all shadow">Make Active</button>` : ''}
+                                </div>
                             </div>
                             <div class="shopify-images-list flex flex-wrap gap-2 min-h-[130px] min-w-[200px] p-2 border border-transparent transition-all rounded-md" data-product-id="${p.product_id}">
                                 ${liveImgsHtml}

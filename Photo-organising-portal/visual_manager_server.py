@@ -676,6 +676,35 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                 self.end_headers()
                 return
 
+        elif self.path == '/api/update_product_status':
+            product_id = params.get('productId')
+            status = params.get('status')
+            if product_id and status:
+                mutation = """
+                mutation productUpdate($input: ProductInput!) {
+                  productUpdate(input: $input) {
+                    product {
+                      id
+                      status
+                    }
+                    userErrors {
+                      field
+                      message
+                    }
+                  }
+                }
+                """
+                res = graphql_query(mutation, {"input": {"id": product_id, "status": status}})
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps(res).encode('utf-8'))
+                return
+            else:
+                self.send_response(400)
+                self.end_headers()
+                return
+
         elif self.path == '/api/open_folder':
             folder_path = params.get('path', '')
             if os.path.exists(folder_path):
