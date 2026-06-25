@@ -840,10 +840,12 @@ def run():
         let draggedElement = null;
         let dragRafPending = false; // RAF throttle flag
         let reorderDebounceTimer = null; // Debounce timer for API saves
-        let lastCheckboxClicked = null; // For shift-click multi-select
+        let lastCheckboxClicked = null; // For shift-click multi-select on edited images
+        let lastRawCheckboxClicked = null; // For shift-click on raw images
 
-        // Store selected local images per product
-        const selectedLocalImages = {};
+        // Store selected images per product
+        const selectedLocalImages = {}; // edited
+        const selectedRawImages = {};   // raw
 
         function handleLocalCheckboxChange(chk, productId, shortProdId, event) {
             const path = chk.getAttribute('data-path');
@@ -953,11 +955,180 @@ def run():
             btnEl.textContent = `Delete Selected (0)`;
         }
 
+        // ----- CMD/SHIFT click on edited image cards -----
+        function handleEditedCardClick(event, cardEl, productId, shortProdId) {
+            if (!event.metaKey && !event.shiftKey) return; // only intercept modifier clicks
+            event.preventDefault();
+            event.stopPropagation();
+            const chk = cardEl.querySelector('.local-select-chk');
+            if (!chk) return;
+            
+            if (event.shiftKey && lastCheckboxClicked && lastCheckboxClicked !== chk) {
+                // Range select
+                const container = cardEl.closest('.local-images-list');
+                if (container) {
+                    const allChks = Array.from(container.querySelectorAll('.local-select-chk'));
+                    const lastIdx = allChks.indexOf(lastCheckboxClicked);
+                    const currIdx = allChks.indexOf(chk);
+                    const [start, end] = lastIdx < currIdx ? [lastIdx, currIdx] : [currIdx, lastIdx];
+                    if (!selectedLocalImages[productId]) selectedLocalImages[productId] = [];
+                    allChks.slice(start, end + 1).forEach(c => {
+                        c.checked = true;
+                        const p = c.getAttribute('data-path');
+                        if (!selectedLocalImages[productId].includes(p)) selectedLocalImages[productId].push(p);
+                    });
+                }
+            } else {
+                // Cmd+click: toggle individual
+                chk.checked = !chk.checked;
+                const path = chk.getAttribute('data-path');
+                if (!selectedLocalImages[productId]) selectedLocalImages[productId] = [];
+                if (chk.checked) {
+                    if (!selectedLocalImages[productId].includes(path)) selectedLocalImages[productId].push(path);
+                } else {
+                    selectedLocalImages[productId] = selectedLocalImages[productId].filter(p => p !== path);
+                }
+            }
+            lastCheckboxClicked = chk;
+            // Update button
+            const btn = document.getElementById(`bulk-local-btn-${shortProdId}`);
+            if (btn) {
+                const count = selectedLocalImages[productId].length;
+                btn.textContent = `Delete Selected (${count})`;
+                btn.classList.toggle('hidden', count === 0);
+            }
+        }
+
+        // ----- CMD/SHIFT click on RAW image cards -----
+        function handleRawCardClick(event, cardEl, productId, shortProdId) {
+            if (!event.metaKey && !event.shiftKey) return;
+            event.preventDefault();
+            event.stopPropagation();
+            const chk = cardEl.querySelector('.raw-select-chk');
+            if (!chk) return;
+            
+            if (event.shiftKey && lastRawCheckboxClicked && lastRawCheckboxClicked !== chk) {
+                const container = cardEl.closest('.raw-images-list');
+                if (container) {
+                    const allChks = Array.from(container.querySelectorAll('.raw-select-chk'));
+                    const lastIdx = allChks.indexOf(lastRawCheckboxClicked);
+                    const currIdx = allChks.indexOf(chk);
+                    const [start, end] = lastIdx < currIdx ? [lastIdx, currIdx] : [currIdx, lastIdx];
+                    if (!selectedRawImages[productId]) selectedRawImages[productId] = [];
+                    allChks.slice(start, end + 1).forEach(c => {
+                        c.checked = true;
+                        const p = c.getAttribute('data-path');
+                        if (!selectedRawImages[productId].includes(p)) selectedRawImages[productId].push(p);
+                    });
+                }
+            } else {
+                chk.checked = !chk.checked;
+                const path = chk.getAttribute('data-path');
+                if (!selectedRawImages[productId]) selectedRawImages[productId] = [];
+                if (chk.checked) {
+                    if (!selectedRawImages[productId].includes(path)) selectedRawImages[productId].push(path);
+                } else {
+                    selectedRawImages[productId] = selectedRawImages[productId].filter(p => p !== path);
+                }
+            }
+            lastRawCheckboxClicked = chk;
+            const btn = document.getElementById(`bulk-raw-btn-${shortProdId}`);
+            if (btn) {
+                const count = selectedRawImages[productId].length;
+                btn.textContent = `Delete Selected (${count})`;
+                btn.classList.toggle('hidden', count === 0);
+            }
+        }
+        
+        function handleRawCheckboxChange(chk, productId, shortProdId, event) {
+            const path = chk.getAttribute('data-path');
+            if (event && event.shiftKey && lastRawCheckboxClicked && lastRawCheckboxClicked !== chk) {
+                const container = chk.closest('.raw-images-list');
+                if (container) {
+                    const allChks = Array.from(container.querySelectorAll('.raw-select-chk'));
+                    const lastIdx = allChks.indexOf(lastRawCheckboxClicked);
+                    const currIdx = allChks.indexOf(chk);
+                    const [start, end] = lastIdx < currIdx ? [lastIdx, currIdx] : [currIdx, lastIdx];
+                    if (!selectedRawImages[productId]) selectedRawImages[productId] = [];
+                    allChks.slice(start, end + 1).forEach(c => {
+                        c.checked = true;
+                        const p = c.getAttribute('data-path');
+                        if (!selectedRawImages[productId].includes(p)) selectedRawImages[productId].push(p);
+                    });
+                }
+            } else {
+                if (!selectedRawImages[productId]) selectedRawImages[productId] = [];
+                if (chk.checked) {
+                    if (!selectedRawImages[productId].includes(path)) selectedRawImages[productId].push(path);
+                } else {
+                    selectedRawImages[productId] = selectedRawImages[productId].filter(p => p !== path);
+                }
+            }
+            lastRawCheckboxClicked = chk;
+            const btn = document.getElementById(`bulk-raw-btn-${shortProdId}`);
+            if (btn) {
+                const count = selectedRawImages[productId].length;
+                btn.textContent = `Delete Selected (${count})`;
+                btn.classList.toggle('hidden', count === 0);
+            }
+        }
+
+        function selectAllRawImages(productId, shortProdId, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const allChks = container.querySelectorAll('.raw-select-chk');
+            if (!selectedRawImages[productId]) selectedRawImages[productId] = [];
+            allChks.forEach(c => {
+                c.checked = true;
+                const p = c.getAttribute('data-path');
+                if (!selectedRawImages[productId].includes(p)) selectedRawImages[productId].push(p);
+            });
+            const btn = document.getElementById(`bulk-raw-btn-${shortProdId}`);
+            if (btn) {
+                btn.textContent = `Delete Selected (${selectedRawImages[productId].length})`;
+                btn.classList.remove('hidden');
+            }
+        }
+
+        async function bulkDeleteRaw(productId, shortProdId) {
+            const paths = selectedRawImages[productId] || [];
+            if (paths.length === 0) return;
+            if (!serverActive) { showToast("Helper Server Offline!", "error"); return; }
+            if (!confirm(`Move ${paths.length} selected raw images to trash?`)) return;
+            const btnEl = document.getElementById(`bulk-raw-btn-${shortProdId}`);
+            const container = document.getElementById(`raw-list-${shortProdId}`);
+            showLoadingOverlay(container, true);
+            let successCount = 0;
+            for (const path of paths) {
+                try {
+                    const response = await fetch('http://localhost:8000/api/delete_local_image', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ filePath: path })
+                    });
+                    if (response.ok) {
+                        const resData = await response.json();
+                        if (!resData.error) {
+                            successCount++;
+                            const card = Array.from(container.querySelectorAll('.raw-image-card')).find(c => c.getAttribute('data-path') === path);
+                            if (card) card.remove();
+                        }
+                    }
+                } catch(e) { console.error(e); }
+            }
+            showLoadingOverlay(container, false);
+            showToast(`Moved ${successCount} raw images to trash!`);
+            selectedRawImages[productId] = [];
+            btnEl.classList.add('hidden');
+            btnEl.textContent = 'Delete Selected (0)';
+        }
+
         function handleDragStart(e) {
             if (e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'button') {
                 e.preventDefault();
                 return;
             }
+
             draggedElement = this;
             const path = this.getAttribute('data-path');
             if (path) {
@@ -1729,8 +1900,9 @@ def run():
                     p.raw_images.forEach(img => {
                         const fileUrl = `http://localhost:8000/api/image?path=` + encodeURIComponent(img);
                         rawImgsHtml += `
-                            <div class="local-drag-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-grab" draggable="true" data-path="${img}" onclick="handleCardClick(event, '${fileUrl}')">
+                            <div class="raw-image-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-pointer" data-path="${img}" onclick="handleRawCardClick(event, this, '${p.product_id}', '${shortProdId}') || handleCardClick(event, '${fileUrl}')">
                                 <img src="${fileUrl}" class="tile-img select-none pointer-events-none" title="${img.split('/').pop()}">
+                                <input type="checkbox" class="raw-select-chk absolute bottom-1 left-1 w-3.5 h-3.5 z-10 accent-orange-500 rounded cursor-pointer" data-path="${img}" onchange="handleRawCheckboxChange(this, '${p.product_id}', '${shortProdId}', event)">
                             </div>
                         `;
                     });
@@ -1743,7 +1915,7 @@ def run():
                     p.drive_images.forEach(img => {
                         const fileUrl = `http://localhost:8000/api/image?path=` + encodeURIComponent(img);
                         driveImgsHtml += `
-                            <div class="local-image-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-grab" draggable="true" data-path="${img}" onclick="handleCardClick(event, '${fileUrl}')">
+                            <div class="local-image-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-pointer" data-path="${img}" onclick="handleEditedCardClick(event, this, '${p.product_id}', '${shortProdId}') || handleCardClick(event, '${fileUrl}')">
                                 <img src="${fileUrl}" class="tile-img select-none pointer-events-none" title="${img.split('/').pop()}">
                                 <input type="checkbox" class="local-select-chk absolute bottom-1 left-1 w-3.5 h-3.5 z-10 accent-[#C4F101] rounded cursor-pointer" data-path="${img}" onchange="handleLocalCheckboxChange(this, '${p.product_id}', '${shortProdId}', event)">
                                 <button class="delete-local-btn absolute -top-1 -right-1 bg-red-600/90 hover:bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[9px] font-black border border-black shadow z-10 cursor-pointer" title="Move to Trash" onclick="deleteLocalImage(event, '${img}', this)">×</button>
@@ -1804,9 +1976,13 @@ def run():
                                     <span>🔴 Local Raw Folder</span>
                                     <button onclick="openInFinder(\`${p.raw_folder_path}\`)" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-[8px] uppercase tracking-wider font-extrabold px-1.5 py-0.5 rounded transition-all" title="Open folder in Finder">Open in Finder</button>
                                 </div>
-                                <span class="text-zinc-500 font-extrabold text-[10px]">${p.raw_count} Images</span>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="bulkDeleteRaw('${p.product_id}', '${shortProdId}')" class="bg-red-950 hover:bg-red-900 text-red-400 border border-red-800 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all hidden" id="bulk-raw-btn-${shortProdId}">Delete Selected (0)</button>
+                                    <button onclick="selectAllRawImages('${p.product_id}', '${shortProdId}', 'raw-list-${shortProdId}')" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all">Select All</button>
+                                    <span class="text-zinc-500 font-extrabold text-[10px]">${p.raw_count} Images</span>
+                                </div>
                             </h3>
-                            <div class="flex flex-wrap gap-2">
+                            <div class="raw-images-list flex flex-wrap gap-2" id="raw-list-${shortProdId}">
                                 ${rawImgsHtml}
                             </div>
                         </div>
