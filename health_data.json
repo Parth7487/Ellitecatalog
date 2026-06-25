@@ -711,10 +711,10 @@
     {
       "make": "Honda",
       "total_folders": 160,
-      "raw_images": 626,
-      "edited_images": 535,
-      "folders_with_edited": 112,
-      "folders_with_only_raw": 1,
+      "raw_images": 620,
+      "edited_images": 547,
+      "folders_with_edited": 113,
+      "folders_with_only_raw": 0,
       "folders_empty": 47,
       "folders": [
         {
@@ -1196,6 +1196,16 @@
           "drive_url": "https://drive.google.com/drive/folders/1TI-vE1mkAHb2j1moydlyw1bkiP-KnIVB",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-honda-civic-eg-dry-carbon-drag-racing-door",
           "photos_live": 8
+        },
+        {
+          "path": "Civic EG_EK/Kits/ETi Honda Civic EG Dry Carbon Fiber Drag Racing Body Kit",
+          "raw_count": 0,
+          "edited_count": 12,
+          "status": "edited",
+          "upload_date": "2026-06-25",
+          "drive_url": "https://drive.google.com/drive/folders/1q-ZxPH_vFTZ-bf4_HdjoAoB9NMFK-Jd0",
+          "shopify_url": "https://myeliteti.myshopify.com/products/honda-civic-eg-dry-carbon-fiber-drag-racing-body-kit",
+          "photos_live": 6
         },
         {
           "path": "Civic EG_EK/Kits/ETi Honda Civic EK Drag Stance Carbon Fiber Widebody Kit",
@@ -1836,16 +1846,6 @@
           "drive_url": "https://drive.google.com/drive/folders/17Bxk0TkwQ1KDCcpeHismxX-48iFAKOKy",
           "shopify_url": "https://myeliteti.myshopify.com/products/honda-s2000-js-racing-style-carbon-fiber-hood",
           "photos_live": 4
-        },
-        {
-          "path": "Civic EG_EK/Kits/ETi Honda Civic EG Dry Carbon Fiber Drag Racing Body Kit",
-          "raw_count": 6,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-15",
-          "drive_url": "https://drive.google.com/drive/folders/1p7QDjjXIpbiiFVUqKaoNXqgqYkVKnnAl",
-          "shopify_url": "https://myeliteti.myshopify.com/products/honda-civic-eg-dry-carbon-fiber-drag-racing-body-kit",
-          "photos_live": 6
         },
         {
           "path": "Accord/Exterior/ETi HONDA ACCORD 03 ETi wide Carbon Fiber Hood",
@@ -8609,7 +8609,7 @@
     {
       "make": "Toyota",
       "total_folders": 252,
-      "raw_images": 1545,
+      "raw_images": 1539,
       "edited_images": 1889,
       "folders_with_edited": 191,
       "folders_with_only_raw": 0,
@@ -9616,10 +9616,10 @@
         },
         {
           "path": "MRS/Exterior/ETi Toyota MR-S (ZZW30) Vented Style Hood",
-          "raw_count": 3,
+          "raw_count": 0,
           "edited_count": 3,
           "status": "edited",
-          "upload_date": "2026-06-25",
+          "upload_date": "2026-06-13",
           "drive_url": "https://drive.google.com/drive/folders/15N574_6S3kTvjddT7wdTtWuWUCueHUqV",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-mr-s-zzw30-vented-style-hood",
           "photos_live": 2
@@ -9676,7 +9676,7 @@
         },
         {
           "path": "Supra_MKIV/Exterior/(Duplicate)ETi Toyota Supra MKIV Carbon Fiber Fuse Box Cover",
-          "raw_count": 3,
+          "raw_count": 0,
           "edited_count": 3,
           "status": "edited",
           "upload_date": "2026-03-10",
@@ -11125,11 +11125,11 @@
   ],
   "totals": {
     "total_folders": 1106,
-    "folders_with_edited": 860,
-    "folders_with_only_raw": 1,
+    "folders_with_edited": 861,
+    "folders_with_only_raw": 0,
     "folders_empty": 245,
-    "total_edited_images": 6077,
-    "total_raw_images": 6171,
+    "total_edited_images": 6089,
+    "total_raw_images": 6159,
     "completion_percentage": 77.8
   }
 }
