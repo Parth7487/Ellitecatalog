@@ -847,6 +847,32 @@ def run():
         const selectedLocalImages = {}; // edited
         const selectedRawImages = {};   // raw
 
+        function updateLocalSelectAllBtnText(shortProdId) {
+            const container = document.getElementById(`edited-list-${shortProdId}`);
+            if (!container) return;
+            const allChks = container.querySelectorAll('.local-select-chk');
+            const selectAllBtn = document.getElementById(`select-all-local-btn-${shortProdId}`);
+            if (!selectAllBtn) return;
+            if (allChks.length > 0 && Array.from(allChks).every(c => c.checked)) {
+                selectAllBtn.textContent = 'Deselect All';
+            } else {
+                selectAllBtn.textContent = 'Select All';
+            }
+        }
+
+        function updateRawSelectAllBtnText(shortProdId) {
+            const container = document.getElementById(`raw-list-${shortProdId}`);
+            if (!container) return;
+            const allChks = container.querySelectorAll('.raw-select-chk');
+            const selectAllBtn = document.getElementById(`select-all-raw-btn-${shortProdId}`);
+            if (!selectAllBtn) return;
+            if (allChks.length > 0 && Array.from(allChks).every(c => c.checked)) {
+                selectAllBtn.textContent = 'Deselect All';
+            } else {
+                selectAllBtn.textContent = 'Select All';
+            }
+        }
+
         function handleLocalCheckboxChange(chk, productId, shortProdId, event) {
             const path = chk.getAttribute('data-path');
             
@@ -890,6 +916,7 @@ def run():
                     btn.classList.add('hidden');
                 }
             }
+            updateLocalSelectAllBtnText(shortProdId);
         }
         
         function selectAllLocalImages(productId, shortProdId, containerId) {
@@ -897,15 +924,33 @@ def run():
             if (!container) return;
             const allChks = container.querySelectorAll('.local-select-chk');
             if (!selectedLocalImages[productId]) selectedLocalImages[productId] = [];
+            
+            const allSelected = allChks.length > 0 && Array.from(allChks).every(c => c.checked);
+            
             allChks.forEach(c => {
-                c.checked = true;
+                c.checked = !allSelected;
                 const p = c.getAttribute('data-path');
-                if (!selectedLocalImages[productId].includes(p)) selectedLocalImages[productId].push(p);
+                if (!allSelected) {
+                    if (!selectedLocalImages[productId].includes(p)) selectedLocalImages[productId].push(p);
+                } else {
+                    selectedLocalImages[productId] = selectedLocalImages[productId].filter(img => img !== p);
+                }
             });
+            
+            const selectAllBtn = document.getElementById(`select-all-local-btn-${shortProdId}`);
+            if (selectAllBtn) {
+                selectAllBtn.textContent = allSelected ? 'Select All' : 'Deselect All';
+            }
+            
             const btn = document.getElementById(`bulk-local-btn-${shortProdId}`);
             if (btn) {
-                btn.textContent = `Delete Selected (${selectedLocalImages[productId].length})`;
-                btn.classList.remove('hidden');
+                const count = selectedLocalImages[productId].length;
+                btn.textContent = `Delete Selected (${count})`;
+                if (count > 0) {
+                    btn.classList.remove('hidden');
+                } else {
+                    btn.classList.add('hidden');
+                }
             }
         }
 
@@ -953,6 +998,7 @@ def run():
             selectedLocalImages[productId] = [];
             btnEl.classList.add('hidden');
             btnEl.textContent = `Delete Selected (0)`;
+            updateLocalSelectAllBtnText(shortProdId);
         }
 
         // ----- CMD/SHIFT click on edited image cards -----
@@ -997,6 +1043,7 @@ def run():
                 btn.textContent = `Delete Selected (${count})`;
                 btn.classList.toggle('hidden', count === 0);
             }
+            updateLocalSelectAllBtnText(shortProdId);
         }
 
         // ----- CMD/SHIFT click on RAW image cards -----
@@ -1038,6 +1085,7 @@ def run():
                 btn.textContent = `Delete Selected (${count})`;
                 btn.classList.toggle('hidden', count === 0);
             }
+            updateRawSelectAllBtnText(shortProdId);
         }
         
         function handleRawCheckboxChange(chk, productId, shortProdId, event) {
@@ -1071,6 +1119,7 @@ def run():
                 btn.textContent = `Delete Selected (${count})`;
                 btn.classList.toggle('hidden', count === 0);
             }
+            updateRawSelectAllBtnText(shortProdId);
         }
 
         function selectAllRawImages(productId, shortProdId, containerId) {
@@ -1078,15 +1127,29 @@ def run():
             if (!container) return;
             const allChks = container.querySelectorAll('.raw-select-chk');
             if (!selectedRawImages[productId]) selectedRawImages[productId] = [];
+            
+            const allSelected = allChks.length > 0 && Array.from(allChks).every(c => c.checked);
+            
             allChks.forEach(c => {
-                c.checked = true;
+                c.checked = !allSelected;
                 const p = c.getAttribute('data-path');
-                if (!selectedRawImages[productId].includes(p)) selectedRawImages[productId].push(p);
+                if (!allSelected) {
+                    if (!selectedRawImages[productId].includes(p)) selectedRawImages[productId].push(p);
+                } else {
+                    selectedRawImages[productId] = selectedRawImages[productId].filter(img => img !== p);
+                }
             });
+            
+            const selectAllBtn = document.getElementById(`select-all-raw-btn-${shortProdId}`);
+            if (selectAllBtn) {
+                selectAllBtn.textContent = allSelected ? 'Select All' : 'Deselect All';
+            }
+            
             const btn = document.getElementById(`bulk-raw-btn-${shortProdId}`);
             if (btn) {
-                btn.textContent = `Delete Selected (${selectedRawImages[productId].length})`;
-                btn.classList.remove('hidden');
+                const count = selectedRawImages[productId].length;
+                btn.textContent = `Delete Selected (${count})`;
+                btn.classList.toggle('hidden', count === 0);
             }
         }
 
@@ -1121,6 +1184,7 @@ def run():
             selectedRawImages[productId] = [];
             btnEl.classList.add('hidden');
             btnEl.textContent = 'Delete Selected (0)';
+            updateRawSelectAllBtnText(shortProdId);
         }
 
         function handleDragStart(e) {
@@ -1978,7 +2042,7 @@ def run():
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <button onclick="bulkDeleteRaw('${p.product_id}', '${shortProdId}')" class="bg-red-950 hover:bg-red-900 text-red-400 border border-red-800 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all hidden" id="bulk-raw-btn-${shortProdId}">Delete Selected (0)</button>
-                                    <button onclick="selectAllRawImages('${p.product_id}', '${shortProdId}', 'raw-list-${shortProdId}')" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all">Select All</button>
+                                    <button id="select-all-raw-btn-${shortProdId}" onclick="selectAllRawImages('${p.product_id}', '${shortProdId}', 'raw-list-${shortProdId}')" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all">Select All</button>
                                     <span class="text-zinc-500 font-extrabold text-[10px]">${p.raw_count} Images</span>
                                 </div>
                             </h3>
@@ -1996,7 +2060,7 @@ def run():
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <button onclick="bulkDeleteLocal('${p.product_id}', '${shortProdId}', \`${p.path}\`)" class="bulk-delete-local-btn bg-red-950 hover:bg-red-900 text-red-400 border border-red-800 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all hidden" id="bulk-local-btn-${shortProdId}">Delete Selected (0)</button>
-                                    <button onclick="selectAllLocalImages('${p.product_id}', '${shortProdId}', 'edited-list-${shortProdId}')" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all" title="Select all edited images">Select All</button>
+                                    <button id="select-all-local-btn-${shortProdId}" onclick="selectAllLocalImages('${p.product_id}', '${shortProdId}', 'edited-list-${shortProdId}')" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all" title="Select all edited images">Select All</button>
                                     <span class="text-zinc-500 font-extrabold text-[10px]">${p.drive_count} Images</span>
                                 </div>
                             </h3>
