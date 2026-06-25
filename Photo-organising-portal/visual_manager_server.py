@@ -665,6 +665,30 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                 statuses[product_id] = status
                 with open(status_file, 'w') as f:
                     json.dump(statuses, f, indent=4)
+                
+                # Also update the baked-in HTML cache so refreshes don't reset statuses
+                html_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'visual_audit_sheet.html')
+                if os.path.exists(html_path):
+                    try:
+                        with open(html_path, 'r', encoding='utf-8') as f:
+                            content = f.read()
+                        match = re.search(r'const productsData = (\[.*?\]);', content, re.DOTALL)
+                        if match:
+                            json_str = match.group(1)
+                            products = json.loads(json_str)
+                            updated = False
+                            for p in products:
+                                if p.get('short_id') == product_id or p.get('product_id', '').endswith('/' + product_id):
+                                    p['review_status'] = status
+                                    updated = True
+                            if updated:
+                                new_json_str = json.dumps(products, ensure_ascii=False)
+                                new_content = content.replace(json_str, new_json_str, 1)
+                                with open(html_path, 'w', encoding='utf-8') as f:
+                                    f.write(new_content)
+                                print(f"Updated HTML cache: {product_id} -> {status}")
+                    except Exception as ex:
+                        print(f"Error updating HTML cache for status: {ex}")
                     
                 self.send_response(200)
                 self.send_header('Content-Type', 'application/json')
