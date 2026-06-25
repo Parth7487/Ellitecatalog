@@ -838,22 +838,45 @@ def run():
 
         // Drag and drop variables
         let draggedElement = null;
+        let dragRafPending = false; // RAF throttle flag
+        let reorderDebounceTimer = null; // Debounce timer for API saves
+        let lastCheckboxClicked = null; // For shift-click multi-select
 
         // Store selected local images per product
         const selectedLocalImages = {};
 
-        function handleLocalCheckboxChange(chk, productId, shortProdId) {
+        function handleLocalCheckboxChange(chk, productId, shortProdId, event) {
             const path = chk.getAttribute('data-path');
-            if (!selectedLocalImages[productId]) {
-                selectedLocalImages[productId] = [];
-            }
-            if (chk.checked) {
-                if (!selectedLocalImages[productId].includes(path)) {
-                    selectedLocalImages[productId].push(path);
+            
+            // Shift-click: select range between last clicked and this one
+            if (event && event.shiftKey && lastCheckboxClicked && lastCheckboxClicked !== chk) {
+                const container = chk.closest('.local-images-list');
+                if (container) {
+                    const allChks = Array.from(container.querySelectorAll('.local-select-chk'));
+                    const lastIdx = allChks.indexOf(lastCheckboxClicked);
+                    const currIdx = allChks.indexOf(chk);
+                    const [start, end] = lastIdx < currIdx ? [lastIdx, currIdx] : [currIdx, lastIdx];
+                    allChks.slice(start, end + 1).forEach(c => {
+                        c.checked = true;
+                        const p = c.getAttribute('data-path');
+                        if (!selectedLocalImages[productId]) selectedLocalImages[productId] = [];
+                        if (!selectedLocalImages[productId].includes(p)) selectedLocalImages[productId].push(p);
+                    });
                 }
             } else {
-                selectedLocalImages[productId] = selectedLocalImages[productId].filter(p => p !== path);
+                if (!selectedLocalImages[productId]) {
+                    selectedLocalImages[productId] = [];
+                }
+                if (chk.checked) {
+                    if (!selectedLocalImages[productId].includes(path)) {
+                        selectedLocalImages[productId].push(path);
+                    }
+                } else {
+                    selectedLocalImages[productId] = selectedLocalImages[productId].filter(p => p !== path);
+                }
             }
+            
+            lastCheckboxClicked = chk;
 
             const btn = document.getElementById(`bulk-local-btn-${shortProdId}`);
             if (btn) {
@@ -864,6 +887,23 @@ def run():
                 } else {
                     btn.classList.add('hidden');
                 }
+            }
+        }
+        
+        function selectAllLocalImages(productId, shortProdId, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const allChks = container.querySelectorAll('.local-select-chk');
+            if (!selectedLocalImages[productId]) selectedLocalImages[productId] = [];
+            allChks.forEach(c => {
+                c.checked = true;
+                const p = c.getAttribute('data-path');
+                if (!selectedLocalImages[productId].includes(p)) selectedLocalImages[productId].push(p);
+            });
+            const btn = document.getElementById(`bulk-local-btn-${shortProdId}`);
+            if (btn) {
+                btn.textContent = `Delete Selected (${selectedLocalImages[productId].length})`;
+                btn.classList.remove('hidden');
             }
         }
 
@@ -945,23 +985,31 @@ def run():
         }
 
         function handleDragOver(e) {
-            if (e.preventDefault) {
-                e.preventDefault();
-            }
-            
-            // Check if dragging internal local image or Shopify image
+            if (e.preventDefault) e.preventDefault();
+
+            // Only reorder Shopify images (not local), and throttle with RAF
             if (draggedElement && !draggedElement.getAttribute('data-path')) {
                 e.dataTransfer.dropEffect = 'move';
                 if (draggedElement !== this && this.classList.contains('image-card')) {
-                    const container = this.parentNode;
-                    const children = Array.from(container.children);
-                    const draggedIndex = children.indexOf(draggedElement);
-                    const targetIndex = children.indexOf(this);
-                    
-                    if (draggedIndex < targetIndex) {
-                        container.insertBefore(draggedElement, this.nextSibling);
-                    } else {
-                        container.insertBefore(draggedElement, this);
+                    if (!dragRafPending) {
+                        dragRafPending = true;
+                        const target = this;
+                        requestAnimationFrame(() => {
+                            if (draggedElement && draggedElement !== target && target.classList.contains('image-card')) {
+                                const container = target.parentNode;
+                                const children = Array.from(container.children);
+                                const draggedIndex = children.indexOf(draggedElement);
+                                const targetIndex = children.indexOf(target);
+                                if (draggedIndex !== -1 && targetIndex !== -1) {
+                                    if (draggedIndex < targetIndex) {
+                                        container.insertBefore(draggedElement, target.nextSibling);
+                                    } else {
+                                        container.insertBefore(draggedElement, target);
+                                    }
+                                }
+                            }
+                            dragRafPending = false;
+                        });
                     }
                 }
             } else {
@@ -1005,6 +1053,7 @@ def run():
 
         async function handleDragEnd(e) {
             this.style.opacity = '1';
+            dragRafPending = false;
             const container = this.closest('.shopify-images-list');
             if (container) {
                 const cards = container.querySelectorAll('.image-card');
@@ -1013,7 +1062,12 @@ def run():
                 });
                 
                 const productId = container.getAttribute('data-product-id');
-                await saveReorder(container, productId);
+                
+                // Debounce the API call — wait 600ms after last drag ends before saving
+                clearTimeout(reorderDebounceTimer);
+                reorderDebounceTimer = setTimeout(() => {
+                    saveReorder(container, productId);
+                }, 600);
             }
         }
 
@@ -1691,7 +1745,7 @@ def run():
                         driveImgsHtml += `
                             <div class="local-image-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-grab" draggable="true" data-path="${img}" onclick="handleCardClick(event, '${fileUrl}')">
                                 <img src="${fileUrl}" class="tile-img select-none pointer-events-none" title="${img.split('/').pop()}">
-                                <input type="checkbox" class="local-select-chk absolute bottom-1 left-1 w-3.5 h-3.5 z-10 accent-[#C4F101] rounded cursor-pointer" data-path="${img}" onchange="handleLocalCheckboxChange(this, '${p.product_id}', '${shortProdId}')">
+                                <input type="checkbox" class="local-select-chk absolute bottom-1 left-1 w-3.5 h-3.5 z-10 accent-[#C4F101] rounded cursor-pointer" data-path="${img}" onchange="handleLocalCheckboxChange(this, '${p.product_id}', '${shortProdId}', event)">
                                 <button class="delete-local-btn absolute -top-1 -right-1 bg-red-600/90 hover:bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[9px] font-black border border-black shadow z-10 cursor-pointer" title="Move to Trash" onclick="deleteLocalImage(event, '${img}', this)">×</button>
                             </div>
                         `;
@@ -1766,10 +1820,11 @@ def run():
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <button onclick="bulkDeleteLocal('${p.product_id}', '${shortProdId}', \`${p.path}\`)" class="bulk-delete-local-btn bg-red-950 hover:bg-red-900 text-red-400 border border-red-800 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all hidden" id="bulk-local-btn-${shortProdId}">Delete Selected (0)</button>
+                                    <button onclick="selectAllLocalImages('${p.product_id}', '${shortProdId}', 'edited-list-${shortProdId}')" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 text-[8px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-sm transition-all" title="Select all edited images">Select All</button>
                                     <span class="text-zinc-500 font-extrabold text-[10px]">${p.drive_count} Images</span>
                                 </div>
                             </h3>
-                            <div class="local-images-list flex flex-wrap gap-2" data-product-id="${p.product_id}">
+                            <div class="local-images-list flex flex-wrap gap-2" id="edited-list-${shortProdId}" data-product-id="${p.product_id}">
                                 ${driveImgsHtml}
                             </div>
                         </div>
