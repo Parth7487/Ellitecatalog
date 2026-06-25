@@ -8610,9 +8610,9 @@
       "make": "Toyota",
       "total_folders": 252,
       "raw_images": 1545,
-      "edited_images": 1883,
-      "folders_with_edited": 189,
-      "folders_with_only_raw": 2,
+      "edited_images": 1889,
+      "folders_with_edited": 191,
+      "folders_with_only_raw": 0,
       "folders_empty": 61,
       "folders": [
         {
@@ -9615,6 +9615,16 @@
           "photos_live": 0
         },
         {
+          "path": "MRS/Exterior/ETi Toyota MR-S (ZZW30) Vented Style Hood",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-06-25",
+          "drive_url": "https://drive.google.com/drive/folders/15N574_6S3kTvjddT7wdTtWuWUCueHUqV",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-mr-s-zzw30-vented-style-hood",
+          "photos_live": 2
+        },
+        {
           "path": "MRS/Kits/TOYOTA MRS Aero Kit Body Kit",
           "raw_count": 3,
           "edited_count": 3,
@@ -9663,6 +9673,16 @@
           "drive_url": "https://drive.google.com/drive/folders/1mfRW9qOqpdtf1LNLBTciFPLjxB0w8m7_",
           "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-mark-2-jp-95-00-eti-hood",
           "photos_live": 0
+        },
+        {
+          "path": "Supra_MKIV/Exterior/(Duplicate)ETi Toyota Supra MKIV Carbon Fiber Fuse Box Cover",
+          "raw_count": 3,
+          "edited_count": 3,
+          "status": "edited",
+          "upload_date": "2026-03-10",
+          "drive_url": "https://drive.google.com/drive/folders/1qB0yyYPAZEo9FCg3UtP4tQBttU8vHWKN",
+          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkiv-carbon-fiber-fuse-box-cover",
+          "photos_live": 3
         },
         {
           "path": "Supra_MKIV/Exterior/(New) Drag Bumper",
@@ -10491,26 +10511,6 @@
           "photos_live": 0
         },
         {
-          "path": "MRS/Exterior/ETi Toyota MR-S (ZZW30) Vented Style Hood",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-06-13",
-          "drive_url": "https://drive.google.com/drive/folders/1GgpaJWNuq5NBo9bLvN0hxbbjkHoPoaub",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-mr-s-zzw30-vented-style-hood",
-          "photos_live": 2
-        },
-        {
-          "path": "Supra_MKIV/Exterior/(Duplicate)ETi Toyota Supra MKIV Carbon Fiber Fuse Box Cover",
-          "raw_count": 3,
-          "edited_count": 0,
-          "status": "raw_only",
-          "upload_date": "2026-03-10",
-          "drive_url": "https://drive.google.com/drive/folders/1lPhMf9IDoIdo8D2ts6VLpjuuJgg-1E1e",
-          "shopify_url": "https://myeliteti.myshopify.com/products/eti-toyota-supra-mkiv-carbon-fiber-fuse-box-cover",
-          "photos_live": 3
-        },
-        {
           "path": "Alphard_Vellfire/Exterior/ETi TOYOTA Alphard 30 ETi Carbon Fiber Hood",
           "raw_count": 0,
           "edited_count": 0,
@@ -11125,11 +11125,11 @@
   ],
   "totals": {
     "total_folders": 1106,
-    "folders_with_edited": 858,
-    "folders_with_only_raw": 3,
+    "folders_with_edited": 860,
+    "folders_with_only_raw": 1,
     "folders_empty": 245,
-    "total_edited_images": 6071,
+    "total_edited_images": 6077,
     "total_raw_images": 6171,
-    "completion_percentage": 77.6
+    "completion_percentage": 77.8
   }
 }
