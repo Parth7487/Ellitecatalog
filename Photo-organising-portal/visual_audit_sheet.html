@@ -1557,7 +1557,7 @@ This cannot be undone!`;
                     p.raw_images.forEach(img => {
                         const fileUrl = `http://localhost:8000/api/image?path=` + encodeURIComponent(img);
                         rawImgsHtml += `
-                            <div class="raw-image-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-pointer" data-path="${img}" onclick="handleRawCardClick(event, this, '${p.product_id}', '${shortProdId}') || handleCardClick(event, '${fileUrl}')">
+                            <div class="raw-image-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-pointer" data-path="${img}" onclick="event.metaKey||event.shiftKey ? handleRawCardClick(event,this,'${p.product_id}','${shortProdId}') : handleCardClick(event,'${fileUrl}')">
                                 <img src="${fileUrl}" class="tile-img select-none pointer-events-none" title="${img.split('/').pop()}">
                                 <input type="checkbox" class="raw-select-chk absolute bottom-1 left-1 w-3.5 h-3.5 z-10 accent-orange-500 rounded cursor-pointer" data-path="${img}" onchange="handleRawCheckboxChange(this, '${p.product_id}', '${shortProdId}', event)">
                             </div>
@@ -1572,7 +1572,7 @@ This cannot be undone!`;
                     p.drive_images.forEach(img => {
                         const fileUrl = `http://localhost:8000/api/image?path=` + encodeURIComponent(img);
                         driveImgsHtml += `
-                            <div class="local-image-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-pointer" data-path="${img}" onclick="handleEditedCardClick(event, this, '${p.product_id}', '${shortProdId}') || handleCardClick(event, '${fileUrl}')">
+                            <div class="local-image-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-pointer" draggable="true" data-path="${img}" onclick="event.metaKey||event.shiftKey ? handleEditedCardClick(event,this,'${p.product_id}','${shortProdId}') : handleCardClick(event,'${fileUrl}')">
                                 <img src="${fileUrl}" class="tile-img select-none pointer-events-none" title="${img.split('/').pop()}">
                                 <input type="checkbox" class="local-select-chk absolute bottom-1 left-1 w-3.5 h-3.5 z-10 accent-[#C4F101] rounded cursor-pointer" data-path="${img}" onchange="handleLocalCheckboxChange(this, '${p.product_id}', '${shortProdId}', event)">
                                 <button class="delete-local-btn absolute -top-1 -right-1 bg-red-600/90 hover:bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[9px] font-black border border-black shadow z-10 cursor-pointer" title="Move to Trash" onclick="deleteLocalImage(event, '${img}', this)">×</button>
