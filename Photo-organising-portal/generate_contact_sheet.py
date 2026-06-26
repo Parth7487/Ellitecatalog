@@ -354,6 +354,7 @@ def run():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elite Ti - Visual Image Verifier</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -2122,17 +2123,21 @@ def run():
 
                 container.appendChild(item);
 
-                // Bind drag-and-drop event listeners to live images
+                // Bind delete listeners to live images
                 const liveList = item.querySelector('.shopify-images-list');
                 const cards = liveList.querySelectorAll('.image-card');
                 cards.forEach(card => {
-                    card.addEventListener('dragstart', handleDragStart, false);
-                    card.addEventListener('dragover', handleDragOver, false);
-                    card.addEventListener('dragenter', handleDragEnter, false);
-                    card.addEventListener('dragleave', handleDragLeave, false);
-                    card.addEventListener('drop', handleDrop, false);
-                    card.addEventListener('dragend', handleDragEnd, false);
                     bindDeleteListeners(card);
+                });
+
+                // Initialize SortableJS for smooth rearranging of live images
+                new Sortable(liveList, {
+                    animation: 150,
+                    draggable: '.image-card',
+                    ghostClass: 'opacity-40',
+                    onEnd: function(evt) {
+                        saveReorder(liveList, productId);
+                    }
                 });
 
                 // Add container drop zone listeners for uploading files/local images
