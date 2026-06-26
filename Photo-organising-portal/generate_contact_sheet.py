@@ -142,6 +142,33 @@ def graphql_query(query, variables=None):
             else:
                 return None
 
+def fetch_product_by_handle(handle):
+    query = """
+    query getProductByHandle($handle: String!) {
+      productByHandle(handle: $handle) {
+        id
+        title
+        handle
+        status
+        media(first: 100) {
+          nodes {
+            id
+            mediaContentType
+            ... on MediaImage {
+              image {
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+    """
+    res = graphql_query(query, {"handle": handle})
+    if res and 'data' in res and res['data'].get('productByHandle'):
+        return res['data']['productByHandle']
+    return None
+
 def fetch_products(collection_id):
     products = []
     has_next = True
@@ -296,6 +323,14 @@ def run():
                 clean_url = shopify_url.split('?')[0].split('#')[0].rstrip('/')
                 handle = clean_url.split('/')[-1]
                 prod = shopify_map.get(handle)
+                if not prod:
+                    print(f"🔍 Product {handle} not found in brand collection. Fetching individually from Shopify...")
+                    prod = fetch_product_by_handle(handle)
+                    if prod:
+                        shopify_map[handle] = prod
+                        if 'id' in prod:
+                            num_id = prod['id'].split('/')[-1]
+                            shopify_map[num_id] = prod
                 if prod:
                     product_id = prod['id']
                     shortProdId = product_id.split('/')[-1]
