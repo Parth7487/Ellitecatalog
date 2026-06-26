@@ -330,4 +330,9 @@ with open(output_json, 'w', encoding='utf-8') as f:
     # ensuring we never push a broken file
     json.dump(final_data, f, ensure_ascii=False, indent=2, default=str, allow_nan=False)
 
+# Also generate a data.js file to bypass local file:// CORS restrictions
+output_js = 'data.js'
+with open(output_js, 'w', encoding='utf-8') as f:
+    f.write("window.auditData = " + json.dumps(final_data, ensure_ascii=False, default=str) + ";")
+
 print(f"Success! Cleaned and exported {len(kits_data)} kits and {len(hoods_data)} hoods.")

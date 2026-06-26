@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Ti — Visual Audit Sheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #070708; color: #E4E4E7; -webkit-font-smoothing: antialiased; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0B0B0C; }
+        ::-webkit-scrollbar-thumb { background: #27272A; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #C4F101; }
+        .card-hover:hover { background-color: #1A1A1E !important; border-color: #C4F101 !important; transform: translateY(-2px); }
+        .card-hover { transition: all 0.2s ease; }
+        input, select { background: #141416 !important; border: 1px solid #27272A !important; color: #E4E4E7 !important; outline: none !important; }
+        input:focus, select:focus { border-color: #C4F101 !important; }
+        @media print { body { background: white; color: black; } .no-print { display: none !important; } }
+    </style>
+    <script src="data.js"></script>
+</head>
+<body class="min-h-screen flex flex-col">
+    <header style="border-bottom:1px solid #27272A;background:#0B0B0C;position:sticky;top:0;z-index:50;padding:12px 32px;">
+        <div style="max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:32px;height:32px;background:#C4F101;border-radius:4px;display:flex;align-items:center;justify-content:center;">
+                    <span style="color:black;font-weight:900;font-size:11px;">ETi</span>
+                </div>
+                <div>
+                    <h1 style="color:white;font-weight:700;font-size:17px;margin:0;line-height:1;">Visual Audit Sheet</h1>
+                    <p style="color:#71717a;font-size:12px;margin:2px 0 0;">Full Catalog Review — <span id="total-count" style="color:#C4F101;">Loading...</span></p>
+                </div>
+            </div>
+            <div class="no-print" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <input type="text" id="search-input" placeholder="Search brand, model, part, SKU..." style="width:260px;padding:8px 12px;border-radius:6px;font-size:13px;" oninput="filterCards()"/>
+                <select id="brand-filter" style="padding:8px 12px;border-radius:6px;font-size:13px;" onchange="filterCards()"><option value="">All Brands</option></select>
+                <select id="part-filter" style="padding:8px 12px;border-radius:6px;font-size:13px;" onchange="filterCards()"><option value="">All Parts</option></select>
+                <button onclick="window.print()" style="padding:8px 16px;background:#27272A;color:white;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;">🖨 Print</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="no-print" style="max-width:1600px;margin:0 auto;padding:24px 32px 0;width:100%;">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+            <div style="background:#141416;border:1px solid #27272A;border-radius:8px;padding:16px;text-align:center;">
+                <div id="stat-total" style="font-size:28px;font-weight:900;color:#C4F101;">—</div>
+                <div style="font-size:10px;color:#71717a;margin-top:4px;text-transform:uppercase;letter-spacing:.05em;">Total SKUs</div>
+            </div>
+            <div style="background:#141416;border:1px solid #27272A;border-radius:8px;padding:16px;text-align:center;">
+                <div id="stat-brands" style="font-size:28px;font-weight:900;color:white;">—</div>
+                <div style="font-size:10px;color:#71717a;margin-top:4px;text-transform:uppercase;letter-spacing:.05em;">Brands</div>
+            </div>
+            <div style="background:#141416;border:1px solid #27272A;border-radius:8px;padding:16px;text-align:center;">
+                <div id="stat-models" style="font-size:28px;font-weight:900;color:white;">—</div>
+                <div style="font-size:10px;color:#71717a;margin-top:4px;text-transform:uppercase;letter-spacing:.05em;">Models</div>
+            </div>
+            <div style="background:#141416;border:1px solid #27272A;border-radius:8px;padding:16px;text-align:center;">
+                <div id="stat-parts" style="font-size:28px;font-weight:900;color:white;">—</div>
+                <div style="font-size:10px;color:#71717a;margin-top:4px;text-transform:uppercase;letter-spacing:.05em;">Part Types</div>
+            </div>
+        </div>
+    </div>
+
+    <main style="max-width:1600px;margin:0 auto;padding:24px 32px 64px;width:100%;flex:1;">
+        <div id="card-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;"></div>
+        <div id="no-results" style="display:none;text-align:center;padding:80px 0;">
+            <div style="font-size:48px;margin-bottom:16px;">🔍</div>
+            <p style="color:#71717a;font-size:18px;">No results found</p>
+        </div>
+    </main>
+
+    <footer class="no-print" style="border-top:1px solid #27272A;padding:12px;text-align:center;color:#52525b;font-size:12px;">
+        Elite Ti Internal Tool · Visual Audit Sheet · <span id="footer-date"></span>
+    </footer>
+
+    <script>
+        let allKits = [], filteredKits = [];
+
+        async function loadData() {
+            try {
+                let data;
+                if (window.auditData) {
+                    data = window.auditData;
+                } else {
+                    const res = await fetch('./data.json');
+                    data = await res.json();
+                }
+                allKits = data.kits || [];
+                filteredKits = [...allKits];
+                populateFilters();
+                updateStats(allKits);
+                renderCards(filteredKits);
+                document.getElementById('total-count').textContent = allKits.length.toLocaleString() + ' items loaded';
+            } catch(e) {
+                document.getElementById('total-count').textContent = 'Error loading data.json / data.js';
+                document.getElementById('card-grid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px 0;"><div style="font-size:40px;margin-bottom:16px;">⚠️</div><p style="color:#ef4444;font-weight:600;">Could not load data</p><p style="color:#71717a;font-size:13px;margin-top:8px;">Make sure data.js or data.json is in the same folder as this file.</p></div>';
+            }
+        }
+
+        function populateFilters() {
+            const brands = [...new Set(allKits.map(k=>k.Brand).filter(Boolean))].sort();
+            const parts = [...new Set(allKits.map(k=>k.Part).filter(Boolean))].sort();
+            const bf = document.getElementById('brand-filter');
+            brands.forEach(b => { const o=document.createElement('option'); o.value=b; o.textContent=b; bf.appendChild(o); });
+            const pf = document.getElementById('part-filter');
+            parts.forEach(p => { const o=document.createElement('option'); o.value=p; o.textContent=p; pf.appendChild(o); });
+        }
+
+        function updateStats(kits) {
+            document.getElementById('stat-total').textContent = kits.length.toLocaleString();
+            document.getElementById('stat-brands').textContent = [...new Set(kits.map(k=>k.Brand))].length;
+            document.getElementById('stat-models').textContent = [...new Set(kits.map(k=>k.Model))].length;
+            document.getElementById('stat-parts').textContent = [...new Set(kits.map(k=>k.Part))].length;
+        }
+
+        function filterCards() {
+            const q = document.getElementById('search-input').value.toLowerCase();
+            const b = document.getElementById('brand-filter').value;
+            const p = document.getElementById('part-filter').value;
+            filteredKits = allKits.filter(k => {
+                const ms = !q || (k.Brand||'').toLowerCase().includes(q)||(k.Model||'').toLowerCase().includes(q)||(k.Part||'').toLowerCase().includes(q)||(k.Style||'').toLowerCase().includes(q)||String(k.SKU||'').includes(q);
+                return ms && (!b||k.Brand===b) && (!p||k.Part===p);
+            });
+            updateStats(filteredKits);
+            renderCards(filteredKits);
+            document.getElementById('no-results').style.display = filteredKits.length===0?'block':'none';
+        }
+
+        function partColor(part) {
+            const m = {'Front Bumper':'#3b82f6','Rear Bumper':'#8b5cf6','Side Skirt':'#f59e0b','Rear Spoiler':'#ef4444','Front Skirt':'#06b6d4','Diffuser':'#10b981','Hood':'#6366f1','Body Kit':'#f97316','Fender':'#84cc16'};
+            for(const [k,v] of Object.entries(m)) if(part&&part.includes(k)) return v;
+            return '#52525b';
+        }
+
+        function fmt(p) { if(!p&&p!==0)return'—'; return '$'+Number(p).toLocaleString('en-US'); }
+
+        function renderCards(kits) {
+            const grid = document.getElementById('card-grid');
+            if(!kits.length){grid.innerHTML='';return;}
+            grid.innerHTML = kits.map(k => {
+                const pc = partColor(k.Part||'');
+                const init = (k.Brand||'?').substring(0,2).toUpperCase();
+                return `
+                <div class="card-hover" style="background:#141416;border:1px solid #27272A;border-radius:8px;overflow:hidden;">
+                    <div style="height:3px;background:${pc};"></div>
+                    <div style="height:90px;background:#0f0f11;display:flex;align-items:center;justify-content:center;position:relative;">
+                        <div style="width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.03);border:1px solid #27272A;display:flex;align-items:center;justify-content:center;">
+                            <span style="font-size:14px;font-weight:800;color:#3f3f46;">${init}</span>
+                        </div>
+                        <span style="position:absolute;top:8px;right:8px;background:rgba(196,241,1,0.1);color:#C4F101;border:1px solid rgba(196,241,1,0.2);border-radius:4px;font-size:10px;font-weight:700;padding:2px 6px;">#${k.SKU||'—'}</span>
+                    </div>
+                    <div style="padding:10px 12px 12px;">
+                        <div style="color:#71717a;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${k.Brand||'—'}</div>
+                        <div style="color:white;font-size:13px;font-weight:700;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px;" title="${k.Model||''}">${k.Model||'—'}</div>
+                        ${k.Style?`<div style="color:#a1a1aa;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:1px;" title="${k.Style}">${k.Style}</div>`:''}
+                        <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center;">
+                            <span style="background:#1f2937;color:#9ca3af;border-radius:4px;font-size:10px;font-weight:700;padding:2px 6px;border-left:2px solid ${pc};text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px;" title="${k.Part||''}">${k.Part||'—'}</span>
+                            <span style="font-size:13px;font-weight:700;color:#C4F101;white-space:nowrap;">${fmt(k.Price)}</span>
+                        </div>
+                        ${k.Dims?`<div style="color:#52525b;font-size:11px;margin-top:6px;">📐 ${k.Dims}</div>`:''}
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        document.getElementById('footer-date').textContent = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+        loadData();
+    </script>
+</body>
+</html>
