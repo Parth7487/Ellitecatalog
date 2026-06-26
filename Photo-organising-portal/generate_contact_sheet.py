@@ -300,13 +300,6 @@ def run():
             shopify_url = folder.get('shopify_url', '')
             drive_url = folder.get('drive_url', '')
             
-            photos_live = folder.get('photos_live', 0)
-            has_e_0 = status == 'edited' and edited_count > 0 and photos_live == 0
-            has_r_e = edited_count > raw_count
-            has_e_l = status == 'edited' and photos_live > 0 and edited_count != photos_live
-            
-            is_mismatch = has_e_0 or has_r_e or has_e_l
-            
             full_path = os.path.join(base_dir, path)
             drive_images = get_edited_images(full_path)
             raw_images = get_raw_images(full_path)
@@ -347,6 +340,13 @@ def run():
             if not shortProdId:
                 import hashlib
                 shortProdId = "local_" + hashlib.md5(full_path.encode('utf-8')).hexdigest()[:12]
+            
+            actual_live_count = len(live_images)
+            has_e_0 = status == 'edited' and len(drive_images) > 0 and actual_live_count == 0
+            has_r_e = len(drive_images) > len(raw_images)
+            has_e_l = status == 'edited' and actual_live_count > 0 and len(drive_images) != actual_live_count
+            
+            is_mismatch = has_e_0 or has_r_e or has_e_l
                                    
             product_records.append({
                 "shopify_title": shopify_title,
@@ -2161,12 +2161,12 @@ def run():
                 // Bind drag-and-drop event listeners to live images
                 const liveList = item.querySelector('.shopify-images-list');
                 const cards = liveList.querySelectorAll('.image-card');
-                cards.forEach(card => {
-                    bindDeleteListeners(card);
-                });
-
-                // Initialize SortableJS for smooth rearrangement
+                
                 if (typeof Sortable !== 'undefined') {
+                    // Premium SortableJS
+                    cards.forEach(card => {
+                        bindDeleteListeners(card);
+                    });
                     new Sortable(liveList, {
                         animation: 150,
                         draggable: '.image-card',
@@ -2174,6 +2174,17 @@ def run():
                         onEnd: function (evt) {
                             saveReorder(liveList, productId);
                         }
+                    });
+                } else {
+                    // Bulletproof Native Fallback
+                    cards.forEach(card => {
+                        card.addEventListener('dragstart', handleDragStart, false);
+                        card.addEventListener('dragover', handleDragOver, false);
+                        card.addEventListener('dragenter', handleDragEnter, false);
+                        card.addEventListener('dragleave', handleDragLeave, false);
+                        card.addEventListener('drop', handleDrop, false);
+                        card.addEventListener('dragend', handleDragEnd, false);
+                        bindDeleteListeners(card);
                     });
                 }
 
