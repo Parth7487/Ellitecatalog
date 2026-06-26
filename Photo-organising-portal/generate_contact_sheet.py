@@ -354,7 +354,7 @@ def run():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elite Ti - Visual Image Verifier</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -441,18 +441,8 @@ def run():
                         <option value="Reedits">🔄 Need Reedits</option>
                         <option value="Product missing">❌ Product Missing</option>
                         <option value="Incorrect link">🔗 Incorrect Link</option>
-                        <option value="title_mismatch">✏️ Title Mismatch</option>
                         <option disabled>──────────</option>
                         <option value="shopify_draft_archived">📦 Draft/Archived Products</option>
-                    </select>
-                    <select id="sort-select" class="bg-zinc-900 text-zinc-300 border border-zinc-700 text-[9px] uppercase tracking-wider font-extrabold px-3 py-2 rounded-sm cursor-pointer outline-none" onchange="renderProducts()">
-                        <option value="default">Sort by: Default</option>
-                        <option value="shopify_asc">Shopify CDN: Low to High</option>
-                        <option value="shopify_desc">Shopify CDN: High to Low</option>
-                        <option value="edited_asc">Edited Folder: Low to High</option>
-                        <option value="edited_desc">Edited Folder: High to Low</option>
-                        <option value="raw_asc">Raw Folder: Low to High</option>
-                        <option value="raw_desc">Raw Folder: High to Low</option>
                     </select>
                     <button onclick="setFilter('all')" id="btn-filter-all" class="bg-[#C4F101] text-black font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-[#C4F101]">Show All</button>
                     <button onclick="setFilter('mismatch')" id="btn-filter-mismatch" class="bg-zinc-900 hover:bg-zinc-850 text-zinc-400 font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-zinc-800">Mismatches (0)</button>
@@ -1954,10 +1944,6 @@ def run():
                 let matchesStatus = true;
                 if (currentStatusFilter === 'shopify_draft_archived') {
                     matchesStatus = (p.shopify_status && (p.shopify_status.toUpperCase() === 'DRAFT' || p.shopify_status.toUpperCase() === 'ARCHIVED'));
-                } else if (currentStatusFilter === 'title_mismatch') {
-                    const localName = p.name ? p.name.trim().toLowerCase() : '';
-                    const shopTitle = p.shopify_title ? p.shopify_title.trim().toLowerCase() : '';
-                    matchesStatus = !shopTitle || localName !== shopTitle;
                 } else {
                     matchesStatus = currentStatusFilter === 'all' || p.review_status === currentStatusFilter;
                 }
@@ -1971,31 +1957,6 @@ def run():
 
                 return matchesMake && matchesFilter && matchesStatus && matchesSearch;
             });
-
-            // Sort products based on sort selection
-            const sortVal = document.getElementById('sort-select')?.value || 'default';
-            if (sortVal !== 'default') {
-                filtered.sort((a, b) => {
-                    let valA = 0;
-                    let valB = 0;
-                    if (sortVal === 'shopify_asc' || sortVal === 'shopify_desc') {
-                        valA = a.shopify_count || 0;
-                        valB = b.shopify_count || 0;
-                    } else if (sortVal === 'edited_asc' || sortVal === 'edited_desc') {
-                        valA = a.drive_count || 0;
-                        valB = b.drive_count || 0;
-                    } else if (sortVal === 'raw_asc' || sortVal === 'raw_desc') {
-                        valA = a.raw_count || 0;
-                        valB = b.raw_count || 0;
-                    }
-                    
-                    if (sortVal.endsWith('_asc')) {
-                        return valA - valB;
-                    } else {
-                        return valB - valA;
-                    }
-                });
-            }
 
             document.getElementById('visible-count').textContent = filtered.length;
             const makeFilteredTotal = productsData.filter(p => currentMake === 'all' || p.make === currentMake).length;
@@ -2022,17 +1983,6 @@ def run():
                 }
 
                 const shortProdId = p.short_id;
-
-                const hasTitleMismatch = !p.shopify_title || p.shopify_title.trim().toLowerCase() !== p.name.trim().toLowerCase();
-                const shopifyTitleBoxClass = hasTitleMismatch 
-                    ? "text-rose-400 border-rose-950/40 bg-rose-950/10" 
-                    : "text-emerald-400 border-emerald-950/40 bg-emerald-950/10";
-                const shopifyTitleTextClass = hasTitleMismatch
-                    ? "text-rose-300 font-black"
-                    : "text-zinc-300";
-                const titleWarningBadge = hasTitleMismatch
-                    ? `<span class="bg-rose-950/60 text-rose-400 border border-rose-800 text-[8px] font-extrabold px-1 py-0.5 rounded-sm ml-2" title="Shopify title does not match local folder name">⚠️ TITLE MISMATCH</span>`
-                    : "";
 
                 let rawImgsHtml = "";
                 if (p.raw_images.length > 0) {
@@ -2156,11 +2106,8 @@ def run():
                                     <span id="live-count-${shortProdId}" class="text-white font-extrabold text-[10px]">${p.shopify_count} Images</span>
                                 </div>
                             </h3>
-                            <div class="text-[9px] font-bold ${shopifyTitleBoxClass} uppercase tracking-tight mb-3 truncate max-w-[400px] border px-2 py-1 rounded flex items-center justify-between" title="${p.shopify_title || 'N/A'}">
-                                <div class="flex items-center">
-                                    <span>Shopify Title: <span class="${shopifyTitleTextClass} select-all">${p.shopify_title || 'Not Linked / Not Found'}</span></span>
-                                    ${titleWarningBadge}
-                                </div>
+                            <div class="text-[9px] font-bold text-emerald-400 uppercase tracking-tight mb-3 truncate max-w-[400px] border border-emerald-950/40 bg-emerald-950/10 px-2 py-1 rounded flex items-center justify-between" title="${p.shopify_title || 'N/A'}">
+                                <div>Shopify Title: <span class="text-zinc-300 font-bold select-all">${p.shopify_title || 'Not Linked / Not Found'}</span></div>
                                 <div class="flex items-center">
                                     ${p.shopify_status ? `<span class="${p.shopify_status.toLowerCase() === 'active' ? 'bg-emerald-900 text-emerald-400 border-emerald-700' : p.shopify_status.toLowerCase() === 'draft' ? 'bg-amber-900 text-amber-400 border-amber-700' : 'bg-red-900 text-red-400 border-red-700'} border px-1.5 py-0.5 rounded text-[8px] font-black tracking-widest">${p.shopify_status}</span>` : ''}
                                     ${p.shopify_status && p.shopify_status.toLowerCase() !== 'active' ? `<button onclick="makeProductActive('${p.product_id}', '${shortProdId}')" id="activate-btn-${shortProdId}" class="ml-2 bg-emerald-600 hover:bg-emerald-500 text-white border border-emerald-700 px-2 py-0.5 rounded text-[8px] uppercase tracking-wider font-extrabold transition-all shadow">Make Active</button>` : ''}
@@ -2176,22 +2123,24 @@ def run():
 
                 container.appendChild(item);
 
-                // Bind delete listeners to live images
+                // Bind drag-and-drop event listeners to live images
                 const liveList = item.querySelector('.shopify-images-list');
                 const cards = liveList.querySelectorAll('.image-card');
                 cards.forEach(card => {
                     bindDeleteListeners(card);
                 });
 
-                // Initialize SortableJS for smooth rearranging of live images
-                new Sortable(liveList, {
-                    animation: 150,
-                    draggable: '.image-card',
-                    ghostClass: 'opacity-40',
-                    onEnd: function(evt) {
-                        saveReorder(liveList, productId);
-                    }
-                });
+                // Initialize SortableJS for smooth rearrangement
+                if (typeof Sortable !== 'undefined') {
+                    new Sortable(liveList, {
+                        animation: 150,
+                        draggable: '.image-card',
+                        ghostClass: 'opacity-40',
+                        onEnd: function (evt) {
+                            saveReorder(liveList, productId);
+                        }
+                    });
+                }
 
                 // Add container drop zone listeners for uploading files/local images
                 liveList.addEventListener('dragover', handleZoneDragOver, false);
