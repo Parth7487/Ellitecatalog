@@ -223,6 +223,56 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
             self.send_response(404)
             self.end_headers()
         else:
+            # Serve static files from the parent directory
+            parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            clean_path = parsed.path.lstrip('/')
+            if not clean_path:
+                clean_path = 'index.html'
+            file_path = os.path.abspath(os.path.join(parent_dir, clean_path))
+            
+            # Security check: ensure path is within parent_dir
+            if not file_path.startswith(os.path.abspath(parent_dir)):
+                self.send_response(403)
+                self.end_headers()
+                self.wfile.write(b"Forbidden")
+                return
+
+            if os.path.isdir(file_path):
+                file_path = os.path.join(file_path, 'index.html')
+
+            if os.path.exists(file_path) and os.path.isfile(file_path):
+                ext = os.path.splitext(file_path)[1].lower()
+                content_type = 'text/plain'
+                if ext == '.html':
+                    content_type = 'text/html'
+                elif ext == '.css':
+                    content_type = 'text/css'
+                elif ext == '.js':
+                    content_type = 'application/javascript'
+                elif ext == '.json':
+                    content_type = 'application/json'
+                elif ext in ['.jpg', '.jpeg']:
+                    content_type = 'image/jpeg'
+                elif ext == '.png':
+                    content_type = 'image/png'
+                elif ext == '.webp':
+                    content_type = 'image/webp'
+                elif ext == '.gif':
+                    content_type = 'image/gif'
+                
+                try:
+                    self.send_response(200)
+                    self.send_header('Content-Type', content_type)
+                    self.end_headers()
+                    with open(file_path, 'rb') as f:
+                        self.wfile.write(f.read())
+                    return
+                except Exception as e:
+                    print(f"Error serving static file {file_path}: {e}")
+                    self.send_response(500)
+                    self.end_headers()
+                    return
+            
             self.send_response(404)
             self.end_headers()
 
