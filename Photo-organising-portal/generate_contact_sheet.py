@@ -1187,6 +1187,8 @@ def run():
             updateRawSelectAllBtnText(shortProdId);
         }
 
+        let lastDragOverTarget = null;
+
         function handleDragStart(e) {
             if (e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'button') {
                 e.preventDefault();
@@ -1196,14 +1198,17 @@ def run():
             draggedElement = this;
             const path = this.getAttribute('data-path');
             if (path) {
-                const listEl = this.closest('.local-images-list');
+                const listEl = this.closest('.local-images-list') || this.closest('.raw-images-list');
                 if (listEl) {
                     const productId = listEl.getAttribute('data-product-id');
-                    const chk = this.querySelector('.local-select-chk');
-                    if (chk && chk.checked && selectedLocalImages[productId] && selectedLocalImages[productId].length > 0) {
+                    const isRaw = listEl.classList.contains('raw-images-list');
+                    const chk = this.querySelector('.local-select-chk') || this.querySelector('.raw-select-chk');
+                    const selectionArray = isRaw ? selectedRawImages[productId] : selectedLocalImages[productId];
+                    
+                    if (chk && chk.checked && selectionArray && selectionArray.length > 0) {
                         e.dataTransfer.setData('text/plain', JSON.stringify({ 
                             type: 'local-images-bulk', 
-                            paths: selectedLocalImages[productId] 
+                            paths: selectionArray 
                         }));
                     } else {
                         e.dataTransfer.setData('text/plain', JSON.stringify({ type: 'local-image', path: path }));
@@ -1222,30 +1227,15 @@ def run():
         function handleDragOver(e) {
             if (e.preventDefault) e.preventDefault();
 
-            // Only reorder Shopify images (not local), and throttle with RAF
+            // Check if we are sorting shopify images
             if (draggedElement && !draggedElement.getAttribute('data-path')) {
                 e.dataTransfer.dropEffect = 'move';
                 if (draggedElement !== this && this.classList.contains('image-card')) {
-                    if (!dragRafPending) {
-                        dragRafPending = true;
-                        const target = this;
-                        requestAnimationFrame(() => {
-                            if (draggedElement && draggedElement !== target && target.classList.contains('image-card')) {
-                                const container = target.parentNode;
-                                const children = Array.from(container.children);
-                                const draggedIndex = children.indexOf(draggedElement);
-                                const targetIndex = children.indexOf(target);
-                                if (draggedIndex !== -1 && targetIndex !== -1) {
-                                    if (draggedIndex < targetIndex) {
-                                        container.insertBefore(draggedElement, target.nextSibling);
-                                    } else {
-                                        container.insertBefore(draggedElement, target);
-                                    }
-                                }
-                            }
-                            dragRafPending = false;
-                        });
+                    if (lastDragOverTarget && lastDragOverTarget !== this) {
+                        lastDragOverTarget.classList.remove('border-l-4', 'border-[#C4F101]');
                     }
+                    this.classList.add('border-l-4', 'border-[#C4F101]');
+                    lastDragOverTarget = this;
                 }
             } else {
                 e.dataTransfer.dropEffect = 'copy';
@@ -1255,15 +1245,53 @@ def run():
 
         function handleDragEnter(e) {
             if (draggedElement && !draggedElement.getAttribute('data-path')) {
+                // Sorting Shopify: handled by dragover
+            } else {
+                // Uploading from outside: show dashed border
                 this.classList.add('border-[#C4F101]', 'border-dashed');
             }
         }
 
         function handleDragLeave(e) {
-            this.classList.remove('border-[#C4F101]', 'border-dashed');
+            this.classList.remove('border-[#C4F101]', 'border-dashed', 'border-l-4', 'border-[#C4F101]');
+            if (lastDragOverTarget === this) {
+                lastDragOverTarget = null;
+            }
         }
 
         function handleDrop(e) {
+            // Clean up visual indicator
+            this.classList.remove('border-l-4', 'border-[#C4F101]', 'border-[#C4F101]', 'border-dashed');
+            if (lastDragOverTarget === this) {
+                lastDragOverTarget = null;
+            }
+
+            if (draggedElement && !draggedElement.getAttribute('data-path')) {
+                // Sorting Shopify Live CDN images
+                e.preventDefault();
+                if (e.stopPropagation) e.stopPropagation();
+                
+                if (draggedElement !== this && this.classList.contains('image-card')) {
+                    const container = this.parentNode;
+                    const children = Array.from(container.children);
+                    const draggedIndex = children.indexOf(draggedElement);
+                    const targetIndex = children.indexOf(this);
+                    
+                    if (draggedIndex !== -1 && targetIndex !== -1) {
+                        // Reorder the DOM on drop
+                        if (draggedIndex < targetIndex) {
+                            container.insertBefore(draggedElement, this.nextSibling);
+                        } else {
+                            container.insertBefore(draggedElement, this);
+                        }
+                        // Save the new order
+                        const productId = container.getAttribute('data-product-id');
+                        saveReorder(container, productId);
+                    }
+                }
+                return false;
+            }
+
             // If dragging files or local images, do NOT stop propagation so it bubbles to handleZoneDrop
             const isFile = e.dataTransfer.files && e.dataTransfer.files.length > 0;
             const dragDataStr = e.dataTransfer.getData('text/plain');
@@ -1271,7 +1299,7 @@ def run():
             if (dragDataStr) {
                 try {
                     const dragData = JSON.parse(dragDataStr);
-                    if (dragData && dragData.type === 'local-image') {
+                    if (dragData && (dragData.type === 'local-image' || dragData.type === 'local-images-bulk')) {
                         isLocalImage = true;
                     }
                 } catch(err) {}
@@ -1293,16 +1321,12 @@ def run():
             if (container) {
                 const cards = container.querySelectorAll('.image-card');
                 cards.forEach(card => {
-                    card.classList.remove('border-[#C4F101]', 'border-dashed');
+                    card.classList.remove('border-[#C4F101]', 'border-dashed', 'border-l-4');
                 });
-                
-                const productId = container.getAttribute('data-product-id');
-                
-                // Debounce the API call — wait 600ms after last drag ends before saving
-                clearTimeout(reorderDebounceTimer);
-                reorderDebounceTimer = setTimeout(() => {
-                    saveReorder(container, productId);
-                }, 600);
+            }
+            if (lastDragOverTarget) {
+                lastDragOverTarget.classList.remove('border-l-4', 'border-[#C4F101]');
+                lastDragOverTarget = null;
             }
         }
 
@@ -1964,7 +1988,7 @@ def run():
                     p.raw_images.forEach(img => {
                         const fileUrl = `http://localhost:8000/api/image?path=` + encodeURIComponent(img);
                         rawImgsHtml += `
-                            <div class="raw-image-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-pointer" data-path="${img}" onclick="event.metaKey||event.shiftKey ? handleRawCardClick(event,this,'${p.product_id}','${shortProdId}') : handleCardClick(event,'${fileUrl}')">
+                            <div class="raw-image-card relative border border-zinc-800 bg-[#0B0B0C] p-0.5 rounded cursor-pointer" draggable="true" data-path="${img}" onclick="event.metaKey||event.shiftKey ? handleRawCardClick(event,this,'${p.product_id}','${shortProdId}') : handleCardClick(event,'${fileUrl}')">
                                 <img src="${fileUrl}" class="tile-img select-none pointer-events-none" title="${img.split('/').pop()}">
                                 <input type="checkbox" class="raw-select-chk absolute bottom-1 left-1 w-3.5 h-3.5 z-10 accent-orange-500 rounded cursor-pointer" data-path="${img}" onchange="handleRawCheckboxChange(this, '${p.product_id}', '${shortProdId}', event)">
                             </div>
@@ -2046,7 +2070,7 @@ def run():
                                     <span class="text-zinc-500 font-extrabold text-[10px]">${p.raw_count} Images</span>
                                 </div>
                             </h3>
-                            <div class="raw-images-list flex flex-wrap gap-2" id="raw-list-${shortProdId}">
+                            <div class="raw-images-list flex flex-wrap gap-2" id="raw-list-${shortProdId}" data-product-id="${p.product_id}">
                                 ${rawImgsHtml}
                             </div>
                         </div>
@@ -2118,7 +2142,7 @@ def run():
                 liveList.addEventListener('drop', handleZoneDrop, false);
 
                 // Bind drag listeners to local raw & edited cards
-                const localDragCards = item.querySelectorAll('.local-drag-card, .local-image-card');
+                const localDragCards = item.querySelectorAll('.local-drag-card, .local-image-card, .raw-image-card');
                 localDragCards.forEach(card => {
                     card.addEventListener('dragstart', handleDragStart, false);
                     card.addEventListener('dragend', handleDragEnd, false);
