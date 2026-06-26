@@ -444,6 +444,15 @@ def run():
                         <option disabled>──────────</option>
                         <option value="shopify_draft_archived">📦 Draft/Archived Products</option>
                     </select>
+                    <select id="sort-select" class="bg-zinc-900 text-zinc-300 border border-zinc-700 text-[9px] uppercase tracking-wider font-extrabold px-3 py-2 rounded-sm cursor-pointer outline-none" onchange="renderProducts()">
+                        <option value="default">Sort by: Default</option>
+                        <option value="shopify_asc">Shopify CDN: Low to High</option>
+                        <option value="shopify_desc">Shopify CDN: High to Low</option>
+                        <option value="edited_asc">Edited Folder: Low to High</option>
+                        <option value="edited_desc">Edited Folder: High to Low</option>
+                        <option value="raw_asc">Raw Folder: Low to High</option>
+                        <option value="raw_desc">Raw Folder: High to Low</option>
+                    </select>
                     <button onclick="setFilter('all')" id="btn-filter-all" class="bg-[#C4F101] text-black font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-[#C4F101]">Show All</button>
                     <button onclick="setFilter('mismatch')" id="btn-filter-mismatch" class="bg-zinc-900 hover:bg-zinc-850 text-zinc-400 font-extrabold text-[9px] uppercase tracking-wider py-2 px-4 rounded-sm transition-all border border-zinc-800">Mismatches (0)</button>
                 </div>
@@ -1957,6 +1966,31 @@ def run():
 
                 return matchesMake && matchesFilter && matchesStatus && matchesSearch;
             });
+
+            // Sort products based on sort selection
+            const sortVal = document.getElementById('sort-select')?.value || 'default';
+            if (sortVal !== 'default') {
+                filtered.sort((a, b) => {
+                    let valA = 0;
+                    let valB = 0;
+                    if (sortVal === 'shopify_asc' || sortVal === 'shopify_desc') {
+                        valA = a.shopify_count || 0;
+                        valB = b.shopify_count || 0;
+                    } else if (sortVal === 'edited_asc' || sortVal === 'edited_desc') {
+                        valA = a.drive_count || 0;
+                        valB = b.drive_count || 0;
+                    } else if (sortVal === 'raw_asc' || sortVal === 'raw_desc') {
+                        valA = a.raw_count || 0;
+                        valB = b.raw_count || 0;
+                    }
+                    
+                    if (sortVal.endsWith('_asc')) {
+                        return valA - valB;
+                    } else {
+                        return valB - valA;
+                    }
+                });
+            }
 
             document.getElementById('visible-count').textContent = filtered.length;
             const makeFilteredTotal = productsData.filter(p => currentMake === 'all' || p.make === currentMake).length;
