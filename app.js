@@ -9,8 +9,8 @@ let filteredData = [];
 let searchTimeout = null;
 
 /* ─────────────────────────────────────────────────────────────
-   BRAND LOGOS — inline SVG data URIs (no external CDN needed)
-   Each logo is a clean, simplified SVG of the brand emblem.
+   BRAND LOGOS — inline SVG data URIs in real brand colours
+   No CDN, no network, always visible.
 ───────────────────────────────────────────────────────────── */
 function svg(content, vb = '0 0 100 100') {
     const encoded = encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}">${content}</svg>`);
@@ -18,197 +18,219 @@ function svg(content, vb = '0 0 100 100') {
 }
 
 const BRAND_LOGOS = {
-    // Audi — four interlocking rings
+
+    // ── AUDI — four silver rings ──────────────────────────────
     'AUDI': svg(`
-        <circle cx="20" cy="50" r="16" fill="none" stroke="currentColor" stroke-width="5"/>
-        <circle cx="40" cy="50" r="16" fill="none" stroke="currentColor" stroke-width="5"/>
-        <circle cx="60" cy="50" r="16" fill="none" stroke="currentColor" stroke-width="5"/>
-        <circle cx="80" cy="50" r="16" fill="none" stroke="currentColor" stroke-width="5"/>
-    `, '0 0 100 100'),
+      <rect width="100" height="100" fill="#000"/>
+      <circle cx="18" cy="50" r="14" fill="none" stroke="#C0C0C0" stroke-width="4.5"/>
+      <circle cx="36" cy="50" r="14" fill="none" stroke="#C0C0C0" stroke-width="4.5"/>
+      <circle cx="54" cy="50" r="14" fill="none" stroke="#C0C0C0" stroke-width="4.5"/>
+      <circle cx="72" cy="50" r="14" fill="none" stroke="#C0C0C0" stroke-width="4.5"/>
+    `, '0 0 90 100'),
 
-    // BMW — roundel quadrants
+    // ── BMW — blue & white roundel ────────────────────────────
     'BMW': svg(`
-        <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="5"/>
-        <circle cx="50" cy="50" r="34" fill="none" stroke="currentColor" stroke-width="3"/>
-        <path d="M50 16 A34 34 0 0 1 84 50 L50 50 Z" fill="currentColor" opacity="0.85"/>
-        <path d="M50 84 A34 34 0 0 1 16 50 L50 50 Z" fill="currentColor" opacity="0.85"/>
+      <circle cx="50" cy="50" r="48" fill="#1C69D4"/>
+      <circle cx="50" cy="50" r="48" fill="none" stroke="#fff" stroke-width="6"/>
+      <circle cx="50" cy="50" r="33" fill="none" stroke="#fff" stroke-width="5"/>
+      <path d="M50 17 A33 33 0 0 1 83 50 L50 50 Z" fill="#fff"/>
+      <path d="M50 83 A33 33 0 0 1 17 50 L50 50 Z" fill="#fff"/>
     `),
 
-    // Toyota — three ellipses forming T
+    // ── TOYOTA — red three-ellipse emblem ────────────────────
     'TOYOTA': svg(`
-        <ellipse cx="50" cy="52" rx="46" ry="30" fill="none" stroke="currentColor" stroke-width="5"/>
-        <ellipse cx="50" cy="52" rx="22" ry="44" fill="none" stroke="currentColor" stroke-width="5"/>
-        <line x1="4" y1="30" x2="96" y2="30" stroke="currentColor" stroke-width="5"/>
+      <rect width="100" height="100" fill="#EB0A1E" rx="8"/>
+      <ellipse cx="50" cy="54" rx="40" ry="26" fill="none" stroke="#fff" stroke-width="4.5"/>
+      <ellipse cx="50" cy="54" rx="18" ry="38" fill="none" stroke="#fff" stroke-width="4.5"/>
+      <line x1="10" y1="28" x2="90" y2="28" stroke="#fff" stroke-width="4.5"/>
     `),
 
-    // Honda — stylised H
+    // ── HONDA — red H on white ────────────────────────────────
     'HONDA': svg(`
-        <rect x="12" y="20" width="10" height="60" rx="2" fill="currentColor"/>
-        <rect x="78" y="20" width="10" height="60" rx="2" fill="currentColor"/>
-        <rect x="12" y="42" width="76" height="10" rx="2" fill="currentColor"/>
+      <rect width="100" height="100" fill="#E40521" rx="6"/>
+      <rect x="14" y="22" width="11" height="56" rx="2" fill="#fff"/>
+      <rect x="75" y="22" width="11" height="56" rx="2" fill="#fff"/>
+      <rect x="14" y="43" width="72" height="11" rx="2" fill="#fff"/>
     `),
 
-    // Nissan — circle with horizontal bar
+    // ── NISSAN — silver/dark badge ────────────────────────────
     'NISSAN': svg(`
-        <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="6"/>
-        <rect x="6" y="42" width="88" height="16" rx="0" fill="currentColor"/>
-        <rect x="6" y="42" width="88" height="16" rx="0" fill="none" stroke="currentColor" stroke-width="0"/>
-        <text x="50" y="56" text-anchor="middle" font-size="11" font-weight="bold" fill="${'white'}" font-family="Arial">NISSAN</text>
+      <rect width="100" height="100" fill="#1a1a1a" rx="6"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#C0C0C0" stroke-width="5"/>
+      <rect x="6" y="41" width="88" height="18" fill="#1a1a1a" stroke="#C0C0C0" stroke-width="3"/>
+      <text x="50" y="56" text-anchor="middle" font-size="11" font-weight="bold" fill="#C0C0C0" font-family="Arial,sans-serif" letter-spacing="1">NISSAN</text>
     `),
 
-    // Mazda — stylised M wings
+    // ── MAZDA — red wing emblem ───────────────────────────────
     'MAZDA': svg(`
-        <ellipse cx="50" cy="50" rx="35" ry="26" fill="none" stroke="currentColor" stroke-width="5"/>
-        <path d="M50 24 Q30 38 20 50 Q30 62 50 76 Q70 62 80 50 Q70 38 50 24 Z" fill="none" stroke="currentColor" stroke-width="4"/>
-        <path d="M20 50 Q35 40 50 50 Q65 40 80 50" fill="none" stroke="currentColor" stroke-width="4"/>
+      <rect width="100" height="100" fill="#E30613" rx="6"/>
+      <ellipse cx="50" cy="50" rx="40" ry="28" fill="none" stroke="#fff" stroke-width="4"/>
+      <path d="M50 22 Q28 36 18 50 Q28 64 50 78 Q72 64 82 50 Q72 36 50 22Z" fill="none" stroke="#fff" stroke-width="4"/>
+      <path d="M18 50 Q34 42 50 50 Q66 42 82 50" fill="none" stroke="#fff" stroke-width="3.5"/>
     `),
 
-    // Ferrari — prancing horse (simplified silhouette)
+    // ── FERRARI — yellow shield with black horse ──────────────
     'FERRARI': svg(`
-        <rect x="20" y="20" width="60" height="60" rx="4" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="3"/>
-        <path d="M48 72 C48 72 35 62 35 48 C35 38 42 30 50 30 C58 30 65 38 65 48 C65 62 52 72 52 72 Z" fill="currentColor"/>
-        <path d="M44 35 L50 22 L56 35" fill="currentColor"/>
-        <path d="M38 46 L30 40 M62 46 L70 40" stroke="currentColor" stroke-width="3" fill="none"/>
-    `, '0 0 100 100'),
+      <path d="M10 5 L90 5 L90 80 Q50 100 10 80 Z" fill="#FFCC00" stroke="#000" stroke-width="3"/>
+      <rect x="10" y="5" width="32" height="38" fill="#009246"/>
+      <rect x="58" y="5" width="32" height="38" fill="#CE2B37"/>
+      <path d="M50 70 C50 70 38 60 38 48 C38 38 44 32 50 32 C56 32 62 38 62 48 C62 60 50 70 50 70Z" fill="#000"/>
+      <path d="M46 35 L50 24 L54 35" fill="#000"/>
+      <path d="M38 46 L30 40 M62 46 L70 40" stroke="#000" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    `),
 
-    // Ferarri (misspelling variant)
+    // ── FERARRI (typo variant) ────────────────────────────────
     'FERARRI': svg(`
-        <rect x="20" y="20" width="60" height="60" rx="4" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="3"/>
-        <path d="M48 72 C48 72 35 62 35 48 C35 38 42 30 50 30 C58 30 65 38 65 48 C65 62 52 72 52 72 Z" fill="currentColor"/>
-        <path d="M44 35 L50 22 L56 35" fill="currentColor"/>
+      <path d="M10 5 L90 5 L90 80 Q50 100 10 80 Z" fill="#FFCC00" stroke="#000" stroke-width="3"/>
+      <path d="M50 70 C50 70 38 60 38 48 C38 38 44 32 50 32 C56 32 62 38 62 48 C62 60 50 70 50 70Z" fill="#000"/>
+      <path d="M46 35 L50 24 L54 35" fill="#000"/>
     `),
 
-    // Porsche — stylised crest
+    // ── PORSCHE — multicolour crest ───────────────────────────
     'PORSCHE': svg(`
-        <path d="M50 10 L90 30 L90 70 L50 90 L10 70 L10 30 Z" fill="none" stroke="currentColor" stroke-width="5"/>
-        <path d="M50 10 L50 90 M10 50 L90 50" stroke="currentColor" stroke-width="3"/>
-        <circle cx="50" cy="50" r="18" fill="none" stroke="currentColor" stroke-width="4"/>
+      <path d="M50 4 L92 28 L92 72 L50 96 L8 72 L8 28 Z" fill="#AE9142" stroke="#000" stroke-width="2"/>
+      <path d="M50 4 L50 96" stroke="#000" stroke-width="3"/>
+      <path d="M8 50 L92 50" stroke="#000" stroke-width="3"/>
+      <circle cx="50" cy="50" r="20" fill="#000"/>
+      <circle cx="50" cy="50" r="15" fill="#C0392B"/>
+      <path d="M50 35 L50 50 L38 44" fill="#fff"/>
+      <text x="50" y="88" text-anchor="middle" font-size="7" font-weight="bold" fill="#000" font-family="Arial">PORSCHE</text>
     `),
 
-    // Lamborghini — raging bull silhouette
+    // ── LAMBORGHINI — gold/black badge ───────────────────────
     'LAMBORGHINI': svg(`
-        <rect x="8" y="8" width="84" height="84" rx="2" fill="none" stroke="currentColor" stroke-width="5"/>
-        <path d="M30 60 C30 45 40 35 50 32 C60 35 70 45 70 60" fill="none" stroke="currentColor" stroke-width="5"/>
-        <path d="M32 55 L24 45 L30 40" fill="none" stroke="currentColor" stroke-width="4"/>
-        <path d="M68 55 L76 45 L70 40" fill="none" stroke="currentColor" stroke-width="4"/>
-        <ellipse cx="50" cy="64" rx="18" ry="12" fill="none" stroke="currentColor" stroke-width="4"/>
+      <rect width="100" height="100" fill="#1a1100" rx="4" stroke="#D4AF37" stroke-width="4"/>
+      <path d="M30 62 C30 46 40 36 50 33 C60 36 70 46 70 62" fill="none" stroke="#D4AF37" stroke-width="5"/>
+      <path d="M32 57 L22 45 L30 39" fill="none" stroke="#D4AF37" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M68 57 L78 45 L70 39" fill="none" stroke="#D4AF37" stroke-width="3.5" stroke-linecap="round"/>
+      <ellipse cx="50" cy="65" rx="17" ry="11" fill="none" stroke="#D4AF37" stroke-width="3.5"/>
     `),
 
-    // Bentley — winged B
+    // ── BENTLEY — dark green winged B ─────────────────────────
     'BENTLEY': svg(`
-        <path d="M50 50 m-20 0 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0" fill="none" stroke="currentColor" stroke-width="5"/>
-        <path d="M10 40 Q30 20 50 30 Q70 20 90 40" fill="none" stroke="currentColor" stroke-width="5"/>
-        <path d="M10 60 Q30 80 50 70 Q70 80 90 60" fill="none" stroke="currentColor" stroke-width="5"/>
-        <text x="50" y="56" text-anchor="middle" font-size="22" font-weight="900" fill="currentColor" font-family="serif">B</text>
+      <rect width="100" height="100" fill="#3D5A1E" rx="6"/>
+      <path d="M8 40 Q28 20 50 30 Q72 20 92 40" fill="none" stroke="#C5A028" stroke-width="5" stroke-linecap="round"/>
+      <path d="M8 60 Q28 80 50 70 Q72 80 92 60" fill="none" stroke="#C5A028" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="50" cy="50" r="18" fill="none" stroke="#C5A028" stroke-width="4"/>
+      <text x="50" y="57" text-anchor="middle" font-size="22" font-weight="900" fill="#C5A028" font-family="Georgia,serif">B</text>
     `),
 
-    // McLaren — stylised speedmark
+    // ── McLAREN — orange speedmark ────────────────────────────
     'MCLAREN': svg(`
-        <path d="M10 60 Q30 20 50 50 Q70 20 90 60" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-        <path d="M20 72 Q50 30 80 72" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" opacity="0.5"/>
+      <rect width="100" height="100" fill="#1a1a1a" rx="6"/>
+      <path d="M8 62 Q30 18 50 50 Q70 18 92 62" fill="none" stroke="#FF8000" stroke-width="9" stroke-linecap="round"/>
+      <path d="M18 74 Q50 28 82 74" fill="none" stroke="#FF8000" stroke-width="4.5" stroke-linecap="round" opacity="0.5"/>
     `),
 
-    // Aston Martin — wings
+    // ── ASTON MARTIN — dark green wings ──────────────────────
     'ASTON MARTIN': svg(`
-        <path d="M5 50 L20 35 L35 45 L50 30 L65 45 L80 35 L95 50" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M5 50 L20 65 L35 55 L50 70 L65 55 L80 65 L95 50" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-        <text x="50" y="54" text-anchor="middle" font-size="9" font-weight="bold" fill="currentColor" font-family="Arial">AM</text>
+      <rect width="100" height="100" fill="#003153" rx="6"/>
+      <path d="M4 50 L18 36 L32 46 L50 28 L68 46 L82 36 L96 50" fill="none" stroke="#C5A028" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M4 50 L18 64 L32 54 L50 72 L68 54 L82 64 L96 50" fill="none" stroke="#C5A028" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="34" y="42" width="32" height="16" rx="2" fill="#C5A028"/>
+      <text x="50" y="54" text-anchor="middle" font-size="8" font-weight="bold" fill="#003153" font-family="Arial,sans-serif">AM</text>
     `),
 
-    // Alfa Romeo — cross and serpent
+    // ── ALFA ROMEO — red/white circular badge ─────────────────
     'ALFA ROMEO': svg(`
-        <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="5"/>
-        <line x1="50" y1="6" x2="50" y2="94" stroke="currentColor" stroke-width="3"/>
-        <rect x="28" y="30" width="22" height="40" rx="2" fill="currentColor" opacity="0.8"/>
-        <path d="M50 30 C60 35 72 42 72 50 C72 60 62 68 50 70" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="50" cy="50" r="48" fill="#D40000"/>
+      <circle cx="50" cy="50" r="48" fill="none" stroke="#fff" stroke-width="4"/>
+      <line x1="50" y1="2" x2="50" y2="98" stroke="#fff" stroke-width="4"/>
+      <rect x="8" y="28" width="20" height="44" rx="2" fill="#fff"/>
+      <path d="M50 28 Q60 34 64 42 Q68 50 64 58 Q60 66 50 72" fill="#fff" stroke="none"/>
+      <circle cx="15" cy="22" r="4" fill="#fff"/>
     `),
 
-    // MINI — circle with brand name
+    // ── MINI — circular badge ─────────────────────────────────
     'MINI': svg(`
-        <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="6"/>
-        <circle cx="50" cy="50" r="34" fill="none" stroke="currentColor" stroke-width="3"/>
-        <text x="50" y="56" text-anchor="middle" font-size="16" font-weight="900" fill="currentColor" font-family="Arial" letter-spacing="1">MINI</text>
+      <circle cx="50" cy="50" r="48" fill="#1a1a1a" stroke="#C5A028" stroke-width="5"/>
+      <circle cx="50" cy="50" r="35" fill="none" stroke="#C5A028" stroke-width="3"/>
+      <text x="50" y="56" text-anchor="middle" font-size="16" font-weight="900" fill="#fff" font-family="Arial,sans-serif" letter-spacing="1.5">MINI</text>
     `),
 
-    // Mitsubishi — three diamonds
+    // ── MITSUBISHI — three red diamonds ──────────────────────
     'MITSUBISHI': svg(`
-        <polygon points="50,8 65,35 50,28 35,35" fill="currentColor"/>
-        <polygon points="22,40 50,28 50,55 22,67" fill="currentColor"/>
-        <polygon points="78,40 50,28 50,55 78,67" fill="currentColor"/>
-        <polygon points="22,67 50,55 50,82 22,95" fill="currentColor" opacity="0.6"/>
-        <polygon points="78,67 50,55 50,82 78,95" fill="currentColor" opacity="0.6"/>
+      <rect width="100" height="100" fill="#fff" rx="6"/>
+      <polygon points="50,6 62,28 50,22 38,28" fill="#E4001B"/>
+      <polygon points="24,38 50,22 50,52 24,66" fill="#E4001B"/>
+      <polygon points="76,38 50,22 50,52 76,66" fill="#E4001B"/>
+      <polygon points="24,66 50,52 50,78 24,94" fill="#E4001B"/>
+      <polygon points="76,66 50,52 50,78 76,94" fill="#E4001B"/>
     `),
 
-    // Ford — oval with Ford text
+    // ── FORD — blue oval ──────────────────────────────────────
     'FORD': svg(`
-        <ellipse cx="50" cy="50" rx="47" ry="32" fill="none" stroke="currentColor" stroke-width="5"/>
-        <text x="50" y="58" text-anchor="middle" font-size="24" font-weight="bold" fill="currentColor" font-family="Arial" font-style="italic">Ford</text>
+      <rect width="100" height="100" fill="#003099" rx="8"/>
+      <ellipse cx="50" cy="50" rx="44" ry="30" fill="none" stroke="#fff" stroke-width="4"/>
+      <text x="50" y="59" text-anchor="middle" font-size="26" font-weight="bold" fill="#fff" font-family="Arial,sans-serif" font-style="italic">Ford</text>
     `),
 
-    // Chevrolet — bowtie
+    // ── CHEVROLET — gold/black bowtie ────────────────────────
     'CHEVROLET': svg(`
-        <path d="M5 38 L38 38 L38 62 L5 62 L5 48 L28 48 L28 52 L5 52 Z" fill="currentColor"/>
-        <path d="M42 38 L95 38 L95 52 L62 52 L62 48 L95 48 L95 62 L62 62 L62 48 L42 48 Z" fill="currentColor"/>
-        <rect x="5" y="38" width="33" height="24" fill="none"/>
-        <path d="M5 38 H38 V48 H28 V52 H38 V62 H5 V52 H15 V48 H5 Z" fill="currentColor"/>
-        <path d="M42 38 H95 V48 H62 V52 H95 V62 H42 V52 H72 V48 H42 Z" fill="currentColor"/>
+      <rect width="100" height="100" fill="#1a1a1a" rx="6"/>
+      <path d="M5 40 H38 V50 H18 V54 H38 V62 H5 V54 H16 V50 H5 Z" fill="#D4AF37"/>
+      <path d="M42 40 H95 V50 H62 V54 H95 V62 H42 V54 H72 V50 H42 Z" fill="#D4AF37"/>
     `),
 
-    // Lexus — stylised L
+    // ── LEXUS — black oval with L ─────────────────────────────
     'LEXUS': svg(`
-        <ellipse cx="50" cy="50" rx="46" ry="46" fill="none" stroke="currentColor" stroke-width="4"/>
-        <text x="50" y="64" text-anchor="middle" font-size="38" font-weight="300" fill="currentColor" font-family="Arial" letter-spacing="-2">L</text>
+      <rect width="100" height="100" fill="#1a1a1a" rx="6"/>
+      <ellipse cx="50" cy="50" rx="44" ry="44" fill="none" stroke="#C0C0C0" stroke-width="4"/>
+      <text x="50" y="66" text-anchor="middle" font-size="48" font-weight="200" fill="#C0C0C0" font-family="Arial,sans-serif">L</text>
     `),
 
-    // Subaru — six stars (Pleiades)
+    // ── SUBARU — blue with six Pleiades stars ─────────────────
     'SUBARU': svg(`
-        <circle cx="50" cy="50" r="6" fill="currentColor"/>
-        <circle cx="30" cy="38" r="5" fill="currentColor"/>
-        <circle cx="70" cy="38" r="5" fill="currentColor"/>
-        <circle cx="20" cy="58" r="4" fill="currentColor"/>
-        <circle cx="80" cy="58" r="4" fill="currentColor"/>
-        <circle cx="50" cy="28" r="4" fill="currentColor"/>
+      <rect width="100" height="100" fill="#003B9D" rx="6"/>
+      <circle cx="50" cy="50" r="8"  fill="#fff"/>
+      <circle cx="28" cy="37" r="6.5" fill="#fff"/>
+      <circle cx="72" cy="37" r="6.5" fill="#fff"/>
+      <circle cx="18" cy="58" r="5"  fill="#fff"/>
+      <circle cx="82" cy="58" r="5"  fill="#fff"/>
+      <circle cx="50" cy="26" r="5"  fill="#fff"/>
     `),
 
-    // Suzuki — stylised S
+    // ── SUZUKI — blue S badge ─────────────────────────────────
     'SUZUKI': svg(`
-        <text x="50" y="68" text-anchor="middle" font-size="60" font-weight="900" fill="currentColor" font-family="Arial">S</text>
-        <line x1="15" y1="72" x2="85" y2="72" stroke="currentColor" stroke-width="4"/>
+      <rect width="100" height="100" fill="#003087" rx="6"/>
+      <text x="50" y="70" text-anchor="middle" font-size="68" font-weight="900" fill="#fff" font-family="Arial,sans-serif">S</text>
     `),
 
-    // Tesla — T-logo
+    // ── TESLA — red T mark ────────────────────────────────────
     'TESLA': svg(`
-        <path d="M50 90 L50 22" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-        <path d="M15 22 L85 22" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-        <path d="M15 22 Q50 10 85 22" fill="none" stroke="currentColor" stroke-width="5"/>
-        <path d="M32 22 Q50 35 50 22" fill="none" stroke="currentColor" stroke-width="5"/>
+      <rect width="100" height="100" fill="#E31937" rx="6"/>
+      <path d="M50 88 L50 24" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
+      <path d="M14 24 L86 24" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
+      <path d="M14 24 Q50 10 86 24" fill="none" stroke="#fff" stroke-width="6"/>
+      <path d="M32 24 Q50 36 50 24" fill="none" stroke="#E31937" stroke-width="5"/>
     `),
 
-    // Mercedes-Benz — three-pointed star
+    // ── MERCEDES-BENZ — silver three-point star ───────────────
     'BENZ': svg(`
-        <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="5"/>
-        <line x1="50" y1="6" x2="50" y2="50" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-        <line x1="50" y1="50" x2="12" y2="72" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-        <line x1="50" y1="50" x2="88" y2="72" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-        <circle cx="50" cy="50" r="6" fill="currentColor"/>
+      <circle cx="50" cy="50" r="48" fill="#fff" stroke="#C0C0C0" stroke-width="4"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#C0C0C0" stroke-width="3"/>
+      <line x1="50" y1="14" x2="50" y2="50" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="50" y1="50" x2="18" y2="68" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+      <line x1="50" y1="50" x2="82" y2="68" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="50" cy="50" r="7" fill="#1a1a1a"/>
     `),
 
-    // Honda (hoods category uses Honda branding)
-    'Mclaren': svg(`<path d="M10 60 Q30 20 50 50 Q70 20 90 60" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>`),
-
-    // Isuzu — bold I
+    // ── ISUZU — red I-beam ────────────────────────────────────
     'ISUZU': svg(`
-        <rect x="40" y="15" width="20" height="70" rx="3" fill="currentColor"/>
-        <rect x="20" y="15" width="60" height="12" rx="3" fill="currentColor"/>
-        <rect x="20" y="73" width="60" height="12" rx="3" fill="currentColor"/>
+      <rect width="100" height="100" fill="#CC0000" rx="6"/>
+      <rect x="38" y="15" width="24" height="70" rx="2" fill="#fff"/>
+      <rect x="18" y="15" width="64" height="14" rx="2" fill="#fff"/>
+      <rect x="18" y="71" width="64" height="14" rx="2" fill="#fff"/>
     `),
 
-    // Daihatsu — stylised D
+    // ── DAIHATSU — blue D ─────────────────────────────────────
     'DAIHATSU': svg(`
-        <path d="M20 15 L20 85 L50 85 Q80 85 80 50 Q80 15 50 15 Z" fill="none" stroke="currentColor" stroke-width="6"/>
-        <path d="M20 30 L55 30 Q68 30 68 50 Q68 70 55 70 L20 70" fill="none" stroke="currentColor" stroke-width="5"/>
+      <rect width="100" height="100" fill="#003087" rx="6"/>
+      <path d="M22 15 L22 85 L54 85 Q82 85 82 50 Q82 15 54 15 Z" fill="none" stroke="#fff" stroke-width="6"/>
+      <path d="M22 30 L56 30 Q70 30 70 50 Q70 70 56 70 L22 70" fill="none" stroke="#fff" stroke-width="5"/>
     `),
 };
+
 
 /* Normalise brand key lookup (handles "Mclaren", "Ferarri" variants) */
 function getBrandLogoUrl(brandRaw) {

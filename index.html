@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elite Ti – Wholesale Catalog</title>
     <meta name="description" content="Elite Ti wholesale body kit and carbon parts catalog. Search by make, model, or part type.">
+    <link rel="icon" type="image/svg+xml" href="public/favicon.svg">
+    <link rel="shortcut icon" href="public/favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         /* =========================================================
@@ -506,19 +508,14 @@
         }
 
         .brand-logo {
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             object-fit: contain;
             flex-shrink: 0;
             border-radius: 3px;
-            /* SVGs use currentColor — set it via color property on the img wrapper */
             display: block;
         }
-
-        /* Dark mode: white logos */
-        [data-theme="dark"]  .brand-cell .brand-logo { filter: brightness(0) invert(1); opacity: 0.9; }
-        /* Light mode: dark logos */
-        [data-theme="light"] .brand-cell .brand-logo { filter: brightness(0); opacity: 0.85; }
+        /* No filter — logos render in their real brand colours */
 
         .brand-name {
             font-weight: 800;
