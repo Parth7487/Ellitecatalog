@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80">
+  <rect width="200" height="80" fill="none"/>
+  <!-- McLaren speedmark: flowing orange arc -->
+  <path d="M10 65 Q50 10 100 40 Q150 10 190 65"
+    fill="none" stroke="#FF8000" stroke-width="12" stroke-linecap="round"/>
+  <path d="M25 75 Q100 15 175 75"
+    fill="none" stroke="#FF8000" stroke-width="5" stroke-linecap="round" opacity="0.4"/>
+</svg>

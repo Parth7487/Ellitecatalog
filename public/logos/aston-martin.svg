@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 80">
+  <rect width="260" height="80" fill="none"/>
+  <!-- Wings -->
+  <path d="M5 40 L24 22 L44 34 L65 18 L86 34 L104 24 L130 16 L156 24 L174 34 L195 18 L216 34 L236 22 L255 40"
+    fill="none" stroke="#4CAF50" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M5 40 L24 58 L44 46 L65 62 L86 46 L104 56 L130 64 L156 56 L174 46 L195 62 L216 46 L236 58 L255 40"
+    fill="none" stroke="#4CAF50" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- Center plate -->
+  <rect x="90" y="26" width="80" height="28" rx="3" fill="#1a3a6a" stroke="#4CAF50" stroke-width="2"/>
+  <text x="130" y="44" text-anchor="middle" font-size="10" font-weight="700"
+    fill="#fff" font-family="Arial,sans-serif" letter-spacing="1">ASTON MARTIN</text>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80">
+  <rect width="200" height="80" fill="none"/>
+  <!-- Gold bowtie — left half -->
+  <path d="M5 30 H76 V46 H36 V50 H76 V62 H5 V50 H28 V46 H5 Z" fill="#D4AF37"/>
+  <!-- Gold bowtie — right half -->
+  <path d="M84 30 H195 V46 H124 V50 H195 V62 H84 V50 H132 V46 H84 Z" fill="#D4AF37"/>
+</svg>

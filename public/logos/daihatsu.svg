@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <rect width="120" height="120" fill="none"/>
+  <!-- Daihatsu D letterform -->
+  <path d="M24 12 L24 108 L60 108 Q96 108 96 60 Q96 12 60 12 Z"
+    fill="none" stroke="#003087" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M24 28 L62 28 Q80 28 80 60 Q80 92 62 92 L24 92"
+    fill="none" stroke="#003087" stroke-width="7"/>
+</svg>

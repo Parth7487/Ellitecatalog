@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <rect width="120" height="120" fill="none"/>
+  <!-- Three diamond Mitsubishi logo -->
+  <!-- Top diamond -->
+  <polygon points="60,5 75,35 60,28 45,35" fill="#E4001B"/>
+  <!-- Left diamond -->
+  <polygon points="27,38 60,28 60,58 27,68" fill="#E4001B"/>
+  <!-- Right diamond -->
+  <polygon points="93,38 60,28 60,58 93,68" fill="#E4001B"/>
+  <!-- Bottom-left -->
+  <polygon points="27,68 60,58 60,88 27,98" fill="#E4001B"/>
+  <!-- Bottom-right -->
+  <polygon points="93,68 60,58 60,88 93,98" fill="#E4001B"/>
+</svg>

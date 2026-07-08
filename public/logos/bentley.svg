@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100">
+  <rect width="200" height="100" fill="none"/>
+  <!-- Wings left -->
+  <path d="M5 50 Q20 22 50 32 Q65 38 80 48" fill="none" stroke="#B89A20" stroke-width="6" stroke-linecap="round"/>
+  <path d="M5 50 Q20 78 50 68 Q65 62 80 52" fill="none" stroke="#B89A20" stroke-width="6" stroke-linecap="round"/>
+  <!-- Wings right -->
+  <path d="M195 50 Q180 22 150 32 Q135 38 120 48" fill="none" stroke="#B89A20" stroke-width="6" stroke-linecap="round"/>
+  <path d="M195 50 Q180 78 150 68 Q135 62 120 52" fill="none" stroke="#B89A20" stroke-width="6" stroke-linecap="round"/>
+  <!-- Center B -->
+  <circle cx="100" cy="50" r="32" fill="#395222" stroke="#B89A20" stroke-width="4"/>
+  <text x="100" y="60" text-anchor="middle" font-size="38" font-weight="900"
+    fill="#B89A20" font-family="Georgia,Times New Roman,serif">B</text>
+</svg>
