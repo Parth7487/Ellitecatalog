@@ -94,8 +94,9 @@
             transition: opacity var(--transition);
         }
 
+
         /* =========================================================
-           LEVER SWITCH — mechanical gear toggle
+           LEVER SWITCH — horizontal rail with red ball (21st.dev style)
         ========================================================= */
         .lever-wrap {
             display: flex;
@@ -112,95 +113,191 @@
             letter-spacing: 0.12em;
             color: var(--text-sub);
             transition: color var(--transition);
-            min-width: 28px;
+            min-width: 24px;
         }
-
         .lever-label.active { color: var(--lime); }
 
-        /* The gate/slot housing */
-        .lever-gate {
+        /* Outer housing — horizontal pill */
+        .lever-switch {
             position: relative;
-            width: 52px;
-            height: 74px;
-            background: var(--surface2);
-            border: 1.5px solid var(--border);
-            border-radius: 10px;
+            width: 72px;
+            height: 28px;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 6px 0;
-            transition: background var(--transition), border-color var(--transition);
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
         }
 
-        /* Detent marks (top & bottom) */
-        .lever-gate::before,
-        .lever-gate::after {
-            content: '';
-            width: 16px;
-            height: 2px;
-            background: var(--border);
-            border-radius: 2px;
-            transition: background var(--transition);
-        }
-
-        /* Active top = dark mode highlight */
-        [data-theme="dark"] .lever-gate::before { background: var(--lime); }
-        [data-theme="light"] .lever-gate::after { background: var(--lime); }
-
-        /* Center track groove */
-        .lever-track {
+        /* The metal arm / rail */
+        .lever-arm {
             position: absolute;
-            left: 50%;
-            top: 10px;
-            bottom: 10px;
-            width: 3px;
-            transform: translateX(-50%);
-            background: var(--border);
-            border-radius: 2px;
-            transition: background var(--transition);
-        }
-
-        /* The actual lever knob */
-        .lever-knob {
-            position: absolute;
-            left: 50%;
-            transform: translate(-50%, 0);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: conic-gradient(from 135deg, #2a2a2a, #444, #1a1a1a, #555, #2a2a2a);
-            border: 2px solid #555;
+            left: 14px;
+            right: 14px;
+            height: 5px;
+            background: linear-gradient(
+                180deg,
+                #555 0%,
+                #888 40%,
+                #3a3a3a 60%,
+                #222 100%
+            );
+            border-radius: 3px;
             box-shadow:
-                0 3px 8px rgba(0,0,0,0.6),
-                inset 0 1px 3px rgba(255,255,255,0.08),
-                inset 0 -1px 3px rgba(0,0,0,0.5);
-            transition: top 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+                0 1px 3px rgba(0,0,0,0.6),
+                inset 0 1px 1px rgba(255,255,255,0.1);
         }
 
-        /* Indicator dot on knob */
-        .lever-knob::after {
+        /* End caps on rail */
+        .lever-arm::before,
+        .lever-arm::after {
             content: '';
-            width: 6px;
-            height: 6px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
-            background: var(--lime);
-            box-shadow: 0 0 6px var(--lime);
+            background: #666;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .lever-arm::before { left: -4px; }
+        .lever-arm::after  { right: -4px; }
+
+        /* Red ball knob */
+        .lever-ball {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            z-index: 2;
+            /* rich red sphere with 3-D shading */
+            background: radial-gradient(
+                circle at 35% 30%,
+                #ff6a6a 0%,
+                #e01c1c 35%,
+                #8b0000 80%,
+                #5a0000 100%
+            );
+            box-shadow:
+                0 4px 12px rgba(0,0,0,0.5),
+                0 1px 3px rgba(0,0,0,0.8),
+                inset 0 -2px 4px rgba(0,0,0,0.4);
+            transition: left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* DARK = lever UP (top position) */
-        [data-theme="dark"]  .lever-knob { top: 6px; }
-        /* LIGHT = lever DOWN (bottom position) */
-        [data-theme="light"] .lever-knob { top: calc(100% - 36px); }
+        /* Specular highlight on ball */
+        .lever-ball::after {
+            content: '';
+            position: absolute;
+            top: 18%;
+            left: 22%;
+            width: 30%;
+            height: 20%;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.45);
+            filter: blur(1px);
+        }
 
-        /* Responsive: hide label text on very small screens */
+        /* DARK = ball LEFT */
+        [data-theme="dark"]  .lever-ball { left: 0px; }
+        /* LIGHT = ball RIGHT */
+        [data-theme="light"] .lever-ball { left: calc(100% - 28px); }
+
+        /* Responsive */
         @media (max-width: 480px) {
             .lever-label { display: none; }
+        }
+
+        /* =========================================================
+           CURTAIN TRANSITION EFFECT
+        ========================================================= */
+        .curtain-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        /* Left panel */
+        .curtain-panel-l,
+        .curtain-panel-r {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 55%; /* slight overlap in centre */
+            background: #0a0a0a;
+            will-change: transform;
+        }
+
+        .curtain-panel-l { left: 0;  transform: translateX(-102%); }
+        .curtain-panel-r { right: 0; transform: translateX(102%); }
+
+        /* Curtain texture — subtle vertical grain */
+        .curtain-panel-l::after,
+        .curtain-panel-r::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(255,255,255,0.015) 0px,
+                rgba(255,255,255,0.015) 1px,
+                transparent 1px,
+                transparent 12px
+            );
+            pointer-events: none;
+        }
+
+        /* Lime edge stripe */
+        .curtain-panel-l::before {
+            content: '';
+            position: absolute;
+            right: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: #C4F101;
+            box-shadow: 0 0 16px #C4F101, 0 0 40px rgba(196,241,1,0.4);
+        }
+        .curtain-panel-r::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: #C4F101;
+            box-shadow: 0 0 16px #C4F101, 0 0 40px rgba(196,241,1,0.4);
+        }
+
+        /* CLOSE — panels sweep IN from both sides */
+        .curtain-overlay.closing .curtain-panel-l {
+            animation: curtainCloseL 0.45s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        }
+        .curtain-overlay.closing .curtain-panel-r {
+            animation: curtainCloseR 0.45s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        }
+
+        /* OPEN — panels retreat OUT */
+        .curtain-overlay.opening .curtain-panel-l {
+            animation: curtainOpenL 0.45s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        }
+        .curtain-overlay.opening .curtain-panel-r {
+            animation: curtainOpenR 0.45s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        }
+
+        @keyframes curtainCloseL {
+            from { transform: translateX(-102%); }
+            to   { transform: translateX(0%); }
+        }
+        @keyframes curtainCloseR {
+            from { transform: translateX(102%); }
+            to   { transform: translateX(0%); }
+        }
+        @keyframes curtainOpenL {
+            from { transform: translateX(0%); }
+            to   { transform: translateX(-102%); }
+        }
+        @keyframes curtainOpenR {
+            from { transform: translateX(0%); }
+            to   { transform: translateX(102%); }
         }
 
         /* =========================================================
@@ -599,13 +696,14 @@
             >
         </a>
         <!-- Lever Switch Theme Toggle -->
+        <!-- Lever Switch Theme Toggle -->
         <div class="lever-wrap" onclick="toggleTheme()" role="button" tabindex="0"
              aria-label="Toggle dark/light mode"
              onkeydown="if(event.key==='Enter'||event.key===' ')toggleTheme()">
             <span class="lever-label active" id="lever-dark-label">Dark</span>
-            <div class="lever-gate" title="Toggle dark / light mode">
-                <div class="lever-track"></div>
-                <div class="lever-knob" id="lever-knob"></div>
+            <div class="lever-switch">
+                <div class="lever-arm"></div>
+                <div class="lever-ball" id="lever-ball"></div>
             </div>
             <span class="lever-label" id="lever-light-label">Light</span>
         </div>
@@ -676,6 +774,13 @@
         <div><a href="progress.html">📊 GDrive Sync Progress</a></div>
         <div>Designed &amp; Developed by <a href="https://shopifydevstudio.com" target="_blank" rel="noopener">ShopifyDevStudio.com</a></div>
     </footer>
+
+
+    <!-- CURTAIN OVERLAY -->
+    <div class="curtain-overlay" id="curtain-overlay" aria-hidden="true">
+        <div class="curtain-panel-l" id="curtain-l"></div>
+        <div class="curtain-panel-r" id="curtain-r"></div>
+    </div>
 
     <script src="app.js"></script>
 </body>
