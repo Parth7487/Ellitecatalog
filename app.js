@@ -74,7 +74,30 @@ function applyTheme(theme) {
 
 function toggleTheme() {
     const current = document.documentElement.getAttribute('data-theme') || 'dark';
-    applyTheme(current === 'dark' ? 'light' : 'dark');
+    const next    = current === 'dark' ? 'light' : 'dark';
+    const curtain = document.getElementById('curtain-overlay');
+
+    if (!curtain) { applyTheme(next); return; }
+
+    // Phase 1: sweep curtain IN
+    curtain.classList.remove('opening');
+    curtain.classList.add('closing');
+
+    // Phase 2: apply theme while curtain is fully closed
+    setTimeout(() => {
+        applyTheme(next);
+    }, 440);
+
+    // Phase 3: sweep curtain OUT
+    setTimeout(() => {
+        curtain.classList.remove('closing');
+        curtain.classList.add('opening');
+    }, 480);
+
+    // Phase 4: reset
+    setTimeout(() => {
+        curtain.classList.remove('opening');
+    }, 940);
 }
 
 /* Restore saved theme on load */
