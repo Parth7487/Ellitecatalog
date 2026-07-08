@@ -1,121 +1,584 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elite Ti - Wholesale Catalog</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'brand-lime': '#C4F101',
-                        'brand-dark': '#000000',
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Elite Ti – Wholesale Catalog</title>
+    <meta name="description" content="Elite Ti wholesale body kit and carbon parts catalog. Search by make, model, or part type.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #FFFFFF; font-size: 13px; color: #18181B; -webkit-font-smoothing: antialiased; }
-        
-        .btn-kits { background-color: #C4F101; color: #000; font-weight: 800; }
-        .btn-hoods { background-color: #1A1A1A; color: #FFF; font-weight: 500; }
-        .btn-inactive { background-color: #1A1A1A !important; color: #888 !important; }
-        
-        /* Layout Structure */
-        .logo-row { background: #FFFFFF; border-bottom: 1px solid #E5E7EB; padding: 12px 24px; display: flex; justify-content: center; align-items: center; }
-        .logo-box { max-width: 150px; height: 50px; display: flex; align-items: center; justify-content: center; }
-        
-        .nav-row { background: #000000; padding: 0 24px; display: flex; justify-content: center; position: sticky; top: 0; z-50; }
-        
-        /* Table Styles */
-        table { border-spacing: 0; width: 100%; border-collapse: collapse; }
-        th { background-color: #000; color: #FFF; font-weight: 800; font-size: 10px; text-transform: uppercase; padding: 10px 12px; text-align: left; }
-        td { padding: 8px 12px; border-bottom: 1px solid #E4E4E7; font-size: 11px; vertical-align: middle; }
-        tr:nth-child(even) { background-color: #F8F8F8; }
-        .row-hover:hover { background-color: #F3F4F6 !important; }
-        .price-col { font-weight: 800; text-align: right; font-size: 12px; color: #000; }
-
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            .nav-row { flex-direction: column; padding: 0; }
-            .btn-kits, .btn-hoods { width: 50%; display: inline-block; text-align: center; }
-            .search-container { top: 40px; }
-            .filter-strip { grid-template-columns: 1fr 1fr; display: grid !important; }
-            
-            thead { display: none; }
-            tr { display: block; padding: 12px 8px; border-bottom: 6px solid #F1F5F9; }
-            td { display: flex; justify-content: space-between; padding: 4px 10px; border: none; align-items: center; text-align: right; }
-            td::before { content: attr(data-label); font-weight: 800; font-size: 9px; text-transform: uppercase; color: #A1A1AA; text-align: left; }
-            .price-col { font-size: 14px; margin-top: 8px; border-top: 1px solid #EEE; padding-top: 8px; }
-            .brand-col { font-weight: 800; color: #C4F101; background: #000; justify-content: center; border-radius: 2px; }
+        /* =========================================================
+           DESIGN TOKENS — light / dark
+        ========================================================= */
+        :root {
+            --lime: #C4F101;
+            --lime-dark: #9cce00;
+            --transition: 0.28s cubic-bezier(0.4,0,0.2,1);
         }
 
-        .filter-strip { background: #000; display: flex; gap: 4px; overflow-x: auto; padding: 4px; }
-        .filter-select, .filter-input { background: #18181B; color: #FFF; border: 1px solid #333; font-size: 10px; font-weight: 700; padding: 6px 10px; border-radius: 2px; min-width: 100px; height: 32px; }
-        
-        /* Logo missing fallback */
-        .logo-box img[src="logo.png"]:not([src]) { display: none; }
-        .logo-fallback { font-weight: 900; font-size: 24px; color: #000; letter-spacing: -1px; }
+        [data-theme="dark"] {
+            --bg:        #0a0a0a;
+            --surface:   #111111;
+            --surface2:  #1a1a1a;
+            --border:    #222222;
+            --text:      #f0f0f0;
+            --text-sub:  #888;
+            --text-dim:  #444;
+            --header-bg: #0d0d0d;
+            --nav-bg:    #0a0a0a;
+            --filter-bg: #111;
+            --row-even:  #111111;
+            --row-hover: #1a1a1a;
+            --input-bg:  #1a1a1a;
+            --logo-src:  url('public/logo-white-green.svg');
+        }
+
+        [data-theme="light"] {
+            --bg:        #f6f6f6;
+            --surface:   #ffffff;
+            --surface2:  #f0f0f0;
+            --border:    #e0e0e0;
+            --text:      #111111;
+            --text-sub:  #555;
+            --text-dim:  #bbb;
+            --header-bg: #ffffff;
+            --nav-bg:    #111111;
+            --filter-bg: #111111;
+            --row-even:  #fafafa;
+            --row-hover: #f0fbd6;
+            --input-bg:  #f4f4f4;
+            --logo-src:  url('public/logo-black-green.svg');
+        }
+
+        /* =========================================================
+           GLOBAL RESET & BASE
+        ========================================================= */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 13px;
+            -webkit-font-smoothing: antialiased;
+            transition: background var(--transition), color var(--transition);
+            min-height: 100dvh;
+        }
+
+        /* =========================================================
+           HEADER — logo + theme toggle
+        ========================================================= */
+        .site-header {
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background var(--transition), border-color var(--transition);
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 44px;
+            width: auto;
+            object-fit: contain;
+            transition: opacity var(--transition);
+        }
+
+        /* Theme toggle */
+        .theme-btn {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 100px;
+            padding: 7px 16px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background var(--transition), border-color var(--transition), color var(--transition), transform 0.15s;
+            user-select: none;
+        }
+        .theme-btn:hover { background: var(--lime); color: #000; border-color: var(--lime); transform: scale(1.04); }
+        .theme-btn .icon { font-size: 14px; line-height: 1; }
+
+        /* =========================================================
+           STICKY NAV — category tabs
+        ========================================================= */
+        .nav-row {
+            background: var(--nav-bg);
+            display: flex;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+            transition: background var(--transition);
+        }
+
+        .tab-group {
+            display: flex;
+            width: 100%;
+            max-width: 640px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 14px 0;
+            border: none;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: background var(--transition), color var(--transition), box-shadow 0.15s;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            background: var(--lime);
+            color: #000;
+        }
+
+        .tab-btn.inactive {
+            background: transparent;
+            color: var(--text-sub);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--lime-dark);
+        }
+
+        /* =========================================================
+           SEARCH BAR
+        ========================================================= */
+        .search-bar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            position: sticky;
+            top: 48px;
+            z-index: 90;
+            transition: background var(--transition), border-color var(--transition);
+        }
+
+        .search-input {
+            flex: 1;
+            background: var(--input-bg);
+            border: 1.5px solid var(--border);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            padding: 9px 14px;
+            outline: none;
+            border-radius: 4px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .search-input::placeholder { color: var(--text-dim); font-style: italic; }
+        .search-input:focus { border-color: var(--lime); box-shadow: 0 0 0 3px rgba(196,241,1,0.12); }
+
+        .reset-btn {
+            background: transparent;
+            border: 2px solid var(--text);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            padding: 9px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            text-transform: uppercase;
+            transition: background var(--transition), color var(--transition), border-color var(--transition), transform 0.15s;
+        }
+        .reset-btn:hover { background: var(--lime); color: #000; border-color: var(--lime); transform: scale(1.04); }
+
+        /* =========================================================
+           FILTER STRIP
+        ========================================================= */
+        .filter-strip {
+            background: var(--filter-bg);
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            padding: 8px 16px;
+            border-bottom: 2px solid var(--lime);
+            position: sticky;
+            top: 112px;
+            z-index: 80;
+            transition: background var(--transition);
+            align-items: center;
+        }
+
+        .filter-select, .filter-input {
+            background: #1e1e1e;
+            color: #fff;
+            border: 1px solid #333;
+            font-family: inherit;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            padding: 7px 10px;
+            border-radius: 4px;
+            height: 34px;
+            outline: none;
+            cursor: pointer;
+            min-width: 110px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23666'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            padding-right: 24px;
+        }
+
+        .filter-select:focus, .filter-input:focus {
+            border-color: var(--lime);
+            box-shadow: 0 0 0 3px rgba(196,241,1,0.12);
+        }
+
+        .filter-input {
+            background-image: none;
+            padding-right: 10px;
+            min-width: 80px;
+        }
+
+        .filter-price-group {
+            display: flex;
+            gap: 6px;
+            margin-left: auto;
+        }
+
+        /* =========================================================
+           TABLE
+        ========================================================= */
+        .catalog-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        thead tr {
+            background: #000;
+        }
+
+        thead th {
+            color: var(--lime);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 11px 14px;
+            text-align: left;
+            border-bottom: 1px solid #222;
+        }
+
+        thead th.price-th { text-align: right; }
+
+        tbody tr {
+            transition: background 0.14s;
+        }
+
+        tbody tr:nth-child(even) { background: var(--row-even); }
+        tbody tr:hover { background: var(--row-hover) !important; }
+
+        tbody td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+            transition: border-color var(--transition);
+        }
+
+        /* Brand cell — with logo */
+        .brand-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-logo {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            flex-shrink: 0;
+            filter: var(--brand-logo-filter, none);
+            border-radius: 3px;
+        }
+
+        [data-theme="dark"] .brand-logo { filter: brightness(0) invert(1) brightness(0.9); }
+        [data-theme="light"] .brand-logo { filter: brightness(0); }
+
+        .brand-name {
+            font-weight: 800;
+            font-size: 11px;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .model-col { font-weight: 600; font-size: 12px; }
+
+        .part-col { font-size: 12px; font-weight: 400; color: var(--text); }
+        .part-style { font-size: 10px; color: var(--text-sub); display: block; margin-top: 3px; font-style: italic; }
+
+        .price-col {
+            font-weight: 800;
+            text-align: right;
+            font-size: 13px;
+            font-variant-numeric: tabular-nums;
+            color: var(--lime);
+        }
+
+        .price-enquire {
+            color: var(--text-sub);
+            font-style: italic;
+            font-weight: 400;
+            font-size: 11px;
+        }
+
+        /* =========================================================
+           EMPTY STATE
+        ========================================================= */
+        .empty-state {
+            display: none;
+            padding: 80px 24px;
+            text-align: center;
+            color: var(--text-sub);
+        }
+
+        .empty-state.visible { display: block; }
+
+        .empty-icon { font-size: 48px; margin-bottom: 16px; }
+        .empty-title { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+        .empty-sub { font-size: 12px; color: var(--text-dim); }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+            margin-top: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-sub);
+            transition: border-color var(--transition);
+        }
+
+        footer a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--text-dim);
+            transition: color 0.2s, border-color 0.2s;
+        }
+        footer a:hover { color: var(--lime); border-color: var(--lime); }
+
+        /* =========================================================
+           RESULTS COUNT BADGE
+        ========================================================= */
+        .results-bar {
+            padding: 8px 16px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-sub);
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background var(--transition), border-color var(--transition);
+        }
+
+        .results-count {
+            background: var(--lime);
+            color: #000;
+            font-size: 9px;
+            font-weight: 900;
+            padding: 2px 8px;
+            border-radius: 100px;
+        }
+
+        /* =========================================================
+           RESPONSIVE — mobile
+        ========================================================= */
+        @media (max-width: 768px) {
+            .site-header { padding: 10px 14px; }
+            .logo-img { height: 36px; }
+            .theme-btn span.label { display: none; }
+
+            .search-bar { top: 43px; padding: 8px 12px; gap: 8px; }
+            .search-input { font-size: 11px; }
+
+            .filter-strip { top: 92px; padding: 6px 12px; gap: 4px; flex-wrap: nowrap; overflow-x: auto; }
+            .filter-price-group { margin-left: 0; }
+
+            .filter-select, .filter-input { min-width: 90px; font-size: 9px; }
+
+            thead { display: none; }
+
+            tbody tr {
+                display: block;
+                padding: 14px 12px;
+                border-bottom: 6px solid var(--surface2);
+            }
+
+            tbody td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 5px 0;
+                border: none;
+            }
+
+            tbody td::before {
+                content: attr(data-label);
+                font-size: 9px;
+                font-weight: 800;
+                text-transform: uppercase;
+                color: var(--text-dim);
+                letter-spacing: 0.06em;
+                flex-shrink: 0;
+                margin-right: 10px;
+            }
+
+            .brand-cell { justify-content: flex-end; }
+            .price-col { font-size: 15px; padding-top: 10px; border-top: 1px solid var(--border); margin-top: 6px; }
+            .results-bar { top: 154px; }
+        }
+
+        /* =========================================================
+           SMOOTH SCROLL ANCHOR
+        ========================================================= */
+        #catalog-top { scroll-margin-top: 200px; }
+
+        /* =========================================================
+           ANIMATIONS
+        ========================================================= */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        tbody tr {
+            animation: fadeIn 0.18s ease both;
+        }
     </style>
 </head>
-<body class="bg-white">
+<body>
 
-    <!-- Top Logo Bar -->
-    <div class="logo-row">
-        <div class="logo-box">
-            <img src="logo.png" alt="ELITE TI" class="max-h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <span class="logo-fallback hidden">ELITE <span class="text-brand-lime">TI</span></span>
-        </div>
-    </div>
-
-    <!-- Navigation Bar (Sticky) -->
-    <header class="nav-row shadow-lg">
-        <div class="flex gap-px bg-gray-900 w-full max-w-[600px] justify-center">
-            <button id="tab-kits" onclick="switchCategory('kits')" class="flex-1 py-3 btn-kits text-[11px] uppercase tracking-wider">Body Kits</button>
-            <button id="tab-hoods" onclick="switchCategory('hoods')" class="flex-1 py-3 btn-hoods text-[11px] uppercase tracking-wider btn-inactive">Hoods & Carbon</button>
-        </div>
+    <!-- HEADER -->
+    <header class="site-header">
+        <a href="#" class="logo-wrap" aria-label="Elite Ti Home">
+            <!-- Dark mode = white/green logo; Light mode = black/green logo -->
+            <img
+                id="site-logo"
+                src="public/logo-white-green.svg"
+                alt="Elite Ti"
+                class="logo-img"
+                onerror="this.style.display='none'"
+            >
+        </a>
+        <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode">
+            <span class="icon" id="theme-icon">☀️</span>
+            <span class="label" id="theme-label">Light</span>
+        </button>
     </header>
 
-    <!-- Controls -->
-    <div class="search-container bg-white border-b border-gray-100 flex items-center gap-3 p-4 sticky top-[42px] md:top-[48px] z-50 shadow-sm">
-        <input type="text" id="global-search" oninput="handleFilter()" placeholder="SEARCH CATALOG..." class="flex-grow border border-gray-200 p-3 italic font-semibold text-xs outline-none focus:border-brand-lime h-10 shadow-inner">
-        <button onclick="resetFilters()" class="border-2 border-black font-extrabold text-[10px] px-8 h-10 uppercase tracking-widest hover:bg-black hover:text-white transition-all">Reset</button>
+    <!-- STICKY NAV -->
+    <nav class="nav-row" aria-label="Catalog categories">
+        <div class="tab-group">
+            <button id="tab-kits"  onclick="switchCategory('kits')"  class="tab-btn active"  aria-pressed="true">Body Kits</button>
+            <button id="tab-hoods" onclick="switchCategory('hoods')" class="tab-btn inactive" aria-pressed="false">Hoods &amp; Carbon</button>
+        </div>
+    </nav>
+
+    <!-- SEARCH -->
+    <div class="search-bar">
+        <input
+            type="search"
+            id="global-search"
+            oninput="handleFilter()"
+            placeholder="Search catalog…"
+            class="search-input"
+            aria-label="Search catalog"
+            autocomplete="off"
+        >
+        <button onclick="resetFilters()" class="reset-btn" aria-label="Reset filters">Reset</button>
     </div>
 
-    <div class="filter-strip sticky top-[114px] md:top-[122px] z-40 border-b border-brand-lime">
-        <select id="brand-filter" onchange="handleFilter()" class="filter-select"><option value="">MAKE</option></select>
-        <select id="model-filter" onchange="handleFilter()" class="filter-select"><option value="">MODEL</option></select>
-        <select id="part-filter" onchange="handleFilter()" class="filter-select"><option value="">PART</option></select>
-        <div class="flex gap-1 ml-auto">
-            <input type="number" id="min-price" oninput="handleFilter()" placeholder="MIN $" class="filter-input w-24">
-            <input type="number" id="max-price" oninput="handleFilter()" placeholder="MAX $" class="filter-input w-24">
+    <!-- FILTER STRIP -->
+    <div class="filter-strip" id="filter-strip">
+        <select id="brand-filter"  onchange="handleFilter()" class="filter-select" aria-label="Filter by Make"><option value="">Make</option></select>
+        <select id="model-filter"  onchange="handleFilter()" class="filter-select" aria-label="Filter by Model"><option value="">Model</option></select>
+        <select id="part-filter"   onchange="handleFilter()" class="filter-select" aria-label="Filter by Part"><option value="">Part</option></select>
+        <div class="filter-price-group">
+            <input type="number" id="min-price" oninput="handleFilter()" placeholder="Min $" class="filter-input" aria-label="Minimum price" min="0">
+            <input type="number" id="max-price" oninput="handleFilter()" placeholder="Max $" class="filter-input" aria-label="Maximum price" min="0">
         </div>
     </div>
 
-    <main class="w-full">
-        <table class="w-full">
+    <!-- RESULTS COUNT -->
+    <div class="results-bar" id="results-bar" aria-live="polite">
+        <span id="results-count-badge" class="results-count">–</span>
+        <span id="results-label">results</span>
+    </div>
+
+    <!-- CATALOG TABLE -->
+    <main id="catalog-top">
+        <table class="catalog-table" role="grid" aria-label="Product catalog">
             <thead>
                 <tr>
-                    <th style="width: 15%">Make</th>
-                    <th style="width: 25%">Model</th>
-                    <th style="width: 45%">Part / Description</th>
-                    <th style="width: 15%; text-align: right;">Wholesale Price</th>
+                    <th style="width:18%" scope="col">Make</th>
+                    <th style="width:24%" scope="col">Model</th>
+                    <th style="width:43%" scope="col">Part / Description</th>
+                    <th style="width:15%" class="price-th" scope="col">Wholesale Price</th>
                 </tr>
             </thead>
             <tbody id="catalog-body"></tbody>
         </table>
-        <div id="empty-state" class="hidden py-40 text-center text-gray-400 font-bold uppercase text-xs tracking-widest">No Matches Found</div>
+
+        <div class="empty-state" id="empty-state" role="status">
+            <div class="empty-icon">🔍</div>
+            <div class="empty-title">No Matches Found</div>
+            <div class="empty-sub">Try adjusting your filters or search term</div>
+        </div>
     </main>
 
-    <!-- Developer Credit -->
-    <footer class="p-12 mt-20 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 text-[9px] font-bold text-gray-400 uppercase tracking-widest">
-        <div>&copy; 2026 ELITE TI</div>
-        <div><a href="progress.html" class="text-black border-b border-black hover:text-brand-lime hover:border-brand-lime transition-all">📊 GDRIVE SYNC PROGRESS</a></div>
-        <div>DESIGNED & DEVELOPED BY <a href="https://Shopifydevstudio.com" target="_blank" class="text-black border-b border-black">SHOPIFYDEVSTUDIO.COM</a></div>
+    <footer>
+        <div>© 2026 Elite Ti — All Rights Reserved</div>
+        <div><a href="progress.html">📊 GDrive Sync Progress</a></div>
+        <div>Designed &amp; Developed by <a href="https://shopifydevstudio.com" target="_blank" rel="noopener">ShopifyDevStudio.com</a></div>
     </footer>
 
     <script src="app.js"></script>
