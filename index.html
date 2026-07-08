@@ -506,16 +506,19 @@
         }
 
         .brand-logo {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             object-fit: contain;
             flex-shrink: 0;
-            filter: var(--brand-logo-filter, none);
             border-radius: 3px;
+            /* SVGs use currentColor — set it via color property on the img wrapper */
+            display: block;
         }
 
-        [data-theme="dark"] .brand-logo { filter: brightness(0) invert(1) brightness(0.9); }
-        [data-theme="light"] .brand-logo { filter: brightness(0); }
+        /* Dark mode: white logos */
+        [data-theme="dark"]  .brand-cell .brand-logo { filter: brightness(0) invert(1); opacity: 0.9; }
+        /* Light mode: dark logos */
+        [data-theme="light"] .brand-cell .brand-logo { filter: brightness(0); opacity: 0.85; }
 
         .brand-name {
             font-weight: 800;
