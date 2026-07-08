@@ -13,33 +13,35 @@ let searchTimeout = null;
    Uses brand-specific SVG logo URLs from Wikipedia / CDN
    that are widely reliable.
 ───────────────────────────────────────────────────────────── */
+// jsDelivr-hosted car makes icons (MIT licensed, no hotlink blocking)
+const CDN = 'https://cdn.jsdelivr.net/gh/dangnelson/car-makes-icons/svgs/';
+
 const BRAND_LOGOS = {
-    'ALFA ROMEO':   'https://cdn.jsdelivr.net/gh/nicholasgasior/brand-logos@master/brand-logos/alfa-romeo.svg',
-    'ASTON MARTIN': 'https://www.carlogos.org/logo/Aston-Martin-logo-2003-1920x1080.png',
-    'AUDI':         'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Audi-Logo_2016.svg/240px-Audi-Logo_2016.svg.png',
-    'BENTLEY':      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Bentley_logo.svg/240px-Bentley_logo.svg.png',
-    'BENZ':         'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mercedes-Logo.svg/240px-Mercedes-Logo.svg.png',
-    'BMW':          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/240px-BMW.svg.png',
-    'CHEVROLET':    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Chevrolet_logo.svg/240px-Chevrolet_logo.svg.png',
-    'DAIHATSU':     'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Daihatsu_logo.svg/240px-Daihatsu_logo.svg.png',
-    'FERRARI':      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Ferrari_logo.svg/240px-Ferrari_logo.svg.png',
-    'FERARRI':      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Ferrari_logo.svg/240px-Ferrari_logo.svg.png',
-    'FORD':         'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/240px-Ford_logo_flat.svg.png',
-    'HONDA':        'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Honda.svg/240px-Honda.svg.png',
-    'ISUZU':        'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Isuzu_logo.svg/240px-Isuzu_logo.svg.png',
-    'LAMBORGHINI':  'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Lamborghini_logo.svg/240px-Lamborghini_logo.svg.png',
-    'LEXUS':        'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Lexus_division_wordmark.svg/240px-Lexus_division_wordmark.svg.png',
-    'MAZDA':        'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Mazda_logo.svg/240px-Mazda_logo.svg.png',
-    'MCLAREN':      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/McLaren_Automotive_logo.svg/240px-McLaren_Automotive_logo.svg.png',
-    'MCLAREN':      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/McLaren_Automotive_logo.svg/240px-McLaren_Automotive_logo.svg.png',
-    'MINI':         'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/MINI-Logo.svg/240px-MINI-Logo.svg.png',
-    'MITSUBISHI':   'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Mitsubishi_logo.svg/240px-Mitsubishi_logo.svg.png',
-    'NISSAN':       'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nissan_logo.svg/240px-Nissan_logo.svg.png',
-    'PORSCHE':      'https://upload.wikimedia.org/wikipedia/de/thumb/7/70/Porsche_Logo.svg/240px-Porsche_Logo.svg.png',
-    'SUBARU':       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Subaru_logo_2019.svg/240px-Subaru_logo_2019.svg.png',
-    'SUZUKI':       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Suzuki_logo_2.svg/240px-Suzuki_logo_2.svg.png',
-    'TESLA':        'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Tesla_Motors.svg/240px-Tesla_Motors.svg.png',
-    'TOYOTA':       'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Toyota_carlogo.svg/240px-Toyota_carlogo.svg.png',
+    'ALFA ROMEO':   CDN + 'alfa-romeo.svg',
+    'ASTON MARTIN': CDN + 'aston-martin.svg',
+    'AUDI':         CDN + 'audi.svg',
+    'BENTLEY':      CDN + 'bentley.svg',
+    'BENZ':         CDN + 'mercedes-benz.svg',
+    'BMW':          CDN + 'bmw.svg',
+    'CHEVROLET':    CDN + 'chevrolet.svg',
+    'DAIHATSU':     CDN + 'daihatsu.svg',
+    'FERRARI':      CDN + 'ferrari.svg',
+    'FERARRI':      CDN + 'ferrari.svg',
+    'FORD':         CDN + 'ford.svg',
+    'HONDA':        CDN + 'honda.svg',
+    'ISUZU':        CDN + 'isuzu.svg',
+    'LAMBORGHINI':  CDN + 'lamborghini.svg',
+    'LEXUS':        CDN + 'lexus.svg',
+    'MAZDA':        CDN + 'mazda.svg',
+    'MCLAREN':      CDN + 'mclaren.svg',
+    'MINI':         CDN + 'mini.svg',
+    'MITSUBISHI':   CDN + 'mitsubishi.svg',
+    'NISSAN':       CDN + 'nissan.svg',
+    'PORSCHE':      CDN + 'porsche.svg',
+    'SUBARU':       CDN + 'subaru.svg',
+    'SUZUKI':       CDN + 'suzuki.svg',
+    'TESLA':        CDN + 'tesla.svg',
+    'TOYOTA':       CDN + 'toyota.svg',
 };
 
 /* Normalise brand key lookup (handles "Mclaren", "Ferarri" variants) */
@@ -53,18 +55,18 @@ function getBrandLogoUrl(brandRaw) {
 ───────────────────────────────────────────────────────────── */
 function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
-    const logo = document.getElementById('site-logo');
-    const icon  = document.getElementById('theme-icon');
-    const label = document.getElementById('theme-label');
+    const logo       = document.getElementById('site-logo');
+    const darkLabel  = document.getElementById('lever-dark-label');
+    const lightLabel = document.getElementById('lever-light-label');
 
     if (theme === 'dark') {
         if (logo) logo.src = 'public/logo-white-green.svg';
-        if (icon) icon.textContent = '☀️';
-        if (label) label.textContent = 'Light';
+        if (darkLabel)  { darkLabel.classList.add('active'); }
+        if (lightLabel) { lightLabel.classList.remove('active'); }
     } else {
         if (logo) logo.src = 'public/logo-black-green.svg';
-        if (icon) icon.textContent = '🌙';
-        if (label) label.textContent = 'Dark';
+        if (darkLabel)  { darkLabel.classList.remove('active'); }
+        if (lightLabel) { lightLabel.classList.add('active'); }
     }
 
     localStorage.setItem('eti-theme', theme);
