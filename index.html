@@ -159,95 +159,157 @@
         }
 
         /* =========================================================
-           CURTAIN TRANSITION EFFECT
+           FADE TRANSITION EFFECT
         ========================================================= */
-        .curtain-overlay {
+        .fade-overlay {
             position: fixed;
             inset: 0;
             z-index: 9999;
             pointer-events: none;
-            overflow: hidden;
+            background: #000;
+            opacity: 0;
+            transition: opacity 0.22s ease-in-out;
+        }
+        .fade-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
         }
 
-        /* Left panel */
-        .curtain-panel-l,
-        .curtain-panel-r {
+        /* =========================================================
+           CUSTOM BRAND SELECT DROPDOWN WITH LOGOS
+        ========================================================= */
+        .brand-custom-select {
+            position: relative;
+            min-width: 140px;
+            height: 34px;
+            z-index: 200;
+        }
+
+        .brand-custom-trigger {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #1e1e1e;
+            color: #fff;
+            border: 1px solid #333;
+            border-radius: 4px;
+            height: 34px;
+            padding: 0 28px 0 10px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            user-select: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            /* arrow */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+        
+        .brand-custom-trigger:focus,
+        .brand-custom-select.open .brand-custom-trigger {
+            border-color: var(--lime);
+            box-shadow: 0 0 0 3px rgba(196,241,1,0.12);
+            outline: none;
+        }
+
+        .brand-trigger-logo {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            flex-shrink: 0;
+            display: none;
+        }
+        .brand-trigger-logo.visible {
+            display: block;
+        }
+
+        .brand-custom-dropdown {
+            display: none;
             position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 55%; /* slight overlap in centre */
-            background: #0a0a0a;
-            will-change: transform;
+            top: calc(100% + 4px);
+            left: 0;
+            min-width: 220px;
+            max-height: 280px;
+            overflow-y: auto;
+            background: #111111;
+            border: 1px solid #333;
+            border-radius: 6px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+            z-index: 9999;
+            scrollbar-width: thin;
+            scrollbar-color: #444 transparent;
+        }
+        .brand-custom-select.open .brand-custom-dropdown {
+            display: block;
         }
 
-        .curtain-panel-l { left: 0;  transform: translateX(-102%); }
-        .curtain-panel-r { right: 0; transform: translateX(102%); }
-
-        /* Curtain texture — subtle vertical grain */
-        .curtain-panel-l::after,
-        .curtain-panel-r::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(
-                90deg,
-                rgba(255,255,255,0.015) 0px,
-                rgba(255,255,255,0.015) 1px,
-                transparent 1px,
-                transparent 12px
-            );
-            pointer-events: none;
+        .brand-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #bbb;
+            transition: background 0.15s, color 0.15s;
+            white-space: nowrap;
+        }
+        .brand-dropdown-item:hover {
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .brand-dropdown-item.selected {
+            background: #1a1a1a;
+            color: var(--lime);
+        }
+        .brand-dropdown-item.reset-item {
+            color: #666;
+            font-style: italic;
+        }
+        .brand-dropdown-item.reset-item:hover {
+            color: #fff;
         }
 
-        /* Lime edge stripe */
-        .curtain-panel-l::before {
-            content: '';
-            position: absolute;
-            right: 0; top: 0; bottom: 0;
-            width: 3px;
-            background: #C4F101;
-            box-shadow: 0 0 16px #C4F101, 0 0 40px rgba(196,241,1,0.4);
+        .brand-item-logo {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            flex-shrink: 0;
         }
-        .curtain-panel-r::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 3px;
-            background: #C4F101;
-            box-shadow: 0 0 16px #C4F101, 0 0 40px rgba(196,241,1,0.4);
+        .brand-item-logo-placeholder {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
         }
 
-        /* CLOSE — panels sweep IN from both sides */
-        .curtain-overlay.closing .curtain-panel-l {
-            animation: curtainCloseL 0.45s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        [data-theme="light"] .brand-custom-trigger {
+            background: #ffffff;
+            color: #111111;
+            border-color: #e0e0e0;
         }
-        .curtain-overlay.closing .curtain-panel-r {
-            animation: curtainCloseR 0.45s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        [data-theme="light"] .brand-custom-dropdown {
+            background: #ffffff;
+            border-color: #e0e0e0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
-
-        /* OPEN — panels retreat OUT */
-        .curtain-overlay.opening .curtain-panel-l {
-            animation: curtainOpenL 0.45s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        [data-theme="light"] .brand-dropdown-item {
+            color: #555;
         }
-        .curtain-overlay.opening .curtain-panel-r {
-            animation: curtainOpenR 0.45s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        [data-theme="light"] .brand-dropdown-item:hover {
+            background: #f5f5f5;
+            color: #000;
         }
-
-        @keyframes curtainCloseL {
-            from { transform: translateX(-102%); }
-            to   { transform: translateX(0%); }
-        }
-        @keyframes curtainCloseR {
-            from { transform: translateX(102%); }
-            to   { transform: translateX(0%); }
-        }
-        @keyframes curtainOpenL {
-            from { transform: translateX(0%); }
-            to   { transform: translateX(-102%); }
-        }
-        @keyframes curtainOpenR {
-            from { transform: translateX(0%); }
-            to   { transform: translateX(102%); }
+        [data-theme="light"] .brand-dropdown-item.selected {
+            background: #f5f5f5;
+            color: var(--lime-dark);
         }
 
         /* =========================================================
@@ -677,7 +739,17 @@
 
     <!-- FILTER STRIP -->
     <div class="filter-strip" id="filter-strip">
-        <select id="brand-filter"  onchange="handleFilter()" class="filter-select" aria-label="Filter by Make"><option value="">Make</option></select>
+        <!-- Brand / Make: custom logo dropdown + hidden native select for value tracking -->
+        <div class="brand-custom-select" id="brand-custom-select" tabindex="0"
+             role="combobox" aria-label="Filter by Make" aria-expanded="false">
+            <div class="brand-custom-trigger" id="brand-custom-trigger">
+                <img class="brand-trigger-logo" id="brand-trigger-logo" src="" alt="">
+                <span id="brand-trigger-label">Make</span>
+            </div>
+            <div class="brand-custom-dropdown" id="brand-custom-dropdown"></div>
+        </div>
+        <!-- hidden select kept so handleFilter() still reads .value -->
+        <select id="brand-filter" style="display:none" onchange="handleFilter()"><option value="">Make</option></select>
         <select id="model-filter"  onchange="handleFilter()" class="filter-select" aria-label="Filter by Model"><option value="">Model</option></select>
         <select id="part-filter"   onchange="handleFilter()" class="filter-select" aria-label="Filter by Part"><option value="">Part</option></select>
         <div class="filter-price-group">
@@ -720,11 +792,8 @@
     </footer>
 
 
-    <!-- CURTAIN OVERLAY -->
-    <div class="curtain-overlay" id="curtain-overlay" aria-hidden="true">
-        <div class="curtain-panel-l" id="curtain-l"></div>
-        <div class="curtain-panel-r" id="curtain-r"></div>
-    </div>
+    <!-- FADE OVERLAY -->
+    <div class="fade-overlay" id="fade-overlay" aria-hidden="true"></div>
 
     <script src="app.js"></script>
 </body>

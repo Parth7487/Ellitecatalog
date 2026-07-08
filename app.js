@@ -81,29 +81,19 @@ function applyTheme(theme) {
 function toggleTheme() {
     const current = document.documentElement.getAttribute('data-theme') || 'dark';
     const next    = current === 'dark' ? 'light' : 'dark';
-    const curtain = document.getElementById('curtain-overlay');
+    const overlay = document.getElementById('fade-overlay');
 
-    if (!curtain) { applyTheme(next); return; }
+    if (!overlay) { applyTheme(next); return; }
 
-    // Phase 1: sweep curtain IN
-    curtain.classList.remove('opening');
-    curtain.classList.add('closing');
+    overlay.classList.add('active');
 
-    // Phase 2: apply theme while curtain is fully closed
     setTimeout(() => {
         applyTheme(next);
-    }, 440);
+    }, 220); // wait for fade overlay to be fully visible (matches the 0.22s CSS transition)
 
-    // Phase 3: sweep curtain OUT
     setTimeout(() => {
-        curtain.classList.remove('closing');
-        curtain.classList.add('opening');
-    }, 480);
-
-    // Phase 4: reset
-    setTimeout(() => {
-        curtain.classList.remove('opening');
-    }, 940);
+        overlay.classList.remove('active');
+    }, 350);
 }
 
 /* Restore saved theme on load */
@@ -131,6 +121,7 @@ async function init() {
         });
 
         initializeSelects();
+        initCustomBrandSelectEvents();
         switchCategory('kits');
     } catch (error) {
         console.error('CRITICAL: Data could not be loaded.', error);
@@ -193,6 +184,128 @@ function populateSelect(id, optKey, altKey, label, datasource = null) {
         if (opt === currentVal) el.selected = true;
         select.appendChild(el);
     });
+
+    // If it's the brand-filter, also update the custom brand select UI
+    if (id === 'brand-filter') {
+        buildCustomBrandDropdown(sorted, currentVal);
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CUSTOM BRAND DROPDOWN LOGIC
+───────────────────────────────────────────────────────────── */
+function buildCustomBrandDropdown(sortedBrands, currentVal) {
+    const dropdown = document.getElementById('brand-custom-dropdown');
+    const triggerLabel = document.getElementById('brand-trigger-label');
+    const triggerLogo = document.getElementById('brand-trigger-logo');
+    const select = document.getElementById('brand-filter');
+
+    if (!dropdown) return;
+
+    dropdown.innerHTML = '';
+
+    // 1. Add "Make" reset item
+    const resetItem = document.createElement('div');
+    resetItem.className = 'brand-dropdown-item reset-item';
+    resetItem.textContent = 'All Makes';
+    if (!currentVal) {
+        resetItem.classList.add('selected');
+        triggerLabel.textContent = 'Make';
+        triggerLogo.src = '';
+        triggerLogo.classList.remove('visible');
+    }
+    resetItem.onclick = () => {
+        select.value = '';
+        select.dispatchEvent(new Event('change'));
+        closeCustomBrandDropdown();
+    };
+    dropdown.appendChild(resetItem);
+
+    // 2. Add each brand item with logo
+    sortedBrands.forEach(brand => {
+        const item = document.createElement('div');
+        item.className = 'brand-dropdown-item';
+        if (brand === currentVal) {
+            item.classList.add('selected');
+            triggerLabel.textContent = brand;
+            const logoUrl = getBrandLogoUrl(brand);
+            if (logoUrl) {
+                triggerLogo.src = logoUrl;
+                triggerLogo.classList.add('visible');
+            } else {
+                triggerLogo.src = '';
+                triggerLogo.classList.remove('visible');
+            }
+        }
+
+        // Add logo image if it exists in BRAND_LOGOS
+        const logoUrl = getBrandLogoUrl(brand);
+        if (logoUrl) {
+            const img = document.createElement('img');
+            img.className = 'brand-item-logo';
+            img.src = logoUrl;
+            img.alt = brand;
+            img.loading = 'lazy';
+            img.onerror = () => {
+                img.style.display = 'none';
+            };
+            item.appendChild(img);
+        } else {
+            const placeholder = document.createElement('div');
+            placeholder.className = 'brand-item-logo-placeholder';
+            item.appendChild(placeholder);
+        }
+
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = brand;
+        item.appendChild(nameSpan);
+
+        item.onclick = () => {
+            select.value = brand;
+            select.dispatchEvent(new Event('change'));
+            closeCustomBrandDropdown();
+        };
+
+        dropdown.appendChild(item);
+    });
+}
+
+function initCustomBrandSelectEvents() {
+    const customSelect = document.getElementById('brand-custom-select');
+    const trigger = document.getElementById('brand-custom-trigger');
+
+    if (!customSelect || !trigger) return;
+
+    trigger.onclick = (e) => {
+        e.stopPropagation();
+        const isOpen = customSelect.classList.contains('open');
+        if (isOpen) {
+            closeCustomBrandDropdown();
+        } else {
+            customSelect.classList.add('open');
+            customSelect.setAttribute('aria-expanded', 'true');
+        }
+    };
+
+    // Close on clicking outside
+    document.addEventListener('click', () => {
+        closeCustomBrandDropdown();
+    });
+
+    // Close on ESC key or handle keyboard interactions
+    customSelect.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeCustomBrandDropdown();
+        }
+    });
+}
+
+function closeCustomBrandDropdown() {
+    const customSelect = document.getElementById('brand-custom-select');
+    if (customSelect) {
+        customSelect.classList.remove('open');
+        customSelect.setAttribute('aria-expanded', 'false');
+    }
 }
 
 /* ─────────────────────────────────────────────────────────────
