@@ -9,37 +9,37 @@ let filteredData = [];
 let searchTimeout = null;
 
 /* ─────────────────────────────────────────────────────────────
-   BRAND LOGOS — drop your logo.svg into public/logos/{brand}/
-   e.g. public/logos/nissan/logo.svg
+   BRAND LOGOS — from filippofilip95/car-logos-dataset
+   Stored locally in public/logos/{brand}/logo.png
 ───────────────────────────────────────────────────────────── */
 const LOGOS_PATH = 'public/logos/';
 
 const BRAND_LOGOS = {
-    'ALFA ROMEO':   LOGOS_PATH + 'alfa-romeo/logo.svg',
-    'ASTON MARTIN': LOGOS_PATH + 'aston-martin/logo.svg',
-    'AUDI':         LOGOS_PATH + 'audi/logo.svg',
-    'BENTLEY':      LOGOS_PATH + 'bentley/logo.svg',
-    'BENZ':         LOGOS_PATH + 'mercedes/logo.svg',
-    'BMW':          LOGOS_PATH + 'bmw/logo.svg',
-    'CHEVROLET':    LOGOS_PATH + 'chevrolet/logo.svg',
-    'DAIHATSU':     LOGOS_PATH + 'daihatsu/logo.svg',
-    'FERRARI':      LOGOS_PATH + 'ferrari/logo.svg',
-    'FERARRI':      LOGOS_PATH + 'ferrari/logo.svg',
-    'FORD':         LOGOS_PATH + 'ford/logo.svg',
-    'HONDA':        LOGOS_PATH + 'honda/logo.svg',
-    'ISUZU':        LOGOS_PATH + 'isuzu/logo.svg',
-    'LAMBORGHINI':  LOGOS_PATH + 'lamborghini/logo.svg',
-    'LEXUS':        LOGOS_PATH + 'lexus/logo.svg',
-    'MAZDA':        LOGOS_PATH + 'mazda/logo.svg',
-    'MCLAREN':      LOGOS_PATH + 'mclaren/logo.svg',
-    'MINI':         LOGOS_PATH + 'mini/logo.svg',
-    'MITSUBISHI':   LOGOS_PATH + 'mitsubishi/logo.svg',
-    'NISSAN':       LOGOS_PATH + 'nissan/logo.svg',
-    'PORSCHE':      LOGOS_PATH + 'porsche/logo.svg',
-    'SUBARU':       LOGOS_PATH + 'subaru/logo.svg',
-    'SUZUKI':       LOGOS_PATH + 'suzuki/logo.svg',
-    'TESLA':        LOGOS_PATH + 'tesla/logo.svg',
-    'TOYOTA':       LOGOS_PATH + 'toyota/logo.svg',
+    'ALFA ROMEO':   LOGOS_PATH + 'alfa-romeo/logo.png',
+    'ASTON MARTIN': LOGOS_PATH + 'aston-martin/logo.png',
+    'AUDI':         LOGOS_PATH + 'audi/logo.png',
+    'BENTLEY':      LOGOS_PATH + 'bentley/logo.png',
+    'BENZ':         LOGOS_PATH + 'mercedes/logo.png',
+    'BMW':          LOGOS_PATH + 'bmw/logo.png',
+    'CHEVROLET':    LOGOS_PATH + 'chevrolet/logo.png',
+    'DAIHATSU':     LOGOS_PATH + 'daihatsu/logo.png',
+    'FERRARI':      LOGOS_PATH + 'ferrari/logo.png',
+    'FERARRI':      LOGOS_PATH + 'ferrari/logo.png',
+    'FORD':         LOGOS_PATH + 'ford/logo.png',
+    'HONDA':        LOGOS_PATH + 'honda/logo.png',
+    'ISUZU':        LOGOS_PATH + 'isuzu/logo.png',
+    'LAMBORGHINI':  LOGOS_PATH + 'lamborghini/logo.png',
+    'LEXUS':        LOGOS_PATH + 'lexus/logo.png',
+    'MAZDA':        LOGOS_PATH + 'mazda/logo.png',
+    'MCLAREN':      LOGOS_PATH + 'mclaren/logo.png',
+    'MINI':         LOGOS_PATH + 'mini/logo.png',
+    'MITSUBISHI':   LOGOS_PATH + 'mitsubishi/logo.png',
+    'NISSAN':       LOGOS_PATH + 'nissan/logo.png',
+    'PORSCHE':      LOGOS_PATH + 'porsche/logo.png',
+    'SUBARU':       LOGOS_PATH + 'subaru/logo.png',
+    'SUZUKI':       LOGOS_PATH + 'suzuki/logo.png',
+    'TESLA':        LOGOS_PATH + 'tesla/logo.png',
+    'TOYOTA':       LOGOS_PATH + 'toyota/logo.png',
 };
 
 
