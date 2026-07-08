@@ -9,37 +9,37 @@ let filteredData = [];
 let searchTimeout = null;
 
 /* ─────────────────────────────────────────────────────────────
-   BRAND LOGOS — local SVG files in /public/logos/
-   Transparent backgrounds, brand colours, no CDN dependency.
+   BRAND LOGOS — drop your logo.svg into public/logos/{brand}/
+   e.g. public/logos/nissan/logo.svg
 ───────────────────────────────────────────────────────────── */
 const LOGOS_PATH = 'public/logos/';
 
 const BRAND_LOGOS = {
-    'ALFA ROMEO':   LOGOS_PATH + 'alfa-romeo.svg',
-    'ASTON MARTIN': LOGOS_PATH + 'aston-martin.svg',
-    'AUDI':         LOGOS_PATH + 'audi.svg',
-    'BENTLEY':      LOGOS_PATH + 'bentley.svg',
-    'BENZ':         LOGOS_PATH + 'mercedes.svg',
-    'BMW':          LOGOS_PATH + 'bmw.svg',
-    'CHEVROLET':    LOGOS_PATH + 'chevrolet.svg',
-    'DAIHATSU':     LOGOS_PATH + 'daihatsu.svg',
-    'FERRARI':      LOGOS_PATH + 'ferrari.svg',
-    'FERARRI':      LOGOS_PATH + 'ferrari.svg',
-    'FORD':         LOGOS_PATH + 'ford.svg',
-    'HONDA':        LOGOS_PATH + 'honda.svg',
-    'ISUZU':        LOGOS_PATH + 'isuzu.svg',
-    'LAMBORGHINI':  LOGOS_PATH + 'lamborghini.svg',
-    'LEXUS':        LOGOS_PATH + 'lexus.svg',
-    'MAZDA':        LOGOS_PATH + 'mazda.svg',
-    'MCLAREN':      LOGOS_PATH + 'mclaren.svg',
-    'MINI':         LOGOS_PATH + 'mini.svg',
-    'MITSUBISHI':   LOGOS_PATH + 'mitsubishi.svg',
-    'NISSAN':       LOGOS_PATH + 'nissan.svg',
-    'PORSCHE':      LOGOS_PATH + 'porsche.svg',
-    'SUBARU':       LOGOS_PATH + 'subaru.svg',
-    'SUZUKI':       LOGOS_PATH + 'suzuki.svg',
-    'TESLA':        LOGOS_PATH + 'tesla.svg',
-    'TOYOTA':       LOGOS_PATH + 'toyota.svg',
+    'ALFA ROMEO':   LOGOS_PATH + 'alfa-romeo/logo.svg',
+    'ASTON MARTIN': LOGOS_PATH + 'aston-martin/logo.svg',
+    'AUDI':         LOGOS_PATH + 'audi/logo.svg',
+    'BENTLEY':      LOGOS_PATH + 'bentley/logo.svg',
+    'BENZ':         LOGOS_PATH + 'mercedes/logo.svg',
+    'BMW':          LOGOS_PATH + 'bmw/logo.svg',
+    'CHEVROLET':    LOGOS_PATH + 'chevrolet/logo.svg',
+    'DAIHATSU':     LOGOS_PATH + 'daihatsu/logo.svg',
+    'FERRARI':      LOGOS_PATH + 'ferrari/logo.svg',
+    'FERARRI':      LOGOS_PATH + 'ferrari/logo.svg',
+    'FORD':         LOGOS_PATH + 'ford/logo.svg',
+    'HONDA':        LOGOS_PATH + 'honda/logo.svg',
+    'ISUZU':        LOGOS_PATH + 'isuzu/logo.svg',
+    'LAMBORGHINI':  LOGOS_PATH + 'lamborghini/logo.svg',
+    'LEXUS':        LOGOS_PATH + 'lexus/logo.svg',
+    'MAZDA':        LOGOS_PATH + 'mazda/logo.svg',
+    'MCLAREN':      LOGOS_PATH + 'mclaren/logo.svg',
+    'MINI':         LOGOS_PATH + 'mini/logo.svg',
+    'MITSUBISHI':   LOGOS_PATH + 'mitsubishi/logo.svg',
+    'NISSAN':       LOGOS_PATH + 'nissan/logo.svg',
+    'PORSCHE':      LOGOS_PATH + 'porsche/logo.svg',
+    'SUBARU':       LOGOS_PATH + 'subaru/logo.svg',
+    'SUZUKI':       LOGOS_PATH + 'suzuki/logo.svg',
+    'TESLA':        LOGOS_PATH + 'tesla/logo.svg',
+    'TOYOTA':       LOGOS_PATH + 'toyota/logo.svg',
 };
 
 
