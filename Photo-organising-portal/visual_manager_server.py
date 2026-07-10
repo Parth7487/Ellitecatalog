@@ -2129,7 +2129,8 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
 
             def get_brand(title):
                 t = title.upper()
-                if 'W140' in t or 'W220' in t: return 'BENZ'
+                t_clean = t.replace(' ', '')
+                if 'W140' in t_clean or 'W220' in t_clean: return 'BENZ'
                 if 'EVO' in t and 'REVO' not in t: return 'MITSUBISHI'
                 for b in ['BMW', 'AUDI', 'BENZ', 'HONDA', 'TOYOTA', 'MAZDA', 'SUBARU', 'MITSUBISHI', 'NISSAN', 'FORD', 'CHEVROLET', 'TESLA', 'UNIVERSAL', 'PORSCHE', 'PROSCHE']:
                     if b in t:
