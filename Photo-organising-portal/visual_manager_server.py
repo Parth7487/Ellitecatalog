@@ -2129,6 +2129,7 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
 
             def get_brand(title):
                 t = title.upper()
+                if 'W140' in t or 'W220' in t: return 'BENZ'
                 if 'BMW' in t or 'BMC' in t: return 'BMW'
                 if 'BENZ' in t or 'MERCEDES' in t: return 'BENZ'
                 if 'PORSCHE' in t or 'PROSCHE' in t: return 'PORSCHE'

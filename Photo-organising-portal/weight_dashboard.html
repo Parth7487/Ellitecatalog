@@ -489,52 +489,138 @@
         </div>
     </div>
 
-    <!-- Controls -->
-    <div class="controls-card">
-        <div class="brand-filters">
-            <button class="filter-btn active" onclick="setBrandFilter('ALL')">ALL BRANDS</button>
-            <button class="filter-btn" onclick="setBrandFilter('BMW')">BMW</button>
-            <button class="filter-btn" onclick="setBrandFilter('PORSCHE')">PORSCHE</button>
-            <button class="filter-btn" onclick="setBrandFilter('BENZ')">MERCEDES-BENZ</button>
-            <button class="filter-btn" onclick="setBrandFilter('AUDI')">AUDI</button>
-        </div>
+    <!-- Main Flex Layout -->
+    <div class="layout-main" style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
+        <!-- Left Column: Controls & Table -->
+        <div class="column-left" style="flex: 1; min-width: 0;">
+            <!-- Controls -->
+            <div class="controls-card" style="margin-bottom: 2rem;">
+                <div class="brand-filters">
+                    <button class="filter-btn active" onclick="setBrandFilter('ALL')">ALL BRANDS</button>
+                    <button class="filter-btn" onclick="setBrandFilter('BMW')">BMW</button>
+                    <button class="filter-btn" onclick="setBrandFilter('PORSCHE')">PORSCHE</button>
+                    <button class="filter-btn" onclick="setBrandFilter('BENZ')">MERCEDES-BENZ</button>
+                    <button class="filter-btn" onclick="setBrandFilter('AUDI')">AUDI</button>
+                </div>
 
-        <div style="display: flex; align-items: center; gap: 1.5rem;">
-            <label class="toggle-mismatches">
-                <input type="checkbox" id="mismatchOnlyCheck" onchange="toggleMismatchesOnly()">
-                Show mismatches only
-            </label>
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <label class="toggle-mismatches">
+                        <input type="checkbox" id="mismatchOnlyCheck" onchange="toggleMismatchesOnly()">
+                        Show mismatches only
+                    </label>
 
-            <div class="search-box">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <input type="text" id="searchInput" placeholder="Search product or SKU..." oninput="handleSearch()">
+                    <div class="search-box">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input type="text" id="searchInput" placeholder="Search product or SKU..." oninput="handleSearch()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="variants-card">
+                <div class="table-responsive">
+                    <table id="auditTable">
+                        <thead>
+                            <tr>
+                                <th>Product Details</th>
+                                <th>Variant Details</th>
+                                <th>Brand</th>
+                                <th>Category</th>
+                                <th>Class</th>
+                                <th>Current Vol. Weight</th>
+                                <th>Expected Vol. Weight</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr>
+                                <td colspan="9" class="loading-state">Loading Shopify catalog weights...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Table -->
-    <div class="variants-card">
-        <div class="table-responsive">
-            <table id="auditTable">
-                <thead>
-                    <tr>
-                        <th>Product Details</th>
-                        <th>Variant Details</th>
-                        <th>Brand</th>
-                        <th>Category</th>
-                        <th>Class</th>
-                        <th>Current Vol. Weight</th>
-                        <th>Expected Vol. Weight</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <tr>
-                        <td colspan="9" class="loading-state">Loading Shopify catalog weights...</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Right Column: Comparison Sidebar -->
+        <div class="column-right" style="width: 320px; flex-shrink: 0; background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: 24px; backdrop-filter: blur(12px); position: sticky; top: 2rem;">
+            <h2 style="font-family: var(--font-accent); font-size: 1.15rem; font-weight: 700; margin-bottom: 1.25rem; background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                Reference Matrix
+            </h2>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.4;">
+                Expected volumetric weight standard computed via:
+                <div style="font-family: monospace; font-size: 0.8rem; background: rgba(0,0,0,0.2); padding: 0.4rem; border-radius: 6px; margin-top: 0.3rem; color: #a5b4fc;">(L × W × H) ÷ 5000</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <table style="width: 100%; font-size: 0.82rem; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="padding: 0.4rem 0; border-bottom: 1px solid var(--glass-border); text-align: left; font-size: 0.75rem; color: var(--text-muted);">Category</th>
+                            <th style="padding: 0.4rem 0; border-bottom: 1px solid var(--glass-border); text-align: left; font-size: 0.75rem; color: var(--text-muted);">Box (cm)</th>
+                            <th style="padding: 0.4rem 0; border-bottom: 1px solid var(--glass-border); text-align: right; font-size: 0.75rem; color: var(--text-muted);">Vol. Wt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Large Hood</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">150×160×20</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~96 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Regular Hood</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">150×150×15</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~68 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Front Bumper</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">190×75×55</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~156 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Rear Bumper</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">190×75×55</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~156 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Side Skirts (Pr)</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">205×30×20</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~25 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Trunk / Boot</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">135×115×25</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~65 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Front Fender (Pr)</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">115×85×25</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~48 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Door</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">140×115×20</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~64 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">GT Wing</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">165×45×35</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~52 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Rear Diffuser</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">165×75×25</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~62 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Front Lip</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">180×60×15</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~32 kg</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
