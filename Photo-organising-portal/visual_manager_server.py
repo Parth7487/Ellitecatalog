@@ -1958,27 +1958,41 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
 
         elif self.path == '/api/weight_audit_data':
             # Run weight audit logic for BMW, BENZ, PORSCHE, AUDI
+            force_refresh = params.get('forceRefresh', False)
+            cache_file = os.path.join(os.path.dirname(__file__), 'shopify_products_cache.json')
+            
             products_list = []
-            has_next_page = True
-            cursor = None
-            query_products = """
-            query getProducts($cursor: String) {
-              products(first: 50, after: $cursor, query: "status:active") {
-                pageInfo { hasNextPage endCursor }
-                edges {
-                  node {
-                    id
-                    title
-                    handle
-                    variants(first: 50) {
-                      edges {
-                        node {
-                          id
-                          title
-                          sku
-                          inventoryItem {
-                            measurement {
-                              weight { value unit }
+            if not force_refresh and os.path.exists(cache_file):
+                try:
+                    with open(cache_file, 'r', encoding='utf-8') as cf:
+                        products_list = json.load(cf)
+                except Exception as ex:
+                    print(f"Error reading shopify products cache: {ex}")
+                    products_list = []
+                    
+            if not products_list:
+                has_next_page = True
+                cursor = None
+                query_products = """
+                query getProducts($cursor: String) {
+                  products(first: 50, after: $cursor, query: "status:active") {
+                    pageInfo { hasNextPage endCursor }
+                    edges {
+                      node {
+                        id
+                        title
+                        handle
+                        variants(first: 50) {
+                          edges {
+                            node {
+                              id
+                              title
+                              sku
+                              inventoryItem {
+                                measurement {
+                                  weight { value unit }
+                                }
+                              }
                             }
                           }
                         }
@@ -1986,18 +2000,23 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                     }
                   }
                 }
-              }
-            }
-            """
-            while has_next_page:
-                res = graphql_query(query_products, {"cursor": cursor})
-                if not res or 'errors' in res:
-                    break
-                data = res.get('data', {}).get('products', {})
-                for edge in data.get('edges', []):
-                    products_list.append(edge['node'])
-                has_next_page = data.get('pageInfo', {}).get('hasNextPage', False)
-                cursor = data.get('pageInfo', {}).get('endCursor', None)
+                """
+                while has_next_page:
+                    res = graphql_query(query_products, {"cursor": cursor})
+                    if not res or 'errors' in res:
+                        break
+                    data = res.get('data', {}).get('products', {})
+                    for edge in data.get('edges', []):
+                        products_list.append(edge['node'])
+                    has_next_page = data.get('pageInfo', {}).get('hasNextPage', False)
+                    cursor = data.get('pageInfo', {}).get('endCursor', None)
+                
+                # Write to cache file
+                try:
+                    with open(cache_file, 'w', encoding='utf-8') as cf:
+                        json.dump(products_list, cf, indent=2)
+                except Exception as ex:
+                    print(f"Error writing shopify products cache: {ex}")
 
             # Audit matching
             MATRIX = {
