@@ -2130,10 +2130,13 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
             def get_brand(title):
                 t = title.upper()
                 if 'W140' in t or 'W220' in t: return 'BENZ'
-                if 'BMW' in t or 'BMC' in t: return 'BMW'
-                if 'BENZ' in t or 'MERCEDES' in t: return 'BENZ'
-                if 'PORSCHE' in t or 'PROSCHE' in t: return 'PORSCHE'
-                if 'AUDI' in t: return 'AUDI'
+                if 'EVO' in t and 'REVO' not in t: return 'MITSUBISHI'
+                for b in ['BMW', 'AUDI', 'BENZ', 'HONDA', 'TOYOTA', 'MAZDA', 'SUBARU', 'MITSUBISHI', 'NISSAN', 'FORD', 'CHEVROLET', 'TESLA', 'UNIVERSAL', 'PORSCHE', 'PROSCHE']:
+                    if b in t:
+                        return 'PORSCHE' if b in ['PORSCHE', 'PROSCHE'] else b
+                if 'SUPRA' in t or 'GR86' in t or 'GT86' in t or 'LEXUS' in t: return 'TOYOTA'
+                if 'CIVIC' in t or 'JAZZ' in t: return 'HONDA'
+                if 'RX7' in t or 'RX-7' in t or 'RX8' in t or 'RX-8' in t: return 'MAZDA'
                 return None
 
             audit_results = []
