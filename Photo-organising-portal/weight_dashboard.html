@@ -496,16 +496,16 @@
             <!-- Controls -->
             <div class="controls-card" style="margin-bottom: 2rem;">
                 <div class="brand-filters" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                    <button class="filter-btn active" onclick="setBrandFilter('ALL')">ALL BRANDS</button>
-                    <button class="filter-btn" onclick="setBrandFilter('BMW')">BMW</button>
-                    <button class="filter-btn" onclick="setBrandFilter('PORSCHE')">PORSCHE</button>
-                    <button class="filter-btn" onclick="setBrandFilter('BENZ')">MERCEDES-BENZ</button>
-                    <button class="filter-btn" onclick="setBrandFilter('MITSUBISHI')">MITSUBISHI</button>
-                    <button class="filter-btn" onclick="setBrandFilter('TOYOTA')">TOYOTA</button>
-                    <button class="filter-btn" onclick="setBrandFilter('NISSAN')">NISSAN</button>
-                    <button class="filter-btn" onclick="setBrandFilter('HONDA')">HONDA</button>
-                    <button class="filter-btn" onclick="setBrandFilter('MAZDA')">MAZDA</button>
-                    <button class="filter-btn" onclick="setBrandFilter('AUDI')">AUDI</button>
+                    <button class="filter-btn active" id="filter-btn-ALL" onclick="setBrandFilter('ALL')">ALL BRANDS</button>
+                    <button class="filter-btn" id="filter-btn-BMW" onclick="setBrandFilter('BMW')">BMW</button>
+                    <button class="filter-btn" id="filter-btn-PORSCHE" onclick="setBrandFilter('PORSCHE')">PORSCHE</button>
+                    <button class="filter-btn" id="filter-btn-BENZ" onclick="setBrandFilter('BENZ')">MERCEDES-BENZ</button>
+                    <button class="filter-btn" id="filter-btn-MITSUBISHI" onclick="setBrandFilter('MITSUBISHI')">MITSUBISHI</button>
+                    <button class="filter-btn" id="filter-btn-TOYOTA" onclick="setBrandFilter('TOYOTA')">TOYOTA</button>
+                    <button class="filter-btn" id="filter-btn-NISSAN" onclick="setBrandFilter('NISSAN')">NISSAN</button>
+                    <button class="filter-btn" id="filter-btn-HONDA" onclick="setBrandFilter('HONDA')">HONDA</button>
+                    <button class="filter-btn" id="filter-btn-MAZDA" onclick="setBrandFilter('MAZDA')">MAZDA</button>
+                    <button class="filter-btn" id="filter-btn-AUDI" onclick="setBrandFilter('AUDI')">AUDI</button>
                 </div>
 
                 <div style="display: flex; align-items: center; gap: 1.5rem;">
@@ -665,6 +665,7 @@
             const data = await res.json();
             if (data.success) {
                 allVariants = data.variants;
+                updateFilterButtonLabels();
                 renderDashboard();
             } else {
                 showError("Failed to fetch Shopify audit data.");
@@ -676,6 +677,41 @@
             btn.classList.remove('loading');
             btn.disabled = false;
         }
+    }
+
+    function updateFilterButtonLabels() {
+        const counts = {
+            ALL: 0,
+            BMW: 0,
+            PORSCHE: 0,
+            BENZ: 0,
+            MITSUBISHI: 0,
+            TOYOTA: 0,
+            NISSAN: 0,
+            HONDA: 0,
+            MAZDA: 0,
+            AUDI: 0
+        };
+
+        allVariants.forEach(v => {
+            if (!v.isMatch) {
+                counts.ALL++;
+                if (counts[v.brand] !== undefined) {
+                    counts[v.brand]++;
+                }
+            }
+        });
+
+        document.getElementById('filter-btn-ALL').innerText = `ALL BRANDS (${counts.ALL})`;
+        document.getElementById('filter-btn-BMW').innerText = `BMW (${counts.BMW})`;
+        document.getElementById('filter-btn-PORSCHE').innerText = `PORSCHE (${counts.PORSCHE})`;
+        document.getElementById('filter-btn-BENZ').innerText = `MERCEDES-BENZ (${counts.BENZ})`;
+        document.getElementById('filter-btn-MITSUBISHI').innerText = `MITSUBISHI (${counts.MITSUBISHI})`;
+        document.getElementById('filter-btn-TOYOTA').innerText = `TOYOTA (${counts.TOYOTA})`;
+        document.getElementById('filter-btn-NISSAN').innerText = `NISSAN (${counts.NISSAN})`;
+        document.getElementById('filter-btn-HONDA').innerText = `HONDA (${counts.HONDA})`;
+        document.getElementById('filter-btn-MAZDA').innerText = `MAZDA (${counts.MAZDA})`;
+        document.getElementById('filter-btn-AUDI').innerText = `AUDI (${counts.AUDI})`;
     }
 
     function renderDashboard() {
@@ -764,6 +800,7 @@
                 }
 
                 showToast("Variant weight calibrated successfully!");
+                updateFilterButtonLabels();
                 renderDashboard();
             } else {
                 showError("Shopify API Error: " + data.error);
@@ -781,7 +818,7 @@
     function setBrandFilter(brand) {
         currentBrandFilter = brand;
         document.querySelectorAll('.brand-filters .filter-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.innerText.includes(brand) || (brand === 'ALL' && btn.innerText === 'ALL BRANDS'));
+            btn.classList.toggle('active', btn.id === `filter-btn-${brand}`);
         });
         renderDashboard();
     }
