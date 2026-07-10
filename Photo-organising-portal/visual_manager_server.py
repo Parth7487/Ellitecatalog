@@ -2173,6 +2173,14 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                         if row:
                             expected = row.get(chassis_class)
                             is_match = abs(w_kg - expected) < 0.05
+                            
+                            # Large Hoods Exception
+                            if final_cat == 'hood':
+                                title_upper = p['title'].upper()
+                                is_large = any(k in title_upper for k in ['RE-MC', 'SAVANA RE', 'SUPRA', 'VARIS'])
+                                if is_large:
+                                    expected = 96.0 if any(k in title_upper for k in ['RE-MC', 'SAVANA RE']) else 98.0
+                                    is_match = abs(w_kg - 96.0) < 0.05 or abs(w_kg - 98.0) < 0.05
                     else:
                         is_match = True
                         
