@@ -495,7 +495,7 @@
         <div class="column-left" style="flex: 1; min-width: 0;">
             <!-- Controls -->
             <div class="controls-card" style="margin-bottom: 2rem;">
-                <div class="brand-filters" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <div class="brand-filters" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
                     <button class="filter-btn active" id="filter-btn-ALL" onclick="setBrandFilter('ALL')">ALL BRANDS</button>
                     <button class="filter-btn" id="filter-btn-BMW" onclick="setBrandFilter('BMW')">BMW</button>
                     <button class="filter-btn" id="filter-btn-PORSCHE" onclick="setBrandFilter('PORSCHE')">PORSCHE</button>
@@ -506,6 +506,22 @@
                     <button class="filter-btn" id="filter-btn-HONDA" onclick="setBrandFilter('HONDA')">HONDA</button>
                     <button class="filter-btn" id="filter-btn-MAZDA" onclick="setBrandFilter('MAZDA')">MAZDA</button>
                     <button class="filter-btn" id="filter-btn-AUDI" onclick="setBrandFilter('AUDI')">AUDI</button>
+                </div>
+
+                <div class="category-filters" style="display: flex; gap: 0.5rem; flex-wrap: wrap; border-top: 1px solid var(--glass-border); padding-top: 1rem; margin-bottom: 1.5rem;">
+                    <button class="filter-btn active" id="cat-btn-ALL" onclick="setCategoryFilter('ALL')">ALL PARTS</button>
+                    <button class="filter-btn" id="cat-btn-HOOD" onclick="setCategoryFilter('HOOD')">HOODS</button>
+                    <button class="filter-btn" id="cat-btn-SPOILER" onclick="setCategoryFilter('SPOILER')">SPOILERS</button>
+                    <button class="filter-btn" id="cat-btn-FRONT_LIP" onclick="setCategoryFilter('FRONT_LIP')">FRONT LIPS</button>
+                    <button class="filter-btn" id="cat-btn-REAR_DIFFUSER" onclick="setCategoryFilter('REAR_DIFFUSER')">REAR DIFFUSERS</button>
+                    <button class="filter-btn" id="cat-btn-BUMPER" onclick="setCategoryFilter('BUMPER')">BUMPERS</button>
+                    <button class="filter-btn" id="cat-btn-BODY_KIT" onclick="setCategoryFilter('BODY_KIT')">BODY KITS</button>
+                    <button class="filter-btn" id="cat-btn-SIDE_SKIRT" onclick="setCategoryFilter('SIDE_SKIRT')">SIDE SKIRTS</button>
+                    <button class="filter-btn" id="cat-btn-TRUNK" onclick="setCategoryFilter('TRUNK')">TRUNKS</button>
+                    <button class="filter-btn" id="cat-btn-FENDER" onclick="setCategoryFilter('FENDER')">FENDERS</button>
+                    <button class="filter-btn" id="cat-btn-DOOR" onclick="setCategoryFilter('DOOR')">DOORS</button>
+                    <button class="filter-btn" id="cat-btn-HARDWARE" onclick="setCategoryFilter('HARDWARE')">HARDWARE</button>
+                    <button class="filter-btn" id="cat-btn-INTERIOR" onclick="setCategoryFilter('INTERIOR')">INTERIOR</button>
                 </div>
 
                 <div style="display: flex; align-items: center; gap: 1.5rem;">
@@ -639,6 +655,7 @@
 <script>
     let allVariants = [];
     let currentBrandFilter = 'ALL';
+    let currentCategoryFilter = 'ALL';
     let mismatchOnly = false;
     let searchQuery = '';
 
@@ -693,15 +710,48 @@
             AUDI: 0
         };
 
+        const catCounts = {
+            ALL: 0,
+            HOOD: 0,
+            SPOILER: 0,
+            FRONT_LIP: 0,
+            REAR_DIFFUSER: 0,
+            BUMPER: 0,
+            BODY_KIT: 0,
+            SIDE_SKIRT: 0,
+            TRUNK: 0,
+            FENDER: 0,
+            DOOR: 0,
+            HARDWARE: 0,
+            INTERIOR: 0
+        };
+
         allVariants.forEach(v => {
             if (!v.isMatch) {
                 counts.ALL++;
+                catCounts.ALL++;
+                
                 if (counts[v.brand] !== undefined) {
                     counts[v.brand]++;
                 }
+                
+                // Map category counts
+                if (v.category === 'hood') catCounts.HOOD++;
+                else if (v.category === 'spoiler' || v.category === 'gt_wing') catCounts.SPOILER++;
+                else if (v.category === 'front_lip') catCounts.FRONT_LIP++;
+                else if (v.category === 'rear_diffuser') catCounts.REAR_DIFFUSER++;
+                else if (v.category === 'bumper') catCounts.BUMPER++;
+                else if (v.category === 'body_kit') catCounts.BODY_KIT++;
+                else if (v.category === 'side_skirt') catCounts.SIDE_SKIRT++;
+                else if (v.category === 'trunk') catCounts.TRUNK++;
+                else if (v.category === 'front_fender' || v.category === 'rear_fender') catCounts.FENDER++;
+                else if (v.category === 'door') catCounts.DOOR++;
+                else if (v.category === 'hardware') catCounts.HARDWARE++;
+                else if (v.category.includes('interior') || v.category === 'door_card' || v.category === 'door_sill' || v.category === 'pillar_trim' || v.category === 'seat') catCounts.INTERIOR++;
             }
         });
 
+        // Update brand buttons
         document.getElementById('filter-btn-ALL').innerText = `ALL BRANDS (${counts.ALL})`;
         document.getElementById('filter-btn-BMW').innerText = `BMW (${counts.BMW})`;
         document.getElementById('filter-btn-PORSCHE').innerText = `PORSCHE (${counts.PORSCHE})`;
@@ -712,19 +762,52 @@
         document.getElementById('filter-btn-HONDA').innerText = `HONDA (${counts.HONDA})`;
         document.getElementById('filter-btn-MAZDA').innerText = `MAZDA (${counts.MAZDA})`;
         document.getElementById('filter-btn-AUDI').innerText = `AUDI (${counts.AUDI})`;
+
+        // Update category buttons
+        document.getElementById('cat-btn-ALL').innerText = `ALL PARTS (${catCounts.ALL})`;
+        document.getElementById('cat-btn-HOOD').innerText = `HOODS (${catCounts.HOOD})`;
+        document.getElementById('cat-btn-SPOILER').innerText = `SPOILERS (${catCounts.SPOILER})`;
+        document.getElementById('cat-btn-FRONT_LIP').innerText = `FRONT LIPS (${catCounts.FRONT_LIP})`;
+        document.getElementById('cat-btn-REAR_DIFFUSER').innerText = `REAR DIFFUSERS (${catCounts.REAR_DIFFUSER})`;
+        document.getElementById('cat-btn-BUMPER').innerText = `BUMPERS (${catCounts.BUMPER})`;
+        document.getElementById('cat-btn-BODY_KIT').innerText = `BODY KITS (${catCounts.BODY_KIT})`;
+        document.getElementById('cat-btn-SIDE_SKIRT').innerText = `SIDE SKIRTS (${catCounts.SIDE_SKIRT})`;
+        document.getElementById('cat-btn-TRUNK').innerText = `TRUNKS (${catCounts.TRUNK})`;
+        document.getElementById('cat-btn-FENDER').innerText = `FENDERS (${catCounts.FENDER})`;
+        document.getElementById('cat-btn-DOOR').innerText = `DOORS (${catCounts.DOOR})`;
+        document.getElementById('cat-btn-HARDWARE').innerText = `HARDWARE (${catCounts.HARDWARE})`;
+        document.getElementById('cat-btn-INTERIOR').innerText = `INTERIOR (${catCounts.INTERIOR})`;
     }
 
     function renderDashboard() {
         // Filter list
         const filtered = allVariants.filter(v => {
             const brandMatch = (currentBrandFilter === 'ALL' || v.brand === currentBrandFilter);
+            
+            // Category filter mapping
+            let categoryMatch = true;
+            if (currentCategoryFilter !== 'ALL') {
+                if (currentCategoryFilter === 'HOOD') categoryMatch = (v.category === 'hood');
+                else if (currentCategoryFilter === 'SPOILER') categoryMatch = (v.category === 'spoiler' || v.category === 'gt_wing');
+                else if (currentCategoryFilter === 'FRONT_LIP') categoryMatch = (v.category === 'front_lip');
+                else if (currentCategoryFilter === 'REAR_DIFFUSER') categoryMatch = (v.category === 'rear_diffuser');
+                else if (currentCategoryFilter === 'BUMPER') categoryMatch = (v.category === 'bumper');
+                else if (currentCategoryFilter === 'BODY_KIT') categoryMatch = (v.category === 'body_kit');
+                else if (currentCategoryFilter === 'SIDE_SKIRT') categoryMatch = (v.category === 'side_skirt');
+                else if (currentCategoryFilter === 'TRUNK') categoryMatch = (v.category === 'trunk');
+                else if (currentCategoryFilter === 'FENDER') categoryMatch = (v.category === 'front_fender' || v.category === 'rear_fender');
+                else if (currentCategoryFilter === 'DOOR') categoryMatch = (v.category === 'door');
+                else if (currentCategoryFilter === 'HARDWARE') categoryMatch = (v.category === 'hardware');
+                else if (currentCategoryFilter === 'INTERIOR') categoryMatch = (v.category.includes('interior') || v.category === 'door_card' || v.category === 'door_sill' || v.category === 'pillar_trim' || v.category === 'seat');
+            }
+
             const statusMatch = (!mismatchOnly || !v.isMatch);
             const searchMatch = (!searchQuery || 
                 v.title.toLowerCase().includes(searchQuery) || 
                 v.variantTitle.toLowerCase().includes(searchQuery) || 
                 (v.sku && v.sku.toLowerCase().includes(searchQuery))
             );
-            return brandMatch && statusMatch && searchMatch;
+            return brandMatch && categoryMatch && statusMatch && searchMatch;
         });
 
         // Compute metrics
@@ -819,6 +902,14 @@
         currentBrandFilter = brand;
         document.querySelectorAll('.brand-filters .filter-btn').forEach(btn => {
             btn.classList.toggle('active', btn.id === `filter-btn-${brand}`);
+        });
+        renderDashboard();
+    }
+
+    function setCategoryFilter(cat) {
+        currentCategoryFilter = cat;
+        document.querySelectorAll('.category-filters .filter-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.id === `cat-btn-${cat}`);
         });
         renderDashboard();
     }
