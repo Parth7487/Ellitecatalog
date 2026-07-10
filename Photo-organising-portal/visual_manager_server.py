@@ -2258,6 +2258,22 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
             self.wfile.write(json.dumps({"success": success, "error": error_msg}).encode('utf-8'))
             return
 
+        elif self.path == '/api/calibration_log':
+            log_path = os.path.join(os.path.dirname(__file__), 'antigravity_calibration_log.json')
+            log_data = {"weight_calibrations": [], "product_renames": [], "variant_deletions": [], "handle_redirects": []}
+            if os.path.exists(log_path):
+                try:
+                    with open(log_path, 'r', encoding='utf-8') as lf:
+                        log_data = json.load(lf)
+                except Exception as e:
+                    print("Error loading log:", e)
+            
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "log": log_data}).encode('utf-8'))
+            return
+
         else:
             self.send_response(404)
             self.end_headers()

@@ -642,6 +642,38 @@
                     </tbody>
                 </table>
             </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calibration Log Section -->
+    <div class="variants-card" style="margin-top: 2rem; border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: 24px;">
+        <h2 style="font-family: var(--font-accent); font-size: 1.15rem; font-weight: 700; margin-bottom: 1.25rem; background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 0.5rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            Antigravity Audit & Calibration Log (Changes Made by Us)
+        </h2>
+        
+        <!-- Tabs for Log Types -->
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem; flex-wrap: wrap;">
+            <button class="filter-btn active" id="log-tab-weights" onclick="switchLogTab('weights')">Weight Calibrations (0)</button>
+            <button class="filter-btn" id="log-tab-renames" onclick="switchLogTab('renames')">Product Renames (0)</button>
+            <button class="filter-btn" id="log-tab-deletions" onclick="switchLogTab('deletions')">Catalog Deletions (0)</button>
+            <button class="filter-btn" id="log-tab-redirects" onclick="switchLogTab('redirects')">SEO URL Redirects (0)</button>
+        </div>
+        
+        <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+            <table id="logTable">
+                <thead>
+                    <tr id="logTableHeader">
+                        <!-- Dynamic Header -->
+                    </tr>
+                </thead>
+                <tbody id="logTableBody">
+                    <tr>
+                        <td style="text-align: center; color: var(--text-muted); padding: 2rem 0;">Loading calibration logs...</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -965,8 +997,146 @@
         }, 4000);
     }
 
+    let calibrationLog = null;
+    let currentLogTab = 'weights';
+
+    async function loadCalibrationLog() {
+        try {
+            const res = await fetch('/api/calibration_log');
+            const data = await res.json();
+            if (data.success) {
+                calibrationLog = data.log;
+                updateLogTabCounts();
+                renderCalibrationLog();
+            }
+        } catch (e) {
+            console.error("Error loading calibration log:", e);
+        }
+    }
+
+    function updateLogTabCounts() {
+        if (!calibrationLog) return;
+        document.getElementById('log-tab-weights').innerText = `Weight Calibrations (${calibrationLog.weight_calibrations.length})`;
+        document.getElementById('log-tab-renames').innerText = `Product Renames (${calibrationLog.product_renames.length})`;
+        document.getElementById('log-tab-deletions').innerText = `Catalog Deletions (${calibrationLog.variant_deletions.length})`;
+        document.getElementById('log-tab-redirects').innerText = `SEO URL Redirects (${calibrationLog.handle_redirects.length})`;
+    }
+
+    function switchLogTab(tab) {
+        currentLogTab = tab;
+        document.querySelectorAll('[id^="log-tab-"]').forEach(btn => {
+            btn.classList.toggle('active', btn.id === `log-tab-${tab}`);
+        });
+        renderCalibrationLog();
+    }
+
+    function renderCalibrationLog() {
+        if (!calibrationLog) return;
+        const header = document.getElementById('logTableHeader');
+        const body = document.getElementById('logTableBody');
+        
+        let headerHtml = '';
+        let bodyHtml = '';
+        
+        if (currentLogTab === 'weights') {
+            headerHtml = `
+                <th>Product Title</th>
+                <th>Variant Details</th>
+                <th>SKU</th>
+                <th>Old Weight</th>
+                <th>New Weight</th>
+                <th>Timestamp</th>
+            `;
+            const list = calibrationLog.weight_calibrations;
+            if (list.length === 0) {
+                bodyHtml = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem 0;">No weight calibrations logged yet.</td></tr>`;
+            } else {
+                list.forEach(item => {
+                    bodyHtml += `
+                        <tr>
+                            <td style="font-weight: 600; color: var(--text-main);">${item.product}</td>
+                            <td>${item.variant}</td>
+                            <td><code>${item.sku}</code></td>
+                            <td style="color: var(--danger); font-weight: 500;">${item.old_weight}</td>
+                            <td style="color: var(--success); font-weight: 600;">${item.new_weight}</td>
+                            <td style="color: var(--text-muted); font-size: 0.8rem;">${new Date(item.timestamp).toLocaleString()}</td>
+                        </tr>
+                    `;
+                });
+            }
+        } else if (currentLogTab === 'renames') {
+            headerHtml = `
+                <th>Old Product Title</th>
+                <th>New Product Title</th>
+                <th>Timestamp</th>
+            `;
+            const list = calibrationLog.product_renames;
+            if (list.length === 0) {
+                bodyHtml = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 2rem 0;">No product renames logged yet.</td></tr>`;
+            } else {
+                list.forEach(item => {
+                    bodyHtml += `
+                        <tr>
+                            <td style="color: var(--danger); font-weight: 500;">${item.old_title}</td>
+                            <td style="color: var(--success); font-weight: 600;">${item.new_title}</td>
+                            <td style="color: var(--text-muted); font-size: 0.8rem;">${new Date(item.timestamp).toLocaleString()}</td>
+                        </tr>
+                    `;
+                });
+            }
+        } else if (currentLogTab === 'deletions') {
+            headerHtml = `
+                <th>Product Title</th>
+                <th>Removed Variant Option</th>
+                <th>Reason</th>
+                <th>Timestamp</th>
+            `;
+            const list = calibrationLog.variant_deletions;
+            if (list.length === 0) {
+                bodyHtml = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2rem 0;">No variant deletions logged yet.</td></tr>`;
+            } else {
+                list.forEach(item => {
+                    bodyHtml += `
+                        <tr>
+                            <td style="font-weight: 600; color: var(--text-main);">${item.product}</td>
+                            <td style="color: var(--danger);">${item.variant}</td>
+                            <td style="color: var(--text-muted); font-style: italic;">${item.reason}</td>
+                            <td style="color: var(--text-muted); font-size: 0.8rem;">${new Date(item.timestamp).toLocaleString()}</td>
+                        </tr>
+                    `;
+                });
+            }
+        } else if (currentLogTab === 'redirects') {
+            headerHtml = `
+                <th>Product Title</th>
+                <th>Old Handle (Source Redirect)</th>
+                <th>New SEO Handle (Target Handle)</th>
+                <th>Timestamp</th>
+            `;
+            const list = calibrationLog.handle_redirects;
+            if (list.length === 0) {
+                bodyHtml = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2rem 0;">No redirects logged yet.</td></tr>`;
+            } else {
+                list.forEach(item => {
+                    bodyHtml += `
+                        <tr>
+                            <td style="font-weight: 600; color: var(--text-main);">${item.title}</td>
+                            <td style="font-size: 0.82rem; color: var(--text-muted);"><code>${item.old_handle}</code></td>
+                            <td style="font-size: 0.82rem; color: #a5b4fc; font-weight: 500;"><code>${item.new_handle}</code></td>
+                            <td style="color: var(--text-muted); font-size: 0.8rem;">${new Date(item.timestamp).toLocaleString()}</td>
+                        </tr>
+                    `;
+                });
+            }
+        }
+        
+        header.innerHTML = headerHtml;
+        body.innerHTML = bodyHtml;
+    }
+
     // Auto load on init
     loadData();
+    loadCalibrationLog();
 </script>
 
 </body>
