@@ -728,26 +728,47 @@
 
         allVariants.forEach(v => {
             if (!v.isMatch) {
-                counts.ALL++;
-                catCounts.ALL++;
-                
-                if (counts[v.brand] !== undefined) {
-                    counts[v.brand]++;
+                // 1. Calculate brand mismatch counts (respecting active category filter)
+                let categoryMatches = true;
+                if (currentCategoryFilter !== 'ALL') {
+                    if (currentCategoryFilter === 'HOOD') categoryMatches = (v.category === 'hood');
+                    else if (currentCategoryFilter === 'SPOILER') categoryMatches = (v.category === 'spoiler' || v.category === 'gt_wing');
+                    else if (currentCategoryFilter === 'FRONT_LIP') categoryMatches = (v.category === 'front_lip');
+                    else if (currentCategoryFilter === 'REAR_DIFFUSER') categoryMatches = (v.category === 'rear_diffuser');
+                    else if (currentCategoryFilter === 'BUMPER') categoryMatches = (v.category === 'bumper');
+                    else if (currentCategoryFilter === 'BODY_KIT') categoryMatches = (v.category === 'body_kit');
+                    else if (currentCategoryFilter === 'SIDE_SKIRT') categoryMatches = (v.category === 'side_skirt');
+                    else if (currentCategoryFilter === 'TRUNK') categoryMatches = (v.category === 'trunk');
+                    else if (currentCategoryFilter === 'FENDER') categoryMatches = (v.category === 'front_fender' || v.category === 'rear_fender');
+                    else if (currentCategoryFilter === 'DOOR') categoryMatches = (v.category === 'door');
+                    else if (currentCategoryFilter === 'HARDWARE') categoryMatches = (v.category === 'hardware');
+                    else if (currentCategoryFilter === 'INTERIOR') categoryMatches = (v.category.includes('interior') || v.category === 'door_card' || v.category === 'door_sill' || v.category === 'pillar_trim' || v.category === 'seat');
                 }
-                
-                // Map category counts
-                if (v.category === 'hood') catCounts.HOOD++;
-                else if (v.category === 'spoiler' || v.category === 'gt_wing') catCounts.SPOILER++;
-                else if (v.category === 'front_lip') catCounts.FRONT_LIP++;
-                else if (v.category === 'rear_diffuser') catCounts.REAR_DIFFUSER++;
-                else if (v.category === 'bumper') catCounts.BUMPER++;
-                else if (v.category === 'body_kit') catCounts.BODY_KIT++;
-                else if (v.category === 'side_skirt') catCounts.SIDE_SKIRT++;
-                else if (v.category === 'trunk') catCounts.TRUNK++;
-                else if (v.category === 'front_fender' || v.category === 'rear_fender') catCounts.FENDER++;
-                else if (v.category === 'door') catCounts.DOOR++;
-                else if (v.category === 'hardware') catCounts.HARDWARE++;
-                else if (v.category.includes('interior') || v.category === 'door_card' || v.category === 'door_sill' || v.category === 'pillar_trim' || v.category === 'seat') catCounts.INTERIOR++;
+
+                if (categoryMatches) {
+                    counts.ALL++;
+                    if (counts[v.brand] !== undefined) {
+                        counts[v.brand]++;
+                    }
+                }
+
+                // 2. Calculate category mismatch counts (respecting active brand filter)
+                const brandMatches = (currentBrandFilter === 'ALL' || v.brand === currentBrandFilter);
+                if (brandMatches) {
+                    catCounts.ALL++;
+                    if (v.category === 'hood') catCounts.HOOD++;
+                    else if (v.category === 'spoiler' || v.category === 'gt_wing') catCounts.SPOILER++;
+                    else if (v.category === 'front_lip') catCounts.FRONT_LIP++;
+                    else if (v.category === 'rear_diffuser') catCounts.REAR_DIFFUSER++;
+                    else if (v.category === 'bumper') catCounts.BUMPER++;
+                    else if (v.category === 'body_kit') catCounts.BODY_KIT++;
+                    else if (v.category === 'side_skirt') catCounts.SIDE_SKIRT++;
+                    else if (v.category === 'trunk') catCounts.TRUNK++;
+                    else if (v.category === 'front_fender' || v.category === 'rear_fender') catCounts.FENDER++;
+                    else if (v.category === 'door') catCounts.DOOR++;
+                    else if (v.category === 'hardware') catCounts.HARDWARE++;
+                    else if (v.category.includes('interior') || v.category === 'door_card' || v.category === 'door_sill' || v.category === 'pillar_trim' || v.category === 'seat') catCounts.INTERIOR++;
+                }
             }
         });
 
@@ -903,6 +924,7 @@
         document.querySelectorAll('.brand-filters .filter-btn').forEach(btn => {
             btn.classList.toggle('active', btn.id === `filter-btn-${brand}`);
         });
+        updateFilterButtonLabels();
         renderDashboard();
     }
 
@@ -911,6 +933,7 @@
         document.querySelectorAll('.category-filters .filter-btn').forEach(btn => {
             btn.classList.toggle('active', btn.id === `cat-btn-${cat}`);
         });
+        updateFilterButtonLabels();
         renderDashboard();
     }
 
