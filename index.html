@@ -6,9 +6,16 @@
     <title>Elite Ti – Wholesale Catalog</title>
     <meta name="description" content="Elite Ti wholesale body kit and carbon parts catalog. Search by make, model, or part type.">
     <link rel="icon" type="image/svg+xml" href="public/favicon.svg">
-    <link rel="shortcut icon" href="public/favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Sakana-Regular';
+            src: url('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Sakana-Regular.woff2?v=1760518366.woff2') format('woff2');
+            font-weight: normal;
+            font-style: italic;
+            font-display: swap;
+        }
+
         /* =========================================================
            DESIGN TOKENS — light / dark
         ========================================================= */
@@ -336,7 +343,7 @@
             flex: 1;
             padding: 14px 0;
             border: none;
-            font-family: inherit;
+            font-family: 'Sakana-Regular', 'Inter', sans-serif;
             font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
@@ -401,7 +408,7 @@
             background: transparent;
             border: 2px solid var(--text);
             color: var(--text);
-            font-family: inherit;
+            font-family: 'Sakana-Regular', 'Inter', sans-serif;
             font-size: 10px;
             font-weight: 800;
             letter-spacing: 0.1em;
@@ -484,6 +491,7 @@
         }
 
         thead th {
+            font-family: 'Sakana-Regular', 'Inter', sans-serif;
             color: var(--lime);
             font-size: 10px;
             font-weight: 800;
@@ -617,6 +625,7 @@
         }
 
         .results-count {
+            font-family: 'Sakana-Regular', 'Inter', sans-serif;
             background: var(--lime);
             color: #000;
             font-size: 9px;
