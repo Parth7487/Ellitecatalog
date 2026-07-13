@@ -161,6 +161,13 @@ def fetch_product_by_handle(handle):
             }
           }
         }
+        variants(first: 100) {
+          edges {
+            node {
+              title
+            }
+          }
+        }
       }
     }
     """
@@ -192,6 +199,13 @@ def fetch_products(collection_id):
                     image {
                       url
                     }
+                  }
+                }
+              }
+              variants(first: 100) {
+                edges {
+                  node {
+                    title
                   }
                 }
               }
@@ -250,6 +264,29 @@ def get_raw_images(prod_path):
         print(f"Error reading raw path {prod_path}: {e}")
     return []
 
+def find_folder_by_title(make, title, handle):
+    import re
+    norm_title = re.sub(r'[^a-z0-9]', '', title.lower())
+    norm_handle = re.sub(r'[^a-z0-9]', '', handle.lower())
+    
+    roots = [
+        f"/Users/parth/Downloads/Shopifydevstudio/Created folder and sent to telegram/{make}",
+        f"/Users/parth/Downloads/Shopifydevstudio/Yet to send to telegram/{make}",
+        f"/Users/parth/Downloads/Shopifydevstudio/{make}"
+    ]
+    
+    for root_dir in roots:
+        if not os.path.exists(root_dir):
+            continue
+        for root, dirs, files in os.walk(root_dir):
+            for d in dirs:
+                if d.lower() in ('edited', 'edited_images', '.tg_sent'):
+                    continue
+                d_norm = re.sub(r'[^a-z0-9]', '', d.lower())
+                if d_norm == norm_title or d_norm == norm_handle:
+                    return os.path.join(root, d)
+    return None
+
 def run():
     print("⏳ Loading local catalog data...")
     with open(HEALTH_DATA_PATH, 'r', encoding='utf-8') as f:
@@ -287,6 +324,8 @@ def run():
                 num_id = p['id'].split('/')[-1]
                 shopify_map[num_id] = p
         
+        matched_shopify_ids = set()
+        
         brand_data = next((b for b in data['brands'] if b['make'].upper() == make.upper()), None)
         if not brand_data:
             print(f"⚠️ Brand {make} not found in health_data.json. Skipping.")
@@ -300,7 +339,16 @@ def run():
             shopify_url = folder.get('shopify_url', '')
             drive_url = folder.get('drive_url', '')
             
+            possible_paths = [
+                os.path.join(f"/Users/parth/Downloads/Shopifydevstudio/Created folder and sent to telegram/{make}", path),
+                os.path.join(f"/Users/parth/Downloads/Shopifydevstudio/Yet to send to telegram/{make}", path),
+                os.path.join(base_dir, path)
+            ]
             full_path = os.path.join(base_dir, path)
+            for p_path in possible_paths:
+                if os.path.exists(p_path):
+                    full_path = p_path
+                    break
             drive_images = get_edited_images(full_path)
             raw_images = get_raw_images(full_path)
             
@@ -326,6 +374,7 @@ def run():
                             shopify_map[num_id] = prod
                 if prod:
                     product_id = prod['id']
+                    matched_shopify_ids.add(product_id)
                     shortProdId = product_id.split('/')[-1]
                     shopify_title = prod.get('title', '')
                     shopify_status = prod.get('status', '')
@@ -373,7 +422,91 @@ def run():
                 "live_images": live_images,
                 "shopify_url": shopify_url,
                 "drive_url": drive_url,
-                "shopify_status": shopify_status
+                "shopify_status": shopify_status,
+                "variants": [v['node']['title'] for v in prod.get('variants', {}).get('edges', [])] if (prod and prod.get('variants')) else []
+            })
+
+        # Process unmatched Shopify products for this brand
+        seen_unmatched_ids = set()
+        for prod in shopify_products:
+            prod_id = prod.get('id')
+            if not prod_id or prod_id in matched_shopify_ids or prod_id in seen_unmatched_ids:
+                continue
+            seen_unmatched_ids.add(prod_id)
+            
+            title = prod.get('title', '')
+            handle = prod.get('handle', '')
+            shopify_status = prod.get('status', '')
+            
+            local_folder = find_folder_by_title(make, title, handle)
+            
+            live_images = []
+            for m in prod.get('media', {}).get('nodes', []):
+                if m.get('mediaContentType') == 'IMAGE' and m.get('image'):
+                    live_images.append({
+                        "id": m['id'],
+                        "url": m['image']['url']
+                    })
+                    
+            if local_folder:
+                drive_images = get_edited_images(local_folder)
+                raw_images = get_raw_images(local_folder)
+                edited_folder_path = os.path.dirname(drive_images[0]) if drive_images else ""
+                raw_folder_path = local_folder
+                
+                # Rel path from base
+                rel_path = os.path.relpath(local_folder, "/Users/parth/Downloads/Shopifydevstudio")
+                if rel_path.startswith(f"Created folder and sent to telegram/{make}/"):
+                    display_path = rel_path.replace(f"Created folder and sent to telegram/{make}/", "")
+                elif rel_path.startswith(f"Yet to send to telegram/{make}/"):
+                    display_path = rel_path.replace(f"Yet to send to telegram/{make}/", "")
+                else:
+                    display_path = os.path.basename(local_folder)
+            else:
+                drive_images = []
+                raw_images = []
+                edited_folder_path = ""
+                raw_folder_path = ""
+                display_path = ""
+                
+            shortProdId = prod_id.split('/')[-1]
+            actual_live_count = len(live_images)
+            
+            # Determine status based on folders
+            status = 'edited' if drive_images else 'raw_only' if raw_images else 'empty'
+            
+            has_e_0 = status == 'edited' and len(drive_images) > 0 and actual_live_count == 0
+            has_r_e = len(drive_images) > len(raw_images)
+            has_e_l = status == 'edited' and actual_live_count > 0 and len(drive_images) != actual_live_count
+            is_mismatch = has_e_0 or has_r_e or has_e_l
+            
+            product_records.append({
+                "shopify_title": title,
+                "make": make,
+                "name": title,
+                "path": display_path or title,
+                "status": status,
+                "is_mismatch": is_mismatch,
+                "mismatch_reasons": {
+                    "Edited but 0 Live": has_e_0,
+                    "Raw ≠ Edited": has_r_e,
+                    "Edited ≠ Live": has_e_l
+                },
+                "product_id": prod_id,
+                "short_id": shortProdId,
+                "drive_count": len(drive_images),
+                "raw_count": len(raw_images),
+                "raw_folder_path": raw_folder_path,
+                "edited_folder_path": edited_folder_path,
+                "review_status": review_statuses.get(shortProdId, 'Unreviewed'),
+                "shopify_count": len(live_images),
+                "drive_images": drive_images,
+                "raw_images": raw_images,
+                "live_images": live_images,
+                "shopify_url": f"https://admin.shopify.com/store/{STORE.split('.')[0]}/products/{shortProdId}",
+                "drive_url": "",
+                "shopify_status": shopify_status,
+                "variants": [v['node']['title'] for v in prod.get('variants', {}).get('edges', [])] if (prod and prod.get('variants')) else []
             })
 
     print("⏳ Generating HTML Contact Sheet...")
@@ -488,41 +621,90 @@ def run():
     </header>
 
     <!-- Main Container -->
-    <div class="flex-grow max-w-[1850px] w-full mx-auto p-4 md:p-8 flex flex-col lg:flex-row gap-6">
-        
-        <!-- Left Sidebar: Brand Navigation list -->
-        <aside class="w-full lg:w-64 flex-shrink-0 flex flex-col gap-4 bg-[#141416] border border-zinc-800 p-4 rounded-md h-fit">
-            <div class="border-b border-zinc-800 pb-3">
-                <span class="text-[10px] font-black tracking-widest uppercase text-gray-400">Select Brand</span>
-            </div>
-            <div id="brand-list" class="flex flex-col gap-1">
-                <!-- Dynamically populated -->
-            </div>
-        </aside>
+    <div class="flex-grow max-w-[1850px] w-full mx-auto p-4 md:p-8 flex flex-col gap-6">
+        <!-- Main Tabs -->
+        <div class="flex gap-2">
+            <button onclick="setMainTab('brands')" id="tab-brands" class="text-[10px] font-black uppercase tracking-widest px-4 py-2 border border-[#C4F101] bg-[#C4F101] text-black transition-all rounded-sm flex items-center gap-1.5 shadow">
+                <span>📂 Brand Folders</span>
+            </button>
+            <button onclick="setMainTab('telegram')" id="tab-telegram" class="text-[10px] font-black uppercase tracking-widest px-4 py-2 border border-zinc-800 hover:border-zinc-650 bg-zinc-900 text-gray-300 hover:text-white transition-all rounded-sm flex items-center gap-1.5">
+                <span>✈️ Telegram Queues</span>
+            </button>
+            <button onclick="setMainTab('missing')" id="tab-missing" class="text-[10px] font-black uppercase tracking-widest px-4 py-2 border border-zinc-800 hover:border-zinc-650 bg-zinc-900 text-gray-300 hover:text-white transition-all rounded-sm flex items-center gap-1.5">
+                <span>⚠️ Missing Local Folders</span>
+            </button>
+        </div>
 
-        <!-- Right Content: Products Grid -->
-        <main class="flex-grow flex flex-col gap-6">
-            <div class="bg-[#141416] border border-zinc-800 p-4 rounded-md flex justify-between items-center">
-                <div class="flex items-center gap-6">
-                    <h2 id="active-brand-title" class="text-base font-black text-white uppercase tracking-tight">All Brands Portfolio</h2>
-                    <div id="status-stats" class="hidden sm:flex items-center gap-3">
-                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-zinc-400 bg-zinc-900 border border-zinc-800 px-2 py-1 rounded">⏳ Unreviewed: <span id="stat-unreviewed" class="text-white ml-1">0</span></span>
-                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-[#C4F101] bg-[#C4F101]/10 border border-[#C4F101]/30 px-2 py-1 rounded">✅ Perfect: <span id="stat-perfect" class="text-white ml-1">0</span></span>
-                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-orange-400 bg-orange-500/10 border border-orange-500/30 px-2 py-1 rounded">⚠️ Recheck: <span id="stat-recheck" class="text-white ml-1">0</span></span>
-                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-red-400 bg-red-500/10 border border-red-500/30 px-2 py-1 rounded">🔄 Reedits: <span id="stat-reedits" class="text-white ml-1">0</span></span>
-                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-purple-400 bg-purple-500/10 border border-purple-500/30 px-2 py-1 rounded">❌ Missing: <span id="stat-missing" class="text-white ml-1">0</span></span>
-                        <span class="text-[9px] font-extrabold uppercase tracking-widest text-pink-400 bg-pink-500/10 border border-pink-500/30 px-2 py-1 rounded">🔗 Bad Link: <span id="stat-link" class="text-white ml-1">0</span></span>
+        <div class="flex flex-col lg:flex-row gap-6">
+            
+            <!-- Left Sidebar: Brand Navigation list -->
+            <aside class="w-full lg:w-64 flex-shrink-0 flex flex-col gap-4 bg-[#141416] border border-zinc-800 p-4 rounded-md h-fit">
+                <div class="border-b border-zinc-800 pb-3">
+                    <span class="text-[10px] font-black tracking-widest uppercase text-gray-400">Select Brand</span>
+                </div>
+                <div id="brand-list" class="flex flex-col gap-1">
+                    <!-- Dynamically populated -->
+                </div>
+            </aside>
+    
+            <!-- Right Content: Products Grid -->
+            <main class="flex-grow flex flex-col gap-6">
+                <div class="bg-[#141416] border border-zinc-800 p-4 rounded-md flex justify-between items-center">
+                    <div class="flex items-center gap-6">
+                        <h2 id="active-brand-title" class="text-base font-black text-white uppercase tracking-tight">All Brands Portfolio</h2>
+                        <div id="status-stats" class="hidden sm:flex items-center gap-3">
+                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-zinc-400 bg-zinc-900 border border-zinc-800 px-2 py-1 rounded">⏳ Unreviewed: <span id="stat-unreviewed" class="text-white ml-1">0</span></span>
+                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-[#C4F101] bg-[#C4F101]/10 border border-[#C4F101]/30 px-2 py-1 rounded">✅ Perfect: <span id="stat-perfect" class="text-white ml-1">0</span></span>
+                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-orange-400 bg-orange-500/10 border border-orange-500/30 px-2 py-1 rounded">⚠️ Recheck: <span id="stat-recheck" class="text-white ml-1">0</span></span>
+                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-red-400 bg-red-500/10 border border-red-500/30 px-2 py-1 rounded">🔄 Reedits: <span id="stat-reedits" class="text-white ml-1">0</span></span>
+                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-purple-400 bg-purple-500/10 border border-purple-500/30 px-2 py-1 rounded">❌ Missing: <span id="stat-missing" class="text-white ml-1">0</span></span>
+                            <span class="text-[9px] font-extrabold uppercase tracking-widest text-pink-400 bg-pink-500/10 border border-pink-500/30 px-2 py-1 rounded">🔗 Bad Link: <span id="stat-link" class="text-white ml-1">0</span></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Path & Sync Filter Checkboxes -->
+                    <div class="flex flex-wrap items-center gap-4 border-l border-zinc-800 pl-4">
+                        <label class="flex items-center gap-1.5 cursor-pointer select-none">
+                            <input type="checkbox" id="chk-created-folder-only" onchange="renderProducts()" class="accent-[#C4F101] w-3 h-3 cursor-pointer">
+                            <span class="text-[9px] font-black text-zinc-400 uppercase tracking-wider">Created Folder Only</span>
+                        </label>
+                        <label class="flex items-center gap-1.5 cursor-pointer select-none">
+                            <input type="checkbox" id="chk-has-edited" onchange="renderProducts()" class="accent-[#C4F101] w-3 h-3 cursor-pointer">
+                            <span class="text-[9px] font-black text-zinc-400 uppercase tracking-wider">Has Edited Images</span>
+                        </label>
+                        <label class="flex items-center gap-1.5 cursor-pointer select-none">
+                            <input type="checkbox" id="chk-hide-synced" onchange="renderProducts()" class="accent-[#C4F101] w-3 h-3 cursor-pointer">
+                            <span class="text-[9px] font-black text-zinc-400 uppercase tracking-wider">Hide Synced</span>
+                        </label>
+                        <label class="flex items-center gap-1.5 cursor-pointer select-none border-l border-zinc-800 pl-4">
+                            <input type="checkbox" id="chk-single-option" onchange="renderProducts()" class="accent-[#C4F101] w-3 h-3 cursor-pointer">
+                            <span class="text-[9px] font-black text-zinc-400 uppercase tracking-wider">Single-Option Only</span>
+                        </label>
+                        <select id="material-set-select" onchange="renderProducts()" class="bg-zinc-950 border border-zinc-800 rounded text-[9px] text-zinc-300 p-1.5 cursor-pointer outline-none focus:border-[#C4F101]">
+                            <option value="all">All Configurations</option>
+                            <option value="set_4">Has: Matte, Gloss, Forged, Kevlar</option>
+                            <option value="set_5">Has: FRP, Matte, Gloss, Forged, Kevlar</option>
+                            <option value="type_1">Type 1: Carbon Fiber / FRP</option>
+                            <option value="type_2">Type 2: Single-Variant Carbon Fiber</option>
+                            <option value="type_3">Type 3: Carbon Fiber Top / Full Carbon / Dry Carbon</option>
+                            <option value="type_4">Type 4: Carbon / Dry Carbon</option>
+                            <option value="type_5">Type 5: Carbon Fiber Top / Dry Carbon</option>
+                            <option value="type_6">Type 6: Carbon Fiber / Matte Carbon / Forged / Kevlar</option>
+                            <option value="type_7">Type 7: Carbon Fiber / Forged Carbon</option>
+                            <option value="type_8">Type 8: Multi-Component Matrix</option>
+                            <option value="others">Others / Uncategorized</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 w-full md:w-auto">
+                        <div class="relative w-full md:w-64">
+                            <input type="text" id="product-search" oninput="renderProducts()" placeholder="SEARCH PRODUCTS..." class="w-full bg-zinc-950 border border-zinc-800 text-white text-[10px] p-2 outline-none focus:border-[#C4F101] transition-all rounded shadow-inner uppercase font-bold tracking-wider">
+                        </div>
+                        <div class="text-[10px] font-black text-zinc-400 uppercase tracking-widest bg-zinc-950 px-3 py-1.5 border border-zinc-800 rounded-sm flex-shrink-0">
+                            Showing <span id="visible-count" class="text-[#C4F101]">0</span> of <span id="total-count">0</span> products
+                        </div>
                     </div>
                 </div>
-                <div class="flex items-center gap-4 w-full md:w-auto">
-                    <div class="relative w-full md:w-64">
-                        <input type="text" id="product-search" oninput="renderProducts()" placeholder="SEARCH PRODUCTS..." class="w-full bg-zinc-950 border border-zinc-800 text-white text-[10px] p-2 outline-none focus:border-[#C4F101] transition-all rounded shadow-inner uppercase font-bold tracking-wider">
-                    </div>
-                    <div class="text-[10px] font-black text-zinc-400 uppercase tracking-widest bg-zinc-950 px-3 py-1.5 border border-zinc-800 rounded-sm flex-shrink-0">
-                        Showing <span id="visible-count" class="text-[#C4F101]">0</span> of <span id="total-count">0</span> products
-                    </div>
-                </div>
-            </div>
 
             <!-- Products List -->
             <div id="products-list" class="flex flex-col gap-6">
@@ -553,7 +735,33 @@ def run():
         let currentMake = 'BMW';
         let currentFilter = 'all'; // 'all' or 'mismatch'
         let currentStatusFilter = 'all';
+        let currentTab = 'brands'; // 'brands', 'telegram', 'missing'
         let serverActive = false;
+
+        function setMainTab(tab) {
+            currentTab = tab;
+            currentMake = 'all';
+            
+            const titleElem = document.getElementById('active-brand-title');
+            if (titleElem) {
+                titleElem.textContent = 'All Brands Portfolio';
+            }
+            
+            const btnBrands = document.getElementById('tab-brands');
+            const btnTelegram = document.getElementById('tab-telegram');
+            const btnMissing = document.getElementById('tab-missing');
+            
+            const activeClass = "text-[10px] font-black uppercase tracking-widest px-4 py-2 border border-[#C4F101] bg-[#C4F101] text-black transition-all rounded-sm flex items-center gap-1.5 shadow";
+            const inactiveClass = "text-[10px] font-black uppercase tracking-widest px-4 py-2 border border-zinc-800 hover:border-zinc-650 bg-zinc-900 text-gray-300 hover:text-white transition-all rounded-sm flex items-center gap-1.5";
+            
+            if (btnBrands) btnBrands.className = tab === 'brands' ? activeClass : inactiveClass;
+            if (btnTelegram) btnTelegram.className = tab === 'telegram' ? activeClass : inactiveClass;
+            if (btnMissing) btnMissing.className = tab === 'missing' ? activeClass : inactiveClass;
+            
+            // Re-render sidebar and products to reflect filters
+            initSidebar();
+            renderProducts();
+        }
 
         function updateStats() {
             let countUnreviewed = 0;
@@ -731,12 +939,26 @@ def run():
             const list = document.getElementById('brand-list');
             list.innerHTML = '';
 
-            // Calculate brand sizes
+            // Calculate brand sizes based on active tab
+            let tabFilteredData = [];
+            if (currentTab === 'brands') {
+                tabFilteredData = productsData.filter(p => p.edited_folder_path && 
+                    !p.edited_folder_path.includes("Created folder") && 
+                    !p.edited_folder_path.includes("Yet to send"));
+            } else if (currentTab === 'telegram') {
+                tabFilteredData = productsData.filter(p => p.edited_folder_path && (
+                    p.edited_folder_path.includes("Created folder") || 
+                    p.edited_folder_path.includes("Yet to send")
+                ));
+            } else {
+                tabFilteredData = productsData.filter(p => !p.edited_folder_path);
+            }
+
             const brandCounts = {};
             const brandMismatches = {};
             const brandPerfect = {};
             
-            productsData.forEach(p => {
+            tabFilteredData.forEach(p => {
                 brandCounts[p.make] = (brandCounts[p.make] || 0) + 1;
                 if (p.is_mismatch) {
                     brandMismatches[p.make] = (brandMismatches[p.make] || 0) + 1;
@@ -747,9 +969,9 @@ def run():
             });
 
             // Global stats
-            const totalProducts = productsData.length;
-            const totalMismatches = productsData.filter(p => p.is_mismatch).length;
-            const totalPerfect = productsData.filter(p => p.review_status === 'Perfect verified').length;
+            const totalProducts = tabFilteredData.length;
+            const totalMismatches = tabFilteredData.filter(p => p.is_mismatch).length;
+            const totalPerfect = tabFilteredData.filter(p => p.review_status === 'Perfect verified').length;
             const totalPercent = totalProducts > 0 ? Math.round((totalPerfect / totalProducts) * 100) : 0;
             
             document.getElementById('btn-filter-mismatch').textContent = `Mismatches (${totalMismatches})`;
@@ -770,7 +992,7 @@ def run():
             list.appendChild(allBtn);
 
             // Per brand
-            const uniqueMakes = [...new Set(productsData.map(p => p.make))].sort();
+            const uniqueMakes = [...new Set(tabFilteredData.map(p => p.make))].sort();
             uniqueMakes.forEach(make => {
                 const count = brandCounts[make] || 0;
                 const mis = brandMismatches[make] || 0;
@@ -1972,6 +2194,13 @@ def run():
             const searchQuery = searchInput ? searchInput.value.toLowerCase().trim() : '';
             const searchTerms = searchQuery.split(' ').filter(t => t.length > 0);
 
+            // Read checkbox states
+            const createdFolderOnly = document.getElementById('chk-created-folder-only')?.checked || false;
+            const hasEditedCheckbox = document.getElementById('chk-has-edited')?.checked || false;
+            const hideSyncedProducts = document.getElementById('chk-hide-synced')?.checked || false;
+            const singleOptionOnly = document.getElementById('chk-single-option')?.checked || false;
+            const materialSet = document.getElementById('material-set-select')?.value || 'all';
+
             const filtered = productsData.filter(p => {
                 const matchesMake = currentMake === 'all' || p.make === currentMake;
                 const matchesFilter = currentFilter === 'all' || p.is_mismatch;
@@ -1990,11 +2219,118 @@ def run():
                     matchesSearch = searchTerms.every(term => nameLower.includes(term) || makeLower.includes(term));
                 }
 
-                return matchesMake && matchesFilter && matchesStatus && matchesSearch;
+                // Checkbox Filters
+                const matchesCreatedFolder = !createdFolderOnly || (p.edited_folder_path && (
+                    p.edited_folder_path.includes("Created folder and sent to telegram") ||
+                    p.edited_folder_path.includes("Created folder")
+                ));
+                const matchesHideSynced = !hideSyncedProducts || (p.drive_count !== p.shopify_count);
+                const matchesEdited = !hasEditedCheckbox || (p.drive_images && p.drive_images.length > 0);
+
+                // Single Option Filter
+                let matchesSingleOption = true;
+                if (singleOptionOnly) {
+                    if (!p.variants || p.variants.length === 0) {
+                        matchesSingleOption = false;
+                    } else {
+                        matchesSingleOption = !p.variants[0].includes('/');
+                    }
+                }
+
+                // Material Set Filter
+                let matchesMaterialSet = true;
+                if (materialSet !== 'all' && p.variants) {
+                    const variantTitles = p.variants.map(v => v.toLowerCase());
+                    const hasMatte = variantTitles.some(t => t.includes('matte') || t.includes('dry'));
+                    const hasGloss = variantTitles.some(t => t.includes('gloss') && !t.includes('matte'));
+                    const hasForged = variantTitles.some(t => t.includes('forged'));
+                    const hasKevlar = variantTitles.some(t => t.includes('kevlar'));
+                    const hasFRP = variantTitles.some(t => t.includes('frp') || t.includes('fiberglass'));
+                    
+                    const isSet4 = hasMatte && hasGloss && hasForged && hasKevlar && !hasFRP;
+                    const isSet5 = hasMatte && hasGloss && hasForged && hasKevlar && hasFRP;
+                    
+                    const hasCF = variantTitles.some(t => t === 'carbon fiber');
+                    const isType1 = p.variants.length === 2 && hasCF && hasFRP;
+                    
+                    const hasCarbonTitle = p.shopify_title ? p.shopify_title.toLowerCase().includes('carbon') : false;
+                    const isType2 = p.variants.length === 1 && (variantTitles[0] === 'carbon fiber' || variantTitles[0] === 'carbon' || (variantTitles[0] === 'default title' && hasCarbonTitle));
+                    
+                    const hasTop = variantTitles.some(t => t.includes('carbon fiber top') && !t.includes('under'));
+                    const hasFull = variantTitles.some(t => t.includes('top+under') || t.includes('top + under') || t.includes('full carbon'));
+                    const hasDry = variantTitles.some(t => t.includes('dry carbon') || t.includes('dry'));
+                    const isType3 = hasTop && hasFull && hasDry;
+                    
+                    const hasCarbonOnly = variantTitles.some(t => t === 'carbon');
+                    const isType4 = p.variants.length === 2 && hasCarbonOnly && hasDry;
+                    
+                    const hasTopOnly = variantTitles.some(t => t === 'carbon fiber top');
+                    const hasDryOnly = variantTitles.some(t => t === 'dry carbon');
+                    const isType5 = p.variants.length === 2 && hasTopOnly && hasDryOnly;
+                    
+                    const hasMatteCF = variantTitles.some(t => t === 'matte carbon');
+                    const hasForgedCF = variantTitles.some(t => t.includes('forged carbon'));
+                    const hasKev = variantTitles.some(t => t.includes('kevlar'));
+                    const hasGlossOnly = variantTitles.some(t => t.includes('gloss') && !t.includes('matte'));
+                    const isType6 = hasCF && hasMatteCF && hasForgedCF && hasKev && !hasGlossOnly;
+                    
+                    const hasCFOrCarbon = variantTitles.some(t => t === 'carbon fiber' || t === 'carbon');
+                    const isType7 = p.variants.length === 2 && hasCFOrCarbon && hasForgedCF && !variantTitles.some(t => t.includes('matte')) && !variantTitles.some(t => t.includes('kevlar'));
+                    
+                    const isType8 = variantTitles.some(t => t.includes(' / '));
+
+                    if (materialSet === 'set_4') matchesMaterialSet = isSet4;
+                    else if (materialSet === 'set_5') matchesMaterialSet = isSet5;
+                    else if (materialSet === 'type_1') matchesMaterialSet = isType1;
+                    else if (materialSet === 'type_2') matchesMaterialSet = isType2;
+                    else if (materialSet === 'type_3') matchesMaterialSet = isType3;
+                    else if (materialSet === 'type_4') matchesMaterialSet = isType4;
+                    else if (materialSet === 'type_5') matchesMaterialSet = isType5;
+                    else if (materialSet === 'type_6') matchesMaterialSet = isType6;
+                    else if (materialSet === 'type_7') matchesMaterialSet = isType7;
+                    else if (materialSet === 'type_8') matchesMaterialSet = isType8;
+                    else if (materialSet === 'others') {
+                        matchesMaterialSet = !isSet4 && !isSet5 && !isType1 && !isType2 && !isType3 && !isType4 && !isType5 && !isType6 && !isType7 && !isType8;
+                    }
+                }
+
+                // Tab filters
+                let matchesTab = true;
+                if (currentTab === 'brands') {
+                    matchesTab = p.edited_folder_path && 
+                                 !p.edited_folder_path.includes("Created folder") && 
+                                 !p.edited_folder_path.includes("Yet to send");
+                } else if (currentTab === 'telegram') {
+                    matchesTab = p.edited_folder_path && (
+                                 p.edited_folder_path.includes("Created folder") || 
+                                 p.edited_folder_path.includes("Yet to send")
+                    );
+                } else if (currentTab === 'missing') {
+                    matchesTab = !p.edited_folder_path;
+                }
+
+                return matchesMake && matchesFilter && matchesStatus && matchesSearch && 
+                       matchesCreatedFolder && matchesHideSynced && matchesEdited && matchesTab &&
+                       matchesSingleOption && matchesMaterialSet;
             });
 
             document.getElementById('visible-count').textContent = filtered.length;
-            const makeFilteredTotal = productsData.filter(p => currentMake === 'all' || p.make === currentMake).length;
+            
+            // Calculate total matching brand for this tab
+            let tabFilteredData = [];
+            if (currentTab === 'brands') {
+                tabFilteredData = productsData.filter(p => p.edited_folder_path && 
+                    !p.edited_folder_path.includes("Created folder") && 
+                    !p.edited_folder_path.includes("Yet to send"));
+            } else if (currentTab === 'telegram') {
+                tabFilteredData = productsData.filter(p => p.edited_folder_path && (
+                    p.edited_folder_path.includes("Created folder") || 
+                    p.edited_folder_path.includes("Yet to send")
+                ));
+            } else {
+                tabFilteredData = productsData.filter(p => !p.edited_folder_path);
+            }
+            const makeFilteredTotal = tabFilteredData.filter(p => currentMake === 'all' || p.make === currentMake).length;
             document.getElementById('total-count').textContent = makeFilteredTotal;
             
             updateStats();

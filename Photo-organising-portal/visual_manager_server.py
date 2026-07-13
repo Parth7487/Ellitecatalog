@@ -2,6 +2,7 @@ import http.server
 import json
 import urllib.request
 import urllib.parse
+import urllib.error
 import ssl
 import re
 import os
@@ -379,6 +380,283 @@ def send_telegram_document(token, chat_id, file_path, caption="", custom_filenam
         return {"success": False, "error": f"Failed to send to Telegram: {e}"}
 
 
+HANDLE_MAP = {
+    # Mazdaspeed Wing
+    "mazda-rx-7-fd3s-mazdaspeed-rear-wing": "eti-mazda-rx-7-fd3s-mazdaspeed-rear-wing",
+    # The 3 Hoods
+    "eti-honda-ek9-oem-hood-2": "eti-honda-ek9-oem-hood",
+    "eti-honda-jazz-fit-gd-j-s-racing-spec-carbon-fiber-hood": "eti-honda-jazz-fit-gd-js-racing-spec-carbon-fiber-hood",
+    "eti-mitsubishi-evo-x-mod-x-vented-carbon-fiber-hood-copy": "eti-mitsubishi-evo-x-carbon-fiber-x-clear-hood",
+    # The 5 mixed-up RX8 products
+    "rx8-fender-fins-add-on-a-rx8-fin-fender-copy": "rx8-b-pillar-cover-a-rx8-bpila",
+    "rx8-dash-mount-triple-gauge-pod-rhd-60mm-a-rx8-pod-3h-copy": "rx8-carbon-eyebrow-a-rx8-eye",
+    "rx8-b-pillar-cover-a-rx8-bpila-copy": "rx8-dash-mount-triple-gauge-pod-rhd-60mm-a-rx8-pod-3h",
+    "rx8-carbon-side-mirror-cover-copy": "rx8-fender-fins-add-on-a-rx8-fin-fender",
+    "r32-gtr-ni-style-bonnet-hood-lip-copy-1": "rx8-rear-roof-spoiler-all-model-b-rx8-rs-rf",
+    # Jun Style Wing
+    "r34-gtt-gtr-jun-style-wing-higher-legs-20-5-cm": "r34-gtt-gtr-jun-style-spoiler-wing-higher-legs-20-5-cm",
+    # RX8 Rear Trunk Lip Spoiler
+    "rx8-rear-roof-spoiler-all-model-b-rx8-rs-rf-copy": "eti-mazda-rx-8-rear-trunk-lip-spoiler",
+    # Supra A90 Dry Carbon Wing
+    "toyota-supra-a90-dry-carbon-wing-2": "toyota-supra-a90-dry-carbon-wing"
+}
+
+def get_live_and_demo_tokens():
+    live_token = 'shpat_' + '6697774f75957f072c08f1fb69242689'
+    demo_token = 'shpat_' + 'e07f20b75af4d0728a7b24f84e16cf94'
+    
+    # Try reading from Season_2/.env and Season_2/.env.ellite-ti
+    for root_dir in [os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "/Users/parth/Downloads/Projects/Elite ti/ELLITE_MAIN/Season_2 "]:
+        live_env = os.path.join(root_dir, '.env')
+        if os.path.exists(live_env):
+            with open(live_env, 'r') as f:
+                for line in f:
+                    if line.startswith('SHOPIFY_ACCESS_TOKEN='):
+                        live_token = line.strip().split('=', 1)[1].strip('"\'')
+                        break
+        demo_env = os.path.join(root_dir, '.env.ellite-ti')
+        if os.path.exists(demo_env):
+            with open(demo_env, 'r') as f:
+                for line in f:
+                    if line.startswith('SHOPIFY_ACCESS_TOKEN='):
+                        demo_token = line.strip().split('=', 1)[1].strip('"\'')
+                        break
+    return live_token, demo_token
+
+def get_product_details_from_both_stores(handle):
+    live_token, demo_token = get_live_and_demo_tokens()
+    
+    live_variants = []
+    live_title = ""
+    live_url = f"https://myeliteti.myshopify.com/admin/api/2024-01/products.json?handle={handle}"
+    req = urllib.request.Request(live_url, headers={"X-Shopify-Access-Token": live_token, "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, context=ctx, timeout=15) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+            prods = data.get("products", [])
+            if prods:
+                live_title = prods[0].get("title", "")
+                live_variants = [{"title": v["title"], "price": v["price"]} for v in prods[0].get("variants", [])]
+    except Exception as e:
+        print(f"Error fetching live product {handle} details: {e}")
+
+    demo_variants = []
+    demo_title = ""
+    demo_handle = HANDLE_MAP.get(handle, handle)
+    demo_url = f"https://ellite-ti.myshopify.com/admin/api/2024-01/products.json?handle={demo_handle}"
+    req = urllib.request.Request(demo_url, headers={"X-Shopify-Access-Token": demo_token, "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, context=ctx, timeout=15) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+            prods = data.get("products", [])
+            if prods:
+                demo_title = prods[0].get("title", "")
+                demo_variants = [{"title": v["title"], "price": v["price"]} for v in prods[0].get("variants", [])]
+    except Exception as e:
+        print(f"Error fetching demo product {demo_handle} details: {e}")
+        
+    return {
+        "liveTitle": live_title,
+        "liveVariants": live_variants,
+        "demoTitle": demo_title,
+        "demoVariants": demo_variants
+    }
+
+def log_sync_history(handle, live_title, old_variants, new_variants):
+    history_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sync_history.json")
+    import datetime
+    
+    timestamp = datetime.datetime.utcnow().isoformat() + "Z"
+    
+    entry = {
+        "timestamp": timestamp,
+        "handle": handle,
+        "title": live_title,
+        "old_variants": [{"title": v.get("title"), "price": v.get("price")} for v in old_variants],
+        "new_variants": [{"title": v.get("title"), "price": v.get("price")} for v in new_variants]
+    }
+    
+    history_list = []
+    if os.path.exists(history_file):
+        try:
+            with open(history_file, 'r', encoding='utf-8') as f:
+                history_list = json.load(f)
+        except Exception:
+            history_list = []
+            
+    history_list.insert(0, entry) # Prepend to show newest first
+    
+    try:
+        with open(history_file, 'w', encoding='utf-8') as f:
+            json.dump(history_list, f, indent=2)
+    except Exception as e:
+        print(f"Error saving sync history: {e}")
+
+def perform_variant_sync(handle):
+    live_token, demo_token = get_live_and_demo_tokens()
+    
+    # 1. Fetch product from Demo Store
+    demo_handle = HANDLE_MAP.get(handle, handle)
+    demo_url = f"https://ellite-ti.myshopify.com/admin/api/2024-01/products.json?handle={demo_handle}"
+    req = urllib.request.Request(demo_url, headers={"X-Shopify-Access-Token": demo_token, "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, context=ctx, timeout=30) as resp:
+            demo_data = json.loads(resp.read().decode('utf-8'))
+    except Exception as e:
+        return {"success": False, "error": f"Failed to fetch from Demo Store: {str(e)}"}
+        
+    demo_products = demo_data.get("products", [])
+    if not demo_products:
+        return {"success": False, "error": f"Product handle '{demo_handle}' not found in Demo Store."}
+    demo_prod = demo_products[0]
+    
+    # 2. Fetch product from Live Store
+    live_url = f"https://myeliteti.myshopify.com/admin/api/2024-01/products.json?handle={handle}"
+    req = urllib.request.Request(live_url, headers={"X-Shopify-Access-Token": live_token, "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, context=ctx, timeout=30) as resp:
+            live_data = json.loads(resp.read().decode('utf-8'))
+    except Exception as e:
+        return {"success": False, "error": f"Failed to fetch from Live Store: {str(e)}"}
+        
+    live_products = live_data.get("products", [])
+    if not live_products:
+        return {"success": False, "error": f"Product handle '{handle}' not found in Live Store."}
+    live_prod = live_products[0]
+    live_prod_id = live_prod["id"]
+    
+    # 3. Clean options and variants in Demo product
+    demo_options = [{"name": opt["name"], "position": opt["position"], "values": opt["values"]} for opt in demo_prod["options"]]
+    
+    demo_variants = []
+    for var in demo_prod["variants"]:
+        new_var = {
+            "option1": var.get("option1"),
+            "option2": var.get("option2"),
+            "option3": var.get("option3"),
+            "price": var.get("price"),
+            "compare_at_price": var.get("compare_at_price"),
+            "sku": var.get("sku"),
+            "grams": var.get("grams"),
+            "weight": var.get("weight"),
+            "weight_unit": var.get("weight_unit"),
+            "requires_shipping": var.get("requires_shipping"),
+            "taxable": var.get("taxable")
+        }
+        demo_variants.append(new_var)
+        
+    # 4. Overwrite variants in Live Store
+    # Retrieve standard category first to bypass metafield option restrictions
+    live_prod_id_graphql = f"gid://shopify/Product/{live_prod_id}"
+    cat_query = """
+    query getCategory($id: ID!) {
+      product(id: $id) {
+        category {
+          id
+        }
+      }
+    }
+    """
+    original_category_id = None
+    try:
+        cat_res = graphql_query_store("myeliteti.myshopify.com", live_token, cat_query, {"id": live_prod_id_graphql})
+        if cat_res and "data" in cat_res and cat_res["data"].get("product"):
+            cat_obj = cat_res["data"]["product"].get("category")
+            if cat_obj:
+                original_category_id = cat_obj.get("id")
+    except Exception as e:
+        print(f"Failed to query category for {handle}: {e}")
+
+    # Temporarily clear standard category
+    clear_mutation = """
+    mutation productUpdate($input: ProductInput!) {
+      productUpdate(input: $input) {
+        userErrors { field message }
+      }
+    }
+    """
+    category_cleared = False
+    if original_category_id:
+        try:
+            graphql_query_store("myeliteti.myshopify.com", live_token, clear_mutation, {"input": {"id": live_prod_id_graphql, "category": None}})
+            category_cleared = True
+            print(f"Temporarily cleared category for product {handle}")
+        except Exception as e:
+            print(f"Failed to clear category for {handle}: {e}")
+
+    sync_result = {"success": False, "error": ""}
+    
+    try:
+        # Perform reset PUT
+        reset_data = {
+            "product": {
+                "id": live_prod_id,
+                "options": [{"name": "Title"}],
+                "variants": [{"option1": "Default Title", "price": "0.00"}]
+            }
+        }
+        reset_url = f"https://myeliteti.myshopify.com/admin/api/2024-01/products/{live_prod_id}.json"
+        req = urllib.request.Request(
+            reset_url,
+            data=json.dumps(reset_data).encode('utf-8'),
+            headers={"X-Shopify-Access-Token": live_token, "Content-Type": "application/json"},
+            method="PUT"
+        )
+        try:
+            with urllib.request.urlopen(req, context=ctx, timeout=30) as resp:
+                reset_result = json.loads(resp.read().decode('utf-8'))
+        except urllib.error.HTTPError as e:
+            err_body = e.read().decode('utf-8')
+            print(f"Shopify Reset HTTPError 422: {err_body}")
+            sync_result = {"success": False, "error": f"Failed to reset Live product variants: {err_body}"}
+            raise RuntimeError("Reset failed")
+        except Exception as e:
+            sync_result = {"success": False, "error": f"Failed to reset Live product variants: {str(e)}"}
+            raise RuntimeError("Reset failed")
+
+        # Perform update PUT
+        update_data = {
+            "product": {
+                "id": live_prod_id,
+                "options": demo_options,
+                "variants": demo_variants
+            }
+        }
+        req_update = urllib.request.Request(
+            reset_url,
+            data=json.dumps(update_data).encode('utf-8'),
+            headers={"X-Shopify-Access-Token": live_token, "Content-Type": "application/json"},
+            method="PUT"
+        )
+        try:
+            with urllib.request.urlopen(req_update, context=ctx, timeout=30) as resp:
+                final_result = json.loads(resp.read().decode('utf-8'))
+            log_sync_history(handle, live_prod.get("title"), live_prod.get("variants", []), demo_prod.get("variants", []))
+            sync_result = {"success": True, "details": f"Successfully pulled {len(demo_variants)} variants from Demo store."}
+        except urllib.error.HTTPError as e:
+            err_body = e.read().decode('utf-8')
+            print(f"Shopify Update HTTPError: {err_body}")
+            sync_result = {"success": False, "error": f"Failed to apply Demo variants to Live product: {err_body}"}
+        except Exception as e:
+            sync_result = {"success": False, "error": f"Failed to apply Demo variants to Live product: {str(e)}"}
+            
+    except Exception as exc:
+        if not sync_result["error"]:
+            sync_result = {"success": False, "error": str(exc)}
+            
+    finally:
+        # Restore Category
+        if category_cleared and original_category_id:
+            try:
+                graphql_query_store("myeliteti.myshopify.com", live_token, clear_mutation, {"input": {"id": live_prod_id_graphql, "category": original_category_id}})
+                print(f"Restored category {original_category_id} for product {handle}")
+            except Exception as e:
+                print(f"Failed to restore category for {handle}: {e}")
+                
+    return sync_result
+
+
+
 class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
     def end_headers(self):
         self.send_header('Access-Control-Allow-Origin', '*')
@@ -392,9 +670,92 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
 
     def do_GET(self):
         parsed = urllib.parse.urlparse(self.path)
-        if parsed.path == '/' or parsed.path == '/visual' or parsed.path == '/visual_audit_sheet.html' or parsed.path == '/visual_audit_sheet':
+        if parsed.path == '/variant_sync_portal.html' or parsed.path == '/variant_sync_portal':
+            html_path = os.path.join(os.path.dirname(__file__), 'variant_sync_portal.html')
+            if os.path.exists(html_path):
+                self.send_response(200)
+                self.send_header('Content-Type', 'text/html; charset=utf-8')
+                self.send_header('Cache-Control', 'no-cache')
+                self.end_headers()
+                with open(html_path, 'rb') as f:
+                    self.wfile.write(f.read())
+            else:
+                self.send_response(404)
+                self.end_headers()
+            return
+        elif parsed.path == '/api/sync/list':
+            sync_file = os.path.join(os.path.dirname(__file__), 'sync_portal_products.json')
+            products = []
+            if os.path.exists(sync_file):
+                try:
+                    with open(sync_file, 'r', encoding='utf-8') as f:
+                        products = json.load(f)
+                except Exception:
+                    pass
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            self.end_headers()
+            self.wfile.write(json.dumps({"products": products}).encode('utf-8'))
+            return
+        elif parsed.path == '/api/sync/product_details':
+            query = urllib.parse.parse_qs(parsed.query)
+            handle = query.get('handle', [None])[0]
+            if not handle:
+                self.send_response(400)
+                self.end_headers()
+                return
+            details = get_product_details_from_both_stores(handle)
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            self.end_headers()
+            self.wfile.write(json.dumps(details).encode('utf-8'))
+            return
+        elif parsed.path == '/api/sync/history':
+            history_file = os.path.join(os.path.dirname(__file__), 'sync_history.json')
+            history = []
+            if os.path.exists(history_file):
+                try:
+                    with open(history_file, 'r', encoding='utf-8') as f:
+                        history = json.load(f)
+                except Exception:
+                    pass
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            self.end_headers()
+            self.wfile.write(json.dumps({"history": history}).encode('utf-8'))
+            return
+        elif parsed.path == '/standard_both_products_links' or parsed.path == '/standard_both_products_links.html':
+            html_path = os.path.join(os.path.dirname(__file__), 'standard_both_products_links.html')
+            if os.path.exists(html_path):
+                self.send_response(200)
+                self.send_header('Content-Type', 'text/html; charset=utf-8')
+                self.send_header('Cache-Control', 'no-cache')
+                self.end_headers()
+                with open(html_path, 'rb') as f:
+                    self.wfile.write(f.read())
+            else:
+                self.send_response(404)
+                self.end_headers()
+            return
+        elif parsed.path == '/' or parsed.path == '/visual' or parsed.path == '/visual_audit_sheet.html' or parsed.path == '/visual_audit_sheet':
             # Serve visual_audit_sheet.html directly via localhost to avoid file:// mixed-content blocks
             html_path = os.path.join(os.path.dirname(__file__), 'visual_audit_sheet.html')
+            if os.path.exists(html_path):
+                self.send_response(200)
+                self.send_header('Content-Type', 'text/html; charset=utf-8')
+                self.send_header('Cache-Control', 'no-cache')
+                self.end_headers()
+                with open(html_path, 'rb') as f:
+                    self.wfile.write(f.read())
+            else:
+                self.send_response(404)
+                self.end_headers()
+            return
+        elif parsed.path == '/telegram_audit_dashboard.html' or parsed.path == '/telegram_audit_dashboard':
+            html_path = os.path.join(os.path.dirname(__file__), 'telegram_audit_dashboard.html')
             if os.path.exists(html_path):
                 self.send_response(200)
                 self.send_header('Content-Type', 'text/html; charset=utf-8')
@@ -555,7 +916,88 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
         except Exception as e:
             params = {}
 
-        if self.path == '/api/refresh_dedup':
+        if self.path == '/api/sync/add':
+            handle = params.get('handle')
+            if not handle:
+                self.send_response(400)
+                self.end_headers()
+                return
+            sync_file = os.path.join(os.path.dirname(__file__), 'sync_portal_products.json')
+            products = []
+            if os.path.exists(sync_file):
+                try:
+                    with open(sync_file, 'r', encoding='utf-8') as f:
+                        products = json.load(f)
+                except Exception:
+                    pass
+            if not any(p['handle'] == handle for p in products):
+                products.append({"handle": handle, "status": "pending"})
+                try:
+                    with open(sync_file, 'w', encoding='utf-8') as f:
+                        json.dump(products, f, indent=2)
+                except Exception:
+                    pass
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
+            return
+
+        elif self.path == '/api/sync/remove':
+            handle = params.get('handle')
+            if not handle:
+                self.send_response(400)
+                self.end_headers()
+                return
+            sync_file = os.path.join(os.path.dirname(__file__), 'sync_portal_products.json')
+            products = []
+            if os.path.exists(sync_file):
+                try:
+                    with open(sync_file, 'r', encoding='utf-8') as f:
+                        products = json.load(f)
+                except Exception:
+                    pass
+            products = [p for p in products if p['handle'] != handle]
+            try:
+                with open(sync_file, 'w', encoding='utf-8') as f:
+                    json.dump(products, f, indent=2)
+            except Exception:
+                pass
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True}).encode('utf-8'))
+            return
+
+        elif self.path == '/api/sync/pull':
+            handle = params.get('handle')
+            if not handle:
+                self.send_response(400)
+                self.end_headers()
+                return
+            
+            res = perform_variant_sync(handle)
+            
+            sync_file = os.path.join(os.path.dirname(__file__), 'sync_portal_products.json')
+            if os.path.exists(sync_file):
+                try:
+                    with open(sync_file, 'r', encoding='utf-8') as f:
+                        products = json.load(f)
+                    for p in products:
+                        if p['handle'] == handle:
+                            p['status'] = 'synced' if res.get('success') else 'mismatch'
+                    with open(sync_file, 'w', encoding='utf-8') as f:
+                        json.dump(products, f, indent=2)
+                except Exception:
+                    pass
+            
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(res).encode('utf-8'))
+            return
+
+        elif self.path == '/api/refresh_dedup':
             print("Refreshing deduplication analysis...")
             try:
                 import subprocess
@@ -2258,6 +2700,77 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
             self.wfile.write(json.dumps({"success": success, "error": error_msg}).encode('utf-8'))
             return
 
+        elif self.path == '/api/telegram/sync':
+            folder_name = params.get('folderName')
+            brand = params.get('brand')
+            model = params.get('model')
+            product_id = params.get('productId')
+            product_title = params.get('productTitle')
+            
+            if not folder_name or not brand or not model or not product_id or not product_title:
+                self.send_response(400)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": "Missing parameters"}).encode('utf-8'))
+                return
+                
+            try:
+                # 1. Setup paths
+                backlog_path = os.path.join("/Users/parth/Downloads/Shopifydevstudio/_TG_Unmatched_Backlog", folder_name)
+                product_title_sanitized = product_title.replace('/', '-').replace('\\', '-')
+                
+                # Check target base
+                dest_base = f"/Users/parth/Downloads/Shopifydevstudio/Created folder and sent to telegram/{brand}/{model}/{product_title_sanitized}"
+                edited_dir = os.path.join(dest_base, "edited")
+                os.makedirs(edited_dir, exist_ok=True)
+                
+                # 2. Move files from backlog_path to edited_dir
+                moved_count = 0
+                if os.path.exists(backlog_path):
+                    for root, dirs, files in os.walk(backlog_path):
+                        for file in files:
+                            if not file.startswith('.'):
+                                src_file = os.path.join(root, file)
+                                dest_file = os.path.join(edited_dir, file)
+                                # Copy and remove to handle potential mount boundaries, or shutil.move
+                                shutil.move(src_file, dest_file)
+                                moved_count += 1
+                                
+                    # Cleanup backlog folder
+                    shutil.rmtree(backlog_path, ignore_errors=True)
+                
+                # 3. Create metadata file
+                short_id = str(product_id).split('/')[-1]
+                meta_file_path = os.path.join(dest_base, f"{product_title_sanitized}.txt")
+                with open(meta_file_path, 'w', encoding='utf-8') as f:
+                    f.write(f"Product: {product_title}\n")
+                    f.write(f"Shopify ID: {short_id}\n")
+                    f.write(f"Category: Kits\n")
+                    f.write(f"Make: {brand}\n")
+                    f.write(f"Model: {model}\n")
+                    f.write(f"Status: Folder Auto-Generated\n")
+                    
+                # 4. Create .tg_sent marker file
+                with open(os.path.join(dest_base, ".tg_sent"), 'w') as f:
+                    f.write(str(int(time.time())))
+                    
+                # 5. Regenerate main contact sheet html
+                import subprocess
+                script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'generate_contact_sheet.py')
+                subprocess.Popen(["python3", script_path])
+                
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": True, "moved_count": moved_count}).encode('utf-8'))
+                
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
+            return
+
         elif self.path == '/api/calibration_log':
             log_path = os.path.join(os.path.dirname(__file__), 'antigravity_calibration_log.json')
             log_data = {"weight_calibrations": [], "product_renames": [], "variant_deletions": [], "handle_redirects": []}
@@ -2272,6 +2785,144 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps({"success": True, "log": log_data}).encode('utf-8'))
+            return
+
+        elif self.path == '/api/push_local_images':
+            folder_path = params.get('folderPath')
+            product_id = params.get('productId')
+            
+            if not folder_path or not product_id:
+                self.send_response(400)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": "Missing folderPath or productId"}).encode('utf-8'))
+                return
+                
+            graphql_prod_id = product_id if product_id.startswith('gid://') else f"gid://shopify/Product/{product_id}"
+            
+            # Scan local images
+            edited_dir = os.path.join(folder_path, "edited")
+            local_files = []
+            if os.path.exists(edited_dir):
+                for f in os.listdir(edited_dir):
+                    if f.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')):
+                        local_files.append(os.path.join(edited_dir, f))
+            else:
+                if os.path.exists(folder_path):
+                    for f in os.listdir(folder_path):
+                        if f.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')) and f.lower().startswith('shopify_'):
+                            local_files.append(os.path.join(folder_path, f))
+            
+            # Abort if no local files to avoid leaving the product gallery completely empty
+            if not local_files:
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": False, "error": "No local images found in folder"}).encode('utf-8'))
+                return
+
+            # Fetch all existing product media IDs on Shopify
+            existing_media_ids = []
+            try:
+                media_query = """
+                query getProductMedia($id: ID!) {
+                  product(id: $id) {
+                    media(first: 50) {
+                      nodes {
+                        id
+                      }
+                    }
+                  }
+                }
+                """
+                mq_res = graphql_query(media_query, {"id": graphql_prod_id})
+                media_nodes = mq_res.get('data', {}).get('product', {}).get('media', {}).get('nodes', [])
+                existing_media_ids = [node.get('id') for node in media_nodes if node.get('id')]
+            except Exception as e:
+                print("Error fetching existing media for deletion:", e)
+
+            # Delete all existing media if found
+            if existing_media_ids:
+                try:
+                    delete_mutation = """
+                    mutation productDeleteMedia($mediaIds: [ID!]!, $productId: ID!) {
+                      productDeleteMedia(mediaIds: $mediaIds, productId: $productId) {
+                        deletedMediaIds
+                        userErrors {
+                          field
+                          message
+                        }
+                      }
+                    }
+                    """
+                    del_res = graphql_query(delete_mutation, {"mediaIds": existing_media_ids, "productId": graphql_prod_id})
+                    print(f"Deleted existing media on Shopify: {del_res}")
+                except Exception as e:
+                    print("Error deleting existing media:", e)
+                        
+            uploaded_urls = []
+            import mimetypes
+            
+            for file_path in local_files:
+                try:
+                    with open(file_path, 'rb') as f:
+                        file_bytes = f.read()
+                    filename = os.path.basename(file_path)
+                    mime_type, _ = mimetypes.guess_type(file_path)
+                    if not mime_type:
+                        mime_type = 'image/jpeg'
+                    upload_to_shopify_bytes(file_bytes, filename, mime_type, graphql_prod_id)
+                except Exception as ex:
+                    print(f"Error uploading file {file_path}: {ex}")
+            
+            # Query the product images directly from Shopify to get the complete current list of images
+            latest_images = []
+            try:
+                prod_query = """
+                query getProduct($id: ID!) {
+                  product(id: $id) {
+                    images(first: 50) {
+                      nodes {
+                        url
+                      }
+                    }
+                  }
+                }
+                """
+                # Wait 2 seconds for processing to finish
+                time.sleep(2)
+                pq_res = graphql_query(prod_query, {"id": graphql_prod_id})
+                nodes = pq_res.get('data', {}).get('product', {}).get('images', {}).get('nodes', [])
+                for node in nodes:
+                    url = node.get('url')
+                    if url:
+                        latest_images.append(url)
+            except Exception as e:
+                print("Error fetching latest product images:", e)
+                    
+            # Update cache file shopify_products_cache.json
+            try:
+                cache_file = os.path.join(os.path.dirname(__file__), 'shopify_products_cache.json')
+                if os.path.exists(cache_file):
+                    with open(cache_file, 'r', encoding='utf-8') as cf:
+                        products_cache = json.load(cf)
+                    
+                    clean_id = product_id.split('/')[-1]
+                    for p in products_cache:
+                        p_id = str(p.get('id', '')).split('/')[-1]
+                        if p_id == clean_id:
+                            p['images'] = [{"src": url} for url in latest_images]
+                            break
+                            
+                    with open(cache_file, 'w', encoding='utf-8') as cf:
+                        json.dump(products_cache, cf, indent=2)
+            except Exception as ex:
+                print(f"Error updating cache after push: {ex}")
+                
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "uploaded_urls": latest_images}).encode('utf-8'))
             return
 
         else:
