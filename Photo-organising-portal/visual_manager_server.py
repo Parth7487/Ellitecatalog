@@ -2477,6 +2477,15 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
 
             def get_brand(title):
                 t = title.upper()
+                
+                # Replicas & Styling Kits: multi-brand titles classify under base vehicle brand
+                if 'TOYOTA' in t and ('PORSCHE' in t or 'CARRERA' in t):
+                    return 'TOYOTA'
+                if 'MRS' in t and ('PORSCHE' in t or 'CARRERA' in t):
+                    return 'TOYOTA'
+                if 'MR2' in t and ('PORSCHE' in t or 'CARRERA' in t):
+                    return 'TOYOTA'
+
                 t_clean = t.replace(' ', '')
                 if 'W140' in t_clean or 'W220' in t_clean: return 'BENZ'
                 if 'EVO' in t and 'REVO' not in t: return 'MITSUBISHI'
@@ -2503,38 +2512,46 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                 p_title_low = p_title.lower()
                 v_title_low = v_title.lower()
                 
-                is_generic = any(x in v_title_low for x in ["default title", "gloss carbon", "matte carbon", "forged carbon", "kevlar", "frp", "fiberglass"])
-                check_str = p_title_low if is_generic else v_title_low
-                
-                # Exclude complete kits first
-                if "complete body kit" in check_str or "body kit" in check_str or "complete kit" in check_str:
+                def match_component(check_str):
+                    if "lip" in check_str or "splitter" in check_str:
+                        return "Front Lip"
+                    if "front bumper" in check_str:
+                        return "Front Bumper"
+                    if "rear bumper" in check_str:
+                        return "Rear Bumper"
+                    if "bumper" in check_str:
+                        return "Front Bumper"
+                    if "hood" in check_str or "bonnet" in check_str:
+                        if is_large_hood(p_title) or is_large_hood(v_title):
+                            return "Large Hood (Supra, etc.)"
+                        else:
+                            return "Regular Hood"
+                    if "side skirt" in check_str or "skirt" in check_str:
+                        return "Side Skirts (Pair)"
+                    if "trunk" in check_str or "boot" in check_str:
+                        return "Trunk / Boot"
+                    if "fender" in check_str:
+                        return "Front Fender (Pair)"
+                    if "door" in check_str:
+                        return "Door"
+                    if "wing" in check_str or "spoiler" in check_str:
+                        return "GT Wing"
+                    if "diffuser" in check_str:
+                        return "Rear Diffuser"
                     return None
+
+                # Rule 1: Prioritize Variant Title for specific components
+                v_cat = match_component(v_title_low)
+                if v_cat:
+                    return v_cat
                     
-                if "lip" in check_str or "splitter" in check_str:
-                    return "Front Lip"
-                if "front bumper" in check_str:
-                    return "Front Bumper"
-                if "rear bumper" in check_str:
-                    return "Rear Bumper"
-                if "bumper" in check_str:
-                    return "Front Bumper"
-                if "hood" in check_str or "bonnet" in check_str:
-                    if is_large_hood(p_title) or is_large_hood(v_title):
-                        return "Large Hood (Supra, etc.)"
-                    else:
-                        return "Regular Hood"
-                if "side skirt" in check_str or "skirt" in check_str:
-                    return "Side Skirts (Pair)"
-                if "trunk" in check_str or "boot" in check_str:
-                    return "Trunk / Boot"
-                if "fender" in check_str:
-                    return "Front Fender (Pair)"
-                if "door" in check_str:
-                    return "Door"
-                if "wing" in check_str or "spoiler" in check_str:
-                    return "GT Wing"
-                if "diffuser" in check_str:
-                    return "Rear Diffuser"
+                # Rule 2: Fall back to Product Title only if variant title is a generic option
+                is_generic = any(x in v_title_low for x in ["default title", "gloss carbon", "matte carbon", "forged carbon", "kevlar", "frp", "fiberglass"])
+                if is_generic:
+                    if "complete body kit" in p_title_low or "body kit" in p_title_low or "complete kit" in p_title_low:
+                        return None
+                    return match_component(p_title_low)
+                    
                 return None
 
             audit_results = []
