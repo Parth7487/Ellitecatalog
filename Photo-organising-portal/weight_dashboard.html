@@ -539,11 +539,25 @@
                     <button class="filter-btn" id="cat-btn-FrontLip" onclick="setCategoryFilter('Front Lip')">Front Lips</button>
                 </div>
 
-                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
                     <label class="toggle-mismatches">
                         <input type="checkbox" id="mismatchOnlyCheck" onchange="toggleMismatchesOnly()">
                         Show mismatches only
                     </label>
+
+                    <label class="toggle-mismatches">
+                        <input type="checkbox" id="zeroOnlyCheck" onchange="toggleZeroOnly()">
+                        Show 0.0 kg only
+                    </label>
+
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">Sort:</span>
+                        <select id="sortBySelect" onchange="handleSort()" style="background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-main); padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.85rem; outline: none; cursor: pointer;">
+                            <option value="title-az" style="background: var(--bg-base);">Title (A-Z)</option>
+                            <option value="weight-asc" style="background: var(--bg-base);">Weight (Lowest first)</option>
+                            <option value="status-mismatch" style="background: var(--bg-base);">Status (Mismatches first)</option>
+                        </select>
+                    </div>
 
                     <div class="search-box">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -686,7 +700,19 @@
     let currentBrandFilter = 'ALL';
     let currentCategoryFilter = 'ALL';
     let mismatchOnly = false;
+    let zeroOnly = false;
+    let sortBy = 'title-az';
     let searchQuery = '';
+
+    function toggleZeroOnly() {
+        zeroOnly = document.getElementById('zeroOnlyCheck').checked;
+        renderDashboard();
+    }
+
+    function handleSort() {
+        sortBy = document.getElementById('sortBySelect').value;
+        renderDashboard();
+    }
 
     async function loadData(forceRefresh = false) {
         const btn = document.getElementById('refreshBtn');
@@ -814,17 +840,63 @@
     }
 
     function renderDashboard() {
+        // Group all variants by Product ID + Category
+        const groupedMap = {};
+        allVariants.forEach(v => {
+            const key = `${v.productId}-${v.category}`;
+            if (!groupedMap[key]) {
+                groupedMap[key] = {
+                    productId: v.productId,
+                    title: v.title,
+                    brand: v.brand,
+                    category: v.category,
+                    expectedWeight: v.expectedWeight,
+                    boxSize: v.boxSize,
+                    variants: []
+                };
+            }
+            groupedMap[key].variants.push(v);
+        });
+
+        // Convert groupedMap to list of product-level entries
+        const productRows = Object.values(groupedMap).map(pEntry => {
+            const isMatch = pEntry.variants.every(v => v.isMatch);
+            const hasZeroWeight = pEntry.variants.some(v => v.weightKg === 0.0);
+            const variantTitles = pEntry.variants.map(v => v.variantTitle).join(', ');
+            const variantIds = pEntry.variants.map(v => v.variantId);
+            
+            const weights = pEntry.variants.map(v => v.currentWeight);
+            const uniqueWeights = [...new Set(weights)];
+            const currentWeightStr = uniqueWeights.length === 1 ? uniqueWeights[0] : uniqueWeights.join(', ');
+            
+            const weightKg = pEntry.variants[0].weightKg;
+            const skus = pEntry.variants.map(v => v.sku).filter(x => x && x !== "N/A");
+            const skuStr = skus.length > 0 ? [...new Set(skus)].join(', ') : 'No SKU';
+            
+            return {
+                ...pEntry,
+                variantTitles,
+                variantIds,
+                currentWeight: currentWeightStr,
+                weightKg,
+                isMatch,
+                hasZeroWeight,
+                sku: skuStr
+            };
+        });
+
         // Filter list
-        const filtered = allVariants.filter(v => {
-            const brandMatch = (currentBrandFilter === 'ALL' || v.brand === currentBrandFilter);
-            const categoryMatch = (currentCategoryFilter === 'ALL' || v.category === currentCategoryFilter);
-            const statusMatch = (!mismatchOnly || !v.isMatch);
+        const filtered = productRows.filter(p => {
+            const brandMatch = (currentBrandFilter === 'ALL' || p.brand === currentBrandFilter);
+            const categoryMatch = (currentCategoryFilter === 'ALL' || p.category === currentCategoryFilter);
+            const statusMatch = (!mismatchOnly || !p.isMatch);
+            const zeroMatch = (!zeroOnly || p.hasZeroWeight);
             const searchMatch = (!searchQuery || 
-                v.title.toLowerCase().includes(searchQuery) || 
-                v.variantTitle.toLowerCase().includes(searchQuery) || 
-                (v.sku && v.sku.toLowerCase().includes(searchQuery))
+                p.title.toLowerCase().includes(searchQuery) || 
+                p.variantTitles.toLowerCase().includes(searchQuery) || 
+                p.sku.toLowerCase().includes(searchQuery)
             );
-            return brandMatch && categoryMatch && statusMatch && searchMatch;
+            return brandMatch && categoryMatch && statusMatch && zeroMatch && searchMatch;
         });
 
         // Compute metrics
@@ -845,6 +917,26 @@
         document.getElementById('statMismatches').innerText = mismatchesCount;
         document.getElementById('statAdherence').innerHTML = `${adherencePct}<span>%</span>`;
 
+        // Group filtered by category
+        const groups = {};
+        categoryOrder.forEach(cat => { groups[cat] = []; });
+        filtered.forEach(p => {
+            if (groups[p.category]) {
+                groups[p.category].push(p);
+            }
+        });
+
+        // Sort inside category group
+        categoryOrder.forEach(cat => {
+            if (sortBy === 'title-az') {
+                groups[cat].sort((a, b) => a.title.localeCompare(b.title));
+            } else if (sortBy === 'weight-asc') {
+                groups[cat].sort((a, b) => a.weightKg - b.weightKg);
+            } else if (sortBy === 'status-mismatch') {
+                groups[cat].sort((a, b) => (a.isMatch === b.isMatch ? 0 : (a.isMatch ? 1 : -1)));
+            }
+        });
+
         // Render Category-Wise Sections
         const container = document.getElementById('categoriesContainer');
         if (filtered.length === 0) {
@@ -856,15 +948,6 @@
             return;
         }
 
-        // Group filtered by category
-        const groups = {};
-        categoryOrder.forEach(cat => { groups[cat] = []; });
-        filtered.forEach(v => {
-            if (groups[v.category]) {
-                groups[v.category].push(v);
-            }
-        });
-
         let containerHtml = '';
         categoryOrder.forEach(cat => {
             const list = groups[cat] || [];
@@ -875,7 +958,7 @@
                 return; // Hide empty if search is active
             }
 
-            const mismatchesInGroup = list.filter(v => !v.isMatch).length;
+            const mismatchesInGroup = list.filter(p => !p.isMatch).length;
             const targetWeight = list.length > 0 ? list[0].expectedWeight : 0.0;
             const targetBox = list.length > 0 ? list[0].boxSize : '';
 
@@ -894,25 +977,30 @@
                 `;
             }
 
-            const tableRows = list.map(v => {
-                const statusHtml = v.isMatch 
+            const tableRows = list.map(p => {
+                const statusHtml = p.isMatch 
                     ? `<span class="status-match"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Calibrated</span>`
                     : `<span class="status-mismatch"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Mismatch</span>`;
                 
-                const btnHtml = v.isMatch
+                const vIdsJson = JSON.stringify(p.variantIds);
+                const btnHtml = p.isMatch
                     ? `<button class="btn-action" disabled>Calibrated</button>`
-                    : `<button class="btn-action" onclick="fixWeight('${v.productId}', '${v.variantId}', ${v.expectedWeight}, this)">Fix Weight</button>`;
+                    : `<button class="btn-action" onclick='fixGroupWeight("${p.productId}", ${vIdsJson}, ${p.expectedWeight}, this)'>Fix Weight</button>`;
 
                 return `
-                    <tr id="row-${v.variantId}">
+                    <tr>
                         <td class="product-title-cell">
-                            <div class="product-title">${v.title}</div>
-                            <div class="product-handle">${v.sku || 'No SKU'}</div>
+                            <div class="product-title">${p.title}</div>
+                            <div class="product-handle">${p.sku}</div>
                         </td>
-                        <td>${v.variantTitle}</td>
-                        <td><span class="badge badge-brand">${v.brand}</span></td>
-                        <td style="font-weight: 500;">${v.currentWeight}</td>
-                        <td style="font-weight: 600; color: #a5b4fc;">${v.expectedWeight} kg</td>
+                        <td>
+                            <div style="font-size: 0.85rem; line-height: 1.4; color: var(--text-main); font-weight: 500;">
+                                ${p.variantTitles}
+                            </div>
+                        </td>
+                        <td><span class="badge badge-brand">${p.brand}</span></td>
+                        <td style="font-weight: 500;">${p.currentWeight}</td>
+                        <td style="font-weight: 600; color: #a5b4fc;">${p.expectedWeight} kg</td>
                         <td class="status-cell">${statusHtml}</td>
                         <td>${btnHtml}</td>
                     </tr>
@@ -963,7 +1051,7 @@
         container.innerHTML = containerHtml;
     }
 
-    async function fixWeight(productId, variantId, targetWeight, btn) {
+    async function fixGroupWeight(productId, variantIds, targetWeight, btn) {
         if (!targetWeight) return;
         btn.disabled = true;
         btn.innerText = "Syncing...";
@@ -974,21 +1062,23 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     productId: productId,
-                    variantId: variantId,
+                    variantIds: variantIds,
                     weight: parseFloat(targetWeight)
                 })
             });
             const data = await res.json();
             if (data.success) {
                 // Update local model
-                const variant = allVariants.find(v => v.variantId === variantId);
-                if (variant) {
-                    variant.isMatch = true;
-                    variant.currentWeight = `${targetWeight} KILOGRAMS`;
-                    variant.weightKg = parseFloat(targetWeight);
-                }
+                variantIds.forEach(vId => {
+                    const variant = allVariants.find(v => v.variantId === vId);
+                    if (variant) {
+                        variant.isMatch = true;
+                        variant.currentWeight = `${targetWeight} KILOGRAMS`;
+                        variant.weightKg = parseFloat(targetWeight);
+                    }
+                });
 
-                showToast("Variant weight calibrated successfully!");
+                showToast("Product variant weights calibrated successfully!");
                 updateFilterButtonLabels();
                 renderDashboard();
             } else {

@@ -2686,9 +2686,21 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
         elif self.path == '/api/update_variant_weight':
             product_id = params.get('productId', '')
             variant_id = params.get('variantId', '')
+            variant_ids_list = params.get('variantIds', [])
             weight = params.get('weight', 0.0)
             
-            if not product_id or not variant_id:
+            ids_to_update = []
+            if variant_ids_list:
+                ids_to_update = variant_ids_list
+            elif isinstance(variant_id, list):
+                ids_to_update = variant_id
+            elif isinstance(variant_id, str) and variant_id:
+                if ',' in variant_id:
+                    ids_to_update = [x.strip() for x in variant_id.split(',') if x.strip()]
+                else:
+                    ids_to_update = [variant_id]
+            
+            if not product_id or not ids_to_update:
                 self.send_response(400)
                 self.send_header('Content-Type', 'application/json')
                 self.end_headers()
@@ -2703,10 +2715,11 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
               }
             }
             """
-            res = graphql_query(bulk_update_mutation, {
-                "productId": product_id,
-                "variants": [{
-                    "id": variant_id,
+            
+            variants_payload = []
+            for v_id in ids_to_update:
+                variants_payload.append({
+                    "id": v_id,
                     "inventoryItem": {
                         "measurement": {
                             "weight": {
@@ -2715,7 +2728,11 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                             }
                         }
                     }
-                }]
+                })
+                
+            res = graphql_query(bulk_update_mutation, {
+                "productId": product_id,
+                "variants": variants_payload
             })
             
             success = False
