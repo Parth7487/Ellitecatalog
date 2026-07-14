@@ -154,6 +154,8 @@
         }
 
         .stat-card.total::before { background: var(--primary); }
+        .stat-card.listed-products::before { background: #818cf8; }
+        .stat-card.unlisted-products::before { background: #fb7185; }
         .stat-card.matches::before { background: var(--success); }
         .stat-card.mismatches::before { background: var(--danger); }
         .stat-card.percentage::before { background: var(--warning); }
@@ -475,6 +477,14 @@
             <div class="stat-label">Total Active Variants</div>
             <div class="stat-val" id="statTotal">-</div>
         </div>
+        <div class="stat-card listed-products">
+            <div class="stat-label">Listed Products (In Dashboard)</div>
+            <div class="stat-val" id="statListedProds">-</div>
+        </div>
+        <div class="stat-card unlisted-products">
+            <div class="stat-label">Unlisted Active Products</div>
+            <div class="stat-val" id="statUnlistedProds">-</div>
+        </div>
         <div class="stat-card matches">
             <div class="stat-label">✅ Matching Weights</div>
             <div class="stat-val" id="statMatches">-</div>
@@ -510,18 +520,17 @@
 
                 <div class="category-filters" style="display: flex; gap: 0.5rem; flex-wrap: wrap; border-top: 1px solid var(--glass-border); padding-top: 1rem; margin-bottom: 1.5rem;">
                     <button class="filter-btn active" id="cat-btn-ALL" onclick="setCategoryFilter('ALL')">ALL PARTS</button>
-                    <button class="filter-btn" id="cat-btn-HOOD" onclick="setCategoryFilter('HOOD')">HOODS</button>
-                    <button class="filter-btn" id="cat-btn-SPOILER" onclick="setCategoryFilter('SPOILER')">SPOILERS</button>
-                    <button class="filter-btn" id="cat-btn-FRONT_LIP" onclick="setCategoryFilter('FRONT_LIP')">FRONT LIPS</button>
-                    <button class="filter-btn" id="cat-btn-REAR_DIFFUSER" onclick="setCategoryFilter('REAR_DIFFUSER')">REAR DIFFUSERS</button>
-                    <button class="filter-btn" id="cat-btn-BUMPER" onclick="setCategoryFilter('BUMPER')">BUMPERS</button>
-                    <button class="filter-btn" id="cat-btn-BODY_KIT" onclick="setCategoryFilter('BODY_KIT')">BODY KITS</button>
-                    <button class="filter-btn" id="cat-btn-SIDE_SKIRT" onclick="setCategoryFilter('SIDE_SKIRT')">SIDE SKIRTS</button>
-                    <button class="filter-btn" id="cat-btn-TRUNK" onclick="setCategoryFilter('TRUNK')">TRUNKS</button>
-                    <button class="filter-btn" id="cat-btn-FENDER" onclick="setCategoryFilter('FENDER')">FENDERS</button>
-                    <button class="filter-btn" id="cat-btn-DOOR" onclick="setCategoryFilter('DOOR')">DOORS</button>
-                    <button class="filter-btn" id="cat-btn-HARDWARE" onclick="setCategoryFilter('HARDWARE')">HARDWARE</button>
-                    <button class="filter-btn" id="cat-btn-INTERIOR" onclick="setCategoryFilter('INTERIOR')">INTERIOR</button>
+                    <button class="filter-btn" id="cat-btn-LargeHood" onclick="setCategoryFilter('Large Hood (Supra, etc.)')">Large Hoods</button>
+                    <button class="filter-btn" id="cat-btn-RegularHood" onclick="setCategoryFilter('Regular Hood')">Regular Hoods</button>
+                    <button class="filter-btn" id="cat-btn-FrontBumper" onclick="setCategoryFilter('Front Bumper')">Front Bumpers</button>
+                    <button class="filter-btn" id="cat-btn-RearBumper" onclick="setCategoryFilter('Rear Bumper')">Rear Bumpers</button>
+                    <button class="filter-btn" id="cat-btn-SideSkirts" onclick="setCategoryFilter('Side Skirts (Pair)')">Side Skirts</button>
+                    <button class="filter-btn" id="cat-btn-TrunkBoot" onclick="setCategoryFilter('Trunk / Boot')">Trunk / Boot</button>
+                    <button class="filter-btn" id="cat-btn-FrontFender" onclick="setCategoryFilter('Front Fender (Pair)')">Fenders</button>
+                    <button class="filter-btn" id="cat-btn-Door" onclick="setCategoryFilter('Door')">Doors</button>
+                    <button class="filter-btn" id="cat-btn-GTWing" onclick="setCategoryFilter('GT Wing')">GT Wings</button>
+                    <button class="filter-btn" id="cat-btn-RearDiffuser" onclick="setCategoryFilter('Rear Diffuser')">Diffusers</button>
+                    <button class="filter-btn" id="cat-btn-FrontLip" onclick="setCategoryFilter('Front Lip')">Front Lips</button>
                 </div>
 
                 <div style="display: flex; align-items: center; gap: 1.5rem;">
@@ -537,29 +546,10 @@
                 </div>
             </div>
 
-            <!-- Table -->
-            <div class="variants-card">
-                <div class="table-responsive" style="max-height: 650px; overflow-y: auto;">
-                    <table id="auditTable">
-                        <thead>
-                            <tr>
-                                <th>Product Details</th>
-                                <th>Variant Details</th>
-                                <th>Brand</th>
-                                <th>Category</th>
-                                <th>Class</th>
-                                <th>Current Vol. Weight</th>
-                                <th>Expected Vol. Weight</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody">
-                            <tr>
-                                <td colspan="9" class="loading-state">Loading Shopify catalog weights...</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- Dynamic Category-Wise Sections Container -->
+            <div id="categoriesContainer">
+                <div class="variants-card">
+                    <div class="loading-state">Loading Shopify catalog weights...</div>
                 </div>
             </div>
         </div>
@@ -686,6 +676,7 @@
 
 <script>
     let allVariants = [];
+    let dashboardSummary = { totalActiveProducts: 0, listedProducts: 0, unlistedProducts: 0 };
     let currentBrandFilter = 'ALL';
     let currentCategoryFilter = 'ALL';
     let mismatchOnly = false;
@@ -696,13 +687,13 @@
         btn.classList.add('loading');
         btn.disabled = true;
 
-        document.getElementById('tableBody').innerHTML = `
-            <tr>
-                <td colspan="9" class="loading-state">
+        document.getElementById('categoriesContainer').innerHTML = `
+            <div class="variants-card">
+                <div class="loading-state">
                     <div style="margin-bottom: 1rem;">Querying active products & volumetric weights from Shopify...</div>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-                </td>
-            </tr>
+                </div>
+            </div>
         `;
 
         try {
@@ -714,6 +705,7 @@
             const data = await res.json();
             if (data.success) {
                 allVariants = data.variants;
+                dashboardSummary = data.summary || { totalActiveProducts: 0, listedProducts: 0, unlistedProducts: 0 };
                 updateFilterButtonLabels();
                 renderDashboard();
             } else {
@@ -728,34 +720,38 @@
         }
     }
 
+    const categoryOrder = [
+        "Large Hood (Supra, etc.)",
+        "Regular Hood",
+        "Front Bumper",
+        "Rear Bumper",
+        "Side Skirts (Pair)",
+        "Trunk / Boot",
+        "Front Fender (Pair)",
+        "Door",
+        "GT Wing",
+        "Rear Diffuser",
+        "Front Lip"
+    ];
+
     function updateFilterButtonLabels() {
         const counts = {
-            ALL: 0,
-            BMW: 0,
-            PORSCHE: 0,
-            BENZ: 0,
-            MITSUBISHI: 0,
-            TOYOTA: 0,
-            NISSAN: 0,
-            HONDA: 0,
-            MAZDA: 0,
-            AUDI: 0
+            ALL: 0, BMW: 0, PORSCHE: 0, BENZ: 0, MITSUBISHI: 0, TOYOTA: 0, NISSAN: 0, HONDA: 0, MAZDA: 0, AUDI: 0
         };
 
         const catCounts = {
             ALL: 0,
-            HOOD: 0,
-            SPOILER: 0,
-            FRONT_LIP: 0,
-            REAR_DIFFUSER: 0,
-            BUMPER: 0,
-            BODY_KIT: 0,
-            SIDE_SKIRT: 0,
-            TRUNK: 0,
-            FENDER: 0,
-            DOOR: 0,
-            HARDWARE: 0,
-            INTERIOR: 0
+            "Large Hood (Supra, etc.)": 0,
+            "Regular Hood": 0,
+            "Front Bumper": 0,
+            "Rear Bumper": 0,
+            "Side Skirts (Pair)": 0,
+            "Trunk / Boot": 0,
+            "Front Fender (Pair)": 0,
+            "Door": 0,
+            "GT Wing": 0,
+            "Rear Diffuser": 0,
+            "Front Lip": 0
         };
 
         allVariants.forEach(v => {
@@ -763,18 +759,7 @@
                 // 1. Calculate brand mismatch counts (respecting active category filter)
                 let categoryMatches = true;
                 if (currentCategoryFilter !== 'ALL') {
-                    if (currentCategoryFilter === 'HOOD') categoryMatches = (v.category === 'hood');
-                    else if (currentCategoryFilter === 'SPOILER') categoryMatches = (v.category === 'spoiler' || v.category === 'gt_wing');
-                    else if (currentCategoryFilter === 'FRONT_LIP') categoryMatches = (v.category === 'front_lip');
-                    else if (currentCategoryFilter === 'REAR_DIFFUSER') categoryMatches = (v.category === 'rear_diffuser');
-                    else if (currentCategoryFilter === 'BUMPER') categoryMatches = (v.category === 'bumper');
-                    else if (currentCategoryFilter === 'BODY_KIT') categoryMatches = (v.category === 'body_kit');
-                    else if (currentCategoryFilter === 'SIDE_SKIRT') categoryMatches = (v.category === 'side_skirt');
-                    else if (currentCategoryFilter === 'TRUNK') categoryMatches = (v.category === 'trunk');
-                    else if (currentCategoryFilter === 'FENDER') categoryMatches = (v.category === 'front_fender' || v.category === 'rear_fender');
-                    else if (currentCategoryFilter === 'DOOR') categoryMatches = (v.category === 'door');
-                    else if (currentCategoryFilter === 'HARDWARE') categoryMatches = (v.category === 'hardware');
-                    else if (currentCategoryFilter === 'INTERIOR') categoryMatches = (v.category.includes('interior') || v.category === 'door_card' || v.category === 'door_sill' || v.category === 'pillar_trim' || v.category === 'seat');
+                    categoryMatches = (v.category === currentCategoryFilter);
                 }
 
                 if (categoryMatches) {
@@ -788,18 +773,9 @@
                 const brandMatches = (currentBrandFilter === 'ALL' || v.brand === currentBrandFilter);
                 if (brandMatches) {
                     catCounts.ALL++;
-                    if (v.category === 'hood') catCounts.HOOD++;
-                    else if (v.category === 'spoiler' || v.category === 'gt_wing') catCounts.SPOILER++;
-                    else if (v.category === 'front_lip') catCounts.FRONT_LIP++;
-                    else if (v.category === 'rear_diffuser') catCounts.REAR_DIFFUSER++;
-                    else if (v.category === 'bumper') catCounts.BUMPER++;
-                    else if (v.category === 'body_kit') catCounts.BODY_KIT++;
-                    else if (v.category === 'side_skirt') catCounts.SIDE_SKIRT++;
-                    else if (v.category === 'trunk') catCounts.TRUNK++;
-                    else if (v.category === 'front_fender' || v.category === 'rear_fender') catCounts.FENDER++;
-                    else if (v.category === 'door') catCounts.DOOR++;
-                    else if (v.category === 'hardware') catCounts.HARDWARE++;
-                    else if (v.category.includes('interior') || v.category === 'door_card' || v.category === 'door_sill' || v.category === 'pillar_trim' || v.category === 'seat') catCounts.INTERIOR++;
+                    if (catCounts[v.category] !== undefined) {
+                        catCounts[v.category]++;
+                    }
                 }
             }
         });
@@ -818,42 +794,24 @@
 
         // Update category buttons
         document.getElementById('cat-btn-ALL').innerText = `ALL PARTS (${catCounts.ALL})`;
-        document.getElementById('cat-btn-HOOD').innerText = `HOODS (${catCounts.HOOD})`;
-        document.getElementById('cat-btn-SPOILER').innerText = `SPOILERS (${catCounts.SPOILER})`;
-        document.getElementById('cat-btn-FRONT_LIP').innerText = `FRONT LIPS (${catCounts.FRONT_LIP})`;
-        document.getElementById('cat-btn-REAR_DIFFUSER').innerText = `REAR DIFFUSERS (${catCounts.REAR_DIFFUSER})`;
-        document.getElementById('cat-btn-BUMPER').innerText = `BUMPERS (${catCounts.BUMPER})`;
-        document.getElementById('cat-btn-BODY_KIT').innerText = `BODY KITS (${catCounts.BODY_KIT})`;
-        document.getElementById('cat-btn-SIDE_SKIRT').innerText = `SIDE SKIRTS (${catCounts.SIDE_SKIRT})`;
-        document.getElementById('cat-btn-TRUNK').innerText = `TRUNKS (${catCounts.TRUNK})`;
-        document.getElementById('cat-btn-FENDER').innerText = `FENDERS (${catCounts.FENDER})`;
-        document.getElementById('cat-btn-DOOR').innerText = `DOORS (${catCounts.DOOR})`;
-        document.getElementById('cat-btn-HARDWARE').innerText = `HARDWARE (${catCounts.HARDWARE})`;
-        document.getElementById('cat-btn-INTERIOR').innerText = `INTERIOR (${catCounts.INTERIOR})`;
+        document.getElementById('cat-btn-LargeHood').innerText = `Large Hoods (${catCounts["Large Hood (Supra, etc.)"]})`;
+        document.getElementById('cat-btn-RegularHood').innerText = `Regular Hoods (${catCounts["Regular Hood"]})`;
+        document.getElementById('cat-btn-FrontBumper').innerText = `Front Bumpers (${catCounts["Front Bumper"]})`;
+        document.getElementById('cat-btn-RearBumper').innerText = `Rear Bumpers (${catCounts["Rear Bumper"]})`;
+        document.getElementById('cat-btn-SideSkirts').innerText = `Side Skirts (${catCounts["Side Skirts (Pair)"]})`;
+        document.getElementById('cat-btn-TrunkBoot').innerText = `Trunk / Boot (${catCounts["Trunk / Boot"]})`;
+        document.getElementById('cat-btn-FrontFender').innerText = `Fenders (${catCounts["Front Fender (Pair)"]})`;
+        document.getElementById('cat-btn-Door').innerText = `Doors (${catCounts["Door"]})`;
+        document.getElementById('cat-btn-GTWing').innerText = `GT Wings (${catCounts["GT Wing"]})`;
+        document.getElementById('cat-btn-RearDiffuser').innerText = `Diffusers (${catCounts["Rear Diffuser"]})`;
+        document.getElementById('cat-btn-FrontLip').innerText = `Front Lips (${catCounts["Front Lip"]})`;
     }
 
     function renderDashboard() {
         // Filter list
         const filtered = allVariants.filter(v => {
             const brandMatch = (currentBrandFilter === 'ALL' || v.brand === currentBrandFilter);
-            
-            // Category filter mapping
-            let categoryMatch = true;
-            if (currentCategoryFilter !== 'ALL') {
-                if (currentCategoryFilter === 'HOOD') categoryMatch = (v.category === 'hood');
-                else if (currentCategoryFilter === 'SPOILER') categoryMatch = (v.category === 'spoiler' || v.category === 'gt_wing');
-                else if (currentCategoryFilter === 'FRONT_LIP') categoryMatch = (v.category === 'front_lip');
-                else if (currentCategoryFilter === 'REAR_DIFFUSER') categoryMatch = (v.category === 'rear_diffuser');
-                else if (currentCategoryFilter === 'BUMPER') categoryMatch = (v.category === 'bumper');
-                else if (currentCategoryFilter === 'BODY_KIT') categoryMatch = (v.category === 'body_kit');
-                else if (currentCategoryFilter === 'SIDE_SKIRT') categoryMatch = (v.category === 'side_skirt');
-                else if (currentCategoryFilter === 'TRUNK') categoryMatch = (v.category === 'trunk');
-                else if (currentCategoryFilter === 'FENDER') categoryMatch = (v.category === 'front_fender' || v.category === 'rear_fender');
-                else if (currentCategoryFilter === 'DOOR') categoryMatch = (v.category === 'door');
-                else if (currentCategoryFilter === 'HARDWARE') categoryMatch = (v.category === 'hardware');
-                else if (currentCategoryFilter === 'INTERIOR') categoryMatch = (v.category.includes('interior') || v.category === 'door_card' || v.category === 'door_sill' || v.category === 'pillar_trim' || v.category === 'seat');
-            }
-
+            const categoryMatch = (currentCategoryFilter === 'ALL' || v.category === currentCategoryFilter);
             const statusMatch = (!mismatchOnly || !v.isMatch);
             const searchMatch = (!searchQuery || 
                 v.title.toLowerCase().includes(searchQuery) || 
@@ -871,43 +829,128 @@
 
         // Display metrics
         document.getElementById('statTotal').innerText = totalCount;
+        document.getElementById('statListedProds').innerText = dashboardSummary.listedProducts;
+        document.getElementById('statUnlistedProds').innerText = dashboardSummary.unlistedProducts;
         document.getElementById('statMatches').innerText = matchesCount;
         document.getElementById('statMismatches').innerText = mismatchesCount;
         document.getElementById('statAdherence').innerHTML = `${adherencePct}<span>%</span>`;
 
-        // Render Table Rows
-        const tbody = document.getElementById('tableBody');
+        // Render Category-Wise Sections
+        const container = document.getElementById('categoriesContainer');
         if (filtered.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="9" class="loading-state">No matching variants found.</td></tr>`;
+            container.innerHTML = `
+                <div class="variants-card">
+                    <div class="loading-state">No matching variants found.</div>
+                </div>
+            `;
             return;
         }
 
-        tbody.innerHTML = filtered.map(v => {
-            const statusHtml = v.isMatch 
-                ? `<span class="status-match"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Standard Match</span>`
-                : `<span class="status-mismatch"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Mismatch</span>`;
-            
-            const btnHtml = v.isMatch
-                ? `<button class="btn-action" disabled>Calibrated</button>`
-                : `<button class="btn-action" onclick="fixWeight('${v.productId}', '${v.variantId}', ${v.expectedWeight}, this)">Fix Weight</button>`;
+        // Group filtered by category
+        const groups = {};
+        categoryOrder.forEach(cat => { groups[cat] = []; });
+        filtered.forEach(v => {
+            if (groups[v.category]) {
+                groups[v.category].push(v);
+            }
+        });
 
-            return `
-                <tr id="row-${v.variantId}">
-                    <td class="product-title-cell">
-                        <div class="product-title">${v.title}</div>
-                        <div class="product-handle">${v.sku || 'No SKU'}</div>
-                    </td>
-                    <td>${v.variantTitle}</td>
-                    <td><span class="badge badge-brand">${v.brand}</span></td>
-                    <td><span class="badge badge-category">${v.category}</span></td>
-                    <td><span class="badge badge-class">${v.chassisClass}</span></td>
-                    <td style="font-weight: 500;">${v.currentWeight}</td>
-                    <td style="font-weight: 600; color: #a5b4fc;">${v.expectedWeight ? v.expectedWeight + ' kg' : 'Unknown'}</td>
-                    <td class="status-cell">${statusHtml}</td>
-                    <td>${btnHtml}</td>
-                </tr>
+        let containerHtml = '';
+        categoryOrder.forEach(cat => {
+            const list = groups[cat] || [];
+            if (list.length === 0 && currentCategoryFilter !== 'ALL' && currentCategoryFilter !== cat) {
+                return; // Hide empty if specific category filter is active
+            }
+            if (list.length === 0 && searchQuery) {
+                return; // Hide empty if search is active
+            }
+
+            const mismatchesInGroup = list.filter(v => !v.isMatch).length;
+            const targetWeight = list.length > 0 ? list[0].expectedWeight : 0.0;
+            const targetBox = list.length > 0 ? list[0].boxSize : '';
+
+            let bulkBtnHtml = '';
+            if (mismatchesInGroup > 0) {
+                bulkBtnHtml = `
+                    <button class="refresh-btn" onclick="bulkSyncCategory('${cat}', ${targetWeight}, this)" style="padding: 0.5rem 1rem; font-size: 0.8rem; background: var(--warning-glow); border-color: var(--warning); color: var(--warning);">
+                        Sync Category (${mismatchesInGroup} Mismatches)
+                    </button>
+                `;
+            } else {
+                bulkBtnHtml = `
+                    <button class="refresh-btn" disabled style="padding: 0.5rem 1rem; font-size: 0.8rem; opacity: 0.5;">
+                        Category Calibrated ✓
+                    </button>
+                `;
+            }
+
+            const tableRows = list.map(v => {
+                const statusHtml = v.isMatch 
+                    ? `<span class="status-match"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Calibrated</span>`
+                    : `<span class="status-mismatch"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Mismatch</span>`;
+                
+                const btnHtml = v.isMatch
+                    ? `<button class="btn-action" disabled>Calibrated</button>`
+                    : `<button class="btn-action" onclick="fixWeight('${v.productId}', '${v.variantId}', ${v.expectedWeight}, this)">Fix Weight</button>`;
+
+                return `
+                    <tr id="row-${v.variantId}">
+                        <td class="product-title-cell">
+                            <div class="product-title">${v.title}</div>
+                            <div class="product-handle">${v.sku || 'No SKU'}</div>
+                        </td>
+                        <td>${v.variantTitle}</td>
+                        <td><span class="badge badge-brand">${v.brand}</span></td>
+                        <td style="font-weight: 500;">${v.currentWeight}</td>
+                        <td style="font-weight: 600; color: #a5b4fc;">${v.expectedWeight} kg</td>
+                        <td class="status-cell">${statusHtml}</td>
+                        <td>${btnHtml}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            const tableHtml = list.length > 0 ? `
+                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Product Details</th>
+                                <th>Variant Details</th>
+                                <th>Brand</th>
+                                <th>Current Weight</th>
+                                <th>Expected Weight</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tableRows}
+                        </tbody>
+                    </table>
+                </div>
+            ` : `<div style="padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.9rem;">No variants in this category.</div>`;
+
+            containerHtml += `
+                <div class="category-section" style="margin-bottom: 2.5rem; background: rgba(255,255,255,0.01); border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h3 style="font-family: var(--font-accent); font-size: 1.2rem; font-weight: 600; color: #a5b4fc; display: flex; align-items: center; gap: 0.5rem;">
+                                📦 ${cat}
+                            </h3>
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
+                                Standard Size: <strong style="color: var(--text-main);">${targetBox || 'N/A'}</strong> | Target Volumetric Weight: <strong style="color: var(--text-main);">${targetWeight || 'N/A'} kg</strong>
+                            </div>
+                        </div>
+                        ${bulkBtnHtml}
+                    </div>
+                    <div class="variants-card" style="border: none; padding: 0; background: transparent;">
+                        ${tableHtml}
+                    </div>
+                </div>
             `;
-        }).join('');
+        });
+
+        container.innerHTML = containerHtml;
     }
 
     async function fixWeight(productId, variantId, targetWeight, btn) {
@@ -948,6 +991,41 @@
             showError("Network error. Could not update weight.");
             btn.disabled = false;
             btn.innerText = "Fix Weight";
+        }
+    }
+
+    async function bulkSyncCategory(categoryName, targetWeight, btn) {
+        if (!confirm(`Are you sure you want to standardize all mismatching weights in "${categoryName}" to ${targetWeight} kg?`)) {
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerText = "Standardizing Category...";
+
+        try {
+            const res = await fetch('/api/weights/bulk_update_category', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    category: categoryName,
+                    weight: parseFloat(targetWeight)
+                })
+            });
+            const data = await res.json();
+            if (data.success) {
+                showToast(`Standardized weights for ${data.updatedCount} variants!`);
+                // Reload data to reflect live values
+                await loadData(true);
+            } else {
+                showError("Error: " + data.error);
+                btn.disabled = false;
+                btn.innerText = "Sync Category";
+            }
+        } catch (e) {
+            console.error(e);
+            showError("Network error during bulk category update.");
+            btn.disabled = false;
+            btn.innerText = "Sync Category";
         }
     }
 

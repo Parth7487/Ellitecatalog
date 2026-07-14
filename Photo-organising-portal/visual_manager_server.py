@@ -2460,114 +2460,20 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                 except Exception as ex:
                     print(f"Error writing shopify products cache: {ex}")
 
-            # Audit matching
-            MATRIX = {
-                "bumper":        {"S": 105, "M": 140, "L": 170, "XL": 185},
-                "body_kit":      {"S": 156, "M": 200, "L": 220, "XL": 260},
-                "hood":          {"S": 55,  "M": 74,  "L": 98,  "XL": 112},
-                "roof":          {"S": 45,  "M": 55,  "L": 72,  "XL": 90},
-                "trunk":         {"S": 52,  "M": 67,  "L": 88,  "XL": 107},
-                "front_fender":  {"S": 46,  "M": 66,  "L": 78,  "XL": 90},
-                "rear_fender":   {"S": 30,  "M": 41,  "L": 62,  "XL": 70},
-                "door":          {"S": 40,  "M": 51,  "L": 64,  "XL": 84},
-                "front_lip":     {"S": 12,  "M": 32,  "L": 46,  "XL": 52},
-                "side_skirt":    {"S": 15,  "M": 28,  "L": 37,  "XL": 41},
-                "rear_diffuser": {"S": 12,  "M": 30,  "L": 48,  "XL": 62},
-                "spoiler":       {"S": 10,  "M": 17,  "L": 30,  "XL": 35},
-                "gt_wing":       {"S": 52,  "M": 52,  "L": 60,  "XL": 70},
-                "canards":       {"S": 2,   "M": 4,   "L": 7,   "XL": 8},
-                "mirror_cover":  {"S": 6,   "M": 6,   "L": 6,   "XL": 6},
-                "hood_vent":     {"S": 2,   "M": 4,   "L": 8,   "XL": 10},
-                "fog_cover":     {"S": 5,   "M": 5,   "L": 5,   "XL": 5},
-                "small_panel":   {"S": 5,   "M": 10,  "L": 15,  "XL": 20},
-                "interior_small":{"S": 3,   "M": 4,   "L": 5,   "XL": 6},
-                "interior_pod":  {"S": 3,   "M": 5,   "L": 8,   "XL": 13},
-                "interior_console":{"S":3,  "M": 10,  "L": 16,  "XL": 16},
-                "interior_dash": {"S": 7,   "M": 12,  "L": 20,  "XL": 25},
-                "interior_full_dash":{"S":85,"M": 95, "L": 110, "XL": 125},
-                "door_card":     {"S": 31,  "M": 38,  "L": 50,  "XL": 64},
-                "interior_kit":  {"S": 15,  "M": 25,  "L": 35,  "XL": 45},
-                "pillar_trim":   {"S": 4,   "M": 8,   "L": 12,  "XL": 16},
-                "door_sill":     {"S": 5,   "M": 8,   "L": 11,  "XL": 14},
-                "seat":          {"S": 33,  "M": 37,  "L": 45,  "XL": 55}
+            # Audit matching using GSD targeted categories and expected weights/box sizes
+            EXPECTED_SPECS = {
+                "Large Hood (Supra, etc.)": {"weight": 96.0, "box": "150 x 160 x 20 cm"},
+                "Regular Hood": {"weight": 68.0, "box": "150 x 150 x 15 cm"},
+                "Front Bumper": {"weight": 156.0, "box": "190 x 75 x 55 cm"},
+                "Rear Bumper": {"weight": 156.0, "box": "190 x 75 x 55 cm"},
+                "Side Skirts (Pair)": {"weight": 25.0, "box": "205 x 30 x 20 cm"},
+                "Trunk / Boot": {"weight": 65.0, "box": "135 x 115 x 25 cm"},
+                "Front Fender (Pair)": {"weight": 48.0, "box": "115 x 85 x 25 cm"},
+                "Door": {"weight": 64.0, "box": "140 x 115 x 20 cm"},
+                "GT Wing": {"weight": 52.0, "box": "165 x 45 x 35 cm"},
+                "Rear Diffuser": {"weight": 62.0, "box": "165 x 75 x 25 cm"},
+                "Front Lip": {"weight": 32.0, "box": "180 x 60 x 15 cm"}
             }
-
-            CHASSIS_MAP = {
-                r'\branger\b': 'XL', r'\bfortuner\b': 'XL', r'\brevo\b': 'XL', r'\bvigo\b': 'XL', r'\bhilux\b': 'XL', r'\bt7\b': 'XL', r'\bt6\b': 'XL',
-                r'\bsupra\b': 'L', r'\bskyline\b': 'L', r'\bgtr\b': 'L', r'\br32\b': 'L', r'\br33\b': 'L', r'\br34\b': 'L', r'\br35\b': 'L', 
-                r'\b350z\b': 'L', r'\b370z\b': 'L', r'\bcorvette\b': 'L', r'\bc8\b': 'L', r'\blexus\b': 'L', r'\bls430\b': 'L', r'\bls 430\b': 'L',
-                r'\brx7\b': 'M', r'\brx-7\b': 'M', r'\brx8\b': 'M', r'\brx-8\b': 'M', r'\bs13\b': 'M', r'\bs14\b': 'M', r'\bs15\b': 'M', r'\bsilvia\b': 'M',
-                r'\bevo\b': 'M', r'\blancer\b': 'M', r'\bgr86\b': 'M', r'\bbrz\b': 'M', r'\bft86\b': 'M', r'\bgt86\b': 'M', 
-                r'\be30\b': 'M', r'\be36\b': 'M', r'\be46\b': 'M', r'\be60\b': 'M', r'\be90\b': 'M', r'\be92\b': 'M', r'\be93\b': 'M', r'\bf30\b': 'M', r'\bf32\b': 'M',
-                r'\bcivic\b': 'S', r'\bek9\b': 'S', r'\beg\b': 'S', r'\bfk\b': 'S', r'\bfc\b': 'S', r'\bjazz\b': 'S', r'\bfit\b': 'S', r'\bmr2\b': 'S', r'\bmrs\b': 'S', r'\bmr-s\b': 'S'
-            }
-
-            def get_chassis_class(title):
-                title_lower = title.lower()
-                for pattern, cls in CHASSIS_MAP.items():
-                    if re.search(pattern, title_lower):
-                        return cls
-                return "M"
-
-            def get_category(title):
-                t = title.lower()
-                if any(k in t for k in ['bolt', 'nut', 'screw', 'stud', 'washer', 'hardware', 'thread', 'exhaust manifold stud', 'seat belt', 'harness']):
-                    return "hardware"
-                if any(k in t for k in ['oil cap', 'radiator cap', 'eyes kit', 'keychain', 'wallet']):
-                    return "hardware"
-                if 'body kit' in t or 'bodykit' in t:
-                    return "body_kit"
-                if 'front bumper' in t or 'rear bumper' in t:
-                    return "bumper"
-                if any(k in t for k in ['hood', 'bonnet']):
-                    return "hood"
-                if 'roof' in t:
-                    return "roof"
-                if 'trunk' in t or 'hatch' in t or 'bootlid' in t:
-                    return "trunk"
-                if 'front fender' in t:
-                    return "front_fender"
-                if 'rear fender' in t or 'fender flare' in t:
-                    return "rear_fender"
-                if 'door' in t and not 'door card' in t and not 'door sill' in t:
-                    return "door"
-                if 'front lip' in t or 'front splitter' in t or 'front diffuser' in t or 'pro lip' in t:
-                    return "front_lip"
-                if 'side skirt' in t or 'side diffuser' in t or 'door blades' in t:
-                    return "side_skirt"
-                if 'rear diffuser' in t or 'rear splitter' in t:
-                    return "rear_diffuser"
-                if 'gt wing' in t or 'gt spoiler' in t:
-                    return "gt_wing"
-                if 'spoiler' in t or 'wing' in t:
-                    return "spoiler"
-                if 'canard' in t:
-                    return "canards"
-                if 'mirror' in t:
-                    return "mirror_cover"
-                if 'hood vent' in t or 'bonnet vent' in t:
-                    return "hood_vent"
-                if 'fog' in t or 'light cover' in t:
-                    return "fog_cover"
-                if any(k in t for k in ['cooling panel', 'slam panel', 'heat shield', 'vent cover', 'radiator', 'air filter cover', 'fluid cover']):
-                    return "small_panel"
-                if 'door card' in t or 'door panel' in t:
-                    return "door_card"
-                if 'dashboard' in t or 'molded dash' in t:
-                    return "interior_full_dash"
-                if 'door sill' in t:
-                    return "door_sill"
-                if 'seat' in t:
-                    return "seat"
-                if 'pillar' in t:
-                    return "pillar_trim"
-                if 'gauge pod' in t:
-                    return "interior_pod"
-                if 'console' in t or 'armrest' in t or 'arm rest' in t:
-                    return "interior_console"
-                if 'dash' in t or 'bezel' in t or 'interior set' in t or 'interior trim' in t:
-                    return "interior_dash"
-                return "unknown"
 
             def get_brand(title):
                 t = title.upper()
@@ -2580,72 +2486,149 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                 if 'SUPRA' in t or 'GR86' in t or 'GT86' in t or 'LEXUS' in t: return 'TOYOTA'
                 if 'CIVIC' in t or 'JAZZ' in t: return 'HONDA'
                 if 'RX7' in t or 'RX-7' in t or 'RX8' in t or 'RX-8' in t: return 'MAZDA'
+                return 'OTHER'
+
+            def is_large_hood(title):
+                t = title.lower()
+                if "hood" in t or "bonnet" in t:
+                    if ("rx-7" in t or "rx7" in t) and ("re-mc" in t or "savana" in t or "re " in t or "re-" in t):
+                        return True
+                    if "supra" in t:
+                        return True
+                    if "varis" in t:
+                        return True
+                return False
+
+            def get_gsd_category(p_title, v_title):
+                p_title_low = p_title.lower()
+                v_title_low = v_title.lower()
+                
+                is_generic = any(x in v_title_low for x in ["default title", "gloss carbon", "matte carbon", "forged carbon", "kevlar", "frp", "fiberglass"])
+                check_str = p_title_low if is_generic else v_title_low
+                
+                # Exclude complete kits first
+                if "complete body kit" in check_str or "body kit" in check_str or "complete kit" in check_str:
+                    return None
+                    
+                if "front bumper" in check_str:
+                    return "Front Bumper"
+                if "rear bumper" in check_str:
+                    return "Rear Bumper"
+                if "bumper" in check_str:
+                    return "Front Bumper"
+                if "hood" in check_str or "bonnet" in check_str:
+                    if is_large_hood(p_title) or is_large_hood(v_title):
+                        return "Large Hood (Supra, etc.)"
+                    else:
+                        return "Regular Hood"
+                if "lip" in check_str or "splitter" in check_str:
+                    return "Front Lip"
+                if "side skirt" in check_str or "skirt" in check_str:
+                    return "Side Skirts (Pair)"
+                if "trunk" in check_str or "boot" in check_str:
+                    return "Trunk / Boot"
+                if "fender" in check_str:
+                    return "Front Fender (Pair)"
+                if "door" in check_str:
+                    return "Door"
+                if "wing" in check_str or "spoiler" in check_str:
+                    return "GT Wing"
+                if "diffuser" in check_str:
+                    return "Rear Diffuser"
                 return None
 
             audit_results = []
+            all_active_product_ids = set()
+            listed_product_ids = set()
+
             for p in products_list:
-                brand = get_brand(p['title'])
-                if not brand: continue
+                p_id_raw = p.get('id', '')
+                if p_id_raw:
+                    all_active_product_ids.add(p_id_raw)
+                    
+                brand = get_brand(p.get('title', ''))
                 
-                chassis_class = get_chassis_class(p['title'])
-                prod_cat = get_category(p['title'])
-                
-                for ve in p.get('variants', {}).get('edges', []):
-                    v = ve['node']
+                # Check format of variants (REST list vs GraphQL connection dict)
+                raw_variants = p.get('variants', [])
+                variants_list = []
+                if isinstance(raw_variants, list):
+                    variants_list = raw_variants
+                elif isinstance(raw_variants, dict):
+                    variants_list = [edge.get('node', {}) for edge in raw_variants.get('edges', [])]
+                    
+                for v in variants_list:
+                    # Normalize variant IDs (REST variant ids are ints)
+                    v_id = v.get('id', '')
+                    if v_id and not isinstance(v_id, str):
+                        v_id = f"gid://shopify/ProductVariant/{v_id}"
+                        
+                    p_id = p.get('id', '')
+                    if p_id and not isinstance(p_id, str):
+                        p_id = f"gid://shopify/Product/{p_id}"
+                        
                     w_val = 0.0
                     w_unit = "KILOGRAMS"
-                    m = v.get('inventoryItem', {}).get('measurement', {})
-                    if m and m.get('weight'):
-                        w_val = m['weight'].get('value', 0.0)
-                        w_unit = m['weight'].get('unit', 'KILOGRAMS')
                     
+                    # Handle weight format
+                    if 'inventoryItem' in v:
+                        m = v.get('inventoryItem', {}).get('measurement', {})
+                        if m and m.get('weight'):
+                            w_val = m['weight'].get('value', 0.0) or 0.0
+                            w_unit = m['weight'].get('unit', 'KILOGRAMS') or 'KILOGRAMS'
+                    else:
+                        w_val = float(v.get('weight', 0.0) or 0.0)
+                        w_unit = (v.get('weight_unit', 'KILOGRAMS') or 'KILOGRAMS').upper()
+                        if w_unit == 'KG':
+                            w_unit = 'KILOGRAMS'
+                            
                     w_kg = w_val
                     if w_unit == "GRAMS": w_kg = w_val / 1000.0
                     elif w_unit == "POUNDS": w_kg = w_val * 0.45359237
                     
-                    v_cat = get_category(v['title'])
-                    final_cat = v_cat if v_cat != "unknown" else prod_cat
-                    
-                    expected = None
-                    is_match = False
-                    if final_cat == "hardware":
-                        expected = 0.5
-                        is_match = (w_kg < 2.0)
-                    elif final_cat != "unknown":
-                        row = MATRIX.get(final_cat)
-                        if row:
-                            expected = row.get(chassis_class)
-                            is_match = abs(w_kg - expected) < 0.05
-                            
-                            # Large Hoods Exception
-                            if final_cat == 'hood':
-                                title_upper = p['title'].upper()
-                                is_large = any(k in title_upper for k in ['RE-MC', 'SAVANA RE', 'SUPRA', 'VARIS'])
-                                if is_large:
-                                    expected = 96.0 if any(k in title_upper for k in ['RE-MC', 'SAVANA RE']) else 98.0
-                                    is_match = abs(w_kg - 96.0) < 0.05 or abs(w_kg - 98.0) < 0.05
-                    else:
-                        is_match = True
+                    cat = get_gsd_category(p.get('title', ''), v.get('title', ''))
+                    if not cat:
+                        continue # Skip non-targeted categories (like Hardware/Accessories/Kits)
+                        
+                    # Mark product as listed since it has at least one targeted category variant
+                    if p_id_raw:
+                        listed_product_ids.add(p_id_raw)
+                        
+                    spec = EXPECTED_SPECS.get(cat)
+                    expected = spec["weight"]
+                    box_size = spec["box"]
+                    is_match = abs(w_kg - expected) < 0.05
                         
                     audit_results.append({
-                        "productId": p['id'],
-                        "variantId": v['id'],
-                        "title": p['title'],
-                        "variantTitle": v['title'],
-                        "sku": v['sku'],
+                        "productId": p_id,
+                        "variantId": v_id,
+                        "title": p.get('title', ''),
+                        "variantTitle": v.get('title', ''),
+                        "sku": v.get('sku', '') or "N/A",
                         "brand": brand,
-                        "category": final_cat,
-                        "chassisClass": chassis_class,
+                        "category": cat,
                         "currentWeight": f"{w_val} {w_unit}",
                         "weightKg": w_kg,
                         "expectedWeight": expected,
+                        "boxSize": box_size,
                         "isMatch": is_match
                     })
+
+            total_active = len(all_active_product_ids)
+            listed = len(listed_product_ids)
+            unlisted = total_active - listed
 
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
-            self.wfile.write(json.dumps({"success": True, "variants": audit_results}).encode('utf-8'))
+            self.wfile.write(json.dumps({
+                "success": True, 
+                "variants": audit_results,
+                "summary": {
+                    "totalActiveProducts": total_active,
+                    "listedProducts": listed,
+                    "unlistedProducts": unlisted
+                }
+            }).encode('utf-8'))
             return
 
         elif self.path == '/api/update_variant_weight':
@@ -2699,6 +2682,152 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps({"success": success, "error": error_msg}).encode('utf-8'))
             return
+
+        elif self.path == '/api/weights/bulk_update_category':
+            target_category = params.get('category', '')
+            expected_weight = params.get('weight', 0.0)
+            
+            if not target_category or expected_weight <= 0.0:
+                self.send_response(400)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": "Missing or invalid parameters"}).encode('utf-8'))
+                return
+                
+            # Perform query on active products to locate mismatching variants for this category
+            query_products = """
+            query getProducts($cursor: String) {
+              products(first: 50, after: $cursor, query: "status:active") {
+                pageInfo { hasNextPage endCursor }
+                edges {
+                  node {
+                    id
+                    title
+                    variants(first: 100) {
+                      edges {
+                        node {
+                          id
+                          title
+                          inventoryItem {
+                            measurement {
+                              weight { value unit }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            """
+            
+            bulk_update_mutation = """
+            mutation productVariantsBulkUpdate($productId: ID!, $variants: [ProductVariantsBulkInput!]!) {
+              productVariantsBulkUpdate(productId: $productId, variants: $variants) {
+                productVariants { id }
+                userErrors { field message }
+              }
+            }
+            """
+            
+            def is_large_hood_local(title):
+                t = title.lower()
+                if "hood" in t or "bonnet" in t:
+                    if ("rx-7" in t or "rx7" in t) and ("re-mc" in t or "savana" in t or "re " in t or "re-" in t):
+                        return True
+                    if "supra" in t:
+                        return True
+                    if "varis" in t:
+                        return True
+                return False
+
+            def get_gsd_category_local(p_title, v_title):
+                p_title_low = p_title.lower()
+                v_title_low = v_title.lower()
+                is_generic = any(x in v_title_low for x in ["default title", "gloss carbon", "matte carbon", "forged carbon", "kevlar", "frp", "fiberglass"])
+                check_str = p_title_low if is_generic else v_title_low
+                if "complete body kit" in check_str or "body kit" in check_str or "complete kit" in check_str:
+                    return None
+                if "front bumper" in check_str: return "Front Bumper"
+                if "rear bumper" in check_str: return "Rear Bumper"
+                if "bumper" in check_str: return "Front Bumper"
+                if "hood" in check_str or "bonnet" in check_str:
+                    return "Large Hood (Supra, etc.)" if is_large_hood_local(p_title) or is_large_hood_local(v_title) else "Regular Hood"
+                if "lip" in check_str or "splitter" in check_str: return "Front Lip"
+                if "side skirt" in check_str or "skirt" in check_str: return "Side Skirts (Pair)"
+                if "trunk" in check_str or "boot" in check_str: return "Trunk / Boot"
+                if "fender" in check_str: return "Front Fender (Pair)"
+                if "door" in check_str: return "Door"
+                if "wing" in check_str or "spoiler" in check_str: return "GT Wing"
+                if "diffuser" in check_str: return "Rear Diffuser"
+                return None
+
+            has_next_page = True
+            cursor = None
+            updated_count = 0
+            
+            while has_next_page:
+                res = graphql_query(query_products, {"cursor": cursor})
+                if not res or 'errors' in res:
+                    break
+                data = res.get('data', {}).get('products', {})
+                for edge in data.get('edges', []):
+                    prod = edge['node']
+                    p_id = prod['id']
+                    p_title = prod['title']
+                    
+                    variants_to_update = []
+                    for ve in prod.get('variants', {}).get('edges', []):
+                        var = ve['node']
+                        v_title = var['title']
+                        v_id = var['id']
+                        
+                        cat = get_gsd_category_local(p_title, v_title)
+                        if cat == target_category:
+                            inv_item = var.get('inventoryItem') or {}
+                            measurement = inv_item.get('measurement') or {}
+                            weight_obj = measurement.get('weight') or {}
+                            v_weight = weight_obj.get('value', 0.0) or 0.0
+                            v_unit = weight_obj.get('unit', 'KILOGRAMS') or 'KILOGRAMS'
+                            
+                            w_kg = v_weight
+                            if v_unit.upper() == "GRAMS": w_kg = v_weight / 1000.0
+                            elif v_unit.upper() == "POUNDS": w_kg = v_weight * 0.45359237
+                            
+                            if abs(w_kg - expected_weight) > 0.05:
+                                variants_to_update.append({
+                                    "id": v_id,
+                                    "inventoryItem": {
+                                        "measurement": {
+                                            "weight": {
+                                                "value": float(expected_weight),
+                                                "unit": "KILOGRAMS"
+                                            }
+                                        }
+                                    }
+                                })
+                                
+                    if variants_to_update:
+                        update_res = graphql_query(bulk_update_mutation, {
+                            "productId": p_id,
+                            "variants": variants_to_update
+                        })
+                        if update_res and not update_res.get('errors'):
+                            user_errors = update_res.get('data', {}).get('productVariantsBulkUpdate', {}).get('userErrors', [])
+                            if not user_errors:
+                                updated_count += len(variants_to_update)
+                        time.sleep(0.1) # small safety gap
+                        
+                has_next_page = data.get('pageInfo', {}).get('hasNextPage', False)
+                cursor = data.get('pageInfo', {}).get('endCursor', None)
+                
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "updatedCount": updated_count}).encode('utf-8'))
+            return
+
 
         elif self.path == '/api/telegram/sync':
             folder_name = params.get('folderName')
