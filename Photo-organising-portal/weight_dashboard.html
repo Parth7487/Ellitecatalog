@@ -368,6 +368,18 @@
             font-family: var(--font-accent);
         }
 
+        .badge-kit {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: #fbbf24;
+            font-size: 0.68rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
         .status-cell {
             font-weight: 600;
         }
@@ -853,6 +865,7 @@
                     expectedWeight: v.expectedWeight,
                     boxSize: v.boxSize,
                     imageUrl: v.imageUrl,
+                    isKit: v.isKit,
                     variants: []
                 };
             }
@@ -883,7 +896,8 @@
                 isMatch,
                 hasZeroWeight,
                 sku: skuStr,
-                imageUrl: pEntry.imageUrl
+                imageUrl: pEntry.imageUrl,
+                isKit: pEntry.isKit
             };
         });
 
@@ -995,7 +1009,10 @@
                             <div style="display: flex; align-items: center; gap: 0.75rem;">
                                 ${p.imageUrl ? `<img src="${p.imageUrl}" width="40" height="40" style="border-radius: 6px; object-fit: cover; border: 1px solid var(--glass-border); flex-shrink: 0;" />` : `<div style="width: 40px; height: 40px; border-radius: 6px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: var(--text-muted); flex-shrink: 0;">No Img</div>`}
                                 <div>
-                                    <div class="product-title">${p.title}</div>
+                                    <div class="product-title" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                                        ${p.title}
+                                        ${p.isKit ? `<span class="badge badge-kit">Kit Component</span>` : ''}
+                                    </div>
                                     <div class="product-handle">${p.sku}</div>
                                 </div>
                             </div>

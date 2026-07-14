@@ -2621,6 +2621,9 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                     box_size = spec["box"]
                     is_match = abs(w_kg - expected) < 0.05
                         
+                    p_title_low = p.get('title', '').lower()
+                    is_kit = any(k in p_title_low for k in ["body kit", "bodykit", "core kit", "conversion"])
+
                     audit_results.append({
                         "productId": p_id,
                         "variantId": v_id,
@@ -2634,7 +2637,8 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                         "expectedWeight": expected,
                         "boxSize": box_size,
                         "isMatch": is_match,
-                        "imageUrl": image_url
+                        "imageUrl": image_url,
+                        "isKit": is_kit
                     })
 
             total_active = len(all_active_product_ids)
