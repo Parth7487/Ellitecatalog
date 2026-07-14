@@ -2510,6 +2510,8 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                 if "complete body kit" in check_str or "body kit" in check_str or "complete kit" in check_str:
                     return None
                     
+                if "lip" in check_str or "splitter" in check_str:
+                    return "Front Lip"
                 if "front bumper" in check_str:
                     return "Front Bumper"
                 if "rear bumper" in check_str:
@@ -2521,8 +2523,6 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                         return "Large Hood (Supra, etc.)"
                     else:
                         return "Regular Hood"
-                if "lip" in check_str or "splitter" in check_str:
-                    return "Front Lip"
                 if "side skirt" in check_str or "skirt" in check_str:
                     return "Side Skirts (Pair)"
                 if "trunk" in check_str or "boot" in check_str:
@@ -2593,6 +2593,12 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                     if p_id_raw:
                         listed_product_ids.add(p_id_raw)
                         
+                    image_url = ""
+                    if p.get('image'):
+                        image_url = p.get('image', {}).get('src', '') or ''
+                    elif p.get('featuredImage'):
+                        image_url = p.get('featuredImage', {}).get('url', '') or ''
+
                     spec = EXPECTED_SPECS.get(cat)
                     expected = spec["weight"]
                     box_size = spec["box"]
@@ -2610,7 +2616,8 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                         "weightKg": w_kg,
                         "expectedWeight": expected,
                         "boxSize": box_size,
-                        "isMatch": is_match
+                        "isMatch": is_match,
+                        "imageUrl": image_url
                     })
 
             total_active = len(all_active_product_ids)
