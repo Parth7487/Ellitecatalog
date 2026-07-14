@@ -2617,6 +2617,54 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
             listed = len(listed_product_ids)
             unlisted = total_active - listed
 
+            unlisted_kits = 0
+            unlisted_hardware = 0
+            unlisted_interior = 0
+            unlisted_misc = 0
+
+            def is_hardware_local(title):
+                t = title.lower()
+                keywords = ['bolt', 'nut', 'screw', 'stud', 'washer', 'hardware', 'thread', 'exhaust manifold stud', 'oil cap', 'radiator cap', 'eyes kit', 'keychain', 'wallet', 'harness', 'seat belt']
+                return any(k in t for k in keywords)
+
+            def is_interior_local(title):
+                t = title.lower()
+                keywords = ['door card', 'door panel', 'dashboard', 'molded dash', 'door sill', 'seat', 'pillar', 'gauge pod', 'console', 'armrest', 'arm rest', 'dash bezel', 'interior set', 'interior trim', 'steering wheel']
+                return any(k in t for k in keywords)
+
+            for p in products_list:
+                p_id_raw = p.get('id', '')
+                if p_id_raw in listed_product_ids:
+                    continue
+                
+                p_title = p.get('title', '')
+                raw_vars = p.get('variants', [])
+                variants_list = []
+                if isinstance(raw_vars, list):
+                    variants_list = raw_vars
+                elif isinstance(raw_vars, dict):
+                    variants_list = [edge.get('node', {}) for edge in raw_vars.get('edges', [])]
+                
+                has_kit = False
+                for v in variants_list:
+                    v_title = v.get('title', '')
+                    p_title_low = p_title.lower()
+                    v_title_low = v_title.lower()
+                    is_generic = any(x in v_title_low for x in ["default title", "gloss carbon", "matte carbon", "forged carbon", "kevlar", "frp", "fiberglass"])
+                    check_str = p_title_low if is_generic else v_title_low
+                    if "complete body kit" in check_str or "body kit" in check_str or "complete kit" in check_str:
+                        has_kit = True
+                        break
+                
+                if has_kit:
+                    unlisted_kits += 1
+                elif is_hardware_local(p_title):
+                    unlisted_hardware += 1
+                elif is_interior_local(p_title):
+                    unlisted_interior += 1
+                else:
+                    unlisted_misc += 1
+
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
@@ -2626,7 +2674,11 @@ class ShopifyManagerHandler(http.server.BaseHTTPRequestHandler):
                 "summary": {
                     "totalActiveProducts": total_active,
                     "listedProducts": listed,
-                    "unlistedProducts": unlisted
+                    "unlistedProducts": unlisted,
+                    "unlistedKits": unlisted_kits,
+                    "unlistedHardware": unlisted_hardware,
+                    "unlistedInterior": unlisted_interior,
+                    "unlistedMisc": unlisted_misc
                 }
             }).encode('utf-8'))
             return

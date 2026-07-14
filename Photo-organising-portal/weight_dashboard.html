@@ -484,6 +484,12 @@
         <div class="stat-card unlisted-products">
             <div class="stat-label">Unlisted Active Products</div>
             <div class="stat-val" id="statUnlistedProds">-</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.4; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 0.5rem; display: flex; flex-direction: column; gap: 0.15rem;">
+                <div>Kits: <span id="statUnlistedKits" style="color: var(--text-main); font-weight: 600;">-</span></div>
+                <div>Hardware: <span id="statUnlistedHardware" style="color: var(--text-main); font-weight: 600;">-</span></div>
+                <div>Interior: <span id="statUnlistedInterior" style="color: var(--text-main); font-weight: 600;">-</span></div>
+                <div>Misc: <span id="statUnlistedMisc" style="color: var(--text-main); font-weight: 600;">-</span></div>
+            </div>
         </div>
         <div class="stat-card matches">
             <div class="stat-label">✅ Matching Weights</div>
@@ -831,6 +837,10 @@
         document.getElementById('statTotal').innerText = totalCount;
         document.getElementById('statListedProds').innerText = dashboardSummary.listedProducts;
         document.getElementById('statUnlistedProds').innerText = dashboardSummary.unlistedProducts;
+        document.getElementById('statUnlistedKits').innerText = dashboardSummary.unlistedKits || 0;
+        document.getElementById('statUnlistedHardware').innerText = dashboardSummary.unlistedHardware || 0;
+        document.getElementById('statUnlistedInterior').innerText = dashboardSummary.unlistedInterior || 0;
+        document.getElementById('statUnlistedMisc').innerText = dashboardSummary.unlistedMisc || 0;
         document.getElementById('statMatches').innerText = matchesCount;
         document.getElementById('statMismatches').innerText = mismatchesCount;
         document.getElementById('statAdherence').innerHTML = `${adherencePct}<span>%</span>`;
