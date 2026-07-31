@@ -421,13 +421,19 @@
 
         // Render Sidebar
         function renderSidebar() {
+            // Brand display name overrides (data key → display label)
+            const brandDisplayNames = {
+                'Other Models': 'Chevrolet & Isuzu'
+            };
+
             brandListContainer.innerHTML = '';
             Object.keys(treeData).forEach(brand => {
                 const count = getBrandProductCount(brand);
+                const displayBrand = brandDisplayNames[brand] || brand;
                 const li = document.createElement('li');
                 li.className = `brand-item ${brand === activeBrand ? 'active' : ''}`;
                 li.innerHTML = `
-                    <span>${brand}</span>
+                    <span>${displayBrand}</span>
                     <span class="count">${count}</span>
                 `;
                 li.addEventListener('click', () => {
