@@ -470,11 +470,21 @@
 
                 // Add Categories
                 Object.keys(models[model]).forEach(cat => {
+                    // Brand-specific category display name overrides
+                    const categoryDisplayNames = {
+                        'Universal Hardware & Accessories': {
+                            'Other': 'Titanium and Interior'
+                        }
+                    };
+                    const displayCat = (categoryDisplayNames[activeBrand] && categoryDisplayNames[activeBrand][cat])
+                        ? categoryDisplayNames[activeBrand][cat]
+                        : cat;
+
                     const catNode = document.createElement('div');
                     catNode.className = 'category-node';
                     catNode.innerHTML = `
                         <div class="category-title">
-                            <span>//</span> ${cat}
+                            <span>//</span> ${displayCat}
                         </div>
                     `;
 
