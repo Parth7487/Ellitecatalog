@@ -433,6 +433,37 @@
                 font-size: 0.95rem;
             }
         }
+
+        /* Tree control buttons */
+        .tree-controls {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+            justify-content: flex-end;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--text-light);
+            background: rgba(204, 255, 0, 0.05);
+        }
+
+        .control-btn:active {
+            transform: scale(0.97);
+        }
     </style>
 </head>
 <body>
@@ -461,6 +492,11 @@
                     <h3>Active Products</h3>
                     <div class="value" id="stat-total-products">1,360</div>
                 </div>
+            </div>
+
+            <div class="tree-controls">
+                <button id="btn-expand-all" class="control-btn">Expand All</button>
+                <button id="btn-collapse-all" class="control-btn">Collapse All</button>
             </div>
 
             <div class="tree-container" id="tree-root">
@@ -658,6 +694,25 @@
                         treeRoot.appendChild(modelNode);
                     }
                 });
+            });
+        });
+
+        // Expand / Collapse All Event Handlers
+        document.getElementById('btn-expand-all').addEventListener('click', () => {
+            document.querySelectorAll('.node-arrow').forEach(arrow => {
+                arrow.classList.remove('collapsed');
+            });
+            document.querySelectorAll('.node-children').forEach(container => {
+                container.classList.remove('hidden');
+            });
+        });
+
+        document.getElementById('btn-collapse-all').addEventListener('click', () => {
+            document.querySelectorAll('.node-arrow').forEach(arrow => {
+                arrow.classList.add('collapsed');
+            });
+            document.querySelectorAll('.node-children').forEach(container => {
+                container.classList.add('hidden');
             });
         });
 
