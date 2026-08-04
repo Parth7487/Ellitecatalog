@@ -130,5 +130,12 @@
     "revBy": "Parth",
     "date": "2026-07-25",
     "notes": "Single products, Multi-variant products, Full kits, Kit components, Titanium products, Carbon products, Products with multiple material finishes. The layout works exactly as expected."
+  },
+  "CAT-10": {
+    "status": "In Progress",
+    "notes": "Collections have been created exactly as per the folder structure in the drive and the tree maps provided."
+  },
+  "P0-09": {
+    "status": "Ready for ETi Review"
   }
 }
