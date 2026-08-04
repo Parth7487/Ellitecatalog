@@ -137,5 +137,38 @@
   },
   "P0-09": {
     "status": "Ready for ETi Review"
+  },
+  "P0-11": {
+    "status": "In Progress",
+    "link": "",
+    "change": "Restructuring of description scheduled to be done by 5th August.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-08-04",
+    "notes": ""
+  },
+  "P0-12": {
+    "status": "In Progress",
+    "link": "",
+    "change": "Preparing mapped branches of pricing coming from MAIN ACTIVE SHEET / WHOLESALE KITS / WHOLESALE PART.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-08-04",
+    "notes": "Ensuring no pricing errors between master list sheets and live store storefront."
+  },
+  "QA-06": {
+    "status": "Blocked \u2014 Owner Decision Required",
+    "link": "",
+    "change": "Created decision log inside checks.html card for duplicate component merges.",
+    "desktop": "civic_eg_drag.png",
+    "mobile": "civic_ek_drag.png",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-08-04",
+    "notes": "Awaiting confirmation: should we link Civic EG components under body kit 10653655433497? Civic EK components under body kit 10653655138585? Evo X components under body kit 9885985177881?"
   }
 }
