@@ -1189,44 +1189,49 @@
     };
 
     let trackerState = {};
-    try {
-        trackerState = JSON.parse(localStorage.getItem('eti_tracker_state') || '{}');
-    } catch (e) {
-        console.warn("localStorage read failed:", e);
-    }
-    
-    // Inject default states with "Ready for ETi Review"
-    trackerState['P0-05'] = defaultP005State;
-    trackerState['P0-01'] = defaultP001State;
-    trackerState['P0-10'] = defaultP010State;
-    trackerState['P1-07'] = defaultP107State;
-    trackerState['P0-02'] = defaultP002State;
-    trackerState['P0-03'] = defaultP003State;
-    trackerState['P0-04'] = defaultP004State;
-    trackerState['P0-08'] = defaultP008State;
-    trackerState['P1-10'] = defaultP110State;
-    trackerState['P1-09'] = defaultP109State;
-    trackerState['CAT-01'] = defaultCAT01State;
-    trackerState['CAT-03'] = defaultCAT03State;
-    trackerState['CAT-05'] = defaultCAT05State;
-    trackerState['CAT-06'] = defaultCAT06State;
-    trackerState['CAT-08'] = defaultCAT08State;
-    trackerState['CAT-09'] = defaultCAT09State;
-    trackerState['CAT-10'] = defaultCAT10State;
-    trackerState['P0-06'] = defaultP006State;
-    trackerState['P0-07'] = defaultP007State;
-    trackerState['P0-09'] = defaultP009State;
-    trackerState['P1-03'] = defaultP103State;
-    trackerState['P1-06'] = defaultP106State;
-    trackerState['P1-08'] = defaultP108State;
-    trackerState['P1-02'] = defaultP102State;
-    trackerState['P1-04'] = defaultP104State;
-    trackerState['P1-05'] = defaultP105State;
-    
-    try {
-        localStorage.setItem('eti_tracker_state', JSON.stringify(trackerState));
-    } catch (e) {
-        console.warn("localStorage write failed:", e);
+
+    // Asynchronously fetch checks_state.json from server to sync updates
+    async function loadTrackerState() {
+        try {
+            const response = await fetch('checks_state.json');
+            if (response.ok) {
+                const fetchedState = await response.json();
+                // Merge with default items to prevent data gaps
+                trackerState = {
+                    ...trackerState,
+                    ...fetchedState
+                };
+            }
+        } catch (e) {
+            console.warn("Failed to fetch checks_state.json from server, falling back to local defaults:", e);
+        }
+
+        // Apply backup values if still empty
+        const defaultKeys = [
+            { id: 'P0-05', val: defaultP005State }, { id: 'P0-01', val: defaultP001State },
+            { id: 'P0-10', val: defaultP010State }, { id: 'P1-07', val: defaultP107State },
+            { id: 'P0-02', val: defaultP002State }, { id: 'P0-03', val: defaultP003State },
+            { id: 'P0-04', val: defaultP004State }, { id: 'P0-08', val: defaultP008State },
+            { id: 'P1-10', val: defaultP110State }, { id: 'P1-09', val: defaultP109State },
+            { id: 'CAT-01', val: defaultCAT01State }, { id: 'CAT-03', val: defaultCAT03State },
+            { id: 'CAT-05', val: defaultCAT05State }, { id: 'CAT-06', val: defaultCAT06State },
+            { id: 'CAT-08', val: defaultCAT08State }, { id: 'CAT-09', val: defaultCAT09State },
+            { id: 'CAT-10', val: defaultCAT10State }, { id: 'P0-06', val: defaultP006State },
+            { id: 'P0-07', val: defaultP007State }, { id: 'P0-09', val: defaultP009State },
+            { id: 'P1-03', val: defaultP103State }, { id: 'P1-06', val: defaultP106State },
+            { id: 'P1-08', val: defaultP108State }, { id: 'P1-02', val: defaultP102State },
+            { id: 'P1-04', val: defaultP104State }, { id: 'P1-05', val: defaultP105State }
+        ];
+
+        defaultKeys.forEach(item => {
+            if (!trackerState[item.id]) {
+                trackerState[item.id] = item.val;
+            }
+        });
+
+        // Trigger render
+        updateStats();
+        renderCards();
     }
 
     function getBadgeClass(id) {
@@ -1640,8 +1645,7 @@
     });
 
     // Initial render
-    updateStats();
-    renderCards();
+    loadTrackerState();
 </script>
 
 </body>

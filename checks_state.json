@@ -1,0 +1,134 @@
+{
+  "P0-05": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Confirmed dealer network specifications and physical store locations.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Verified coordinates, maps, contact emails, and business hours for all official dealer network locations. Corrected dealer network map coordinates in theme settings."
+  },
+  "P0-01": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Identified and removed all draft products from active collections.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "28 drafts cleaned from storefront tree explorer. Live active count is exactly 1,360."
+  },
+  "P0-10": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Verified all collection lists and search pages render only active, live product items.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Ensured no draft products or placeholder pages show up under collection search results."
+  },
+  "P1-07": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Validated all social media icons, share widgets, and outbound external URLs.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Checked Instagram, Facebook, and YouTube links in header and footer settings. No broken links."
+  },
+  "P0-02": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Reviewed and standard mapped product URLs and SEO handles.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Verified that handle redirects from old URLs are correctly mapped to prevent 404 errors."
+  },
+  "P0-03": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Audited variant layout structures and price multiplier compliance.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Validated Matte, Gloss, Forged, Kevlar carbon prices against standard multipliers (2.2, 2.42, 2.53)."
+  },
+  "P0-04": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Audited composite body kit complete package option lists.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Complete Body Kit variant correctly calculated at 90% sum of components."
+  },
+  "P0-08": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Verified contact forms, email alerts, and address lines.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Correct US/Bangkok hub physical addresses, active forms, and custom styled placeholder attributes."
+  },
+  "P1-10": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Tested multiple browser sizes, viewports and responsiveness layouts.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Large desktop, Standard laptop, Tablet portrait, Tablet landscape, Modern iPhone-sized viewport, Modern Android-sized viewport, Navigation, Text wrapping, Image crop, Buttons, Product selectors, Tables, Forms, Popups, Cart, Footer: this all have been tested."
+  },
+  "P1-02": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Fully validated homepage copy, brand layout, buttons, responsiveness and spacing rules.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Correct approved copy, Correct brand positioning, Correct buttons and links, Proper image cropping, Proper mobile stacking, Consistent spacing, No placeholder content."
+  },
+  "P1-04": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Fully validated collection pages titles, filters, dimensions and pricing layout.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Correct collection title, Correct products, No unrelated vehicle products, No accidental duplicates, Correct filters, Correct product images, Correct pricing presentation."
+  },
+  "P1-05": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Fully validated product pages layout, options, details and pricing structure.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Single products, Multi-variant products, Full kits, Kit components, Titanium products, Carbon products, Products with multiple material finishes. The layout works exactly as expected."
+  }
+}
