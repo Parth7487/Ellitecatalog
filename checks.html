@@ -765,7 +765,7 @@
     </header>
 
     <!-- Dashboard overview cards -->
-    <div class="dashboard-grid">
+    <div class="dashboard-grid" style="grid-template-columns: repeat(3, 1fr);">
         <!-- P0 Card -->
         <div class="stat-card">
             <h3>P0 Blockers</h3>
@@ -808,20 +808,6 @@
             <div class="stat-meta" id="cat-meta">
             </div>
         </div>
-        
-        <!-- Photo Card -->
-        <div class="stat-card">
-            <h3>Photo Sourcing</h3>
-            <div class="value-wrapper">
-                <div class="value img-color" id="img-progress">0%</div>
-                <div class="passed-count" id="img-desc">0 of 10 complete</div>
-            </div>
-            <div class="progress-bar-container">
-                <div class="progress-bar-fill" style="background-color: var(--brand-green); width: 0%;" id="img-bar"></div>
-            </div>
-            <div class="stat-meta" id="img-meta">
-            </div>
-        </div>
     </div>
 
     <!-- Controls panel -->
@@ -835,7 +821,6 @@
             <button class="filter-btn" data-filter="p0">P0 Blockers</button>
             <button class="filter-btn" data-filter="p1">P1 UI</button>
             <button class="filter-btn" data-filter="cat">Catalog</button>
-            <button class="filter-btn" data-filter="img">Photos</button>
         </div>
     </div>
 
@@ -1257,8 +1242,7 @@
         const categories = {
             'P0 - Release Blockers': { total: 0, passed: 0, ready: 0, states: {}, bar: 'p0-bar', progress: 'p0-progress', desc: 'p0-desc', meta: 'p0-meta' },
             'P1 - Theme & UI': { total: 0, passed: 0, ready: 0, states: {}, bar: 'p1-bar', progress: 'p1-progress', desc: 'p1-desc', meta: 'p1-meta' },
-            'Catalog Organization': { total: 0, passed: 0, ready: 0, states: {}, bar: 'cat-bar', progress: 'cat-progress', desc: 'cat-desc', meta: 'cat-meta' },
-            'Photo Sourcing': { total: 0, passed: 0, ready: 0, states: {}, bar: 'img-bar', progress: 'img-progress', desc: 'img-desc', meta: 'img-meta' }
+            'Catalog Organization': { total: 0, passed: 0, ready: 0, states: {}, bar: 'cat-bar', progress: 'cat-progress', desc: 'cat-desc', meta: 'cat-meta' }
         };
 
         punchListItems.forEach(item => {
@@ -1312,7 +1296,6 @@
             if (filter === 'p0' && !item.id.startsWith('P0')) return;
             if (filter === 'p1' && !item.id.startsWith('P1')) return;
             if (filter === 'cat' && !item.id.startsWith('CAT')) return;
-            if (filter === 'img' && !item.id.startsWith('IMG')) return;
 
             // Apply search query filter
             if (query) {
