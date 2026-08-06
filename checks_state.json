@@ -181,5 +181,71 @@
     "revBy": "Parth",
     "date": "2026-08-06",
     "notes": "Supra/RX-8 footer/header collections matched. Double variant parameter corrected. Shift knob/shift boot dealer password gate setup. Rechecked blog page."
+  },
+  "QA-08": {
+    "status": "In Progress",
+    "link": "",
+    "change": "Proposed dealer password gateway and file directory restriction.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-08-06",
+    "notes": "Configuring password gating controls."
+  },
+  "QA-09": {
+    "status": "In Progress",
+    "link": "",
+    "change": "Audit review of blog templates and page components.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-08-06",
+    "notes": "Verifying copy and posts."
+  },
+  "QA-10": {
+    "status": "In Progress",
+    "link": "",
+    "change": "Added smooth scroll jump links on About Us page targeting Team and Sponsors.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-08-06",
+    "notes": "Jump button setup verified."
+  },
+  "QA-11": {
+    "status": "In Progress",
+    "link": "",
+    "change": "Checked homepage CSS container sizing constraints for vehicle layout.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-08-06",
+    "notes": "Object-fit cover adjustments evaluated."
+  },
+  "QA-12": {
+    "status": "In Progress",
+    "link": "",
+    "change": "Rephrased guarantee terms to be flexible on fitment values.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-08-06",
+    "notes": "Removed .5mm guarantees."
+  },
+  "QA-13": {
+    "status": "In Progress",
+    "link": "",
+    "change": "Homepage banner refreshed and material copy updated.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-08-06",
+    "notes": "Banner live."
   }
 }
