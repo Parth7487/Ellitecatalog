@@ -250,7 +250,7 @@ ELITE TI NAVIGATION TREE & PRODUCT COLLECTION MAP
     - Toyota Soarer TOM'S Body Kit | ID: 10657645658393
   [MODEL] Supra MKIII (A70 / JZA70) | Collection ID: 515926688025
     - MK3 Dashboard Full Carbon Fiber Dash | ID: 10302046241049
-  [MODEL] Supra MKIV (A80) | Collection ID: 515085336857
+  [MODEL] Supra MKIV (A80) | Collection ID: 467589693721
     - ETi Supra GT-Wing E36 (170×35) | ID: 10617910100249
     - ETi Supra GT-Wing G | ID: 10617910001945
     - ETi Supra GT-Wing H (150×27) | ID: 10617910165785
@@ -321,7 +321,7 @@ ELITE TI NAVIGATION TREE & PRODUCT COLLECTION MAP
     - ETi Supra Fuse Box Cover | ID: 10617909510425
     - ETi Toyota Supra MK4 48mm Aluminum Performance Radiator | ID: 9829099143449
     - ETi Supra Titanium Bolt Kit | ID: 10617909543193
-  [MODEL] Supra MKV (A90) | Collection ID: 515084484889
+  [MODEL] Supra MKV (A90) | Collection ID: 513420853529
     - A90 Pro Lip | ID: 9753706266905
     - A90 Rear Bumper Splitter | ID: 9753749324057
     - ETi Toyota Supra MK5 (A90) Carbon Fiber Door Blades | ID: 10657636909337
