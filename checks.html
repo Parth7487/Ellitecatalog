@@ -1357,29 +1357,78 @@
             assetsCard.innerHTML = `
                 <div class="card-header" style="margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
                     <div class="card-title-group">
-                        <span class="item-id-badge badge-blue">DRIVE</span>
-                        <h2 class="card-title" style="font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 700; color: #ffffff;">Official Site Assets & Tracking Portals</h2>
+                        <span class="item-id-badge badge-blue">ASSETS</span>
+                        <h2 class="card-title" style="font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 700; color: #ffffff;">Official Site Assets, Portals & Auditing Guides</h2>
                     </div>
                 </div>
 
-                <div class="assets-layout" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem;">
-                    <!-- Drive Link 1 -->
+                <div class="assets-layout" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.75rem;">
+                    
+                    <!-- 1. Folder Structure & Mapping (tree.html) -->
                     <div style="background: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--brand-green)';" onmouseout="this.style.borderColor='var(--border-color)';">
                         <div>
                             <h3 style="font-family: 'Outfit', sans-serif; color: var(--text-primary); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
-                                <svg style="width:20px; height:20px; fill:var(--brand-green);" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
-                                Catalog Storefront Settings Folder
+                                <svg style="width:20px; height:20px; fill:var(--brand-green);" viewBox="0 0 24 24"><path d="M22 9V7c0-1.1-.9-2-2-2h-8L10 3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9zm-2 10H4V7h16v12z"/></svg>
+                                Folder Structure & Mapping
                             </h3>
                             <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">
-                                Official Google Drive directory containing wholesale pricing catalogs, storefront parameters, policy sheets, and settings configuration files. (Note: Once approved, a secure password gate will be added).
+                                Mapped overview of all vehicles, models, and part classifications matching the local directory folder structure.
                             </p>
                         </div>
-                        <a href="https://drive.google.com/drive/folders/1MiDi2cNSx12L_mhxKJ5evRgIjznKMorU?usp=drive_link" target="_blank" class="btn btn-primary" style="text-align: center; display: block; padding: 0.8rem; text-decoration: none; border-radius: 8px;">
-                            Open Catalog Assets Folder
+                        <a href="tree.html" target="_blank" class="btn btn-primary" style="text-align: center; display: block; padding: 0.8rem; text-decoration: none; border-radius: 8px;">
+                            Open Tree Explorer (Make Model Part)
                         </a>
                     </div>
 
-                    <!-- Drive Link 2 -->
+                    <!-- 2. Wholesale Pricing (index.html) -->
+                    <div style="background: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--brand-blue)';" onmouseout="this.style.borderColor='var(--border-color)';">
+                        <div>
+                            <h3 style="font-family: 'Outfit', sans-serif; color: var(--text-primary); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <svg style="width:20px; height:20px; fill:var(--brand-blue);" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.9-2 2-2l1.24-1.26c.37-.36.76-.51 1.22-.51.97 0 1.76.79 1.76 1.76 0 .42-.17.82-.47 1.12z"/></svg>
+                                Wholesale Pricing Portal
+                            </h3>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                                Storefront catalog index portal page for exploring and verifying wholesale pricing and catalog assets.
+                            </p>
+                        </div>
+                        <a href="index.html" target="_blank" class="btn btn-accent" style="text-align: center; display: block; padding: 0.8rem; text-decoration: none; border-radius: 8px;">
+                            Open Wholesale Pricing
+                        </a>
+                    </div>
+
+                    <!-- 3. Pricing Navigator (verify.html) -->
+                    <div style="background: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--brand-purple)';" onmouseout="this.style.borderColor='var(--border-color)';">
+                        <div>
+                            <h3 style="font-family: 'Outfit', sans-serif; color: var(--text-primary); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <svg style="width:20px; height:20px; fill:var(--brand-purple);" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v6h2v-6h-2zm0-4v2h2V7h-2z"/></svg>
+                                Pricing Navigator
+                            </h3>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                                Catalog verification sheet tool to map, reconcile, and navigate all pricing changes.
+                            </p>
+                        </div>
+                        <a href="verify.html" target="_blank" class="btn" style="text-align: center; display: block; padding: 0.8rem; text-decoration: none; border-radius: 8px; border-color: var(--brand-purple); color: #c084fc;">
+                            Open Pricing Navigator
+                        </a>
+                    </div>
+
+                    <!-- 4. Google Drive Catalog Folders -->
+                    <div style="background: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--brand-green)';" onmouseout="this.style.borderColor='var(--border-color)';">
+                        <div>
+                            <h3 style="font-family: 'Outfit', sans-serif; color: var(--text-primary); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <svg style="width:20px; height:20px; fill:var(--brand-green);" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"/></svg>
+                                Catalog Storefront settings
+                            </h3>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                                Official Google Drive directory containing wholesale pricing catalogs and settings sheet configurations (password gate will be added once approved).
+                            </p>
+                        </div>
+                        <a href="https://drive.google.com/drive/folders/1MiDi2cNSx12L_mhxKJ5evRgIjznKMorU?usp=drive_link" target="_blank" class="btn btn-primary" style="text-align: center; display: block; padding: 0.8rem; text-decoration: none; border-radius: 8px;">
+                            Open Settings Folder
+                        </a>
+                    </div>
+
+                    <!-- 5. Internal Team Drive (Raw Photos) -->
                     <div style="background: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--brand-blue)';" onmouseout="this.style.borderColor='var(--border-color)';">
                         <div>
                             <h3 style="font-family: 'Outfit', sans-serif; color: var(--text-primary); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
@@ -1387,13 +1436,49 @@
                                 Image & Asset Tracking Portal
                             </h3>
                             <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">
-                                Internal team drive folder structured with raw catalog photos, edited storefront graphics, and organized assets mapped to their respective product IDs. Essential for tracking every visual product.
+                                Internal team drive folder containing raw products images, edited photos, and mapped product IDs.
                             </p>
                         </div>
                         <a href="https://drive.google.com/drive/folders/1UTrEEwMr6dEWKE_jT9o-gkIM7A_-P400?usp=drive_link" target="_blank" class="btn btn-accent" style="text-align: center; display: block; padding: 0.8rem; text-decoration: none; border-radius: 8px;">
-                            Open Photo Tracking Portal
+                            Open Asset Tracking Folder
                         </a>
                     </div>
+
+                    <!-- 6. Weight Verification & Safe Shipping -->
+                    <div style="background: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease; grid-column: span 1;" onmouseover="this.style.borderColor='var(--brand-yellow)';" onmouseout="this.style.borderColor='var(--border-color)';">
+                        <div>
+                            <h3 style="font-family: 'Outfit', sans-serif; color: var(--text-primary); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <svg style="width:20px; height:20px; fill:var(--brand-yellow);" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 16H8v-2h4v2zm4-4H8v-2h8v2zm0-4H8V8h8v2z"/></svg>
+                                Weight Verification & Safe Shipping
+                            </h3>
+                            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; margin-bottom: 1.25rem;">
+                                Weight changes applied per Safe Shipping Matrix and SDS implementation guides:
+                            </p>
+                            <div style="display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; font-size: 0.85rem;">
+                                <a href="ETi_Weight_Implementation_Guide.pdf" download style="color: #34d399; text-decoration: underline;">ETi_Weight_Implementation_Guide.pdf</a>
+                                <a href="ETi_Weight_Implementation_Guide.docx" download style="color: #34d399; text-decoration: underline;">ETi_Weight_Implementation_Guide.docx</a>
+                                <a href="Weight-update.csv" download style="color: #34d399; text-decoration: underline;">Weight-update.csv</a>
+                                <a href="ETi_site_weight_product_mapping_v2 - Safe Shipping Matrix.csv" download style="color: #34d399; text-decoration: underline;">Safe Shipping Matrix.csv</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 7. Main Collections (ETI Suffix) -->
+                    <div style="background: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease; grid-column: span 1;" onmouseover="this.style.borderColor='var(--brand-purple)';" onmouseout="this.style.borderColor='var(--border-color)';">
+                        <div>
+                            <h3 style="font-family: 'Outfit', sans-serif; color: var(--text-primary); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <svg style="width:20px; height:20px; fill:var(--brand-purple);" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                                Main Collections Mapping
+                            </h3>
+                            <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; margin-bottom: 1.25rem;">
+                                Main active storefront collections are explicitly marked with the ETI suffix and mapped hierarchically:
+                            </p>
+                        </div>
+                        <a href="navigation_tree.txt" download class="btn" style="text-align: center; display: block; padding: 0.8rem; text-decoration: none; border-radius: 8px; border-color: var(--brand-purple); color: #c084fc;">
+                            Download navigation_tree.txt
+                        </a>
+                    </div>
+
                 </div>
             `;
             container.appendChild(assetsCard);
