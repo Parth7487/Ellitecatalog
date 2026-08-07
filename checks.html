@@ -1477,6 +1477,16 @@
                     </div>
                 </div>` : ''}
                 
+                
+                ${(itemData.desktop || itemData.mobile) ? `
+                <div style="margin-bottom: 1rem;">
+                    <div style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">Proof / Evidence Assets:</div>
+                    <div class="proof-grid">
+                        ${itemData.desktop ? `<img src="${itemData.desktop}" class="proof-img" alt="Desktop Evidence" style="cursor: pointer; max-height: 350px; object-fit: contain;" onclick="window.open('${itemData.desktop}', '_blank')">` : ''}
+                        ${itemData.mobile ? `<img src="${itemData.mobile}" class="proof-img" alt="Mobile Evidence" style="cursor: pointer; max-height: 350px; object-fit: contain;" onclick="window.open('${itemData.mobile}', '_blank')">` : ''}
+                    </div>
+                </div>` : ''}
+                
                 <button class="form-toggle-btn" onclick="toggleDetailsForm('${item.id}')" id="toggle-btn-${item.id}">
                     Show Evidence & Submission Fields
                 </button>
