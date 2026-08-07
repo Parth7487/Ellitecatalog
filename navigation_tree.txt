@@ -984,14 +984,85 @@ ELITE TI NAVIGATION TREE & PRODUCT COLLECTION MAP
   [MODEL] Mercedes SLR McLaren | Collection ID: 513104544025
 
 [BRAND] BMW | Collection ID: 472264245529
-  [MODEL] Series 1 | Collection ID: 513419903257
-  [MODEL] Series 2 | Collection ID: 515923706137
-  [MODEL] Series 3 | Collection ID: 515923738905
-  [MODEL] Series 4 | Collection ID: 515923771673
-  [MODEL] Series 5 | Collection ID: 515923804441
-  [MODEL] Series 6 | Collection ID: 513420460313
-  [MODEL] Series 7 | Collection ID: 515083501849
-  [MODEL] Z4 (E89) | Collection ID: 515084714265
+  [MODEL] 1 Series (E81 / E82 / E87 / E88) | Collection ID: 513419903257
+    - ETi BMW S1 Race Version Rear Carbon Fiber Doors | ID: 10627315859737
+    - ETi BMW S1 Style Wide Flare Carbon Fiber Fender | ID: 10627314909465
+    - BMW Series 1 Custom Maxima Body Kit | ID: 10627312189721
+  [MODEL] 2 Series / M2 (F87) | Collection ID: 493542867225
+    - BMW M2 Dry Carbon Roof | ID: 9881593839897
+    - BMW M2 Front Bumper Lip | ID: 10656997474585
+    - BMW M2 Rear Wing | ID: 9881495798041
+    - BMW M2 Side Skirt Extension | ID: 9881466143001
+  [MODEL] 3 Series (E30) | Collection ID: 513420263705
+    - BMW E30 2-Door Pandem Wide Body Kit | ID: 10627314450713
+  [MODEL] 3 Series (E36) | Collection ID: 513420165401
+    - ETi BMW E36 2D OEM Carbon Fiber Trunk | ID: 10627315695897
+    - ETi BMW E36 2D Sunroof Carbon Fiber Roof | ID: 10627315466521
+    - BMW Series 3 M-Technic Body Kit | ID: 10627312124185
+  [MODEL] 3 Series (E46) | Collection ID: 513420329241
+    - BMW E46 AC Skirt Body Kit | ID: 10627314319641
+    - BMW E46 Alpina (for Long) Body Kit | ID: 10627314221337
+    - BMW E46 CSL Body Kit | ID: 10627314155801
+    - BMW E46 HAMANN (GTR) Body Kit | ID: 10627314090265
+    - BMW E46 M-Coupe Body Kit | ID: 10627313991961
+    - BMW E46 M3 Body Kit | ID: 10627314057497
+  [MODEL] 3 Series (E90 / E92 / E93) | Collection ID: 513420362009
+    - BMW M3 E92-E93 Front Bumper Lip | ID: 9938715574553
+    - ETi BMW E90 MC M3 Carbon Fiber Hood | ID: 10627316318489
+    - ETi BMW E90 Vorsteiner Carbon Fiber Hood | ID: 10627315958041
+    - ETi BMW E92 M3 Carbon Fiber Trunk | ID: 10627315630361
+    - ETi BMW E93 ETi Carbon Fiber Hood | ID: 10627316384025
+    - ETi BMW E93 OEM Carbon Fiber Hood | ID: 10627316482329
+    - ETi BMW M3 E92 - E93 Rear Diffuser | ID: 9938717114649
+    - ETi BMW M3 E92-E93 Front Fender Vents | ID: 10656997409049
+    - BMW E90 Alpina (for Long) Body Kit | ID: 10627313500441
+    - BMW E90 M3 Body Kit | ID: 10627313434905
+    - BMW E92 M3 Body Kit | ID: 10627313336601
+  [MODEL] 3 Series / M3 (F30 / F80) | Collection ID: 513420427545
+    - ETi BMW F30 M3 GTS Carbon Fiber Hood | ID: 10627316220185
+    - ETi BMW F30 M3 Carbon Fiber Roof | ID: 10627315269913
+    - BMW F30 Prior Design Body Kit | ID: 10627313107225
+  [MODEL] 4 Series / M4 (F82 / F83) | Collection ID: 513420296473
+    - ETi BMW F32 M4 Original Carbon Fiber Roof | ID: 10627315335449
+    - BMW M4 GTS Standard Body Kit | ID: 10627312943385
+    - BMW M4 Original Factory Body Kit | ID: 10627312877849
+    - BMW M4 Vorsteiner Body Kit | ID: 10627312779545
+  [MODEL] 5 Series / M5 (E60) | Collection ID: 513420001561
+    - ETi BMW E60 Carbon Fiber Roof | ID: 10627315499289
+    - ETi BMW E60 ETi Carbon Fiber Hood | ID: 10627316678937
+    - ETi BMW E60 Lumma Carbon Fiber Trunk | ID: 10627315761433
+    - ETi BMW E60 M5 Carbon Fiber Hood | ID: 10627316744473
+    - ETi BMW E60 OEM Carbon Fiber Hood | ID: 10627316810009
+    - ETi BMW E60 OEM Carbon Fiber Trunk | ID: 10627315794201
+    - BMW Add-On (Carbon) Body Kit | ID: 10627314712857
+    - BMW E60 AC Body Kit | ID: 10627313959193
+    - BMW E60 Add-On Body Kit | ID: 10627313893657
+    - BMW E60 ETi Widebody Body Kit | ID: 10627313860889
+    - BMW E60 Hamann Body Kit | ID: 10627313795353
+    - BMW E60 M-Technic Body Kit | ID: 10627313729817
+    - BMW Series 5 Hamann Body Kit | ID: 10627312058649
+  [MODEL] 5 Series / M5 (F10) | Collection ID: 513419739417
+    - ETi BMW F10-G30 Duckbill Trunk Spoiler | ID: 10656997376281
+    - BMW F10 Conversion G30 Body Kit | ID: 10627313271065
+    - BMW F10 ETi M-Sport (Original) Body Kit | ID: 10627313205529
+    - BMW F10 Prior Design Body Kit | ID: 10730066739481
+    - BMW F10 Vostainer Body Kit | ID: 10730068279577
+  [MODEL] 5 Series / M5 (G30) | Collection ID: 513419936025
+    - ETi BMW G30 M5 Carbon Fiber Roof | ID: 10627315171609
+    - ETi BMW G30 Vorsteiner Carbon Fiber Hood | ID: 10627316023577
+    - BMW G30 End CC. Body Kit | ID: 10627313041689
+  [MODEL] 6 Series / M6 (E63 / E64) | Collection ID: 513420460313
+    - ETi BMW S6 OEM Carbon Fiber Hood | ID: 10627316154649
+    - ETi BMW S6 Vorsteiner Carbon Fiber Hood | ID: 10627316089113
+    - BMW 640/645 GT Widebody Body Kit | ID: 10627314811161
+  [MODEL] 6 Series / M6 (F06 / F12 / F13) | Collection ID: 513419968793
+    - ETi BMW F12 Series6 Convertible (Carbon) Carbon Fiber Roof | ID: 10627315106073
+    - ETi Carbon Fiber Hood BMW M6 F06-F12-F13 | ID: 10656997441817
+  [MODEL] 7 Series (E38 / E65 / E66) | Collection ID: 513420132633
+    - BMW E38 AC Skirt Body Kit | ID: 10627314385177
+    - BMW E65 Hamann Body Kit | ID: 10627313697049
+    - BMW E66 Alpina Body Kit | ID: 10627313631513
+  [MODEL] Z4 (E89) | Collection ID: 513420067097
     - ETi BMW E89 OEM Carbon Fiber Trunk | ID: 10627315564825
     - ETi BMW E89 Z4 DUKE Dynamite Carbon Fiber Hood | ID: 10627316580633
     - ETi BMW E89 Z4 GT3 Carbon Fiber Hood | ID: 10627316547865
@@ -999,9 +1070,12 @@ ELITE TI NAVIGATION TREE & PRODUCT COLLECTION MAP
     - BMW Z4 E89 ETi Body Kit | ID: 10627311567129
     - BMW Z4 E89 GT3 Widebody Body Kit | ID: 10627311501593
     - BMW Z4 E89 Hamann Body Kit | ID: 10627311436057
-  [MODEL] i8 | Collection ID: 515084419353
+  [MODEL] i8 | Collection ID: 513420034329
     - BMW I8 AC Body Kit | ID: 10627314647321
     - BMW I8 Vorsteiner Body Kit | ID: 10627314549017
+  [MODEL] Universal / Multi-Fitment | Collection ID: 513419772185
+    - ETi BMW E92/E93 Wide Body Kit | ID: 10730055074073
+    - BMW Jojos Minor Change ETi Wide Body Kit | ID: 10730064183577
 
 [BRAND] PORSCHE | Collection ID: 467589366041
   [MODEL] 718 (Boxster / Cayman / GT4) | Collection ID: 512446005529
