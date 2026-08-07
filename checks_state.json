@@ -159,7 +159,8 @@
   "QA-11": {
     "status": "Passed by ETi",
     "change": "Homepage Crop / Fitment Cleanup",
-    "notes": "Homepage car scroll image fits correctly without cutoffs or malformed layout cropping. Fixed."
+    "notes": "Homepage car scroll image fits correctly without cutoffs or malformed layout cropping. Fixed.",
+    "desktop": "homepage_car_crop_proof.png"
   },
   "QA-12": {
     "status": "Blocked — Owner Decision Required",
