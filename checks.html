@@ -823,6 +823,7 @@
             <button class="filter-btn" data-filter="p1">P1 UI</button>
             <button class="filter-btn" data-filter="cat">Catalog</button>
             <button class="filter-btn" data-filter="aug06">06 Aug Audit</button>
+            <button class="filter-btn" data-filter="assets">Site Assets</button>
         </div>
     </div>
 
@@ -1347,6 +1348,57 @@
     function renderCards(filter = 'all', searchQuery = '') {
         container.innerHTML = '';
         const query = searchQuery.toLowerCase().trim();
+
+        if (filter === 'assets') {
+            const assetsCard = document.createElement('div');
+            assetsCard.className = 'punch-card status-passed';
+            assetsCard.style.padding = '2.5rem';
+            assetsCard.style.background = 'linear-gradient(135deg, rgba(17, 20, 27, 0.95), rgba(9, 11, 14, 0.95))';
+            assetsCard.innerHTML = `
+                <div class="card-header" style="margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
+                    <div class="card-title-group">
+                        <span class="item-id-badge badge-blue">DRIVE</span>
+                        <h2 class="card-title" style="font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 700; color: #ffffff;">Official Site Assets & Tracking Portals</h2>
+                    </div>
+                </div>
+
+                <div class="assets-layout" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem;">
+                    <!-- Drive Link 1 -->
+                    <div style="background: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--brand-green)';" onmouseout="this.style.borderColor='var(--border-color)';">
+                        <div>
+                            <h3 style="font-family: 'Outfit', sans-serif; color: var(--text-primary); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <svg style="width:20px; height:20px; fill:var(--brand-green);" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                                Catalog Storefront Settings Folder
+                            </h3>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                                Official Google Drive directory containing wholesale pricing catalogs, storefront parameters, policy sheets, and settings configuration files. (Note: Once approved, a secure password gate will be added).
+                            </p>
+                        </div>
+                        <a href="https://drive.google.com/drive/folders/1MiDi2cNSx12L_mhxKJ5evRgIjznKMorU?usp=drive_link" target="_blank" class="btn btn-primary" style="text-align: center; display: block; padding: 0.8rem; text-decoration: none; border-radius: 8px;">
+                            Open Catalog Assets Folder
+                        </a>
+                    </div>
+
+                    <!-- Drive Link 2 -->
+                    <div style="background: rgba(255, 255, 255, 0.015); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--brand-blue)';" onmouseout="this.style.borderColor='var(--border-color)';">
+                        <div>
+                            <h3 style="font-family: 'Outfit', sans-serif; color: var(--text-primary); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <svg style="width:20px; height:20px; fill:var(--brand-blue);" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                                Image & Asset Tracking Portal
+                            </h3>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                                Internal team drive folder structured with raw catalog photos, edited storefront graphics, and organized assets mapped to their respective product IDs. Essential for tracking every visual product.
+                            </p>
+                        </div>
+                        <a href="https://drive.google.com/drive/folders/1UTrEEwMr6dEWKE_jT9o-gkIM7A_-P400?usp=drive_link" target="_blank" class="btn btn-accent" style="text-align: center; display: block; padding: 0.8rem; text-decoration: none; border-radius: 8px;">
+                            Open Photo Tracking Portal
+                        </a>
+                    </div>
+                </div>
+            `;
+            container.appendChild(assetsCard);
+            return;
+        }
 
         punchListItems.forEach(item => {
             // Apply category filter
