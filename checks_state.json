@@ -187,5 +187,21 @@
     "status": "Passed by ETi",
     "change": "Variant Weights",
     "notes": "All weights updated using reference data from client: <a href=\"Weight-update.csv\" download style=\"color:#34d399; text-decoration:underline;\">Weight-update.csv</a> | <a href=\"ETi_Weight_Implementation_Guide.pdf\" download style=\"color:#34d399; text-decoration:underline;\">ETi_Weight_Implementation_Guide.pdf</a> | <a href=\"ETi_Weight_Implementation_Guide.docx\" download style=\"color:#34d399; text-decoration:underline;\">ETi_Weight_Implementation_Guide.docx</a> | <a href=\"ETi_site_weight_product_mapping_v2 - ETi Product Map.csv\" download style=\"color:#34d399; text-decoration:underline;\">ETi Product Map.csv</a> | <a href=\"ETi_site_weight_product_mapping_v2 - Safe Shipping Matrix.csv\" download style=\"color:#34d399; text-decoration:underline;\">Safe Shipping Matrix.csv</a>"
+  },
+  "QA-01": {
+    "status": "Passed by ETi",
+    "change": "Description Structuring Sync",
+    "notes": "1110 products have been updated with the correct description structures. We will be getting the rest updated in the meantime. Let us know if we can help with anything else."
+  },
+  "QA-05": {
+    "status": "Passed by ETi",
+    "category": "06 Aug Audit",
+    "change": "Upscaled Image Quality Verification",
+    "desktop": "supra_before1.webp",
+    "mobile": "supra_after1.webp",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-08-07",
+    "notes": "Before upscale reference (original image low resolution) vs Upscaled high definition after result. (Additional comparative files: <a href=\"supra_before2.webp\" target=\"_blank\" style=\"color:#34d399; text-decoration:underline;\">Before Ref 2</a> | <a href=\"supra_after2.webp\" target=\"_blank\" style=\"color:#34d399; text-decoration:underline;\">After Upscaled Ref 2</a>)"
   }
 }
