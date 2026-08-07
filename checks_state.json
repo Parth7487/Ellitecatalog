@@ -167,15 +167,11 @@
     "notes": "Not fully understood what action is needed from our end; additional explanation on flexible fitment phrasing would be appreciated."
   },
   "QA-13": {
-    "status": "In Progress",
-    "link": "",
-    "change": "Homepage banner refreshed and material copy updated.",
-    "desktop": "",
-    "mobile": "",
-    "implBy": "Shopifydevstudio",
-    "revBy": "Parth",
-    "date": "2026-08-06",
-    "notes": "Banner live."
+    "status": "Passed by ETi",
+    "change": "Homepage Banner and Material Updates",
+    "desktop": "matte_carbon_weave.png",
+    "mobile": "carbon_kevlar_weave.png",
+    "notes": "Homepage hero/promo banner has been updated. Material description sections updated across site."
   },
   "P1-06": {
     "status": "Passed by ETi",
