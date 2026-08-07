@@ -100,7 +100,7 @@
   "P1-04": {
     "status": "Passed by ETi",
     "change": "Collection Pages",
-    "notes": "Fully validated collection pages titles, filters, dimensions and pricing layout. Correct collection title, Correct products, No unrelated vehicle products, No accidental duplicates, Correct filters, Correct product images, Correct pricing presentation. Proof: /Users/parth/Downloads/Projects/Elite ti/ELLITE_MAIN/Memory/proofs/navigation_tree.txt"
+    "notes": "Fully validated collection pages titles, filters, dimensions and pricing layout. Correct collection title, products, filters, images, and pricing. Proof of work: <a href=\"navigation_tree.txt\" download style=\"color:#34d399; text-decoration:underline;\">navigation_tree.txt</a>"
   },
   "P1-05": {
     "status": "In Progress",
@@ -110,7 +110,7 @@
   "CAT-10": {
     "status": "Passed by ETi",
     "change": "Collection Assignment",
-    "notes": "All new updated accurate collections have ETI prefix at the end. Checked against tree map layout. Proof: /Users/parth/Downloads/Projects/Elite ti/ELLITE_MAIN/Memory/proofs/navigation_tree.txt"
+    "notes": "All new updated accurate collections have ETI prefix at the end. Mapped correct collection IDs. Proof of work: <a href=\"navigation_tree.txt\" download style=\"color:#34d399; text-decoration:underline;\">navigation_tree.txt</a>"
   },
   "P0-09": {
     "status": "Ready for ETi Review"
@@ -139,7 +139,7 @@
   "QA-07": {
     "status": "Passed by ETi",
     "change": "Storefront Live Audit Report Checks",
-    "notes": "Fixed header links, support pages, 404s, and 34 dead placeholders (Proof: /Users/parth/Downloads/Projects/Elite ti/ELLITE_MAIN/Memory/proofs/navigation_tree.txt). Updated empty Supra collections, RX-8 paths, Shop Build buttons, Alt texts, and cropping layouts."
+    "notes": "Fixed header links, support pages, 404s, and 34 dead placeholders (Proof: <a href=\"navigation_tree.txt\" download style=\"color:#34d399; text-decoration:underline;\">navigation_tree.txt</a>). Updated empty Supra collections, RX-8 paths, Shop Build buttons, Alt texts, and cropping layouts."
   },
   "QA-08": {
     "status": "Passed by ETi",
@@ -186,6 +186,6 @@
   "CAT-09": {
     "status": "Passed by ETi",
     "change": "Variant Weights",
-    "notes": "Implemented variant weight synchronization based on product class and shipping requirements. All weights updated using reference data from client. Verification sheets: /Users/parth/Downloads/Weight-update.csv, /Users/parth/Downloads/ETi_Weight_Implementation_Guide.docx, /Users/parth/Downloads/ETi_site_weight_product_mapping_v2 - ETi Product Map.csv"
+    "notes": "All weights updated using reference data from client: <a href=\"Weight-update.csv\" download style=\"color:#34d399; text-decoration:underline;\">Weight-update.csv</a> | <a href=\"ETi_Weight_Implementation_Guide.pdf\" download style=\"color:#34d399; text-decoration:underline;\">ETi_Weight_Implementation_Guide.pdf</a> | <a href=\"ETi_Weight_Implementation_Guide.docx\" download style=\"color:#34d399; text-decoration:underline;\">ETi_Weight_Implementation_Guide.docx</a> | <a href=\"ETi_site_weight_product_mapping_v2 - ETi Product Map.csv\" download style=\"color:#34d399; text-decoration:underline;\">ETi Product Map.csv</a> | <a href=\"ETi_site_weight_product_mapping_v2 - Safe Shipping Matrix.csv\" download style=\"color:#34d399; text-decoration:underline;\">Safe Shipping Matrix.csv</a>"
   }
 }

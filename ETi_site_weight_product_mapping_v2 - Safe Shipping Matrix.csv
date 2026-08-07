@@ -1,0 +1,25 @@
+Ship Class,Partner Tokens,Clean Obs,Unique SKUs,P50 Vol kg,P75 Vol kg,P90 Vol kg,Rec L,Rec W,Rec H,Recommended Site Weight,Legacy Weight,Delta,Confidence,Bulk Default?,Notes
+Hood — Standard,HOOD,,,,72.4,,170.0,133.0,16.0,73.0,74.0,-1.0,Established,YES,Retain the established ETi standard hood tier.
+Hood — Large,HOOD,,,,97.2,,161.0,151.0,20.0,98.0,98.0,0.0,Established,YES,Retain the established ETi large hood tier.
+Hood — XL,HOOD,,,,111.2,,160.0,158.0,22.0,112.0,112.0,0.0,Established,NO,Retain the established ETi XL hood tier; apply only to known XL products.
+Front Bumper,FB,3,3,134.7,163.3,180.5,200.0,80.0,60.0,192.0,140.0,52.0,Medium,NO,Partner sample is too sparse and variable for bulk replacement. Retain current site value pending chassis-level confirmation. Representative carton: P-ELTRA23-FB-NPER / OD-0020758.
+Rear Bumper,RB,1,1,192.0,192.0,192.0,200.0,80.0,60.0,192.0,140.0,52.0,Low,NO,Only one defensible clean observation. Retain current site value pending confirmation. Representative carton: H-G35-RB-KEN / OD-0020514.
+Front Lip / Splitter,FL,178,84,25.9,34.3,43.7,177.0,57.0,17.0,35.0,32.0,3.0,Medium,YES,Cleaned P75 of actual single-unit cartons. Representative carton: B-R34-FL-HSM / OD-0027251.
+Rear Diffuser,DIF,58,36,24.4,32.3,46.7,151.0,51.0,21.0,33.0,30.0,3.0,Low,NO,Cleaned P75; full diffusers only. Representative carton: B-987-DIF-EPAGT / OD-0018908.
+Side Skirts,SS,51,20,18.8,21.4,28.4,171.0,31.0,20.0,22.0,28.0,-6.0,Medium,YES,Cleaned P75; full side-skirt cartons. Representative carton: B-MX5-SS-ND-ESQ / OD-0021733.
+Front Fender,FF,136,71,61.5,72.2,79.4,119.0,84.0,36.0,72.0,66.0,6.0,High,NO,Highly chassis-dependent. Use exact vehicle profile only; otherwise retain current value and review. Representative carton: A-EVO8-FF-VA / OD-0022537.
+Rear Fender,RF,28,20,34.8,48.2,65.5,141.0,57.0,30.0,49.0,41.0,8.0,Low,NO,Highly chassis-dependent. Use exact vehicle profile only; otherwise retain current value and review. Representative carton: B-G37-RF-LB / OD-0020212.
+Fender Flare / Arch,"ARCH, FARCH, RARCH",50,21,12.2,16.0,34.5,126.0,43.0,15.0,17.0,41.0,-24.0,Low,NO,Small flare/arch pieces separated from full fenders. Representative carton: B-MX5-ARCH-RALLY-NC / OD-0020349.
+Trunk / Boot,TRUNK,28,14,60.3,82.2,90.2,132.0,73.0,42.0,81.0,67.0,14.0,Medium,NO,Bimodal by chassis. Use exact vehicle profile only; otherwise retain current value and review. Representative carton: A-E46-TRUNK-OE / OD-0017474.
+Duckbill / Small Spoiler,RS,608,202,12.1,15.3,17.5,133.0,41.0,14.0,16.0,17.0,-1.0,High,YES,Small spoiler class uses RS cartons at or below 20 volumetric kg. Representative carton: A-DE5-RS-AR2& / OD-0022319. Representative carton: A-G70-RS-EPA2 / OD-0027297.
+Standard Spoiler / Wing,RS,279,136,28.2,29.8,32.3,133.0,43.0,26.0,30.0,17.0,13.0,High,YES,Generic standard-wing fallback; exact vehicle evidence preferred. Representative carton: A-DE5-RS-AR2& / OD-0022319. Representative carton: B-YARISGR-RS-GV / OD-0027494.
+GT Wing,RS,31,10,48.2,48.2,48.2,141.0,57.0,30.0,49.0,52.0,-3.0,High,YES,Large wing class; exact vehicle evidence preferred. Representative carton: A-DE5-RS-AR2& / OD-0022319. Representative carton: A-YARISGR-RS-EPA3 / OD-0027721.
+Roof Panel,ROOF,4,3,45.0,45.8,47.1,121.0,93.0,20.0,46.0,55.0,-9.0,Medium,NO,Only four clean observations. Exact match only; otherwise retain current value and review. Representative carton: A-LOTUS-ROOF-S2S3& / OD-0018493.
+Door,DOOR,3,3,41.3,45.5,48.0,118.0,62.0,34.0,50.0,51.0,-1.0,Medium,NO,Only three clean observations. Exact match only; pairs require manual confirmation. Representative carton: A-LP550-DOOR-IN / OD-0026429.
+Canards,CANA,128,44,5.1,7.0,8.6,66.0,24.0,22.0,7.0,7.0,0.0,Medium,YES,Cleaned P75; prevents full-bumper inheritance. Representative carton: A-G70-CANA-EPA / OD-0018524.
+Cooling Panel,CP,170,43,7.4,12.1,12.1,133.0,35.0,13.0,13.0,10.0,3.0,Medium,YES,Cleaned P75 after removing a clear oversized outlier. Representative carton: B-R34-CP-GARA / OD-0027441.
+Heatshield,HEAT,43,11,2.2,2.6,3.0,41.0,26.0,12.0,3.0,5.0,-2.0,High,YES,Cleaned P75 of small heatshield cartons. Representative carton: A-MX5-HEAT-NA / OD-0020315.
+Hood Vent / Scoop,"HV, SCOOP",79,20,4.0,5.4,7.3,45.0,33.0,18.0,6.0,5.0,1.0,Medium,YES,Standalone vent/scoop only. Representative carton: A-EP82-HV-OE / OD-0026027.
+Spats / Extensions,"SPAT, SSX",116,44,8.9,12.5,15.3,208.0,20.0,15.0,13.0,10.0,3.0,Medium,YES,Cleaned P75 of single-unit extension cartons. Representative carton: B-R34-SSX-OE-CON / OD-0026518.
+Fender Vent / Add-on,"FFAV, FFADD, FFX, RFTRIM",41,9,3.2,3.8,4.9,66.0,22.0,13.0,4.0,10.0,-6.0,Medium,YES,Cleaned P75 of small fender add-ons. Representative carton: B-FK8-FFAV-EPA / OD-0026319.
+Duct / Guide,"SDUCT, DS, FV, UWF",52,18,5.8,7.2,8.2,43.0,31.0,27.0,8.0,5.0,3.0,High,YES,Cleaned P75 of ducts and guides. Representative carton: A-NSX-SDUCT-OE / OD-0024874.
