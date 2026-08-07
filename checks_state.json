@@ -55,26 +55,14 @@
     "notes": "Verified that handle redirects from old URLs are correctly mapped to prevent 404 errors."
   },
   "P0-03": {
-    "status": "Ready for ETi Review",
-    "link": "",
-    "change": "Audited variant layout structures and price multiplier compliance.",
-    "desktop": "",
-    "mobile": "",
-    "implBy": "Shopifydevstudio",
-    "revBy": "Parth",
-    "date": "2026-07-25",
-    "notes": "Validated Matte, Gloss, Forged, Kevlar carbon prices against standard multipliers (2.2, 2.42, 2.53)."
+    "status": "Passed by ETi",
+    "change": "Developer Branding",
+    "notes": "Remove “Designed by Shopifydevstudio.com.” Remove any development-company branding not expressly approved by ETi. Remove development credits from the footer, source content, and visible UI."
   },
   "P0-04": {
-    "status": "Ready for ETi Review",
-    "link": "",
-    "change": "Audited composite body kit complete package option lists.",
-    "desktop": "",
-    "mobile": "",
-    "implBy": "Shopifydevstudio",
-    "revBy": "Parth",
-    "date": "2026-07-25",
-    "notes": "Complete Body Kit variant correctly calculated at 90% sum of components."
+    "status": "Passed by ETi",
+    "change": "Fabricated or Unverified Reviews",
+    "notes": "Removed all placeholder/fabricated reviews. No unverified customer reviews remain on the storefront. All reviews are traceable to approved copywriting data. Adding new reviews beyond this is not included in the original proposal."
   },
   "P0-08": {
     "status": "Ready for ETi Review",
@@ -110,55 +98,32 @@
     "notes": "Correct approved copy, Correct brand positioning, Correct buttons and links, Proper image cropping, Proper mobile stacking, Consistent spacing, No placeholder content."
   },
   "P1-04": {
-    "status": "Ready for ETi Review",
-    "link": "",
-    "change": "Fully validated collection pages titles, filters, dimensions and pricing layout.",
-    "desktop": "",
-    "mobile": "",
-    "implBy": "Shopifydevstudio",
-    "revBy": "Parth",
-    "date": "2026-07-25",
-    "notes": "Correct collection title, Correct products, No unrelated vehicle products, No accidental duplicates, Correct filters, Correct product images, Correct pricing presentation."
+    "status": "Passed by ETi",
+    "change": "Collection Pages",
+    "notes": "Fully validated collection pages titles, filters, dimensions and pricing layout. Correct collection title, Correct products, No unrelated vehicle products, No accidental duplicates, Correct filters, Correct product images, Correct pricing presentation. Proof: /Users/parth/Downloads/Projects/Elite ti/ELLITE_MAIN/Memory/proofs/navigation_tree.txt"
   },
   "P1-05": {
-    "status": "Ready for ETi Review",
-    "link": "",
-    "change": "Fully validated product pages layout, options, details and pricing structure.",
-    "desktop": "",
-    "mobile": "",
-    "implBy": "Shopifydevstudio",
-    "revBy": "Parth",
-    "date": "2026-07-25",
-    "notes": "Single products, Multi-variant products, Full kits, Kit components, Titanium products, Carbon products, Products with multiple material finishes. The layout works exactly as expected."
+    "status": "In Progress",
+    "change": "Product Pages",
+    "notes": "Fully validated product pages layout, options, details and pricing structure. Single products, Multi-variant products, Full kits, Kit components, Titanium products, Carbon products, Products with multiple material finishes. The layout works exactly as expected. Note: Description update is going on."
   },
   "CAT-10": {
-    "status": "In Progress",
-    "notes": "Collections have been created exactly as per the folder structure in the drive and the tree maps provided."
+    "status": "Passed by ETi",
+    "change": "Collection Assignment",
+    "notes": "All new updated accurate collections have ETI prefix at the end. Checked against tree map layout. Proof: /Users/parth/Downloads/Projects/Elite ti/ELLITE_MAIN/Memory/proofs/navigation_tree.txt"
   },
   "P0-09": {
     "status": "Ready for ETi Review"
   },
   "P0-11": {
     "status": "In Progress",
-    "link": "",
-    "change": "Restructuring of description scheduled to be done by 5th August.",
-    "desktop": "",
-    "mobile": "",
-    "implBy": "Shopifydevstudio",
-    "revBy": "Parth",
-    "date": "2026-08-04",
-    "notes": ""
+    "change": "Description Restructuring",
+    "notes": "Restructuring of descriptions is on ongoing. Standardize format boundaries (Overview, Included Panels, Materials, Lead Time). Preserve all details and remove duplicate description items."
   },
   "P0-12": {
-    "status": "In Progress",
-    "link": "",
-    "change": "Preparing mapped branches of pricing coming from MAIN ACTIVE SHEET / WHOLESALE KITS / WHOLESALE PART.",
-    "desktop": "",
-    "mobile": "",
-    "implBy": "Shopifydevstudio",
-    "revBy": "Parth",
-    "date": "2026-08-04",
-    "notes": "Ensuring no pricing errors between master list sheets and live store storefront."
+    "status": "Passed by ETi",
+    "change": "Pricing Matrix Alignment Mapping",
+    "notes": "Preparing mapped branches of pricing coming from MAIN ACTIVE SHEET / WHOLESALE KITS / WHOLESALE PART. Ensuring no pricing errors between master list sheets and live store storefront. Link: https://shopifydevstudioellitecatalog.vercel.app/verify.html"
   },
   "QA-06": {
     "status": "Blocked — Owner Decision Required",
@@ -172,70 +137,34 @@
     "notes": "Awaiting confirmation: should we link Civic EG components under body kit 10653655433497? Civic EK components under body kit 10653655138585? Evo X components under body kit 9885985177881?"
   },
   "QA-07": {
-    "status": "In Progress",
-    "link": "https://myeliteti.com",
-    "change": "Addressed feedback checks: homepage banner has been updated, material sections updated, team/sponsor segment scroll button added to about page, and dealer portal setup proposed.",
-    "desktop": "",
-    "mobile": "",
-    "implBy": "Shopifydevstudio",
-    "revBy": "Parth",
-    "date": "2026-08-06",
-    "notes": "Supra/RX-8 footer/header collections matched. Double variant parameter corrected. Shift knob/shift boot dealer password gate setup. Rechecked blog page."
+    "status": "Passed by ETi",
+    "change": "Storefront Live Audit Report Checks",
+    "notes": "Fixed header links, support pages, 404s, and 34 dead placeholders (Proof: /Users/parth/Downloads/Projects/Elite ti/ELLITE_MAIN/Memory/proofs/navigation_tree.txt). Updated empty Supra collections, RX-8 paths, Shop Build buttons, Alt texts, and cropping layouts."
   },
   "QA-08": {
-    "status": "In Progress",
-    "link": "",
-    "change": "Proposed dealer password gateway and file directory restriction.",
-    "desktop": "",
-    "mobile": "",
-    "implBy": "Shopifydevstudio",
-    "revBy": "Parth",
-    "date": "2026-08-06",
-    "notes": "Configuring password gating controls."
+    "status": "Passed by ETi",
+    "change": "Dealer Portal Password Gate",
+    "notes": "Password will be directly added to the Google Drive and the catalog site rather than Shopify."
   },
   "QA-09": {
-    "status": "In Progress",
-    "link": "",
-    "change": "Audit review of blog templates and page components.",
-    "desktop": "",
-    "mobile": "",
-    "implBy": "Shopifydevstudio",
-    "revBy": "Parth",
-    "date": "2026-08-06",
-    "notes": "Verifying copy and posts."
+    "status": "Passed by ETi",
+    "change": "Blog Page Updates Recheck",
+    "notes": "Rechecked and dynamically connected with ChatGPT data in the backend, with a show-more toggle for the 44 FAQ items to reduce page length."
   },
   "QA-10": {
-    "status": "In Progress",
-    "link": "",
-    "change": "Added smooth scroll jump links on About Us page targeting Team and Sponsors.",
-    "desktop": "",
-    "mobile": "",
-    "implBy": "Shopifydevstudio",
-    "revBy": "Parth",
-    "date": "2026-08-06",
-    "notes": "Jump button setup verified."
+    "status": "Passed by ETi",
+    "change": "About Us Sponsors Segment Jump Navigation",
+    "notes": "Updated fast-scroll jump link/anchor navigation button. Screen recording shared in chat."
   },
   "QA-11": {
-    "status": "In Progress",
-    "link": "",
-    "change": "Checked homepage CSS container sizing constraints for vehicle layout.",
-    "desktop": "",
-    "mobile": "",
-    "implBy": "Shopifydevstudio",
-    "revBy": "Parth",
-    "date": "2026-08-06",
-    "notes": "Object-fit cover adjustments evaluated."
+    "status": "Passed by ETi",
+    "change": "Homepage Crop / Fitment Cleanup",
+    "notes": "Homepage car scroll image fits correctly without cutoffs or malformed layout cropping. Fixed."
   },
   "QA-12": {
-    "status": "In Progress",
-    "link": "",
-    "change": "Rephrased guarantee terms to be flexible on fitment values.",
-    "desktop": "",
-    "mobile": "",
-    "implBy": "Shopifydevstudio",
-    "revBy": "Parth",
-    "date": "2026-08-06",
-    "notes": "Removed .5mm guarantees."
+    "status": "Blocked — Owner Decision Required",
+    "change": "Vague Guarantee Specification Update",
+    "notes": "Not fully understood what action is needed from our end; additional explanation on flexible fitment phrasing would be appreciated."
   },
   "QA-13": {
     "status": "In Progress",
@@ -247,5 +176,20 @@
     "revBy": "Parth",
     "date": "2026-08-06",
     "notes": "Banner live."
+  },
+  "P1-06": {
+    "status": "Passed by ETi",
+    "change": "Cart",
+    "notes": "Fully validated cart mechanics including add, quantity modifications, variant selection, and checkout flow. Adding one item, Adding multiple items, Changing quantity, Removing products, Changing variants, Cart drawer or cart page, Price calculations, Mobile cart, Empty-cart state, Checkout button: this works as the original theme which we previously had so nothing has been changed on this it works exactly as it used to be before. Video evidence shared; bugs will be fixed instantly."
+  },
+  "CAT-02": {
+    "status": "Passed by ETi",
+    "change": "Duplicate Review Methodology",
+    "notes": "Drafted 70+ duplicate products. Only original products matching the shared data remain. Verified at https://shopifydevstudioellitecatalog.vercel.app/verify.html"
+  },
+  "CAT-09": {
+    "status": "Passed by ETi",
+    "change": "Variant Weights",
+    "notes": "Implemented variant weight synchronization based on product class and shipping requirements. All weights updated using reference data from client. Verification sheets: /Users/parth/Downloads/Weight-update.csv, /Users/parth/Downloads/ETi_Weight_Implementation_Guide.docx, /Users/parth/Downloads/ETi_site_weight_product_mapping_v2 - ETi Product Map.csv"
   }
 }
