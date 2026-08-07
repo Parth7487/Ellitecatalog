@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Ti — Master Audit Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --header-bg: #1f2833;
+            --accent-color: #ccff00;
+            --text-color: #c5c6c7;
+            --text-light: #ffffff;
+            --border-color: rgba(204, 255, 0, 0.15);
+            --active-tab-bg: #ccff00;
+            --active-tab-text: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
+
+        .tab-btn.active {
+            background: var(--active-tab-bg);
+            color: var(--active-tab-text);
+            border-color: var(--active-tab-bg);
+        }
+
+        .iframe-container {
+            flex-grow: 1;
+            position: relative;
+            background: #000000;
+        }
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+        }
+
+        iframe.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Elite Ti <span>Master Audit</span></div>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0)">Standalone Audit</button>
+            <button class="tab-btn" onclick="switchTab(1)">Correction Match Audit</button>
+            <button class="tab-btn" onclick="switchTab(2)">Hood/Panel Audit</button>
+        </div>
+    </header>
+
+    <div class="iframe-container">
+        <iframe id="iframe-0" class="active" src="standalone_audit_preview.html"></iframe>
+        <iframe id="iframe-1" src="matching_audit_report.html"></iframe>
+        <iframe id="iframe-2" src="hood_audit_report.html"></iframe>
+    </div>
+
+    <script>
+        function switchTab(index) {
+            // Update tab buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach((btn, idx) => {
+                if (idx === index) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Update iframes
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach((iframe, idx) => {
+                if (idx === index) {
+                    iframe.classList.add('active');
+                } else {
+                    iframe.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -41,7 +41,7 @@ ELITE Ti CATALOG TREE MAP
       - ETi BMW E92 M3 Carbon Fiber Trunk | ID: 10627315630361
       - ETi BMW E93 ETi Carbon Fiber Hood | ID: 10627316384025
       - ETi BMW E93 OEM Carbon Fiber Hood | ID: 10627316482329
-      - ETi BMW M3 E92 - E93 Rear Diffuser | ID: 9938717114649
+      - ETi BMW M3 E92 / E93 Rear Diffuser | ID: 9938717114649
       - ETi BMW M3 E92-E93 Front Fender Vents | ID: 10656997409049
     [CAT] Kits
       - BMW E90 Alpina (for Long) Body Kit | ID: 10627313500441
@@ -232,7 +232,7 @@ ELITE Ti CATALOG TREE MAP
       - Honda Dimension Mugen Skirt Style Body Kit | ID: 10653659726105
   [MODEL] Civic (EP3)
     [CAT] Exterior
-      - ETi HONDA EP3 Carbon Fiber Doors | ID: 10653657923865
+      - ETi Honda EP3 Carbon Fiber Doors | ID: 10653657923865
       - ETi HONDA EP3 INT DOOR Carbon Fiber Doors | ID: 10726681641241
       - ETi Honda Civic EP3 Carbon Fiber Spoiler | ID: 10653658677529
       - ETi Honda Civic EP3 OEM Carbon Fiber Hood | ID: 10653657170201
@@ -243,7 +243,7 @@ ELITE Ti CATALOG TREE MAP
       - Honda Civic EP3 Buddy Club Style Body Kit | ID: 10653659595033
   [MODEL] Civic (FD / FN / FA)
     [CAT] Exterior
-      - ETi Honda Civic 2006 Carbon Fiber Roof | ID: 10653658546457
+      - ETi Honda NEW Civic 2006 Carbon Fiber Roof | ID: 10653658546457
       - ETi Honda Civic 2006 ETi Carbon Fiber Hood | ID: 10653656908057
       - ETi Honda Civic 2006 OEM Carbon Fiber Hood | ID: 10653656875289
       - ETi Honda Civic 2006 OEM Carbon Fiber Trunk | ID: 10653658218777
@@ -436,8 +436,8 @@ ELITE Ti CATALOG TREE MAP
       - ETi Mazda RX-7 (FD3S) Carbon Fiber Cowl Panel | ID: 9801511141657
       - ETi Mazda RX-7 (FD3S) Carbon Fiber Door Cards (RHD) | ID: 8978316460313
       - ETi Mazda RX-7 (FD3S) Carbon Fiber Interior Trim Set | ID: 8978297651481
-      - ETi Mazda RX-7 (FD3S) Carbon Fiber OEM Dash | ID: 10639464530201
-      - ETi Mazda RX-7 (FD3S) Carbon Fiber Race Dash | ID: 10221699596569
+      - ETi Mazda RX-7 FD3S Carbon Fiber OEM Dash (RHD) | ID: 10639464530201
+      - ETi Mazda RX-7 (FD3S) Carbon Fiber Race Dash — RHD | ID: 10221699596569
       - ETi Mazda RX-7 (FD3S) Carbon Fiber Rear Trunk Trim Kit (12-Piece) | ID: 10639465185561
       - ETi Mazda RX-7 (FD3S) Dry Carbon Rear Seat & B-Pillar Delete Kit | ID: 9868201492761
       - ETi Mazda RX-7 (FD3S) Dry Carbon Rear Seat & Bin Delete Kit | ID: 10685683532057
@@ -480,7 +480,7 @@ ELITE Ti CATALOG TREE MAP
       - Mazda RX-8 RE Carbon Fiber Hood | ID: 10627884810521
       - Mazda RX-8 RE-2 Carbon Fiber Hood | ID: 10627884712217
       - Mazda RX-8 RE-2 Headlight Cover Carbon Fiber Hood | ID: 10627884646681
-      - Mazda RX-8 RE-Style Grille | ID: 10627883499801
+      - MAZDA RX8 RE Body Kit | ID: 10627883499801
       - Mazda RX-8 Rear Bumper Diffuser | ID: 9932763365657
       - Mazda RX-8 Rear Carbon Fiber Doors | ID: 10627884351769
       - Mazda RX-8 SE3P Early Aero Mirror (LHD) | ID: 10627885465881
@@ -588,12 +588,12 @@ ELITE Ti CATALOG TREE MAP
       - ETi Mitsubishi EVO 7/8/9 Front Carbon Fiber Doors | ID: 10626082799897
       - ETi Mitsubishi EVO 7/8/9 Rear Carbon Fiber Doors | ID: 10726716440857
       - ETi Mitsubishi EVO 8 OEM Carbon Fiber Spoiler | ID: 10626082046233
-      - ETi Mitsubishi Evo 8-9 OEM Style Trunk | ID: 10627600285977
-      - ETi Mitsubishi Evo 8-9 Voltex Front Splitter | ID: 10627601203481
+      - ETi Mitsubishi Evo 8/9 OEM Style Trunk | ID: 10627600285977
+      - ETi Mitsubishi Evo 8/9 Voltex Front Splitter | ID: 10627601203481
       - ETi Mitsubishi Lancer Evolution 7 8-Piece Full Carbon Fiber Doors Set | ID: 10731073077529
-      - EVO 7-8 Monster | ID: 10727221756185
-      - EVO8(EVO 7-8) VOLTEX for EVO8 | ID: 10727222214937
-      - EVO9 VOLTEX Cyber For Race | ID: 10727222706457
+      - Mitsubishi Lancer EVO 7-8 Monster Style Body Kit | ID: 10727221756185
+      - Mitsubishi Lancer EVO 8 Voltex Style Body Kit | ID: 10727222214937
+      - Mitsubishi Lancer EVO 9 Voltex Cyber Widebody Kit | ID: 10727222706457
       - ETi Mitsubishi Evo 8/9 C-West Style Carbon Fiber Hood | ID: 9957595382041
       - ETi Evolution 8/9 Carbon Fiber Duckbill Spoiler | ID: 10627600384281
       - ETi Evolution 8/9 Carbon Fiber Headlight Eyebrows | ID: 10627600580889
@@ -607,12 +607,12 @@ ELITE Ti CATALOG TREE MAP
       - ETi Evo 8/9 VRs-Style Carbon Fiber Wing | ID: 10627600417049
       - ETi Evo 8/9 VS-Style Carbon Fiber Exhaust Heatshield | ID: 10627601170713
       - ETi Mitsubishi EVO 8/9 Voltex Carbon Fiber Hood | ID: 10626083914009
-      - VTX Cyber Evo-Style Carbon Fiber Hood – Mitsubishi Evo 8-9 | ID: 9841210949913
+      - VTX Cyber Evo-Style Carbon Fiber Hood – Mitsubishi Evo 8/9 | ID: 9841210949913
     [CAT] Interior
       - ETi Evolution 8/9 Carbon Fiber Steering Wheel Bezel | ID: 10627600613657
       - ETi Evolution 8/9 Carbon Fiber Triple Gauge Pod (LHD) | ID: 10627601137945
     [CAT] Kits
-      - ETi Evo 8-9 – Project Oni- Type Zero Full Carbon Fiber BodyKit | ID: 9920526057753
+      - ETi Evo 8/9 – Project Oni: Type Zero Full Carbon Fiber BodyKit | ID: 9920526057753
       - Mitsubishi EVO 7/8 EVO 8 Body Kit | ID: 10626081587481
       - Mitsubishi EVO 7/8 ING+1 Body Kit | ID: 10626081521945
       - Mitsubishi EVO 7/8 ING+1 Monster Body Kit | ID: 10626081423641
@@ -704,7 +704,7 @@ ELITE Ti CATALOG TREE MAP
       - ETi Mitsubishi Triton 2023 OEM Carbon Fiber Hood | ID: 10626083029273
       - ETi Mitsubishi Triton OEM Carbon Fiber Hood | ID: 10626083193113
     [CAT] Kits
-      - Triton 2022 | ID: 10727221395737
+      - Mitsubishi Triton 2022 Body Kit | ID: 10727221395737
 
 [BRAND] Nissan
   [MODEL] Cefiro (A31)
@@ -804,7 +804,7 @@ ELITE Ti CATALOG TREE MAP
       - Nissan 370Z Varis Style Body Kit | ID: 10658255077657
     [CAT] Engine Bay & Cooling
       - ETi Nissan 370Z Engine Bay Cover Kit – (5-Piece Set) | ID: 10658238791961
-      - ETi Nissan 370Z Engine Bay Covers | ID: 10730131259673
+      - ETi Nissan 370Z Covers | ID: 10730131259673
   [MODEL] GT-R (R35)
     [CAT] Exterior
       - ETi Aluminum Coolant Tank – Nissan GT-R R35 | ID: 10658244034841
@@ -837,7 +837,7 @@ ELITE Ti CATALOG TREE MAP
       - R35 GTR CBA DBA Rear Spoiler Higher Legs | ID: 10658239971609
       - R35 GTR CBA DBA WA Style Front Bumper(with Side Vents, fog lamp hole) | ID: 10658239316249
       - R35 GTR CBA WA Style Rear Bumper Diffuser Addon | ID: 10658240659737
-      - R35 GTR ESPINT STYLE REAR SPOILER (165CM) | ID: 9855122047257
+      - R35 GTR ESPINT STYLE REAR SPOILER  (165CM) | ID: 9855122047257
       - R35 GTR Emblem Cover | ID: 10658240528665
       - R35 GTR Esprit Style Rear SPOILER (165CM) | ID: 10658239873305
       - R35 GTR Mine's Style Rear Spoiler without Base | ID: 10658240069913
@@ -875,15 +875,15 @@ ELITE Ti CATALOG TREE MAP
       - Nissan Skyline R35 BenSopra Style Body Kit | ID: 10658256847129
       - Nissan Skyline R35 Do-Luck Style Body Kit | ID: 10658256879897
       - Nissan Skyline R35 MC Libertywalk Style Body Kit | ID: 10730120675609
-      - Nissan Skyline R35 MC Minor 2017 Body Kit | ID: 10658256945433
+      - NISSAN SKYLINE R35 MC Minor 2017 Body Kit | ID: 10658256945433
       - Nissan Skyline R35 MC Nismo Style 2017 Body Kit | ID: 10658257043737
       - Nissan Skyline R35 MC Nismo Style Body Kit | ID: 10658257076505
       - Nissan Skyline R35 MC Pandem Style Body Kit | ID: 10658257174809
       - Nissan Skyline R35 MC Tommykaira Style Body Kit | ID: 10658257207577
       - Nissan Skyline R35 MC Veilside Style Body Kit | ID: 10658257240345
-      - Nissan Skyline R35 MC2017 Almera s-n 26590-3BG0B Body Kit | ID: 10658257273113
-      - Nissan Skyline R35 MC2017 LB minor Body Kit | ID: 10658257305881
-      - Nissan Skyline R35 MC2017 Minor 2017 Body Kit | ID: 10658257338649
+      - Nissan Skyline R35 MC2017 Almera s/n 26590-3BG0B Body Kit | ID: 10658257273113
+      - NISSAN SKYLINE R35 MC2017 LB minor Body Kit | ID: 10658257305881
+      - NISSAN SKYLINE R35 MC2017 Minor 2017 Body Kit | ID: 10658257338649
       - Nissan Skyline R35 Mine's Style Body Kit | ID: 10658257404185
       - Nissan Skyline R35 Nismo Style Body Kit | ID: 10658257436953
       - Nissan Skyline R35 OEM Style Body Kit | ID: 10658257469721
@@ -939,17 +939,17 @@ ELITE Ti CATALOG TREE MAP
       - ETi Nissan 200SX Carbon Fiber Front Bumper | ID: 10011130757401
       - ETi Nissan 200SX JP JP Carbon Fiber Hood | ID: 10658249015577
       - ETi Nissan S-Series GT Wing | ID: 10007194894617
-      - ETi Nissan S13 - 200SX - 180SX Rear Diffuser | ID: 10011087208729
+      - ETi Nissan S13 / 200SX / 180SX Rear Diffuser | ID: 10011087208729
       - ETi Nissan S13 JP JP Carbon Fiber Hood | ID: 10658249113881
-      - Nissan 200SX D-Max Style Carbon Fiber Hood | ID: 10658248982809
+      - Nissan 200 SX D-Max Style Carbon Fiber Hood | ID: 10658248982809
       - Nissan 200SX OEM Style Carbon Fiber Trunk | ID: 10658251669785
     [CAT] Interior
       - ETi Nissan 200SX Carbon Fiber RHD Dash | ID: 10012868837657
     [CAT] Kits
       - ETi Nissan 180SX M Sport Body Kit | ID: 10046830936345
-      - ETi Nissan 200SX Widebody Kit | ID: 10003966984473
+      - Nissan 200SX Widebody Kit | ID: 10003966984473
       - NISSAN 200 SX MINOR Body Kit | ID: 10658253177113
-      - NISSAN 200 SX widebody Body Kit | ID: 10658253406489
+      - ETi Nissan 200SX ETi Widebody Kit | ID: 10658253406489
       - Nissan 200SX Bomex Style Body Kit | ID: 10658252914969
       - Nissan 200SX East Bear Style Body Kit | ID: 10658252980505
       - Nissan 200SX GP Sports Style widebody Body Kit | ID: 10658253111577
@@ -984,7 +984,7 @@ ELITE Ti CATALOG TREE MAP
       - Nissan S14 Carbon Fiber Front Fender Rocket Bunny Style | ID: 10658239086873
   [MODEL] Silvia / 200SX (S15)
     [CAT] Exterior
-      - 200 SX S15 Conversion | ID: 10727282245913
+      - Nissan 200SX S15 Conversion Body Kit | ID: 10727282245913
       - ETi NISSAN S15 GTR Carbon Fiber Hood | ID: 10658249408793
       - ETi Nissan S15 JP JP Carbon Fiber Hood | ID: 10658249539865
       - ETi Nissan Silvia S15 DMAX-Style Hood | ID: 9933818593561
@@ -1021,10 +1021,10 @@ ELITE Ti CATALOG TREE MAP
       - Nissan Skyline R32 GTR JUN Style Carbon Fiber Front Lip | ID: 9690973372697
       - Nissan Skyline R32 GTR N1 Style Carbon Fiber Side Skirt Add-on | ID: 10658247606553
       - Nissan Skyline R32 GTR N1 Style Side Skirt Carbon fiber Underboard | ID: 9692333277465
-      - Nissan Skyline R32 GTR NS Full Carbon Fiber Bonnet-Hood Lip | ID: 9690977108249
+      - Nissan Skyline R32 GTR NS Full Carbon Fiber Bonnet/Hood Lip | ID: 9690977108249
       - Nissan Skyline R32 GTR OEM Style Carbon fiber Hood | ID: 9690977403161
-      - Nissan Skyline R32 GTR TS Carbon Fiber Rear Diffuser Type 2 w- Metal Fitting Accessories | ID: 10658247475481
-      - Nissan Skyline R32 GTST GTR Rear Bumper Carbon fiber Exhaust Heat Shield | ID: 9692347728153
+      - Nissan Skyline R32 GTR TS Carbon Fiber Rear Diffuser Type 2 w/ Metal Fitting Accessories | ID: 10658247475481
+      - Nissan Skyline R32 GTST GTR Rear Bumper Carbon fiber  Exhaust Heat Shield | ID: 9692347728153
       - R32 2DR Side Skirts | ID: 9696049561881
       - R32 4D GTR DO-LUCK Side Skirts | ID: 9696051003673
       - R32 4DR Rear Bumper | ID: 9695288557849
@@ -1087,7 +1087,7 @@ ELITE Ti CATALOG TREE MAP
       - ETi NISSAN R33 GTS GTS Carbon Fiber Hood | ID: 10658249703705
       - ETi Nissan GTR R33 Vacuum Carbon Fiber Side Skirt Extension | ID: 10658239185177
       - Nissan R33 Headlight Covers GTR Nismo Style Carbon Fiber Hood | ID: 10658249802009
-      - Nissan Skyline R33 GTR 400R Style CF-DryCarbon Hood | ID: 9837973766425
+      - Nissan Skyline R33 GTR 400R Style CF/DryCarbon Hood | ID: 9837973766425
       - R33 BN 4D Side Skirts | ID: 9850737688857
       - R33 GTR Bee-R Style GT Spoiler Wing | ID: 10658243707161
       - R33 GTR Border Front Bumper Air Duct | ID: 9849766281497
@@ -1107,7 +1107,7 @@ ELITE Ti CATALOG TREE MAP
       - R33 GTR TS Rear Diffuser 3pcs | ID: 10658243051801
       - R33 GTR TS Rear Diffuser 5pcs | ID: 10658242920729
       - R33 GTS Do-Luck front bumper | ID: 9849736429849
-      - R33 GTS JUN FRONT BUMPER | ID: 9849761825049
+      - R33 GTS JUN FRONT BUMPER | ID: 9849761825049
       - R33 GTS Spec 1 Dmax Hood Bonnet | ID: 9849445646617
       - R33 GTS Spec 1 Nismo Hood | ID: 9849446662425
       - R33 GTS Spec 1 OEM Hood | ID: 9849445318937
@@ -1116,7 +1116,7 @@ ELITE Ti CATALOG TREE MAP
       - R33 GTS Veilside Style Rear Bumper | ID: 9849341739289
       - R33 GTST Carbon Grille S1 | ID: 9792329482521
       - R33 GTST DO-LUCK Side Skirt | ID: 9849753272601
-      - R33 GTST Do-Luck Rear Bumper | ID: 9849756549401
+      - R33 GTST Do-Luck  Rear Bumper | ID: 9849756549401
       - R33 GTST GTR Drift Wing Spoiler | ID: 10658243445017
       - R33 GTST INGS Front Bumper | ID: 9849757139225
       - R33 GTST JP Front Bumper | ID: 9849761267993
@@ -1124,12 +1124,12 @@ ELITE Ti CATALOG TREE MAP
       - R33 GTST TS Top Secret Style Front Bumper (not GTR Models) | ID: 10658241773849
       - R33 Skyline GTR GTS GTT Rear Roof Spoiler Wing Lip | ID: 10658243346713
       - R33 Spec 2 OEM Front Bumper Fog Light Cover | ID: 9849731023129
-      - R33 Top Secret Side Skirts R33 GTS-T-GTS-ECR33-RB25DET | ID: 9850734346521
+      - R33 Top Secret Side Skirts R33 GTS-T/GTS/ECR33/RB25DET | ID: 9850734346521
       - R33 Skyline GTS/T M Sport 2 Door Coupe Front Bumper | ID: 10658241708313
     [CAT] Interior
       - R33 Armrest Box Cover | ID: 9849768771865
       - R33 GTR GTS Door Sill Interior Cover Trim 2Pcs | ID: 9849137463577
-      - R33 GTS GTR RHD A-Pillar Double Gauge Pod 52mm-60mm | ID: 10658243150105
+      - R33 GTS GTR RHD A-Pillar Double Gauge Pod 52mm/60mm | ID: 10658243150105
     [CAT] Kits
       - R33 GTS/GTR Nismo 400R Style Wheel Arches 6pcs | ID: 10658243248409
       - NISSAN SKYLINE R33 GTR Body Kit | ID: 10658256060697
@@ -1159,7 +1159,7 @@ ELITE Ti CATALOG TREE MAP
       - R34 GTR Do-Luck Style Front Fender | ID: 10658245804313
       - R34 GTR GTT Carbon Fiber B Pillar Cover 2pcs | ID: 10658244788505
       - R34 GTR GTT Headlight Eyebrow Eyelid | ID: 9709359857945
-      - R34 GTR GTT OEM Rear Trunk (W-O Brake Lamp Position) | ID: 9699394453785
+      - R34 GTR GTT OEM Rear Trunk (W/O Brake Lamp Position) | ID: 9699394453785
       - R34 GTR GTT VS GT Style Rear Spoiler | ID: 10658244296985
       - R34 GTR JUN Style Front Bumper | ID: 10658244821273
       - R34 GTR NI Style Hood | ID: 10658245443865
@@ -1169,7 +1169,7 @@ ELITE Ti CATALOG TREE MAP
       - R34 GTR Nismo Style Carbon Fiber Side Skirt Extension (189cm) | ID: 10658245050649
       - R34 GTR Nismo Style Front Lip (must be fitted with R34 GTR NI Style Front Bumper) | ID: 10658245148953
       - R34 GTR Nismo Style Rear Spats | ID: 10658245116185
-      - R34 GTR OEM Rear Spoiler (Fits- R32 R33 R34 GTR GTS G35) | ID: 9704490238233
+      - R34 GTR OEM Rear Spoiler (Fits: R32 R33 R34 GTR GTS G35) | ID: 9704490238233
       - R34 GTR OEM Style Standard Front Bumper Bottom Lip | ID: 10658245247257
       - R34 GTR OEM Style Front Bumper (4pcs Canard) | ID: 10658245378329
       - R34 GTR OEM Style Front Bumper Nismo Style Bottom Lip with Undertray | ID: 10658245214489
@@ -1196,7 +1196,7 @@ ELITE Ti CATALOG TREE MAP
       - Skyline R34 GTT Z-Tune Rear Bumper / Skyline R34 GTT 2D GTR Conversion GTR-Style Rear Bumper | ID: 10658244526361
     [CAT] Interior
       - R34 GTR OEM Style Door Cards (4pcs) | ID: 10658246000921
-      - R34 GTR RHD Radio Monitor Surround - Gear Surround | ID: 10658244198681
+      - R34 GTR RHD Radio Monitor Surround / Gear Surround | ID: 10658244198681
       - R34 GTT GTR Door Sill | ID: 9700889166105
       - Skyline R34 Center Console Trim Arm Rest (RHD) | ID: 9707855282457
     [CAT] Kits
@@ -1237,7 +1237,7 @@ ELITE Ti CATALOG TREE MAP
       - Porsche 997 Prior Design Full Kit Body Kit | ID: 10626104590617
   [MODEL] 911 (991)
     [CAT] Exterior
-      - ETi Carbon Fiber Hood – Porsche 987 - 981 - 991 | ID: 9940781072665
+      - ETi Carbon Fiber Hood – Porsche 987 / 981 / 991 | ID: 9940781072665
     [CAT] Kits
       - PORSCHE 991.2 Carrera 2017 GT3 RS ETi Body Kit | ID: 10626104754457
   [MODEL] 911 (General / Multi-Gen)
@@ -1310,7 +1310,7 @@ ELITE Ti CATALOG TREE MAP
   [MODEL] 86 / GT86 / FR-S / BRZ (ZN6 / ZC6)
     [CAT] Exterior
       - ETi GT86 / BRZ Carbon Fiber Vented Hood | ID: 10009242566937
-      - BRZ ZC6 - Scion FR-S - GT86 - FT86 ZN6 VTX-Style Rear Bumper Spats | ID: 10657637138713
+      - BRZ ZC6 / Scion FR-S / GT86 / FT86 ZN6 VTX-Style Rear Bumper Spats | ID: 10657637138713
       - BRZ ZC6 Toyota FR-S GT86 FT86 ZN6 OEM Rear Diffuser | ID: 10657637368089
       - GT86 / BRZ ZN6 Fender Emblem Cover | ID: 10657637302553
       - ETi GT86 Carbon Fiber X Clear Hybrid Hood | ID: 9914074300697
@@ -1325,7 +1325,7 @@ ELITE Ti CATALOG TREE MAP
       - ETi Toyota GT86 Door | ID: 9931848122649
       - ETi Toyota GT86 Front Fenders | ID: 9932798460185
       - ETi Toyota GT86 RB Front Bumper | ID: 9932799312153
-      - ETi Widebody Rear Bumper Toyota GT86 - Subaru BRZ - Scion FR-S | ID: 10657636385049
+      - ETi Widebody Rear Bumper Toyota GT86 / Subaru BRZ / Scion FR-S | ID: 10657636385049
       - FT86 GT86 FR-S TRD Style Front Bumper Lip | ID: 10657639727385
       - FT86 GT86 Scion FR-S TRD Style Rear Bumper Lip | ID: 10657639661849
       - GT86 AB Trunk Wing | ID: 10657639563545
@@ -1385,7 +1385,7 @@ ELITE Ti CATALOG TREE MAP
       - Toyota GR86 Carbon Fiber Lambor Euro Vented Hood | ID: 9888251642137
       - Toyota GR86 Carbon Fiber Mod-X Euro Vented Hood | ID: 9888254329113
     [CAT] Kits
-      - Toyota GR86 Street Kit | ID: 10657644642585
+      - Toyota GR86 Pandem V1 Street BodyKit | ID: 10657644642585
   [MODEL] Alphard / Vellfire (AH20 / AH30)
     [CAT] Exterior
       - ETi Toyota Alphard 30 ETi Carbon Fiber Hood | ID: 10657643135257
@@ -1466,7 +1466,7 @@ ELITE Ti CATALOG TREE MAP
       - Toyota MR2 Bomex Body Kit | ID: 10657645134105
       - Toyota MR2 TRD GT2000 Body Kit 10pcs | ID: 10657645166873
     [CAT] Exterior Aero
-      - Toyota MR2 Auto Pista Rear Spoiler | ID: 10657645101337
+      - Toyota MR2 Auto Pista Body Kit | ID: 10657645101337
     [CAT] Hardware & Mounting
       - MR2 Titanium Hardware Kit | ID: 10657640251673
       - MR2 Titanium Manifold Stud Kit | ID: 10657640153369
@@ -1482,7 +1482,7 @@ ELITE Ti CATALOG TREE MAP
       - ETi Toyota MRS ETi2 Carbon Fiber Hood | ID: 10657641005337
     [CAT] Kits
       - TOYOTA MRS tail light bulbs 997 Body Kit | ID: 10658162999577
-      - Toyota MRS Factory Body Kit | ID: 10657645265177
+      - Toyota MRS Factory WideBody Kit | ID: 10657645265177
       - Toyota MRS Gemballa Mirage Body Kit | ID: 10657645330713
       - Toyota MRS Porsche Carrera GT Widebody Core Kit | ID: 10657645363481
   [MODEL] Soarer / SC300 / SC400 (Z30)
@@ -1496,7 +1496,7 @@ ELITE Ti CATALOG TREE MAP
       - Toyota Soarer TOM'S Body Kit | ID: 10657645658393
   [MODEL] Supra MKIII (A70 / JZA70)
     [CAT] Interior
-      - MK3 Dashboard Full Carbon Fiber Dash | ID: 10302046241049
+      - ETi Toyota Supra MK3 (A70) LHD Dashboard | ID: 10302046241049
   [MODEL] Supra MKIV (A80 / JZA80)
     [CAT] Exterior
       - ETi Supra GT-Wing E36 (170×35) | ID: 10617910100249
@@ -1538,7 +1538,7 @@ ELITE Ti CATALOG TREE MAP
       - Supra OEM Style Dash RHD | ID: 10321846599961
     [CAT] Kits
       - ETi Supra Tucked AC Kit (RHD) | ID: 10617909051673
-      - ETi Toyota Supra A80 Orido-TS Blend Body Kit | ID: 9603153166617
+      - ETi Toyota Supra A80 Orido/TS Blend Body Kit | ID: 9603153166617
       - ETi Supra MKIV Akuma Style Full Body Kit | ID: 10617908822297
       - ETi Toyota Supra MKIV Ridox Style Widebody Kit | ID: 10617909313817
       - ETi Toyota Supra MKIV TRD Body Kit | ID: 9603100049689
@@ -1563,7 +1563,7 @@ ELITE Ti CATALOG TREE MAP
       - Supra Top Secret Style Widebody Body Kit | ID: 10617911083289
       - Supra Top Secret V12 Style Body Kit | ID: 10617911050521
       - Supra VeilSide Style Body Kit | ID: 10617911148825
-      - TOYOTA SUPRA GRACER-Greddy Body Kit | ID: 10722282078489
+      - TOYOTA SUPRA GRACER/Greddy Body Kit | ID: 10722282078489
       - TOYOTA SUPRA W1 ETi Wide Body Body Kit | ID: 10722295480601
     [CAT] Engine Bay & Cooling
       - ETi Supra Coil / Spark Plug Cover | ID: 10617909444889
@@ -1733,7 +1733,7 @@ ELITE Ti CATALOG TREE MAP
 [BRAND] Chevrolet
   [MODEL] Colorado
     [CAT] Exterior Body Panels
-      - Chevrolet Colorado OEM Carbon Fiber Trunk | ID: 10731046175001
+      - ETi CHEVROLET COROLADO OEM Carbon Fiber Trunk | ID: 10731046175001
   [MODEL] Corvette C8
     [CAT] Exterior Aero
       - C8 Bumper Canards | ID: 9755073282329
