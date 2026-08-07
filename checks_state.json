@@ -203,5 +203,15 @@
     "revBy": "Parth",
     "date": "2026-08-07",
     "notes": "Before upscale reference (original image low resolution) vs Upscaled high definition after result. (Additional comparative files: <a href=\"supra_before2.webp\" target=\"_blank\" style=\"color:#34d399; text-decoration:underline;\">Before Ref 2</a> | <a href=\"supra_after2.webp\" target=\"_blank\" style=\"color:#34d399; text-decoration:underline;\">After Upscaled Ref 2</a>)"
+  },
+  "CAT-01": {
+    "status": "Ready for ETi Review",
+    "change": "Product titles, status, and SKUs have been updated per the CSV. Shopify product links remain unchanged. Variants are structured per material/pricing logic, and collections follow the folder structure. Image changes match approvals, and descriptions have been restructured to clean up corrupted emojis.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-26",
+    "notes": "Weight changes are applied per client-provided Safe Shipping Matrix and SDS implementation guides (files: <a href=\"ETi_Weight_Implementation_Guide.pdf\" download style=\"color: #34d399; text-decoration: underline;\">ETi_Weight_Implementation_Guide.pdf</a>, <a href=\"ETi_Weight_Implementation_Guide.docx\" download style=\"color: #34d399; text-decoration: underline;\">ETi_Weight_Implementation_Guide.docx</a>, <a href=\"Weight-update.csv\" download style=\"color: #34d399; text-decoration: underline;\">Weight-update.csv</a>, <a href=\"ETi_site_weight_product_mapping_v2 - Safe Shipping Matrix.csv\" download style=\"color: #34d399; text-decoration: underline;\">Safe Shipping Matrix.csv</a>)."
   }
 }
