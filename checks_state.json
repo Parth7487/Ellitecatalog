@@ -1,0 +1,218 @@
+{
+  "P0-05": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Confirmed dealer network specifications and physical store locations.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Verified coordinates, maps, contact emails, and business hours for all official dealer network locations. Corrected dealer network map coordinates in theme settings."
+  },
+  "P0-01": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Identified and removed all draft products from active collections.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "28 drafts cleaned from storefront tree explorer. Live active count is exactly 1,360."
+  },
+  "P0-10": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Verified all collection lists and search pages render only active, live product items.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Ensured no draft products or placeholder pages show up under collection search results."
+  },
+  "P1-07": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Validated all social media icons, share widgets, and outbound external URLs.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Checked Instagram, Facebook, and YouTube links in header and footer settings. No broken links."
+  },
+  "P0-02": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Reviewed and standard mapped product URLs and SEO handles.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Verified that handle redirects from old URLs are correctly mapped to prevent 404 errors."
+  },
+  "P0-03": {
+    "status": "Passed by ETi",
+    "change": "Developer Branding",
+    "notes": "Remove “Designed by Shopifydevstudio.com.” Remove any development-company branding not expressly approved by ETi. Remove development credits from the footer, source content, and visible UI."
+  },
+  "P0-04": {
+    "status": "Passed by ETi",
+    "change": "Fabricated or Unverified Reviews",
+    "notes": "Removed all placeholder/fabricated reviews. No unverified customer reviews remain on the storefront. All reviews are traceable to approved copywriting data. Adding new reviews beyond this is not included in the original proposal."
+  },
+  "P0-08": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Verified contact forms, email alerts, and address lines.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Correct US/Bangkok hub physical addresses, active forms, and custom styled placeholder attributes."
+  },
+  "P1-10": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Tested multiple browser sizes, viewports and responsiveness layouts.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Large desktop, Standard laptop, Tablet portrait, Tablet landscape, Modern iPhone-sized viewport, Modern Android-sized viewport, Navigation, Text wrapping, Image crop, Buttons, Product selectors, Tables, Forms, Popups, Cart, Footer: this all have been tested."
+  },
+  "P1-02": {
+    "status": "Ready for ETi Review",
+    "link": "",
+    "change": "Fully validated homepage copy, brand layout, buttons, responsiveness and spacing rules.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-25",
+    "notes": "Correct approved copy, Correct brand positioning, Correct buttons and links, Proper image cropping, Proper mobile stacking, Consistent spacing, No placeholder content."
+  },
+  "P1-04": {
+    "status": "Passed by ETi",
+    "change": "Collection Pages",
+    "notes": "Fully validated collection pages titles, filters, dimensions and pricing layout. Correct collection title, products, filters, images, and pricing. Proof of work: <a href=\"navigation_tree.txt\" download style=\"color:#34d399; text-decoration:underline;\">navigation_tree.txt</a>"
+  },
+  "P1-05": {
+    "status": "In Progress",
+    "change": "Product Pages",
+    "notes": "Fully validated product pages layout, options, details and pricing structure. Single products, Multi-variant products, Full kits, Kit components, Titanium products, Carbon products, Products with multiple material finishes. The layout works exactly as expected. Note: Description update is going on."
+  },
+  "CAT-10": {
+    "status": "Passed by ETi",
+    "change": "Collection Assignment",
+    "notes": "All new updated accurate collections have ETI prefix at the end. Mapped correct collection IDs. Proof of work: <a href=\"navigation_tree.txt\" download style=\"color:#34d399; text-decoration:underline;\">navigation_tree.txt</a>"
+  },
+  "P0-09": {
+    "status": "Ready for ETi Review"
+  },
+  "P0-11": {
+    "status": "In Progress",
+    "change": "Description Restructuring",
+    "notes": "Restructuring of descriptions is on ongoing. Standardize format boundaries (Overview, Included Panels, Materials, Lead Time). Preserve all details and remove duplicate description items."
+  },
+  "P0-12": {
+    "status": "Passed by ETi",
+    "change": "Pricing Matrix Alignment Mapping",
+    "notes": "Preparing mapped branches of pricing coming from MAIN ACTIVE SHEET / WHOLESALE KITS / WHOLESALE PART. Ensuring no pricing errors between master list sheets and live store storefront. Link: https://shopifydevstudioellitecatalog.vercel.app/verify.html"
+  },
+  "QA-06": {
+    "status": "Blocked — Owner Decision Required",
+    "link": "",
+    "change": "Created decision log inside checks.html card for duplicate component merges.",
+    "desktop": "civic_eg_drag.png",
+    "mobile": "civic_ek_drag.png",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-08-04",
+    "notes": "Awaiting confirmation: should we link Civic EG components under body kit 10653655433497? Civic EK components under body kit 10653655138585? Evo X components under body kit 9885985177881?"
+  },
+  "QA-07": {
+    "status": "Passed by ETi",
+    "change": "Storefront Live Audit Report Checks",
+    "notes": "Fixed header links, support pages, 404s, and 34 dead placeholders (Proof: <a href=\"navigation_tree.txt\" download style=\"color:#34d399; text-decoration:underline;\">navigation_tree.txt</a>). Updated empty Supra collections, RX-8 paths, Shop Build buttons, Alt texts, and cropping layouts."
+  },
+  "QA-08": {
+    "status": "Passed by ETi",
+    "change": "Dealer Portal Password Gate",
+    "notes": "Password will be directly added to the Google Drive and the catalog site rather than Shopify."
+  },
+  "QA-09": {
+    "status": "Passed by ETi",
+    "change": "Blog Page Updates Recheck",
+    "notes": "Rechecked and dynamically connected with ChatGPT data in the backend, with a show-more toggle for the 44 FAQ items to reduce page length."
+  },
+  "QA-10": {
+    "status": "Passed by ETi",
+    "change": "About Us Sponsors Segment Jump Navigation",
+    "notes": "Updated fast-scroll jump link/anchor navigation button. Screen recording shared in chat."
+  },
+  "QA-11": {
+    "status": "Passed by ETi",
+    "change": "Homepage Crop / Fitment Cleanup",
+    "notes": "Homepage car scroll image fits correctly without cutoffs or malformed layout cropping. Fixed.",
+    "desktop": "homepage_car_crop_proof.png"
+  },
+  "QA-12": {
+    "status": "Blocked — Owner Decision Required",
+    "change": "Vague Guarantee Specification Update",
+    "notes": "Not fully understood what action is needed from our end; additional explanation on flexible fitment phrasing would be appreciated."
+  },
+  "QA-13": {
+    "status": "Passed by ETi",
+    "change": "Homepage Banner and Material Updates",
+    "desktop": "matte_carbon_weave.png",
+    "mobile": "carbon_kevlar_weave.jpg",
+    "notes": "Homepage hero/promo banner has been updated. Material description sections updated across site."
+  },
+  "P1-06": {
+    "status": "Passed by ETi",
+    "change": "Cart",
+    "notes": "Fully validated cart mechanics including add, quantity modifications, variant selection, and checkout flow. Adding one item, Adding multiple items, Changing quantity, Removing products, Changing variants, Cart drawer or cart page, Price calculations, Mobile cart, Empty-cart state, Checkout button: this works as the original theme which we previously had so nothing has been changed on this it works exactly as it used to be before. Video evidence shared; bugs will be fixed instantly."
+  },
+  "CAT-02": {
+    "status": "Passed by ETi",
+    "change": "Duplicate Review Methodology",
+    "notes": "Drafted 70+ duplicate products. Only original products matching the shared data remain. Verified at https://shopifydevstudioellitecatalog.vercel.app/verify.html"
+  },
+  "CAT-09": {
+    "status": "Passed by ETi",
+    "change": "Variant Weights",
+    "notes": "All weights updated using reference data from client: <a href=\"Weight-update.csv\" download style=\"color:#34d399; text-decoration:underline;\">Weight-update.csv</a> | <a href=\"ETi_Weight_Implementation_Guide.pdf\" download style=\"color:#34d399; text-decoration:underline;\">ETi_Weight_Implementation_Guide.pdf</a> | <a href=\"ETi_Weight_Implementation_Guide.docx\" download style=\"color:#34d399; text-decoration:underline;\">ETi_Weight_Implementation_Guide.docx</a> | <a href=\"ETi_site_weight_product_mapping_v2 - ETi Product Map.csv\" download style=\"color:#34d399; text-decoration:underline;\">ETi Product Map.csv</a> | <a href=\"ETi_site_weight_product_mapping_v2 - Safe Shipping Matrix.csv\" download style=\"color:#34d399; text-decoration:underline;\">Safe Shipping Matrix.csv</a>"
+  },
+  "QA-01": {
+    "status": "Passed by ETi",
+    "change": "Description Structuring Sync",
+    "notes": "1110 products have been updated with the correct description structures. We will be getting the rest updated in the meantime. Let us know if we can help with anything else."
+  },
+  "QA-05": {
+    "status": "Passed by ETi",
+    "category": "06 Aug Audit",
+    "change": "Upscaled Image Quality Verification",
+    "desktop": "supra_before1.webp",
+    "mobile": "supra_after1.webp",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-08-07",
+    "notes": "Before upscale reference (original image low resolution) vs Upscaled high definition after result. (Additional comparative files: <a href=\"supra_before2.webp\" target=\"_blank\" style=\"color:#34d399; text-decoration:underline;\">Before Ref 2</a> | <a href=\"supra_after2.webp\" target=\"_blank\" style=\"color:#34d399; text-decoration:underline;\">After Upscaled Ref 2</a>)"
+  },
+  "CAT-01": {
+    "status": "Ready for ETi Review",
+    "change": "Product titles, status, and SKUs have been updated per the CSV. Shopify product links remain unchanged. Variants are structured per material/pricing logic, and collections follow the folder structure. Image changes match approvals, and descriptions have been restructured to clean up corrupted emojis.",
+    "desktop": "",
+    "mobile": "",
+    "implBy": "Shopifydevstudio",
+    "revBy": "Parth",
+    "date": "2026-07-26",
+    "notes": "Weight changes are applied per client-provided Safe Shipping Matrix and SDS implementation guides (files: <a href=\"ETi_Weight_Implementation_Guide.pdf\" download style=\"color: #34d399; text-decoration: underline;\">ETi_Weight_Implementation_Guide.pdf</a>, <a href=\"ETi_Weight_Implementation_Guide.docx\" download style=\"color: #34d399; text-decoration: underline;\">ETi_Weight_Implementation_Guide.docx</a>, <a href=\"Weight-update.csv\" download style=\"color: #34d399; text-decoration: underline;\">Weight-update.csv</a>, <a href=\"ETi_site_weight_product_mapping_v2 - Safe Shipping Matrix.csv\" download style=\"color: #34d399; text-decoration: underline;\">Safe Shipping Matrix.csv</a>)."
+  }
+}
