@@ -123,7 +123,7 @@
   "P0-12": {
     "status": "Passed by ETi",
     "change": "Pricing Matrix Alignment Mapping",
-    "notes": "Preparing mapped branches of pricing coming from MAIN ACTIVE SHEET / WHOLESALE KITS / WHOLESALE PART. Ensuring no pricing errors between master list sheets and live store storefront. Link: https://shopifydevstudioellitecatalog.vercel.app/verify.html"
+    "notes": "Verified and aligned Complete Body Kit pricing for 51 multi-component products to exactly 90% of individual FRP parts sum (rounded to nearest $5). Proof of work: <a href=\"new/complete_kit_pricing_update_preview.html\" target=\"_blank\" style=\"color:#34d399; text-decoration:underline;\">Complete Body Kit Update Preview</a>."
   },
   "QA-06": {
     "status": "Blocked — Owner Decision Required",
