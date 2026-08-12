@@ -16,6 +16,10 @@
       "dest": "/images-tracker.html"
     },
     {
+      "src": "^/image$",
+      "dest": "/image.html"
+    },
+    {
       "src": "^/verify$",
       "dest": "/verify.html"
     },
