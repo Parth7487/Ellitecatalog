@@ -195,6 +195,9 @@
             <li class="nav-item">
                 <button class="nav-link" id="platform-tab" data-bs-toggle="tab" data-bs-target="#platform" type="button">🔑 Supra &amp; RX-7 (159)</button>
             </li>
+            <li class="nav-item">
+                <button class="nav-link" id="strategy-tab" data-bs-toggle="tab" data-bs-target="#strategy" type="button">📋 Strategy &amp; Roadmap</button>
+            </li>
         </ul>
 
         <div class="tab-content" id="auditTabsContent">
@@ -35570,6 +35573,74 @@
     </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="strategy">
+                <div class="card p-4">
+                    <h3 class="fw-bold mb-4 text-info">📋 Tagging Strategy & Roadmap</h3>
+                    
+                    <div class="row g-4">
+                        <!-- Column 1: Core Inputs -->
+                        <div class="col-lg-6">
+                            <div class="p-3 mb-4 rounded" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">
+                                <h5 class="text-warning fw-bold mb-3">🎙️ Nathan's Core Expectations</h5>
+                                <p class="small text-muted mb-2"><em>Sourced directly from the client briefing transcript:</em></p>
+                                <ul class="small text-light" style="padding-left: 20px; line-height: 1.6;">
+                                    <li class="mb-2"><strong>100% Searchable & Filterable:</strong> Clean tagging so customers can easily find, search, and identify every part we make.</li>
+                                    <li class="mb-2"><strong>Focus Platforms:</strong> Prioritize <strong>Toyota Supra (A80/A90)</strong> and <strong>Mazda RX-7 (FD3S)</strong> as top sellers.</li>
+                                    <li class="mb-2"><strong>Nuances & Search Gaps:</strong> Fix "minor, small nuances" where products are not searchable or mis-tagged.</li>
+                                    <li class="mb-2"><strong>Consistency Warning:</strong> Incorrect tagging or wrong pricing creates massive problems long-term.</li>
+                                </ul>
+                            </div>
+
+                            <div class="p-3 rounded" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">
+                                <h5 class="text-warning fw-bold mb-3">📚 PDF Tagging Standard Rules</h5>
+                                <p class="small text-muted mb-2"><em>Approved classification rules from standard reference:</em></p>
+                                <ul class="small text-light" style="padding-left: 20px; line-height: 1.6;">
+                                    <li class="mb-2"><strong>3-Tier Data Architecture:</strong>
+                                        <ul class="text-muted">
+                                            <li><strong>Product Type:</strong> Native Shopify category field (Must be 1 of 14 controlled types).</li>
+                                            <li><strong>shop_by_part:</strong> Metafield for sidebar filters (JSON array of strings, e.g., <code>["Exterior Parts"]</code>).</li>
+                                            <li><strong>included_components:</strong> Metafield listing kit elements (JSON array of strings, e.g., <code>["Front Bumper", "Side Skirt"]</code>).</li>
+                                        </ul>
+                                    </li>
+                                    <li class="mb-2"><strong>Rules for Metafields:</strong>
+                                        <ul class="text-muted">
+                                            <li><code>included_components</code> must be populated for <strong>Body Kits</strong>, but MUST remain <code>null</code> for standalone parts to prevent frontend rendering errors.</li>
+                                            <li>Every backend product type maps to a strict <code>shop_by_part</code> array value (e.g. <code>Diffuser</code> → <code>["Diffusers"]</code>).</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Column 2: Patterns & Observations -->
+                        <div class="col-lg-6">
+                            <div class="p-3 mb-4 rounded" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">
+                                <h5 class="text-warning fw-bold mb-3">🔑 Supra & RX-7 Gold Standard Patterns</h5>
+                                <p class="small text-muted mb-2"><em>Key observations from correctly configured models:</em></p>
+                                <ul class="small text-light" style="padding-left: 20px; line-height: 1.6;">
+                                    <li class="mb-2"><strong>Array Serialization:</strong> Metafields on Shopify must be written as stringified JSON arrays (e.g. <code>["Bumpers"]</code>) rather than plain text strings to integrate with the liquid storefront logic.</li>
+                                    <li class="mb-2"><strong>Type Normalization:</strong> Legacy product types (like <code>Spoiler</code>, <code>Front Lip</code>, <code>Trunk</code>) break category logic. Standardizing them to <code>Spoiler & Wing</code>, <code>Lip & Splitter</code>, <code>Trunk & Hatch</code> instantly places them into correct collections.</li>
+                                    <li class="mb-2"><strong>Tag Sanitation:</strong> Correct models include standardized chassis tags (e.g., <code>a80</code>, <code>a90</code>, <code>fd3s</code>, <code>toyota</code>, <code>mazda</code>) in lowercase for search routing.</li>
+                                </ul>
+                            </div>
+
+                            <div class="p-3 rounded" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">
+                                <h5 class="text-success fw-bold mb-3">🚀 Implementation Process & Roadmap</h5>
+                                <p class="small text-muted mb-2"><em>The 6-Step workflow to normalize all 1,324 products:</em></p>
+                                <ol class="small text-light" style="padding-left: 20px; line-height: 1.6;">
+                                    <li class="mb-2"><strong>Step 1: Backup & Snapshot:</strong> Save state of all products, types, and metafields to a local JSON backup (Completed).</li>
+                                    <li class="mb-2"><strong>Step 2: Rename Product Types (439 products):</strong> Run automated API patches to map retired types to correct controlled types (e.g. <code>Spoiler</code> → <code>Spoiler & Wing</code>).</li>
+                                    <li class="mb-2"><strong>Step 3: Write shop_by_part (1,101 products):</strong> Update filter metafield arrays dynamically based on backend product types.</li>
+                                    <li class="mb-2"><strong>Step 4: Resolve Kits (337 products):</strong> Generate and link <code>included_components</code> lists for parent packages while sanitizing standalone items.</li>
+                                    <li class="mb-2"><strong>Step 5: Search tag sanitation:</strong> Run automated scripts to append missing make/model/chassis tags to all listings.</li>
+                                    <li class="mb-2"><strong>Step 6: Audit & Signoff:</strong> Validate all configurations using the audit dashboard and push the certified catalog live.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
