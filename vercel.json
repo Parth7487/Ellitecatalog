@@ -12,6 +12,10 @@
       "dest": "/tree.html"
     },
     {
+      "src": "^/tagging$",
+      "dest": "/tagging.html"
+    },
+    {
       "src": "^/images-tracker$",
       "dest": "/images-tracker.html"
     },
