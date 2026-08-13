@@ -35621,6 +35621,7 @@
                                 <h5 class="text-warning fw-bold mb-3">🔑 Supra & RX-7 Gold Standard Patterns</h5>
                                 <p class="small text-muted mb-2"><em>Key observations from correctly configured models:</em></p>
                                 <ul class="small text-light" style="padding-left: 20px; line-height: 1.6;">
+                                    <li class="mb-2 text-danger">⚠️ <strong>STRICT PROTECTION RULE:</strong> We will strictly <strong>NOT</strong> touch or modify any of the already-correctly-configured Supra &amp; RX-7 products (the 118 verified gold-standard models). They are completely read-only and used purely as a reference model to copy settings for other cars.</li>
                                     <li class="mb-2"><strong>Array Serialization:</strong> Metafields on Shopify must be written as stringified JSON arrays (e.g. <code>["Bumpers"]</code>) rather than plain text strings to integrate with the liquid storefront logic.</li>
                                     <li class="mb-2"><strong>Type Normalization:</strong> Legacy product types (like <code>Spoiler</code>, <code>Front Lip</code>, <code>Trunk</code>) break category logic. Standardizing them to <code>Spoiler & Wing</code>, <code>Lip & Splitter</code>, <code>Trunk & Hatch</code> instantly places them into correct collections.</li>
                                     <li class="mb-2"><strong>Tag Sanitation:</strong> Correct models include standardized chassis tags (e.g., <code>a80</code>, <code>a90</code>, <code>fd3s</code>, <code>toyota</code>, <code>mazda</code>) in lowercase for search routing.</li>
@@ -35632,10 +35633,10 @@
                                 <p class="small text-muted mb-2"><em>The 6-Step workflow to normalize all 1,324 products:</em></p>
                                 <ol class="small text-light" style="padding-left: 20px; line-height: 1.6;">
                                     <li class="mb-2"><strong>Step 1: Backup & Snapshot:</strong> Save state of all products, types, and metafields to a local JSON backup (Completed).</li>
-                                    <li class="mb-2"><strong>Step 2: Rename Product Types (439 products):</strong> Run automated API patches to map retired types to correct controlled types (e.g. <code>Spoiler</code> → <code>Spoiler & Wing</code>).</li>
-                                    <li class="mb-2"><strong>Step 3: Write shop_by_part (1,101 products):</strong> Update filter metafield arrays dynamically based on backend product types.</li>
-                                    <li class="mb-2"><strong>Step 4: Resolve Kits (337 products):</strong> Generate and link <code>included_components</code> lists for parent packages while sanitizing standalone items.</li>
-                                    <li class="mb-2"><strong>Step 5: Search tag sanitation:</strong> Run automated scripts to append missing make/model/chassis tags to all listings.</li>
+                                    <li class="mb-2"><strong>Step 2: Rename Product Types (439 products):</strong> Run automated API patches to map retired types to correct controlled types (e.g. <code>Spoiler</code> → <code>Spoiler & Wing</code>). <em>Bypasses all correct Supra/RX-7 reference models.</em></li>
+                                    <li class="mb-2"><strong>Step 3: Write shop_by_part (1,101 products):</strong> Update filter metafield arrays dynamically based on backend product types. <em>Bypasses all correct Supra/RX-7 reference models.</em></li>
+                                    <li class="mb-2"><strong>Step 4: Resolve Kits (337 products):</strong> Generate and link <code>included_components</code> lists for parent packages while sanitizing standalone items. <em>Bypasses all correct Supra/RX-7 reference models.</em></li>
+                                    <li class="mb-2"><strong>Step 5: Search tag sanitation:</strong> Run automated scripts to append missing make/model/chassis tags to all listings. <em>Bypasses all correct Supra/RX-7 reference models.</em></li>
                                     <li class="mb-2"><strong>Step 6: Audit & Signoff:</strong> Validate all configurations using the audit dashboard and push the certified catalog live.</li>
                                 </ol>
                             </div>
