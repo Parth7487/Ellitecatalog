@@ -178,22 +178,13 @@
                 <button class="nav-link" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button">All Products (1324)</button>
             </li>
             <li class="nav-item">
-                <button class="nav-link active" id="controlled-tab" data-bs-toggle="tab" data-bs-target="#controlled" type="button">✅ Controlled Types (962)</button>
+                <button class="nav-link active" id="type-group-tab" data-bs-toggle="tab" data-bs-target="#type_group" type="button">Product Types</button>
             </li>
             <li class="nav-item">
-                <button class="nav-link" id="retired-tab" data-bs-toggle="tab" data-bs-target="#retired" type="button">🔴 Retired Types (68)</button>
+                <button class="nav-link" id="meta-group-tab" data-bs-toggle="tab" data-bs-target="#meta_group" type="button">Metafields</button>
             </li>
             <li class="nav-item">
-                <button class="nav-link" id="updated-tab" data-bs-toggle="tab" data-bs-target="#updated" type="button">🔄 Types Updated (294)</button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link" id="meta-preview-tab" data-bs-toggle="tab" data-bs-target="#meta_preview" type="button">🔄 shop_by_part Preview (1101)</button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link" id="platform-tab" data-bs-toggle="tab" data-bs-target="#platform" type="button">🔑 Supra &amp; RX-7 (159)</button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link" id="strategy-tab" data-bs-toggle="tab" data-bs-target="#strategy" type="button">📋 Strategy &amp; Roadmap</button>
+                <button class="nav-link" id="ref-group-tab" data-bs-toggle="tab" data-bs-target="#ref_group" type="button">Reference &amp; Strategy</button>
             </li>
         </ul>
 
@@ -10809,8 +10800,21 @@
                     </table>
                 </div>
             </div>
-
-            <div class="tab-pane fade show active" id="controlled">
+            <div class="tab-pane fade show active" id="type_group">
+        <div class="card p-3 mb-4" style="background: rgba(15, 23, 42, 0.3); border: 1px solid rgba(255,255,255,0.05);">
+            <ul class="nav nav-pills mb-3" id="typeSubTabs" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active" id="controlled-tab" data-bs-toggle="tab" data-bs-target="#controlled" type="button">✅ Controlled Types (962)</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="updated-tab" data-bs-toggle="tab" data-bs-target="#updated" type="button">🔄 Types Corrected (294)</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="retired-tab" data-bs-toggle="tab" data-bs-target="#retired" type="button">🔴 Retired Types (68)</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="typeSubTabsContent">
+                <div class="tab-pane fade show active" id="controlled">
                 <div class="card p-3">
                     <h5 class="mb-1">✅ Controlled (Approved) Product Types — 962 products</h5>
                     <p class="text-muted small mb-3">Grouped by category. These products already have the correct approved Product Type. No changes needed.</p>
@@ -16657,539 +16661,7 @@
                     </table>
                 </div>
             </div>
-
-            <div class="tab-pane fade" id="retired">
-                <div class="card p-3">
-                    <h5 class="mb-1">🔴 Retired / Non-Standard Product Types — 68 products</h5>
-                    <p class="text-muted small mb-3">Grouped by category. Each group header shows the current retired type → the correct target type.</p>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Product Title</th><th>Current Type</th><th></th><th>Target Type</th><th>Tags</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-    <tr>
-        <td colspan="5" style="background:#1e3a5f;color:#fff;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;padding:6px 10px;">Seats &amp; Steering  →  Titanium Hardware &nbsp;<span style="opacity:.65;font-weight:400;">(1 products)</span></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9630865981721" target="_blank" class="fw-bold">ETi RX-7 Titanium Seat Bolts</a></td>
-        <td><span class="badge bg-danger">Seats &amp; Steering</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-success" style="background-color: #059669 !important;">Titanium Hardware</span></td>
-        <td><small class="text-muted">Fabrication&gt;Bolts, Titanium_products</small></td>
-    </tr>
-    <tr>
-        <td colspan="5" style="background:#1a3a2a;color:#fff;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;padding:6px 10px;">Apparel  →  ⚠️ Review Needed — No Standard Target &nbsp;<span style="opacity:.65;font-weight:400;">(3 products)</span></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10672988061977" target="_blank" class="fw-bold">ETi Motorsports A80 Supra Full Carbon Tee</a></td>
-        <td><span class="badge bg-danger">Apparel</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">A80, Apparel, MKIV, Motorsport, Supra, Swag</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10673596563737" target="_blank" class="fw-bold">ETi Motorsports Supra Carbon Evolution Tee</a></td>
-        <td><span class="badge bg-danger">Apparel</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">A80, Apparel, MKIV, Motorsport, Supra, Swag</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10663070892313" target="_blank" class="fw-bold">ETi Motorsports WTAC Tee</a></td>
-        <td><span class="badge bg-danger">Apparel</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">Apparel, Motorsport, Swag, Time Attack, WTAC</small></td>
-    </tr>
-    <tr>
-        <td colspan="5" style="background:#3a1a2e;color:#fff;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;padding:6px 10px;">Furniture  →  ⚠️ Review Needed — No Standard Target &nbsp;<span style="opacity:.65;font-weight:400;">(7 products)</span></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9904589537561" target="_blank" class="fw-bold">Alta – Carbon Fiber Bar Chair</a></td>
-        <td><span class="badge bg-danger">Furniture</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">chair, pushed</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9904588849433" target="_blank" class="fw-bold">Cascade – Tall Carbon Fiber Sink</a></td>
-        <td><span class="badge bg-danger">Furniture</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">pushed, sink</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9904590061849" target="_blank" class="fw-bold">Duo – Carbon Fiber Set Bar Chair with Table</a></td>
-        <td><span class="badge bg-danger">Furniture</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">chair, pushed</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9904584294681" target="_blank" class="fw-bold">Orb – Carbon Fiber Chair</a></td>
-        <td><span class="badge bg-danger">Furniture</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">chair, pushed</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9904580165913" target="_blank" class="fw-bold">Prime – Carbon Fiber Solo Chair</a></td>
-        <td><span class="badge bg-danger">Furniture</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">pushed</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9904587571481" target="_blank" class="fw-bold">The James – Carbon Fiber Sink</a></td>
-        <td><span class="badge bg-danger">Furniture</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">pushed, sink</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9904585343257" target="_blank" class="fw-bold">Xeno – Carbon Fiber Chair</a></td>
-        <td><span class="badge bg-danger">Furniture</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">chair, pushed</small></td>
-    </tr>
-    <tr>
-        <td colspan="5" style="background:#2a2a1a;color:#fff;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;padding:6px 10px;">Seats &amp; Steering  →  ⚠️ Review Needed — No Standard Target &nbsp;<span style="opacity:.65;font-weight:400;">(3 products)</span></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9239928766745" target="_blank" class="fw-bold">ETi Custom Steering Wheel</a></td>
-        <td><span class="badge bg-danger">Seats &amp; Steering</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">pushed, SteeringWheel</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9838960083225" target="_blank" class="fw-bold">ETi Racing Bucket Seat</a></td>
-        <td><span class="badge bg-danger">Seats &amp; Steering</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">Seats</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9819806302489" target="_blank" class="fw-bold">GT-Max Series Carbon Fiber Seat</a></td>
-        <td><span class="badge bg-danger">Seats &amp; Steering</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">pushed, Seat</small></td>
-    </tr>
-    <tr>
-        <td colspan="5" style="background:#1a2a3a;color:#fff;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;padding:6px 10px;">Spats  →  ⚠️ Review Needed — No Standard Target &nbsp;<span style="opacity:.65;font-weight:400;">(3 products)</span></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10657637499161" target="_blank" class="fw-bold">GT86 GFB Spatz (2pcs)</a></td>
-        <td><span class="badge bg-danger">Spats</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">GT86 / FT86, Spatz</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10657638908185" target="_blank" class="fw-bold">GT86 Varis Spatz</a></td>
-        <td><span class="badge bg-danger">Spats</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">GT86 / FT86, Spatz</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658247442713" target="_blank" class="fw-bold">Nissan Skyline R32 GTS Top Secret Style Carbon Fiber Rear Spats Addon</a></td>
-        <td><span class="badge bg-danger">Spats</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
-        <td><small class="text-muted">Rear Spats Addon, Spatz</small></td>
-    </tr>
-    <tr>
-        <td colspan="5" style="background:#4a1a00;color:#fff;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;padding:6px 10px;">Trim &amp; Styling Kit  →  Review Required — 51 products &nbsp;<span style="opacity:.65;font-weight:400;">(51 products)</span></td>
-    </tr>
-    <tr>
-        <td colspan="5" style="background:#0f3460;color:#e2e8f0;font-weight:600;font-size:0.78rem;letter-spacing:0.06em;padding:4px 20px;border-left:4px solid #f59e0b;">🔧 Likely: Engine Bay &amp; Cooling &nbsp;<span style="opacity:.6;font-weight:400;">(6 products)</span></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/8931753001241" target="_blank" class="fw-bold">2JZ Swap Kit</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Engine Bay &amp; Cooling</span></td>
-        <td><small class="text-muted">—</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10627600515353" target="_blank" class="fw-bold">ETi Evo 8/9 Carbon Fiber Vented Headlight Air Duct LHD</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Engine Bay &amp; Cooling</span></td>
-        <td><small class="text-muted">Headlight</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9692329607449" target="_blank" class="fw-bold">R32 Gts GTR Lhs Full Carbon Fiber Headlamp Air Intake W. Lamp</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Engine Bay &amp; Cooling</span></td>
-        <td><small class="text-muted">AirIntake, r32</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658242068761" target="_blank" class="fw-bold">R33 GTR GTS LHS Headlight Air Intake Vents Replacement</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Engine Bay &amp; Cooling</span></td>
-        <td><small class="text-muted">intake rep</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658241380633" target="_blank" class="fw-bold">R35 GTR OEM Style Scoop Air Tunnel (Pair)</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Engine Bay &amp; Cooling</span></td>
-        <td><small class="text-muted">intake rep</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658247377177" target="_blank" class="fw-bold">Skyline R32 GTS GTR LHS Vented Carbon Fiber Headlight Intake Replacement</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Engine Bay &amp; Cooling</span></td>
-        <td><small class="text-muted">Headlight, r32</small></td>
-    </tr>
-    <tr>
-        <td colspan="5" style="background:#2d1a00;color:#e2e8f0;font-weight:600;font-size:0.78rem;letter-spacing:0.06em;padding:4px 20px;border-left:4px solid #f59e0b;">💡 Likely: Lighting &nbsp;<span style="opacity:.6;font-weight:400;">(4 products)</span></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10627600580889" target="_blank" class="fw-bold">ETi Evolution 8/9 Carbon Fiber Headlight Eyebrows</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Lighting</span></td>
-        <td><small class="text-muted">Headlight</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658238923033" target="_blank" class="fw-bold">ETi Nissan 350Z Rear Glass Louvers</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Lighting</span></td>
-        <td><small class="text-muted">louvers, Nissan</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658242167065" target="_blank" class="fw-bold">R33 GTR GTS Rear Lamp Light Cover 2pcs</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Lighting</span></td>
-        <td><small class="text-muted">Headlight, r33gtr</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658239381785" target="_blank" class="fw-bold">R35 GTR Wald Style Bumper Headlight Eyebrow</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Lighting</span></td>
-        <td><small class="text-muted">Headlight, r35gtr</small></td>
-    </tr>
-    <tr>
-        <td colspan="5" style="background:#1a003d;color:#e2e8f0;font-weight:600;font-size:0.78rem;letter-spacing:0.06em;padding:4px 20px;border-left:4px solid #f59e0b;">🪟 Likely: Mirror &nbsp;<span style="opacity:.6;font-weight:400;">(8 products)</span></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9755074593049" target="_blank" class="fw-bold">C8 Side Mirror Covers</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
-        <td><small class="text-muted">bodykits, pushed, SideMirror</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9900581224729" target="_blank" class="fw-bold">ETi Tesla Model 3 Dry Carbon Mirror Caps</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
-        <td><small class="text-muted">SideMirror</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10657636811033" target="_blank" class="fw-bold">ETi Toyota Supra MK5 (A90) Carbon Fiber Side Mirror Covers</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
-        <td><small class="text-muted">Fabrication&gt;Flanges, Supra</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10627885465881" target="_blank" class="fw-bold">Mazda RX-8 SE3P Early Aero Mirror (LHD)</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
-        <td><small class="text-muted">rx8, SideMirror</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658247508249" target="_blank" class="fw-bold">Nissan Skyline R32 &amp; BNR32 GTR Carbon Fiber Ganador Style Full Carbon Fiber Electric Side Mirrors</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
-        <td><small class="text-muted">r32</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240823577" target="_blank" class="fw-bold">R35 GTR GTR35 VS Style Side Low Mirror Under Cover</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
-        <td><small class="text-muted">r35gtr, SideMirror</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240856345" target="_blank" class="fw-bold">R35 GTR Side Mirror Cover 2 PCS</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
-        <td><small class="text-muted">r33gtr, SideMirror</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9697573765401" target="_blank" class="fw-bold">RX8 Carbon Side Mirror Cover</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
-        <td><small class="text-muted">pushed, rx8, SideMirror</small></td>
-    </tr>
-    <tr>
-        <td colspan="5" style="background:#002040;color:#e2e8f0;font-weight:600;font-size:0.78rem;letter-spacing:0.06em;padding:4px 20px;border-left:4px solid #f59e0b;">🖥️ Likely: Dashboard &amp; Mounts &nbsp;<span style="opacity:.6;font-weight:400;">(10 products)</span></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10627601137945" target="_blank" class="fw-bold">ETi Evolution 8/9 Carbon Fiber Triple Gauge Pod (LHD)</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
-        <td><small class="text-muted">Dash</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10616799396121" target="_blank" class="fw-bold">Nissan Skyline R32 GTR OEM-Style Carbon Fiber Radio Surround Panel</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
-        <td><small class="text-muted">Carbon, Interior, R32, RadioSurround, Skyline</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9534988419353" target="_blank" class="fw-bold">R32 Carbon Fiber Dash</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
-        <td><small class="text-muted">Dash, pushed, r32</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9723519992089" target="_blank" class="fw-bold">R32 GTR Carbon Fiber Center Console</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
-        <td><small class="text-muted">CenterConsole</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9695273517337" target="_blank" class="fw-bold">R32 Twin Double Carbon Fiber Gauge Pod</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
-        <td><small class="text-muted">GaugePod, pushed, r32</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658243150105" target="_blank" class="fw-bold">R33 GTS GTR RHD A-Pillar Double Gauge Pod 52mm/60mm</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
-        <td><small class="text-muted">Gauges &amp; Pods&gt;Gauge Components, r33gtr</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240725273" target="_blank" class="fw-bold">R35 GTR Center Console Trim LHD</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
-        <td><small class="text-muted">CenterConsole</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240430361" target="_blank" class="fw-bold">R35 GTR RSW Style LHD Control Panel</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
-        <td><small class="text-muted">Dash</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240463129" target="_blank" class="fw-bold">R35 GTR RSW Style LHD Monitor Cover</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
-        <td><small class="text-muted">Dash</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240299289" target="_blank" class="fw-bold">R35 GTR RSW Style LHD Window Switch Panel</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
-        <td><small class="text-muted">Dash</small></td>
-    </tr>
-    <tr>
-        <td colspan="5" style="background:#003020;color:#e2e8f0;font-weight:600;font-size:0.78rem;letter-spacing:0.06em;padding:4px 20px;border-left:4px solid #f59e0b;">🪑 Likely: Interior Trim &nbsp;<span style="opacity:.6;font-weight:400;">(6 products)</span></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/8931777806617" target="_blank" class="fw-bold">Custom Seat Belt</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Interior Trim</span></td>
-        <td><small class="text-muted">pushed, SeatBelt</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9820570779929" target="_blank" class="fw-bold">GT-Max Series Carbon Fiber Seats</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Interior Trim</span></td>
-        <td><small class="text-muted">pushed, Seat</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9849768771865" target="_blank" class="fw-bold">R33 Armrest Box Cover</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Interior Trim</span></td>
-        <td><small class="text-muted">Armrest, pushed</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658241937689" target="_blank" class="fw-bold">R33 GTR GTS B-Pillar Cover Trim</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Interior Trim</span></td>
-        <td><small class="text-muted">DoorSills, r33gtr</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240758041" target="_blank" class="fw-bold">R35 GTR GTR35 GT-R CBA DBA Gear Surround Trim Interior</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Interior Trim</span></td>
-        <td><small class="text-muted">HeatShield</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9711881519385" target="_blank" class="fw-bold">RX8 B-Pillar Cover (A-RX8-BPILA)</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Interior Trim</span></td>
-        <td><small class="text-muted">Pillar, pushed, rx8</small></td>
-    </tr>
-    <tr>
-        <td colspan="5" style="background:#1a2a00;color:#e2e8f0;font-weight:600;font-size:0.78rem;letter-spacing:0.06em;padding:4px 20px;border-left:4px solid #f59e0b;">🚗 Likely: Exterior Trim &nbsp;<span style="opacity:.6;font-weight:400;">(15 products)</span></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9755085308185" target="_blank" class="fw-bold">C8 Plate Frame</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
-        <td><small class="text-muted">bodykits, c8, Plate, pushed</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9755077247257" target="_blank" class="fw-bold">C8 Side Scoop Trim</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
-        <td><small class="text-muted">bodykits, c8, ScoopTrim</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658246492441" target="_blank" class="fw-bold">R32 GTR OEM Style Front Grille</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
-        <td><small class="text-muted">Grille, r32</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658242494745" target="_blank" class="fw-bold">R33 GTR End Caps</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
-        <td><small class="text-muted">r33gtr, spoiler</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658241839385" target="_blank" class="fw-bold">R33 GTR GTS Wind Deflector 2 Pcs</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
-        <td><small class="text-muted">DoorSills, r33gtr</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658242330905" target="_blank" class="fw-bold">R33 GTS Spec-1 GTR Style Front Grille</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
-        <td><small class="text-muted">Grille, r33gtr</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658243248409" target="_blank" class="fw-bold">R33 GTS/GTR Nismo 400R Style Wheel Arches 6pcs</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
-        <td><small class="text-muted">Fender, r33gtr</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9792329482521" target="_blank" class="fw-bold">R33 GTST Carbon Grille S1</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
-        <td><small class="text-muted">Grille</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240528665" target="_blank" class="fw-bold">R35 GTR Emblem Cover</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
-        <td><small class="text-muted">Fender</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240594201" target="_blank" class="fw-bold">R35 GTR OEM Style Wheel Arch Flares (10mm wider) 8pcs</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
-        <td><small class="text-muted">Fender, r35gtr</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658239414553" target="_blank" class="fw-bold">R35 GTR Wald Style Bumper Side Vent Cover</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
-        <td><small class="text-muted">Fender, r35gtr</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10658239709465" target="_blank" class="fw-bold">R35 GTR Wald Style Gurney Flap</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
-        <td><small class="text-muted">r35gtr, spoiler</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9852458762521" target="_blank" class="fw-bold">R35 OEM Front Grille</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
-        <td><small class="text-muted">Grille, pushed, r33gtr</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/9711896723737" target="_blank" class="fw-bold">RX8 Carbon Eyebrow (A-RX8-EYE)</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
-        <td><small class="text-muted">Eyelid, pushed, rx8</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10307783262489" target="_blank" class="fw-bold">SC300 / SC400 / Soarer (Z30) Window Trims - Group Buy 2</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
-        <td><small class="text-muted">Group Buy, Interior, pushed, SC300, SC300 Group Buy 2, SC400, Soarer, Window Trims, Z30</small></td>
-    </tr>
-    <tr>
-        <td colspan="5" style="background:#3a0a00;color:#e2e8f0;font-weight:600;font-size:0.78rem;letter-spacing:0.06em;padding:4px 20px;border-left:4px solid #f59e0b;">❓ Needs Manual Review &nbsp;<span style="opacity:.6;font-weight:400;">(2 products)</span></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10244578410777" target="_blank" class="fw-bold">Hatch Upgrade – Underside Carbon Fiber</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ ⚠️ Review</span></td>
-        <td><small class="text-muted">hatch, pushed</small></td>
-    </tr>
-    <tr>
-        <td><a href="https://myeliteti.myshopify.com/admin/products/10232512151833" target="_blank" class="fw-bold">Optional Shipping Protection — 7%</a></td>
-        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
-        <td style="color:#94a3b8;">→</td>
-        <td><span class="badge bg-warning text-dark">→ ⚠️ Review</span></td>
-        <td><small class="text-muted">charge-up</small></td>
-    </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="tab-pane fade" id="updated">
+                <div class="tab-pane fade" id="updated">
                 <div class="card p-3">
                     <h5 class="mb-1">🔄 Types Updated — 294 products</h5>
                     <p class="text-muted small mb-3">List of products whose Product Types have been successfully normalized and validated on the live store.</p>
@@ -19589,8 +19061,551 @@
                     </table>
                 </div>
             </div>
-
-            <div class="tab-pane fade" id="meta_preview">
+                <div class="tab-pane fade" id="retired">
+                <div class="card p-3">
+                    <h5 class="mb-1">🔴 Retired / Non-Standard Product Types — 68 products</h5>
+                    <p class="text-muted small mb-3">Grouped by category. Each group header shows the current retired type → the correct target type.</p>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Product Title</th><th>Current Type</th><th></th><th>Target Type</th><th>Tags</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+    <tr>
+        <td colspan="5" style="background:#1e3a5f;color:#fff;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;padding:6px 10px;">Seats &amp; Steering  →  Titanium Hardware &nbsp;<span style="opacity:.65;font-weight:400;">(1 products)</span></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9630865981721" target="_blank" class="fw-bold">ETi RX-7 Titanium Seat Bolts</a></td>
+        <td><span class="badge bg-danger">Seats &amp; Steering</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-success" style="background-color: #059669 !important;">Titanium Hardware</span></td>
+        <td><small class="text-muted">Fabrication&gt;Bolts, Titanium_products</small></td>
+    </tr>
+    <tr>
+        <td colspan="5" style="background:#1a3a2a;color:#fff;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;padding:6px 10px;">Apparel  →  ⚠️ Review Needed — No Standard Target &nbsp;<span style="opacity:.65;font-weight:400;">(3 products)</span></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10672988061977" target="_blank" class="fw-bold">ETi Motorsports A80 Supra Full Carbon Tee</a></td>
+        <td><span class="badge bg-danger">Apparel</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">A80, Apparel, MKIV, Motorsport, Supra, Swag</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10673596563737" target="_blank" class="fw-bold">ETi Motorsports Supra Carbon Evolution Tee</a></td>
+        <td><span class="badge bg-danger">Apparel</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">A80, Apparel, MKIV, Motorsport, Supra, Swag</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10663070892313" target="_blank" class="fw-bold">ETi Motorsports WTAC Tee</a></td>
+        <td><span class="badge bg-danger">Apparel</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">Apparel, Motorsport, Swag, Time Attack, WTAC</small></td>
+    </tr>
+    <tr>
+        <td colspan="5" style="background:#3a1a2e;color:#fff;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;padding:6px 10px;">Furniture  →  ⚠️ Review Needed — No Standard Target &nbsp;<span style="opacity:.65;font-weight:400;">(7 products)</span></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9904589537561" target="_blank" class="fw-bold">Alta – Carbon Fiber Bar Chair</a></td>
+        <td><span class="badge bg-danger">Furniture</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">chair, pushed</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9904588849433" target="_blank" class="fw-bold">Cascade – Tall Carbon Fiber Sink</a></td>
+        <td><span class="badge bg-danger">Furniture</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">pushed, sink</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9904590061849" target="_blank" class="fw-bold">Duo – Carbon Fiber Set Bar Chair with Table</a></td>
+        <td><span class="badge bg-danger">Furniture</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">chair, pushed</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9904584294681" target="_blank" class="fw-bold">Orb – Carbon Fiber Chair</a></td>
+        <td><span class="badge bg-danger">Furniture</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">chair, pushed</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9904580165913" target="_blank" class="fw-bold">Prime – Carbon Fiber Solo Chair</a></td>
+        <td><span class="badge bg-danger">Furniture</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">pushed</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9904587571481" target="_blank" class="fw-bold">The James – Carbon Fiber Sink</a></td>
+        <td><span class="badge bg-danger">Furniture</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">pushed, sink</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9904585343257" target="_blank" class="fw-bold">Xeno – Carbon Fiber Chair</a></td>
+        <td><span class="badge bg-danger">Furniture</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">chair, pushed</small></td>
+    </tr>
+    <tr>
+        <td colspan="5" style="background:#2a2a1a;color:#fff;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;padding:6px 10px;">Seats &amp; Steering  →  ⚠️ Review Needed — No Standard Target &nbsp;<span style="opacity:.65;font-weight:400;">(3 products)</span></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9239928766745" target="_blank" class="fw-bold">ETi Custom Steering Wheel</a></td>
+        <td><span class="badge bg-danger">Seats &amp; Steering</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">pushed, SteeringWheel</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9838960083225" target="_blank" class="fw-bold">ETi Racing Bucket Seat</a></td>
+        <td><span class="badge bg-danger">Seats &amp; Steering</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">Seats</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9819806302489" target="_blank" class="fw-bold">GT-Max Series Carbon Fiber Seat</a></td>
+        <td><span class="badge bg-danger">Seats &amp; Steering</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">pushed, Seat</small></td>
+    </tr>
+    <tr>
+        <td colspan="5" style="background:#1a2a3a;color:#fff;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;padding:6px 10px;">Spats  →  ⚠️ Review Needed — No Standard Target &nbsp;<span style="opacity:.65;font-weight:400;">(3 products)</span></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10657637499161" target="_blank" class="fw-bold">GT86 GFB Spatz (2pcs)</a></td>
+        <td><span class="badge bg-danger">Spats</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">GT86 / FT86, Spatz</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10657638908185" target="_blank" class="fw-bold">GT86 Varis Spatz</a></td>
+        <td><span class="badge bg-danger">Spats</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">GT86 / FT86, Spatz</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658247442713" target="_blank" class="fw-bold">Nissan Skyline R32 GTS Top Secret Style Carbon Fiber Rear Spats Addon</a></td>
+        <td><span class="badge bg-danger">Spats</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">⚠️ Review Needed — No Standard Target</span></td>
+        <td><small class="text-muted">Rear Spats Addon, Spatz</small></td>
+    </tr>
+    <tr>
+        <td colspan="5" style="background:#4a1a00;color:#fff;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;padding:6px 10px;">Trim &amp; Styling Kit  →  Review Required — 51 products &nbsp;<span style="opacity:.65;font-weight:400;">(51 products)</span></td>
+    </tr>
+    <tr>
+        <td colspan="5" style="background:#0f3460;color:#e2e8f0;font-weight:600;font-size:0.78rem;letter-spacing:0.06em;padding:4px 20px;border-left:4px solid #f59e0b;">🔧 Likely: Engine Bay &amp; Cooling &nbsp;<span style="opacity:.6;font-weight:400;">(6 products)</span></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/8931753001241" target="_blank" class="fw-bold">2JZ Swap Kit</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Engine Bay &amp; Cooling</span></td>
+        <td><small class="text-muted">—</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10627600515353" target="_blank" class="fw-bold">ETi Evo 8/9 Carbon Fiber Vented Headlight Air Duct LHD</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Engine Bay &amp; Cooling</span></td>
+        <td><small class="text-muted">Headlight</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9692329607449" target="_blank" class="fw-bold">R32 Gts GTR Lhs Full Carbon Fiber Headlamp Air Intake W. Lamp</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Engine Bay &amp; Cooling</span></td>
+        <td><small class="text-muted">AirIntake, r32</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658242068761" target="_blank" class="fw-bold">R33 GTR GTS LHS Headlight Air Intake Vents Replacement</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Engine Bay &amp; Cooling</span></td>
+        <td><small class="text-muted">intake rep</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658241380633" target="_blank" class="fw-bold">R35 GTR OEM Style Scoop Air Tunnel (Pair)</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Engine Bay &amp; Cooling</span></td>
+        <td><small class="text-muted">intake rep</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658247377177" target="_blank" class="fw-bold">Skyline R32 GTS GTR LHS Vented Carbon Fiber Headlight Intake Replacement</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Engine Bay &amp; Cooling</span></td>
+        <td><small class="text-muted">Headlight, r32</small></td>
+    </tr>
+    <tr>
+        <td colspan="5" style="background:#2d1a00;color:#e2e8f0;font-weight:600;font-size:0.78rem;letter-spacing:0.06em;padding:4px 20px;border-left:4px solid #f59e0b;">💡 Likely: Lighting &nbsp;<span style="opacity:.6;font-weight:400;">(4 products)</span></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10627600580889" target="_blank" class="fw-bold">ETi Evolution 8/9 Carbon Fiber Headlight Eyebrows</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Lighting</span></td>
+        <td><small class="text-muted">Headlight</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658238923033" target="_blank" class="fw-bold">ETi Nissan 350Z Rear Glass Louvers</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Lighting</span></td>
+        <td><small class="text-muted">louvers, Nissan</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658242167065" target="_blank" class="fw-bold">R33 GTR GTS Rear Lamp Light Cover 2pcs</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Lighting</span></td>
+        <td><small class="text-muted">Headlight, r33gtr</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658239381785" target="_blank" class="fw-bold">R35 GTR Wald Style Bumper Headlight Eyebrow</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Lighting</span></td>
+        <td><small class="text-muted">Headlight, r35gtr</small></td>
+    </tr>
+    <tr>
+        <td colspan="5" style="background:#1a003d;color:#e2e8f0;font-weight:600;font-size:0.78rem;letter-spacing:0.06em;padding:4px 20px;border-left:4px solid #f59e0b;">🪟 Likely: Mirror &nbsp;<span style="opacity:.6;font-weight:400;">(8 products)</span></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9755074593049" target="_blank" class="fw-bold">C8 Side Mirror Covers</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
+        <td><small class="text-muted">bodykits, pushed, SideMirror</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9900581224729" target="_blank" class="fw-bold">ETi Tesla Model 3 Dry Carbon Mirror Caps</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
+        <td><small class="text-muted">SideMirror</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10657636811033" target="_blank" class="fw-bold">ETi Toyota Supra MK5 (A90) Carbon Fiber Side Mirror Covers</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
+        <td><small class="text-muted">Fabrication&gt;Flanges, Supra</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10627885465881" target="_blank" class="fw-bold">Mazda RX-8 SE3P Early Aero Mirror (LHD)</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
+        <td><small class="text-muted">rx8, SideMirror</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658247508249" target="_blank" class="fw-bold">Nissan Skyline R32 &amp; BNR32 GTR Carbon Fiber Ganador Style Full Carbon Fiber Electric Side Mirrors</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
+        <td><small class="text-muted">r32</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240823577" target="_blank" class="fw-bold">R35 GTR GTR35 VS Style Side Low Mirror Under Cover</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
+        <td><small class="text-muted">r35gtr, SideMirror</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240856345" target="_blank" class="fw-bold">R35 GTR Side Mirror Cover 2 PCS</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
+        <td><small class="text-muted">r33gtr, SideMirror</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9697573765401" target="_blank" class="fw-bold">RX8 Carbon Side Mirror Cover</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Mirror</span></td>
+        <td><small class="text-muted">pushed, rx8, SideMirror</small></td>
+    </tr>
+    <tr>
+        <td colspan="5" style="background:#002040;color:#e2e8f0;font-weight:600;font-size:0.78rem;letter-spacing:0.06em;padding:4px 20px;border-left:4px solid #f59e0b;">🖥️ Likely: Dashboard &amp; Mounts &nbsp;<span style="opacity:.6;font-weight:400;">(10 products)</span></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10627601137945" target="_blank" class="fw-bold">ETi Evolution 8/9 Carbon Fiber Triple Gauge Pod (LHD)</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
+        <td><small class="text-muted">Dash</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10616799396121" target="_blank" class="fw-bold">Nissan Skyline R32 GTR OEM-Style Carbon Fiber Radio Surround Panel</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
+        <td><small class="text-muted">Carbon, Interior, R32, RadioSurround, Skyline</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9534988419353" target="_blank" class="fw-bold">R32 Carbon Fiber Dash</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
+        <td><small class="text-muted">Dash, pushed, r32</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9723519992089" target="_blank" class="fw-bold">R32 GTR Carbon Fiber Center Console</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
+        <td><small class="text-muted">CenterConsole</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9695273517337" target="_blank" class="fw-bold">R32 Twin Double Carbon Fiber Gauge Pod</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
+        <td><small class="text-muted">GaugePod, pushed, r32</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658243150105" target="_blank" class="fw-bold">R33 GTS GTR RHD A-Pillar Double Gauge Pod 52mm/60mm</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
+        <td><small class="text-muted">Gauges &amp; Pods&gt;Gauge Components, r33gtr</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240725273" target="_blank" class="fw-bold">R35 GTR Center Console Trim LHD</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
+        <td><small class="text-muted">CenterConsole</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240430361" target="_blank" class="fw-bold">R35 GTR RSW Style LHD Control Panel</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
+        <td><small class="text-muted">Dash</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240463129" target="_blank" class="fw-bold">R35 GTR RSW Style LHD Monitor Cover</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
+        <td><small class="text-muted">Dash</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240299289" target="_blank" class="fw-bold">R35 GTR RSW Style LHD Window Switch Panel</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Dashboard &amp; Mounts</span></td>
+        <td><small class="text-muted">Dash</small></td>
+    </tr>
+    <tr>
+        <td colspan="5" style="background:#003020;color:#e2e8f0;font-weight:600;font-size:0.78rem;letter-spacing:0.06em;padding:4px 20px;border-left:4px solid #f59e0b;">🪑 Likely: Interior Trim &nbsp;<span style="opacity:.6;font-weight:400;">(6 products)</span></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/8931777806617" target="_blank" class="fw-bold">Custom Seat Belt</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Interior Trim</span></td>
+        <td><small class="text-muted">pushed, SeatBelt</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9820570779929" target="_blank" class="fw-bold">GT-Max Series Carbon Fiber Seats</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Interior Trim</span></td>
+        <td><small class="text-muted">pushed, Seat</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9849768771865" target="_blank" class="fw-bold">R33 Armrest Box Cover</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Interior Trim</span></td>
+        <td><small class="text-muted">Armrest, pushed</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658241937689" target="_blank" class="fw-bold">R33 GTR GTS B-Pillar Cover Trim</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Interior Trim</span></td>
+        <td><small class="text-muted">DoorSills, r33gtr</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240758041" target="_blank" class="fw-bold">R35 GTR GTR35 GT-R CBA DBA Gear Surround Trim Interior</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Interior Trim</span></td>
+        <td><small class="text-muted">HeatShield</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9711881519385" target="_blank" class="fw-bold">RX8 B-Pillar Cover (A-RX8-BPILA)</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Interior Trim</span></td>
+        <td><small class="text-muted">Pillar, pushed, rx8</small></td>
+    </tr>
+    <tr>
+        <td colspan="5" style="background:#1a2a00;color:#e2e8f0;font-weight:600;font-size:0.78rem;letter-spacing:0.06em;padding:4px 20px;border-left:4px solid #f59e0b;">🚗 Likely: Exterior Trim &nbsp;<span style="opacity:.6;font-weight:400;">(15 products)</span></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9755085308185" target="_blank" class="fw-bold">C8 Plate Frame</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
+        <td><small class="text-muted">bodykits, c8, Plate, pushed</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9755077247257" target="_blank" class="fw-bold">C8 Side Scoop Trim</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
+        <td><small class="text-muted">bodykits, c8, ScoopTrim</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658246492441" target="_blank" class="fw-bold">R32 GTR OEM Style Front Grille</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
+        <td><small class="text-muted">Grille, r32</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658242494745" target="_blank" class="fw-bold">R33 GTR End Caps</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
+        <td><small class="text-muted">r33gtr, spoiler</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658241839385" target="_blank" class="fw-bold">R33 GTR GTS Wind Deflector 2 Pcs</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
+        <td><small class="text-muted">DoorSills, r33gtr</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658242330905" target="_blank" class="fw-bold">R33 GTS Spec-1 GTR Style Front Grille</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
+        <td><small class="text-muted">Grille, r33gtr</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658243248409" target="_blank" class="fw-bold">R33 GTS/GTR Nismo 400R Style Wheel Arches 6pcs</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
+        <td><small class="text-muted">Fender, r33gtr</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9792329482521" target="_blank" class="fw-bold">R33 GTST Carbon Grille S1</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
+        <td><small class="text-muted">Grille</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240528665" target="_blank" class="fw-bold">R35 GTR Emblem Cover</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
+        <td><small class="text-muted">Fender</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658240594201" target="_blank" class="fw-bold">R35 GTR OEM Style Wheel Arch Flares (10mm wider) 8pcs</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
+        <td><small class="text-muted">Fender, r35gtr</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658239414553" target="_blank" class="fw-bold">R35 GTR Wald Style Bumper Side Vent Cover</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
+        <td><small class="text-muted">Fender, r35gtr</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10658239709465" target="_blank" class="fw-bold">R35 GTR Wald Style Gurney Flap</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
+        <td><small class="text-muted">r35gtr, spoiler</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9852458762521" target="_blank" class="fw-bold">R35 OEM Front Grille</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
+        <td><small class="text-muted">Grille, pushed, r33gtr</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/9711896723737" target="_blank" class="fw-bold">RX8 Carbon Eyebrow (A-RX8-EYE)</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
+        <td><small class="text-muted">Eyelid, pushed, rx8</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10307783262489" target="_blank" class="fw-bold">SC300 / SC400 / Soarer (Z30) Window Trims - Group Buy 2</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ Exterior Trim</span></td>
+        <td><small class="text-muted">Group Buy, Interior, pushed, SC300, SC300 Group Buy 2, SC400, Soarer, Window Trims, Z30</small></td>
+    </tr>
+    <tr>
+        <td colspan="5" style="background:#3a0a00;color:#e2e8f0;font-weight:600;font-size:0.78rem;letter-spacing:0.06em;padding:4px 20px;border-left:4px solid #f59e0b;">❓ Needs Manual Review &nbsp;<span style="opacity:.6;font-weight:400;">(2 products)</span></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10244578410777" target="_blank" class="fw-bold">Hatch Upgrade – Underside Carbon Fiber</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ ⚠️ Review</span></td>
+        <td><small class="text-muted">hatch, pushed</small></td>
+    </tr>
+    <tr>
+        <td><a href="https://myeliteti.myshopify.com/admin/products/10232512151833" target="_blank" class="fw-bold">Optional Shipping Protection — 7%</a></td>
+        <td><span class="badge bg-danger">Trim &amp; Styling Kit</span></td>
+        <td style="color:#94a3b8;">→</td>
+        <td><span class="badge bg-warning text-dark">→ ⚠️ Review</span></td>
+        <td><small class="text-muted">charge-up</small></td>
+    </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane fade" id="meta_group">
+        <div class="card p-3 mb-4" style="background: rgba(15, 23, 42, 0.3); border: 1px solid rgba(255,255,255,0.05);">
+            <ul class="nav nav-pills mb-3" id="metaSubTabs" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active" id="meta-preview-tab" data-bs-toggle="tab" data-bs-target="#meta_preview" type="button">🔄 shop_by_part Preview (1101)</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="meta-corrected-tab" data-bs-toggle="tab" data-bs-target="#meta_corrected" type="button">🔄 Types Corrected Metafield (0)</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="metaSubTabsContent">
+                <div class="tab-pane fade show active" id="meta_preview">
                 <div class="card p-3">
                     <h5 class="mb-1">🔄 shop_by_part Preview — 1101 products</h5>
                     <p class="text-muted small mb-3">Preview of the proposed shop_by_part filter metafield values based on standard category mappings. Platform products are excluded.</p>
@@ -28440,8 +28455,37 @@
                     </table>
                 </div>
             </div>
+                <div class="tab-pane fade" id="meta_corrected">
+                <div class="card p-3">
+                    <h5 class="mb-1">🔄 Types Corrected Metafield — 0 products</h5>
+                    <p class="text-muted small mb-3">List of products whose shop_by_part filter metafields have been successfully updated on Shopify.</p>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Product Title</th><th>Standard Type</th><th>Current Value</th><th>Status</th><th>Tags</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-            <div class="tab-pane fade" id="platform">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+            <div class="tab-pane fade" id="ref_group">
+        <div class="card p-3 mb-4" style="background: rgba(15, 23, 42, 0.3); border: 1px solid rgba(255,255,255,0.05);">
+            <ul class="nav nav-pills mb-3" id="refSubTabs" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active" id="platform-tab" data-bs-toggle="tab" data-bs-target="#platform" type="button">🔑 Supra &amp; RX-7 (159)</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="strategy-tab" data-bs-toggle="tab" data-bs-target="#strategy" type="button">📋 Strategy &amp; Roadmap</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="refSubTabsContent">
+                <div class="tab-pane fade show active" id="platform">
                 <div class="card p-3">
                     <h5 class="mb-1">🔑 Supra &amp; RX-7 Platform Products — 159 products</h5>
                     <p class="text-muted small mb-3">Comprehensive view of all Toyota Supra and Mazda RX-7 products showing their current types, status, tags, and metafields.</p>
@@ -29734,8 +29778,7 @@
                     </table>
                 </div>
             </div>
-
-            <div class="tab-pane fade" id="strategy">
+                <div class="tab-pane fade" id="strategy">
                 <div class="card p-4">
                     <h3 class="fw-bold mb-4 text-info">📋 Tagging Strategy & Roadmap</h3>
                     <div class="row g-4">
@@ -29786,7 +29829,10 @@
                     </div>
                 </div>
             </div>
+            </div>
         </div>
+    </div>
+            </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
