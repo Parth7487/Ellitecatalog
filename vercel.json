@@ -24,10 +24,6 @@
       "dest": "/weight.html"
     },
     {
-      "src": "^/navigation$",
-      "dest": "/navigation_tree.html"
-    },
-    {
       "src": "^/images-tracker$",
       "dest": "/images-tracker.html"
     },
