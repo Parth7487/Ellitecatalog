@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Ti - Volumetric Weight Dashboard</title>
+    <!-- Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-base: #080710;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --text-main: #f5f5fa;
+            --text-muted: #8a899c;
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.15);
+            --success: #10b981;
+            --success-glow: rgba(16, 185, 129, 0.15);
+            --warning: #f59e0b;
+            --warning-glow: rgba(245, 158, 11, 0.15);
+            --danger: #ef4444;
+            --danger-glow: rgba(239, 68, 68, 0.15);
+            --font-accent: 'Space Grotesk', sans-serif;
+            --font-base: 'Outfit', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-base);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(245, 158, 11, 0.03) 0%, transparent 40%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            padding: 2rem;
+        }
+
+        /* Container */
+        .dashboard-container {
+            max-width: 1750px;
+            margin: 0 auto;
+        }
+
+        /* Header block */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 1.5rem;
+        }
+
+        .header-title h1 {
+            font-family: var(--font-accent);
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-title p {
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+            font-size: 0.95rem;
+        }
+
+        .refresh-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .refresh-btn:hover {
+            background: var(--primary-glow);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .refresh-btn svg {
+            transition: transform 0.6s ease;
+        }
+
+        .refresh-btn.loading svg {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Summary Stats Cards Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-card.total::before { background: var(--primary); }
+        .stat-card.listed-products::before { background: #818cf8; }
+        .stat-card.unlisted-products::before { background: #fb7185; }
+        .stat-card.matches::before { background: var(--success); }
+        .stat-card.mismatches::before { background: var(--danger); }
+        .stat-card.percentage::before { background: var(--warning); }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .stat-val {
+            font-family: var(--font-accent);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.25rem;
+        }
+
+        .stat-val span {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* Controls Block */
+        .controls-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(12px);
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .brand-filters {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            padding: 0.6rem 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.25s ease;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-main);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            width: 320px;
+            max-width: 100%;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            width: 100%;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            margin-left: 0.5rem;
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .toggle-mismatches {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            user-select: none;
+            transition: color 0.25s ease;
+        }
+
+        .toggle-mismatches:hover {
+            color: var(--text-main);
+        }
+
+        .toggle-mismatches input {
+            cursor: pointer;
+            width: 1.1rem;
+            height: 1.1rem;
+            accent-color: var(--primary);
+        }
+
+        /* Products Audit List Grid */
+        .variants-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            margin-bottom: 3rem;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(0, 0, 0, 0.15);
+            padding: 1.25rem 1.5rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            transition: background 0.2s ease;
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        td {
+            padding: 1.1rem 1.5rem;
+            font-size: 0.95rem;
+            vertical-align: middle;
+        }
+
+        .product-title-cell {
+            max-width: 320px;
+        }
+
+        .product-title {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .product-handle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.2rem;
+            font-family: var(--font-accent);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .badge-brand {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+        }
+
+        .badge-category {
+            background: var(--primary-glow);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+        }
+
+        .badge-class {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-family: var(--font-accent);
+        }
+
+        .badge-kit {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: #fbbf24;
+            font-size: 0.68rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .status-cell {
+            font-weight: 600;
+        }
+
+        .status-match {
+            color: var(--success);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .status-mismatch {
+            color: var(--danger);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .btn-action {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            background: #4f46e5;
+        }
+
+        .btn-action:disabled {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-action.success {
+            background: var(--success);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+        }
+
+        .loading-state {
+            padding: 5rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Success & Error Popups */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #10b981;
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.error {
+            background: var(--danger);
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <header>
+        <div class="header-title">
+            <h1>Volumetric Weight Audit</h1>
+            <p>Direct Shopify catalog sync & shipping weight calibration portal for German Performance Brands.</p>
+        </div>
+        <button class="refresh-btn" id="refreshBtn" onclick="loadData(true)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            Refresh Shopify Audit
+        </button>
+    </header>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+        <div class="stat-card total">
+            <div class="stat-label">Total Active Variants</div>
+            <div class="stat-val" id="statTotal">-</div>
+        </div>
+        <div class="stat-card listed-products">
+            <div class="stat-label">Listed Products (In Dashboard)</div>
+            <div class="stat-val" id="statListedProds">-</div>
+        </div>
+        <div class="stat-card unlisted-products">
+            <div class="stat-label">Unlisted Active Products</div>
+            <div class="stat-val" id="statUnlistedProds">-</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.4; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 0.5rem; display: flex; flex-direction: column; gap: 0.15rem;">
+                <div>Kits: <span id="statUnlistedKits" style="color: var(--text-main); font-weight: 600;">-</span></div>
+                <div>Hardware: <span id="statUnlistedHardware" style="color: var(--text-main); font-weight: 600;">-</span></div>
+                <div>Interior: <span id="statUnlistedInterior" style="color: var(--text-main); font-weight: 600;">-</span></div>
+                <div>Misc: <span id="statUnlistedMisc" style="color: var(--text-main); font-weight: 600;">-</span></div>
+            </div>
+        </div>
+        <div class="stat-card matches">
+            <div class="stat-label">✅ Matching Weights</div>
+            <div class="stat-val" id="statMatches">-</div>
+        </div>
+        <div class="stat-card mismatches">
+            <div class="stat-label">❌ Non-Standard / Mismatched</div>
+            <div class="stat-val" id="statMismatches">-</div>
+        </div>
+        <div class="stat-card percentage">
+            <div class="stat-label">📦 Adherence Rate</div>
+            <div class="stat-val" id="statAdherence">-</div>
+        </div>
+    </div>
+
+    <!-- Main Flex Layout -->
+    <div class="layout-main" style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
+        <!-- Left Column: Controls & Table -->
+        <div class="column-left" style="flex: 1; min-width: 0;">
+            <!-- Controls -->
+            <div class="controls-card" style="margin-bottom: 2rem;">
+                <div class="brand-filters" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                    <button class="filter-btn active" id="filter-btn-ALL" onclick="setBrandFilter('ALL')">ALL BRANDS</button>
+                    <button class="filter-btn" id="filter-btn-BMW" onclick="setBrandFilter('BMW')">BMW</button>
+                    <button class="filter-btn" id="filter-btn-PORSCHE" onclick="setBrandFilter('PORSCHE')">PORSCHE</button>
+                    <button class="filter-btn" id="filter-btn-BENZ" onclick="setBrandFilter('BENZ')">MERCEDES-BENZ</button>
+                    <button class="filter-btn" id="filter-btn-MITSUBISHI" onclick="setBrandFilter('MITSUBISHI')">MITSUBISHI</button>
+                    <button class="filter-btn" id="filter-btn-TOYOTA" onclick="setBrandFilter('TOYOTA')">TOYOTA</button>
+                    <button class="filter-btn" id="filter-btn-NISSAN" onclick="setBrandFilter('NISSAN')">NISSAN</button>
+                    <button class="filter-btn" id="filter-btn-HONDA" onclick="setBrandFilter('HONDA')">HONDA</button>
+                    <button class="filter-btn" id="filter-btn-MAZDA" onclick="setBrandFilter('MAZDA')">MAZDA</button>
+                    <button class="filter-btn" id="filter-btn-AUDI" onclick="setBrandFilter('AUDI')">AUDI</button>
+                </div>
+
+                <div class="category-filters" style="display: flex; gap: 0.5rem; flex-wrap: wrap; border-top: 1px solid var(--glass-border); padding-top: 1rem; margin-bottom: 1.5rem;">
+                    <button class="filter-btn active" id="cat-btn-ALL" onclick="setCategoryFilter('ALL')">ALL PARTS</button>
+                    <button class="filter-btn" id="cat-btn-LargeHood" onclick="setCategoryFilter('Large Hood (Supra, etc.)')">Large Hoods</button>
+                    <button class="filter-btn" id="cat-btn-RegularHood" onclick="setCategoryFilter('Regular Hood')">Regular Hoods</button>
+                    <button class="filter-btn" id="cat-btn-FrontBumper" onclick="setCategoryFilter('Front Bumper')">Front Bumpers</button>
+                    <button class="filter-btn" id="cat-btn-RearBumper" onclick="setCategoryFilter('Rear Bumper')">Rear Bumpers</button>
+                    <button class="filter-btn" id="cat-btn-SideSkirts" onclick="setCategoryFilter('Side Skirts (Pair)')">Side Skirts</button>
+                    <button class="filter-btn" id="cat-btn-TrunkBoot" onclick="setCategoryFilter('Trunk / Boot')">Trunk / Boot</button>
+                    <button class="filter-btn" id="cat-btn-FrontFender" onclick="setCategoryFilter('Front Fender (Pair)')">Fenders</button>
+                    <button class="filter-btn" id="cat-btn-Door" onclick="setCategoryFilter('Door')">Doors</button>
+                    <button class="filter-btn" id="cat-btn-GTWing" onclick="setCategoryFilter('GT Wing')">GT Wings</button>
+                    <button class="filter-btn" id="cat-btn-RearDiffuser" onclick="setCategoryFilter('Rear Diffuser')">Diffusers</button>
+                    <button class="filter-btn" id="cat-btn-FrontLip" onclick="setCategoryFilter('Front Lip')">Front Lips</button>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+                    <label class="toggle-mismatches">
+                        <input type="checkbox" id="mismatchOnlyCheck" onchange="toggleMismatchesOnly()">
+                        Show mismatches only
+                    </label>
+
+                    <label class="toggle-mismatches">
+                        <input type="checkbox" id="zeroOnlyCheck" onchange="toggleZeroOnly()">
+                        Show 0.0 kg only
+                    </label>
+
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">Sort:</span>
+                        <select id="sortBySelect" onchange="handleSort()" style="background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-main); padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.85rem; outline: none; cursor: pointer;">
+                            <option value="title-az" style="background: var(--bg-base);">Title (A-Z)</option>
+                            <option value="weight-asc" style="background: var(--bg-base);">Weight (Lowest first)</option>
+                            <option value="status-mismatch" style="background: var(--bg-base);">Status (Mismatches first)</option>
+                        </select>
+                    </div>
+
+                    <div class="search-box">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input type="text" id="searchInput" placeholder="Search product or SKU..." oninput="handleSearch()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Category-Wise Sections Container -->
+            <div id="categoriesContainer">
+                <div class="variants-card">
+                    <div class="loading-state">Loading Shopify catalog weights...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Comparison Sidebar -->
+        <div class="column-right" style="width: 320px; flex-shrink: 0; background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: 24px; backdrop-filter: blur(12px); position: sticky; top: 2rem;">
+            <h2 style="font-family: var(--font-accent); font-size: 1.15rem; font-weight: 700; margin-bottom: 1.25rem; background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                Reference Matrix
+            </h2>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.4;">
+                Expected volumetric weight standard computed via:
+                <div style="font-family: monospace; font-size: 0.8rem; background: rgba(0,0,0,0.2); padding: 0.4rem; border-radius: 6px; margin-top: 0.3rem; color: #a5b4fc;">(L × W × H) ÷ 5000</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <table style="width: 100%; font-size: 0.82rem; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="padding: 0.4rem 0; border-bottom: 1px solid var(--glass-border); text-align: left; font-size: 0.75rem; color: var(--text-muted);">Category</th>
+                            <th style="padding: 0.4rem 0; border-bottom: 1px solid var(--glass-border); text-align: left; font-size: 0.75rem; color: var(--text-muted);">Box (cm)</th>
+                            <th style="padding: 0.4rem 0; border-bottom: 1px solid var(--glass-border); text-align: right; font-size: 0.75rem; color: var(--text-muted);">Vol. Wt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Large Hood</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">150×160×20</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~96 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Regular Hood</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">150×150×15</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~68 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Front Bumper</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">190×75×55</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~156 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Rear Bumper</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">190×75×55</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~156 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Side Skirts (Pr)</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">205×30×20</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~25 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Trunk / Boot</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">135×115×25</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~65 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Front Fender (Pr)</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">115×85×25</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~48 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Door</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">140×115×20</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~64 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">GT Wing</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">165×45×35</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~52 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Rear Diffuser</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">165×75×25</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~62 kg</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.025);">
+                            <td style="padding: 0.5rem 0; font-weight: 500; color: var(--text-main);">Front Lip</td>
+                            <td style="padding: 0.5rem 0; color: var(--text-muted);">180×60×15</td>
+                            <td style="padding: 0.5rem 0; font-weight: 600; color: #a5b4fc; text-align: right;">~32 kg</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calibration Log Section -->
+    <div class="variants-card" style="margin-top: 2rem; border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: 24px;">
+        <h2 style="font-family: var(--font-accent); font-size: 1.15rem; font-weight: 700; margin-bottom: 1.25rem; background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 0.5rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            Antigravity Audit & Calibration Log (Changes Made by Us)
+        </h2>
+        
+        <!-- Tabs for Log Types -->
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem; flex-wrap: wrap;">
+            <button class="filter-btn active" id="log-tab-weights" onclick="switchLogTab('weights')">Weight Calibrations (0)</button>
+            <button class="filter-btn" id="log-tab-renames" onclick="switchLogTab('renames')">Product Renames (0)</button>
+            <button class="filter-btn" id="log-tab-deletions" onclick="switchLogTab('deletions')">Catalog Deletions (0)</button>
+            <button class="filter-btn" id="log-tab-redirects" onclick="switchLogTab('redirects')">SEO URL Redirects (0)</button>
+        </div>
+        
+        <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+            <table id="logTable">
+                <thead>
+                    <tr id="logTableHeader">
+                        <!-- Dynamic Header -->
+                    </tr>
+                </thead>
+                <tbody id="logTableBody">
+                    <tr>
+                        <td style="text-align: center; color: var(--text-muted); padding: 2rem 0;">Loading calibration logs...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toastMsg">Weight successfully updated!</span>
+</div>
+
+<script>
+    let allVariants = [];
+    let dashboardSummary = { totalActiveProducts: 0, listedProducts: 0, unlistedProducts: 0 };
+    let currentBrandFilter = 'ALL';
+    let currentCategoryFilter = 'ALL';
+    let mismatchOnly = false;
+    let zeroOnly = false;
+    let sortBy = 'title-az';
+    let searchQuery = '';
+
+    function toggleZeroOnly() {
+        zeroOnly = document.getElementById('zeroOnlyCheck').checked;
+        renderDashboard();
+    }
+
+    function handleSort() {
+        sortBy = document.getElementById('sortBySelect').value;
+        renderDashboard();
+    }
+
+    async function loadData(forceRefresh = false) {
+        const btn = document.getElementById('refreshBtn');
+        btn.classList.add('loading');
+        btn.disabled = true;
+
+        document.getElementById('categoriesContainer').innerHTML = `
+            <div class="variants-card">
+                <div class="loading-state">
+                    <div style="margin-bottom: 1rem;">Querying active products & volumetric weights from Shopify...</div>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                </div>
+            </div>
+        `;
+
+        try {
+            const res = await fetch('/api/weight_audit_data', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ forceRefresh: forceRefresh })
+            });
+            const data = await res.json();
+            if (data.success) {
+                allVariants = data.variants;
+                dashboardSummary = data.summary || { totalActiveProducts: 0, listedProducts: 0, unlistedProducts: 0 };
+                updateFilterButtonLabels();
+                renderDashboard();
+            } else {
+                showError("Failed to fetch Shopify audit data.");
+            }
+        } catch (e) {
+            console.error(e);
+            showError("Network error connecting to helper server.");
+        } finally {
+            btn.classList.remove('loading');
+            btn.disabled = false;
+        }
+    }
+
+    const categoryOrder = [
+        "Large Hood (Supra, etc.)",
+        "Regular Hood",
+        "Front Bumper",
+        "Rear Bumper",
+        "Side Skirts (Pair)",
+        "Trunk / Boot",
+        "Front Fender (Pair)",
+        "Door",
+        "GT Wing",
+        "Rear Diffuser",
+        "Front Lip"
+    ];
+
+    function updateFilterButtonLabels() {
+        const counts = {
+            ALL: 0, BMW: 0, PORSCHE: 0, BENZ: 0, MITSUBISHI: 0, TOYOTA: 0, NISSAN: 0, HONDA: 0, MAZDA: 0, AUDI: 0
+        };
+
+        const catCounts = {
+            ALL: 0,
+            "Large Hood (Supra, etc.)": 0,
+            "Regular Hood": 0,
+            "Front Bumper": 0,
+            "Rear Bumper": 0,
+            "Side Skirts (Pair)": 0,
+            "Trunk / Boot": 0,
+            "Front Fender (Pair)": 0,
+            "Door": 0,
+            "GT Wing": 0,
+            "Rear Diffuser": 0,
+            "Front Lip": 0
+        };
+
+        allVariants.forEach(v => {
+            if (!v.isMatch) {
+                // 1. Calculate brand mismatch counts (respecting active category filter)
+                let categoryMatches = true;
+                if (currentCategoryFilter !== 'ALL') {
+                    categoryMatches = (v.category === currentCategoryFilter);
+                }
+
+                if (categoryMatches) {
+                    counts.ALL++;
+                    if (counts[v.brand] !== undefined) {
+                        counts[v.brand]++;
+                    }
+                }
+
+                // 2. Calculate category mismatch counts (respecting active brand filter)
+                const brandMatches = (currentBrandFilter === 'ALL' || v.brand === currentBrandFilter);
+                if (brandMatches) {
+                    catCounts.ALL++;
+                    if (catCounts[v.category] !== undefined) {
+                        catCounts[v.category]++;
+                    }
+                }
+            }
+        });
+
+        // Update brand buttons
+        document.getElementById('filter-btn-ALL').innerText = `ALL BRANDS (${counts.ALL})`;
+        document.getElementById('filter-btn-BMW').innerText = `BMW (${counts.BMW})`;
+        document.getElementById('filter-btn-PORSCHE').innerText = `PORSCHE (${counts.PORSCHE})`;
+        document.getElementById('filter-btn-BENZ').innerText = `MERCEDES-BENZ (${counts.BENZ})`;
+        document.getElementById('filter-btn-MITSUBISHI').innerText = `MITSUBISHI (${counts.MITSUBISHI})`;
+        document.getElementById('filter-btn-TOYOTA').innerText = `TOYOTA (${counts.TOYOTA})`;
+        document.getElementById('filter-btn-NISSAN').innerText = `NISSAN (${counts.NISSAN})`;
+        document.getElementById('filter-btn-HONDA').innerText = `HONDA (${counts.HONDA})`;
+        document.getElementById('filter-btn-MAZDA').innerText = `MAZDA (${counts.MAZDA})`;
+        document.getElementById('filter-btn-AUDI').innerText = `AUDI (${counts.AUDI})`;
+
+        // Update category buttons
+        document.getElementById('cat-btn-ALL').innerText = `ALL PARTS (${catCounts.ALL})`;
+        document.getElementById('cat-btn-LargeHood').innerText = `Large Hoods (${catCounts["Large Hood (Supra, etc.)"]})`;
+        document.getElementById('cat-btn-RegularHood').innerText = `Regular Hoods (${catCounts["Regular Hood"]})`;
+        document.getElementById('cat-btn-FrontBumper').innerText = `Front Bumpers (${catCounts["Front Bumper"]})`;
+        document.getElementById('cat-btn-RearBumper').innerText = `Rear Bumpers (${catCounts["Rear Bumper"]})`;
+        document.getElementById('cat-btn-SideSkirts').innerText = `Side Skirts (${catCounts["Side Skirts (Pair)"]})`;
+        document.getElementById('cat-btn-TrunkBoot').innerText = `Trunk / Boot (${catCounts["Trunk / Boot"]})`;
+        document.getElementById('cat-btn-FrontFender').innerText = `Fenders (${catCounts["Front Fender (Pair)"]})`;
+        document.getElementById('cat-btn-Door').innerText = `Doors (${catCounts["Door"]})`;
+        document.getElementById('cat-btn-GTWing').innerText = `GT Wings (${catCounts["GT Wing"]})`;
+        document.getElementById('cat-btn-RearDiffuser').innerText = `Diffusers (${catCounts["Rear Diffuser"]})`;
+        document.getElementById('cat-btn-FrontLip').innerText = `Front Lips (${catCounts["Front Lip"]})`;
+    }
+
+    function renderDashboard() {
+        // Group all variants by Product ID + Category
+        const groupedMap = {};
+        allVariants.forEach(v => {
+            const key = `${v.productId}-${v.category}`;
+            if (!groupedMap[key]) {
+                groupedMap[key] = {
+                    productId: v.productId,
+                    title: v.title,
+                    brand: v.brand,
+                    category: v.category,
+                    expectedWeight: v.expectedWeight,
+                    boxSize: v.boxSize,
+                    imageUrl: v.imageUrl,
+                    isKit: v.isKit,
+                    variants: []
+                };
+            }
+            groupedMap[key].variants.push(v);
+        });
+
+        // Convert groupedMap to list of product-level entries
+        const productRows = Object.values(groupedMap).map(pEntry => {
+            const isMatch = pEntry.variants.every(v => v.isMatch);
+            const hasZeroWeight = pEntry.variants.some(v => v.weightKg === 0.0);
+            const variantTitles = pEntry.variants.map(v => v.variantTitle).join(', ');
+            const variantIds = pEntry.variants.map(v => v.variantId);
+            
+            const weights = pEntry.variants.map(v => v.currentWeight);
+            const uniqueWeights = [...new Set(weights)];
+            const currentWeightStr = uniqueWeights.length === 1 ? uniqueWeights[0] : uniqueWeights.join(', ');
+            
+            const weightKg = pEntry.variants[0].weightKg;
+            const skus = pEntry.variants.map(v => v.sku).filter(x => x && x !== "N/A");
+            const skuStr = skus.length > 0 ? [...new Set(skus)].join(', ') : 'No SKU';
+            
+            return {
+                ...pEntry,
+                variantTitles,
+                variantIds,
+                currentWeight: currentWeightStr,
+                weightKg,
+                isMatch,
+                hasZeroWeight,
+                sku: skuStr,
+                imageUrl: pEntry.imageUrl,
+                isKit: pEntry.isKit
+            };
+        });
+
+        // Filter list
+        const filtered = productRows.filter(p => {
+            const brandMatch = (currentBrandFilter === 'ALL' || p.brand === currentBrandFilter);
+            const categoryMatch = (currentCategoryFilter === 'ALL' || p.category === currentCategoryFilter);
+            const statusMatch = (!mismatchOnly || !p.isMatch);
+            const zeroMatch = (!zeroOnly || p.hasZeroWeight);
+            const searchMatch = (!searchQuery || 
+                p.title.toLowerCase().includes(searchQuery) || 
+                p.variantTitles.toLowerCase().includes(searchQuery) || 
+                p.sku.toLowerCase().includes(searchQuery)
+            );
+            return brandMatch && categoryMatch && statusMatch && zeroMatch && searchMatch;
+        });
+
+        // Compute metrics
+        const matchesCount = allVariants.filter(v => v.isMatch).length;
+        const totalCount = allVariants.length;
+        const mismatchesCount = totalCount - matchesCount;
+        const adherencePct = totalCount > 0 ? ((matchesCount / totalCount) * 100).toFixed(1) : "0.0";
+
+        // Display metrics
+        document.getElementById('statTotal').innerText = totalCount;
+        document.getElementById('statListedProds').innerText = dashboardSummary.listedProducts;
+        document.getElementById('statUnlistedProds').innerText = dashboardSummary.unlistedProducts;
+        document.getElementById('statUnlistedKits').innerText = dashboardSummary.unlistedKits || 0;
+        document.getElementById('statUnlistedHardware').innerText = dashboardSummary.unlistedHardware || 0;
+        document.getElementById('statUnlistedInterior').innerText = dashboardSummary.unlistedInterior || 0;
+        document.getElementById('statUnlistedMisc').innerText = dashboardSummary.unlistedMisc || 0;
+        document.getElementById('statMatches').innerText = matchesCount;
+        document.getElementById('statMismatches').innerText = mismatchesCount;
+        document.getElementById('statAdherence').innerHTML = `${adherencePct}<span>%</span>`;
+
+        // Group filtered by category
+        const groups = {};
+        categoryOrder.forEach(cat => { groups[cat] = []; });
+        filtered.forEach(p => {
+            if (groups[p.category]) {
+                groups[p.category].push(p);
+            }
+        });
+
+        // Sort inside category group
+        categoryOrder.forEach(cat => {
+            if (sortBy === 'title-az') {
+                groups[cat].sort((a, b) => a.title.localeCompare(b.title));
+            } else if (sortBy === 'weight-asc') {
+                groups[cat].sort((a, b) => a.weightKg - b.weightKg);
+            } else if (sortBy === 'status-mismatch') {
+                groups[cat].sort((a, b) => (a.isMatch === b.isMatch ? 0 : (a.isMatch ? 1 : -1)));
+            }
+        });
+
+        // Render Category-Wise Sections
+        const container = document.getElementById('categoriesContainer');
+        if (filtered.length === 0) {
+            container.innerHTML = `
+                <div class="variants-card">
+                    <div class="loading-state">No matching variants found.</div>
+                </div>
+            `;
+            return;
+        }
+
+        let containerHtml = '';
+        categoryOrder.forEach(cat => {
+            const list = groups[cat] || [];
+            if (list.length === 0 && currentCategoryFilter !== 'ALL' && currentCategoryFilter !== cat) {
+                return; // Hide empty if specific category filter is active
+            }
+            if (list.length === 0 && searchQuery) {
+                return; // Hide empty if search is active
+            }
+
+            const mismatchesInGroup = list.filter(p => !p.isMatch).length;
+            const targetWeight = list.length > 0 ? list[0].expectedWeight : 0.0;
+            const targetBox = list.length > 0 ? list[0].boxSize : '';
+
+            let bulkBtnHtml = '';
+            if (mismatchesInGroup > 0) {
+                bulkBtnHtml = `
+                    <button class="refresh-btn" onclick="bulkSyncCategory('${cat}', ${targetWeight}, this)" style="padding: 0.5rem 1rem; font-size: 0.8rem; background: var(--warning-glow); border-color: var(--warning); color: var(--warning);">
+                        Sync Category (${mismatchesInGroup} Mismatches)
+                    </button>
+                `;
+            } else {
+                bulkBtnHtml = `
+                    <button class="refresh-btn" disabled style="padding: 0.5rem 1rem; font-size: 0.8rem; opacity: 0.5;">
+                        Category Calibrated ✓
+                    </button>
+                `;
+            }
+
+            const tableRows = list.map(p => {
+                const statusHtml = p.isMatch 
+                    ? `<span class="status-match"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Calibrated</span>`
+                    : `<span class="status-mismatch"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Mismatch</span>`;
+                
+                const vIdsJson = JSON.stringify(p.variantIds);
+                const btnHtml = p.isMatch
+                    ? `<button class="btn-action" disabled>Calibrated</button>`
+                    : `<button class="btn-action" onclick='fixGroupWeight("${p.productId}", ${vIdsJson}, ${p.expectedWeight}, this)'>Fix Weight</button>`;
+
+                return `
+                    <tr>
+                        <td class="product-title-cell">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                ${p.imageUrl ? `<img src="${p.imageUrl}" width="40" height="40" style="border-radius: 6px; object-fit: cover; border: 1px solid var(--glass-border); flex-shrink: 0;" />` : `<div style="width: 40px; height: 40px; border-radius: 6px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: var(--text-muted); flex-shrink: 0;">No Img</div>`}
+                                <div>
+                                    <div class="product-title" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                                        ${p.title}
+                                        ${p.isKit ? `<span class="badge badge-kit">Kit Component</span>` : ''}
+                                    </div>
+                                    <div class="product-handle">${p.sku}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="font-size: 0.85rem; line-height: 1.4; color: var(--text-main); font-weight: 500;">
+                                ${p.variantTitles}
+                            </div>
+                        </td>
+                        <td><span class="badge badge-brand">${p.brand}</span></td>
+                        <td style="font-weight: 500;">${p.currentWeight}</td>
+                        <td style="font-weight: 600; color: #a5b4fc;">${p.expectedWeight} kg</td>
+                        <td class="status-cell">${statusHtml}</td>
+                        <td>${btnHtml}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            const tableHtml = list.length > 0 ? `
+                <div class="table-responsive">
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Product Details</th>
+                                <th>Variant Details</th>
+                                <th>Brand</th>
+                                <th>Current Weight</th>
+                                <th>Expected Weight</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tableRows}
+                        </tbody>
+                    </table>
+                </div>
+            ` : `<div style="padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.9rem;">No variants in this category.</div>`;
+
+            containerHtml += `
+                <div class="category-section" style="margin-bottom: 2.5rem; background: rgba(255,255,255,0.01); border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h3 style="font-family: var(--font-accent); font-size: 1.2rem; font-weight: 600; color: #a5b4fc; display: flex; align-items: center; gap: 0.5rem;">
+                                📦 ${cat}
+                            </h3>
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
+                                Standard Size: <strong style="color: var(--text-main);">${targetBox || 'N/A'}</strong> | Target Volumetric Weight: <strong style="color: var(--text-main);">${targetWeight || 'N/A'} kg</strong>
+                            </div>
+                        </div>
+                        ${bulkBtnHtml}
+                    </div>
+                    <div class="variants-card" style="border: none; padding: 0; background: transparent;">
+                        ${tableHtml}
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = containerHtml;
+    }
+
+    async function fixGroupWeight(productId, variantIds, targetWeight, btn) {
+        if (!targetWeight) return;
+        btn.disabled = true;
+        btn.innerText = "Syncing...";
+
+        try {
+            const res = await fetch('/api/update_variant_weight', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    productId: productId,
+                    variantIds: variantIds,
+                    weight: parseFloat(targetWeight)
+                })
+            });
+            const data = await res.json();
+            if (data.success) {
+                // Update local model
+                variantIds.forEach(vId => {
+                    const variant = allVariants.find(v => v.variantId === vId);
+                    if (variant) {
+                        variant.isMatch = true;
+                        variant.currentWeight = `${targetWeight} KILOGRAMS`;
+                        variant.weightKg = parseFloat(targetWeight);
+                    }
+                });
+
+                showToast("Product variant weights calibrated successfully!");
+                updateFilterButtonLabels();
+                renderDashboard();
+            } else {
+                showError("Shopify API Error: " + data.error);
+                btn.disabled = false;
+                btn.innerText = "Fix Weight";
+            }
+        } catch (e) {
+            console.error(e);
+            showError("Network error. Could not update weight.");
+            btn.disabled = false;
+            btn.innerText = "Fix Weight";
+        }
+    }
+
+    async function bulkSyncCategory(categoryName, targetWeight, btn) {
+        if (!confirm(`Are you sure you want to standardize all mismatching weights in "${categoryName}" to ${targetWeight} kg?`)) {
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerText = "Standardizing Category...";
+
+        try {
+            const res = await fetch('/api/weights/bulk_update_category', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    category: categoryName,
+                    weight: parseFloat(targetWeight)
+                })
+            });
+            const data = await res.json();
+            if (data.success) {
+                showToast(`Standardized weights for ${data.updatedCount} variants!`);
+                // Reload data to reflect live values
+                await loadData(true);
+            } else {
+                showError("Error: " + data.error);
+                btn.disabled = false;
+                btn.innerText = "Sync Category";
+            }
+        } catch (e) {
+            console.error(e);
+            showError("Network error during bulk category update.");
+            btn.disabled = false;
+            btn.innerText = "Sync Category";
+        }
+    }
+
+    function setBrandFilter(brand) {
+        currentBrandFilter = brand;
+        document.querySelectorAll('.brand-filters .filter-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.id === `filter-btn-${brand}`);
+        });
+        updateFilterButtonLabels();
+        renderDashboard();
+    }
+
+    function setCategoryFilter(cat) {
+        currentCategoryFilter = cat;
+        document.querySelectorAll('.category-filters .filter-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.id === `cat-btn-${cat}`);
+        });
+        updateFilterButtonLabels();
+        renderDashboard();
+    }
+
+    function toggleMismatchesOnly() {
+        mismatchOnly = document.getElementById('mismatchOnlyCheck').checked;
+        renderDashboard();
+    }
+
+    function handleSearch() {
+        searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+        renderDashboard();
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.className = "toast show";
+        document.getElementById('toastMsg').innerText = msg;
+        setTimeout(() => {
+            toast.className = "toast";
+        }, 3000);
+    }
+
+    function showError(msg) {
+        const toast = document.getElementById('toast');
+        toast.className = "toast error show";
+        document.getElementById('toastMsg').innerText = msg;
+        setTimeout(() => {
+            toast.className = "toast";
+        }, 4000);
+    }
+
+    let calibrationLog = null;
+    let currentLogTab = 'weights';
+
+    async function loadCalibrationLog() {
+        try {
+            const res = await fetch('/api/calibration_log');
+            const data = await res.json();
+            if (data.success) {
+                calibrationLog = data.log;
+                updateLogTabCounts();
+                renderCalibrationLog();
+            }
+        } catch (e) {
+            console.error("Error loading calibration log:", e);
+        }
+    }
+
+    function updateLogTabCounts() {
+        if (!calibrationLog) return;
+        document.getElementById('log-tab-weights').innerText = `Weight Calibrations (${calibrationLog.weight_calibrations.length})`;
+        document.getElementById('log-tab-renames').innerText = `Product Renames (${calibrationLog.product_renames.length})`;
+        document.getElementById('log-tab-deletions').innerText = `Catalog Deletions (${calibrationLog.variant_deletions.length})`;
+        document.getElementById('log-tab-redirects').innerText = `SEO URL Redirects (${calibrationLog.handle_redirects.length})`;
+    }
+
+    function switchLogTab(tab) {
+        currentLogTab = tab;
+        document.querySelectorAll('[id^="log-tab-"]').forEach(btn => {
+            btn.classList.toggle('active', btn.id === `log-tab-${tab}`);
+        });
+        renderCalibrationLog();
+    }
+
+    function renderCalibrationLog() {
+        if (!calibrationLog) return;
+        const header = document.getElementById('logTableHeader');
+        const body = document.getElementById('logTableBody');
+        
+        let headerHtml = '';
+        let bodyHtml = '';
+        
+        if (currentLogTab === 'weights') {
+            headerHtml = `
+                <th>Product Title</th>
+                <th>Variant Details</th>
+                <th>SKU</th>
+                <th>Old Weight</th>
+                <th>New Weight</th>
+                <th>Timestamp</th>
+            `;
+            const list = calibrationLog.weight_calibrations;
+            if (list.length === 0) {
+                bodyHtml = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem 0;">No weight calibrations logged yet.</td></tr>`;
+            } else {
+                list.forEach(item => {
+                    bodyHtml += `
+                        <tr>
+                            <td style="font-weight: 600; color: var(--text-main);">${item.product}</td>
+                            <td>${item.variant}</td>
+                            <td><code>${item.sku}</code></td>
+                            <td style="color: var(--danger); font-weight: 500;">${item.old_weight}</td>
+                            <td style="color: var(--success); font-weight: 600;">${item.new_weight}</td>
+                            <td style="color: var(--text-muted); font-size: 0.8rem;">${new Date(item.timestamp).toLocaleString()}</td>
+                        </tr>
+                    `;
+                });
+            }
+        } else if (currentLogTab === 'renames') {
+            headerHtml = `
+                <th>Old Product Title</th>
+                <th>New Product Title</th>
+                <th>Timestamp</th>
+            `;
+            const list = calibrationLog.product_renames;
+            if (list.length === 0) {
+                bodyHtml = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 2rem 0;">No product renames logged yet.</td></tr>`;
+            } else {
+                list.forEach(item => {
+                    bodyHtml += `
+                        <tr>
+                            <td style="color: var(--danger); font-weight: 500;">${item.old_title}</td>
+                            <td style="color: var(--success); font-weight: 600;">${item.new_title}</td>
+                            <td style="color: var(--text-muted); font-size: 0.8rem;">${new Date(item.timestamp).toLocaleString()}</td>
+                        </tr>
+                    `;
+                });
+            }
+        } else if (currentLogTab === 'deletions') {
+            headerHtml = `
+                <th>Product Title</th>
+                <th>Removed Variant Option</th>
+                <th>Reason</th>
+                <th>Timestamp</th>
+            `;
+            const list = calibrationLog.variant_deletions;
+            if (list.length === 0) {
+                bodyHtml = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2rem 0;">No variant deletions logged yet.</td></tr>`;
+            } else {
+                list.forEach(item => {
+                    bodyHtml += `
+                        <tr>
+                            <td style="font-weight: 600; color: var(--text-main);">${item.product}</td>
+                            <td style="color: var(--danger);">${item.variant}</td>
+                            <td style="color: var(--text-muted); font-style: italic;">${item.reason}</td>
+                            <td style="color: var(--text-muted); font-size: 0.8rem;">${new Date(item.timestamp).toLocaleString()}</td>
+                        </tr>
+                    `;
+                });
+            }
+        } else if (currentLogTab === 'redirects') {
+            headerHtml = `
+                <th>Product Title</th>
+                <th>Old Handle (Source Redirect)</th>
+                <th>New SEO Handle (Target Handle)</th>
+                <th>Timestamp</th>
+            `;
+            const list = calibrationLog.handle_redirects;
+            if (list.length === 0) {
+                bodyHtml = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2rem 0;">No redirects logged yet.</td></tr>`;
+            } else {
+                list.forEach(item => {
+                    bodyHtml += `
+                        <tr>
+                            <td style="font-weight: 600; color: var(--text-main);">${item.title}</td>
+                            <td style="font-size: 0.82rem; color: var(--text-muted);"><code>${item.old_handle}</code></td>
+                            <td style="font-size: 0.82rem; color: #a5b4fc; font-weight: 500;"><code>${item.new_handle}</code></td>
+                            <td style="color: var(--text-muted); font-size: 0.8rem;">${new Date(item.timestamp).toLocaleString()}</td>
+                        </tr>
+                    `;
+                });
+            }
+        }
+        
+        header.innerHTML = headerHtml;
+        body.innerHTML = bodyHtml;
+    }
+
+    // Auto load on init
+    loadData();
+    loadCalibrationLog();
+</script>
+
+</body>
+</html>

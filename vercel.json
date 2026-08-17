@@ -16,6 +16,10 @@
       "dest": "/tagging.html"
     },
     {
+      "src": "^/weights$",
+      "dest": "/weights.html"
+    },
+    {
       "src": "^/images-tracker$",
       "dest": "/images-tracker.html"
     },
