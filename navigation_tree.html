@@ -1,0 +1,2594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Ti Storefront Navigation Menu Tree</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-base: #080710;
+            --bg-surface: #0f0e17;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --border-color: rgba(255, 255, 255, 0.07);
+            --text-main: #f5f5fa;
+            --text-muted: #8a899c;
+            --brand-green: #34d399;
+            --brand-blue: #3b82f6;
+            --brand-purple: #a855f7;
+            --brand-yellow: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            padding: 3rem 2rem;
+            min-height: 100vh;
+        }
+
+        .header {
+            max-width: 1000px;
+            margin: 0 auto 3rem auto;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .header h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 30%, var(--brand-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .tree-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Tree Node Styles */
+        ul {
+            list-style: none;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        /* Root Level */
+        .tree-root > ul {
+            padding-left: 0;
+        }
+
+        li {
+            margin: 0.5rem 0;
+            padding: 0.4rem 0;
+            position: relative;
+        }
+
+        /* Vertical Connector Line */
+        ul::before {
+            content: '';
+            position: absolute;
+            left: 0.75rem;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: var(--border-color);
+        }
+
+        /* Horizontal Branch Line */
+        li::before {
+            content: '';
+            position: absolute;
+            left: -1.25rem;
+            top: 1.2rem;
+            width: 1.25rem;
+            height: 1px;
+            background-color: var(--border-color);
+        }
+
+        /* Hide connector line for last item's bottom extension */
+        li:last-child::after {
+            content: '';
+            position: absolute;
+            left: -1.25rem;
+            top: 1.2rem;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--bg-surface);
+        }
+
+        /* Root nodes don't need connector lines */
+        .tree-root > ul::before {
+            display: none;
+        }
+        .tree-root > ul > li::before {
+            display: none;
+        }
+
+        .node-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--glass-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 0.75rem 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .node-row:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateX(3px);
+        }
+
+        .node-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .node-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .node-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+        }
+
+        .node-badge.brand {
+            background: rgba(168, 85, 247, 0.1);
+            border-color: rgba(168, 85, 247, 0.2);
+            color: var(--brand-purple);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .node-badge.products-count {
+            background: rgba(52, 211, 153, 0.1);
+            border-color: rgba(52, 211, 153, 0.2);
+            color: var(--brand-green);
+        }
+
+        .node-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .node-id {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .node-arrow {
+            width: 18px;
+            height: 18px;
+            fill: var(--text-muted);
+            transition: transform 0.2s ease;
+        }
+
+        /* Toggle Subtree visibility */
+        .node-row.collapsed + ul {
+            display: none;
+        }
+
+        .node-row.collapsed .node-arrow {
+            transform: rotate(-90deg);
+        }
+
+        .external-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .external-link:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--brand-blue);
+        }
+
+        .external-link svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--text-muted);
+        }
+
+        .external-link:hover svg {
+            fill: var(--brand-blue);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Storefront Navigation Menu Audit</h1>
+        <p>Audit visual hierarchy and mapping representation of all 129 collections configured inside the live Shopify "Shop By Vehicle" menu list layout.</p>
+    </div>
+
+    <div class="tree-container">
+        <div class="tree-root">
+            <ul>
+
+        <li>
+            <div class="node-row collapsed" onclick="toggleNode(this)">
+                <div class="node-left">
+                    <svg class="node-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    <span class="node-title">BMW Eti</span>
+                    <span class="node-badge brand">Brand</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 472264245529</span>
+                    
+            <a href="https://myeliteti.com/collections/bmw" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    
+<ul>
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">1 Series (E82) Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516349067545</span>
+                    
+            <a href="https://myeliteti.com/collections/1-series-e82-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">1 Series (E87) Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516349034777</span>
+                    
+            <a href="https://myeliteti.com/collections/1-series-e87-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BMW M2</span>
+                    <span class="node-badge products-count">7 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 493542867225</span>
+                    
+            <a href="https://myeliteti.com/collections/bmw-m2" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BMW E30 Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513420263705</span>
+                    
+            <a href="https://myeliteti.com/collections/bmw-e30" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BMW E36 Eti</span>
+                    <span class="node-badge products-count">3 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513420165401</span>
+                    
+            <a href="https://myeliteti.com/collections/bmw-e36" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BMW E46</span>
+                    <span class="node-badge products-count">6 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513420329241</span>
+                    
+            <a href="https://myeliteti.com/collections/bmw-e46-1" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BMW E90 Eti</span>
+                    <span class="node-badge products-count">4 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513420230937</span>
+                    
+            <a href="https://myeliteti.com/collections/bmw-e90" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">3 Series (E92) Eti</span>
+                    <span class="node-badge products-count">7 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516349100313</span>
+                    
+            <a href="https://myeliteti.com/collections/3-series-e92-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">3 Series (E93) Eti</span>
+                    <span class="node-badge products-count">7 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516349165849</span>
+                    
+            <a href="https://myeliteti.com/collections/3-series-e93-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BMW F30 Eti</span>
+                    <span class="node-badge products-count">3 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513420427545</span>
+                    
+            <a href="https://myeliteti.com/collections/bmw-f30" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">4 Series (F32) Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516351197465</span>
+                    
+            <a href="https://myeliteti.com/collections/4-series-f32-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BMW M4 Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513420296473</span>
+                    
+            <a href="https://myeliteti.com/collections/bmw-m4" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BMW E60 Eti</span>
+                    <span class="node-badge products-count">13 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513420001561</span>
+                    
+            <a href="https://myeliteti.com/collections/bmw-e60" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BMW F10 Eti</span>
+                    <span class="node-badge products-count">6 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513419739417</span>
+                    
+            <a href="https://myeliteti.com/collections/bmw-f10" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BMW G30 Eti</span>
+                    <span class="node-badge products-count">3 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513419936025</span>
+                    
+            <a href="https://myeliteti.com/collections/bmw-g30" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">6 Series (E63) Eti</span>
+                    <span class="node-badge products-count">3 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516349198617</span>
+                    
+            <a href="https://myeliteti.com/collections/6-series-e63-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">6 Series (E64) Eti</span>
+                    <span class="node-badge products-count">3 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516349231385</span>
+                    
+            <a href="https://myeliteti.com/collections/6-series-e64-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">6 Series (F06) Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516349329689</span>
+                    
+            <a href="https://myeliteti.com/collections/6-series-f06-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">6 Series (F12) Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516349264153</span>
+                    
+            <a href="https://myeliteti.com/collections/6-series-f12-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">6 Series (F13) Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516349296921</span>
+                    
+            <a href="https://myeliteti.com/collections/6-series-f13-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BMW 7 Series Eti</span>
+                    <span class="node-badge products-count">3 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515083501849</span>
+                    
+            <a href="https://myeliteti.com/collections/7-series-e38-e65-e66" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BMW E65 Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513420099865</span>
+                    
+            <a href="https://myeliteti.com/collections/bmw-e65" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BMW 7 Series Eti</span>
+                    <span class="node-badge products-count">3 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515083501849</span>
+                    
+            <a href="https://myeliteti.com/collections/7-series-e38-e65-e66" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BMW Z4 E89</span>
+                    <span class="node-badge products-count">7 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513420067097</span>
+                    
+            <a href="https://myeliteti.com/collections/bmw-z4-e89-1" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BMW I8 Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513420034329</span>
+                    
+            <a href="https://myeliteti.com/collections/bmw-i8" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+</ul>
+</li>
+
+        <li>
+            <div class="node-row collapsed" onclick="toggleNode(this)">
+                <div class="node-left">
+                    <svg class="node-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    <span class="node-title">Honda Eti</span>
+                    <span class="node-badge brand">Brand</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 491729191193</span>
+                    
+            <a href="https://myeliteti.com/collections/honda" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    
+<ul>
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Accord Eti</span>
+                    <span class="node-badge products-count">20 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515084321049</span>
+                    
+            <a href="https://myeliteti.com/collections/accord" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Civic (EF / EG / EK) Eti</span>
+                    <span class="node-badge products-count">90 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 491759272217</span>
+                    
+            <a href="https://myeliteti.com/collections/eg-ek-honda-civic" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Civic (EP3) Eti</span>
+                    <span class="node-badge products-count">7 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516347396377</span>
+                    
+            <a href="https://myeliteti.com/collections/civic-ep3-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Civic (FD) Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516347429145</span>
+                    
+            <a href="https://myeliteti.com/collections/civic-fd-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Civic (FN) Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516347461913</span>
+                    
+            <a href="https://myeliteti.com/collections/civic-fn-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Civic (8th Gen) Eti</span>
+                    <span class="node-badge products-count">12 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516347494681</span>
+                    
+            <a href="https://myeliteti.com/collections/civic-8th-gen-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Civic (FB) Eti</span>
+                    <span class="node-badge products-count">3 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516347527449</span>
+                    
+            <a href="https://myeliteti.com/collections/civic-fb-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Civic (FC) Eti</span>
+                    <span class="node-badge products-count">8 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516347560217</span>
+                    
+            <a href="https://myeliteti.com/collections/civic-fc-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Civic (FK) Eti</span>
+                    <span class="node-badge products-count">15 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516347592985</span>
+                    
+            <a href="https://myeliteti.com/collections/civic-fk-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Integra (DC2 / DC5) Eti</span>
+                    <span class="node-badge products-count">14 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515085893913</span>
+                    
+            <a href="https://myeliteti.com/collections/integra-dc2-dc5" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Jazz / Fit Eti</span>
+                    <span class="node-badge products-count">19 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515086090521</span>
+                    
+            <a href="https://myeliteti.com/collections/jazz-fit" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">S2000 (AP1 / AP2) Eti</span>
+                    <span class="node-badge products-count">4 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515083993369</span>
+                    
+            <a href="https://myeliteti.com/collections/s2000" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Prelude Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515924001049</span>
+                    
+            <a href="https://myeliteti.com/collections/prelude-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Brio Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515925082393</span>
+                    
+            <a href="https://myeliteti.com/collections/brio-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">City Eti</span>
+                    <span class="node-badge products-count">4 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515925115161</span>
+                    
+            <a href="https://myeliteti.com/collections/city-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">CR-V Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516347625753</span>
+                    
+            <a href="https://myeliteti.com/collections/cr-v-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">CR-Z Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516347658521</span>
+                    
+            <a href="https://myeliteti.com/collections/cr-z-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Stream Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515925180697</span>
+                    
+            <a href="https://myeliteti.com/collections/stream-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Civic (ES / Dimension) Eti</span>
+                    <span class="node-badge products-count">8 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 516347363609</span>
+                    
+            <a href="https://myeliteti.com/collections/civic-es-dimension-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+</ul>
+</li>
+
+        <li>
+            <div class="node-row collapsed" onclick="toggleNode(this)">
+                <div class="node-left">
+                    <svg class="node-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    <span class="node-title">Toyota Eti</span>
+                    <span class="node-badge brand">Brand</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515083043097</span>
+                    
+            <a href="https://myeliteti.com/collections/toyota" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    
+<ul>
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Toyota Supra MKIV (A80) Eti</span>
+                    <span class="node-badge products-count">117 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 467589693721</span>
+                    
+            <a href="https://myeliteti.com/collections/toyota-supra-mkiv" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Toyota Supra MKV (A90) Eti</span>
+                    <span class="node-badge products-count">19 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513420853529</span>
+                    
+            <a href="https://myeliteti.com/collections/toyota-supra-mkv" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Supra MKIII (A70 / JZA70) Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515926688025</span>
+                    
+            <a href="https://myeliteti.com/collections/supra-mkiii-a70-jza70-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Chaser / Mark II (JZX90 / JZX100) Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515926556953</span>
+                    
+            <a href="https://myeliteti.com/collections/chaser-mark-ii-jzx90-jzx100-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Toyota 86 / GT86 / GR86 Eti</span>
+                    <span class="node-badge products-count">70 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515085271321</span>
+                    
+            <a href="https://myeliteti.com/collections/gt86-gr86" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Toyota Alphard / Vellfire Eti</span>
+                    <span class="node-badge products-count">9 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513420558617</span>
+                    
+            <a href="https://myeliteti.com/collections/toyota-alphard-vellfire" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Altezza / IS200 / IS300 (XE10) Eti</span>
+                    <span class="node-badge products-count">3 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515926458649</span>
+                    
+            <a href="https://myeliteti.com/collections/altezza-is200-is300-xe10-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Altis (Corolla Altis) Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515926491417</span>
+                    
+            <a href="https://myeliteti.com/collections/altis-corolla-altis-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Celica (ST185 / ZZT230) Eti</span>
+                    <span class="node-badge products-count">5 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515926524185</span>
+                    
+            <a href="https://myeliteti.com/collections/celica-st185-zzt230-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Toyota Fortuner / Hilux / Vigo Eti</span>
+                    <span class="node-badge products-count">12 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513420787993</span>
+                    
+            <a href="https://myeliteti.com/collections/toyota-fortuner-hilux" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Majesty / Granvia Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515926589721</span>
+                    
+            <a href="https://myeliteti.com/collections/majesty-granvia-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Land Cruiser Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515926622489</span>
+                    
+            <a href="https://myeliteti.com/collections/land-cruiser-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Toyota MR2 (SW20) Eti</span>
+                    <span class="node-badge products-count">22 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 467479986457</span>
+                    
+            <a href="https://myeliteti.com/collections/mr2-sw20" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">MR-S / MR2 Spyder (ZZW30) Eti</span>
+                    <span class="node-badge products-count">10 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515927081241</span>
+                    
+            <a href="https://myeliteti.com/collections/mr-s-mr2-spyder-zzw30-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Soarer / SC300 / SC400 (Z30) Eti</span>
+                    <span class="node-badge products-count">5 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515926655257</span>
+                    
+            <a href="https://myeliteti.com/collections/soarer-sc300-sc400-z30-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Vios (NCP93 / NCP150) Eti</span>
+                    <span class="node-badge products-count">5 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515926720793</span>
+                    
+            <a href="https://myeliteti.com/collections/vios-ncp93-ncp150-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Wish Eti</span>
+                    <span class="node-badge products-count">13 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515927114009</span>
+                    
+            <a href="https://myeliteti.com/collections/wish-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Yaris / Vitz (NCP91) Eti</span>
+                    <span class="node-badge products-count">8 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515926753561</span>
+                    
+            <a href="https://myeliteti.com/collections/yaris-vitz-ncp91-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+</ul>
+</li>
+
+        <li>
+            <div class="node-row collapsed" onclick="toggleNode(this)">
+                <div class="node-left">
+                    <svg class="node-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    <span class="node-title">Nissan Eti</span>
+                    <span class="node-badge brand">Brand</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515083272473</span>
+                    
+            <a href="https://myeliteti.com/collections/nissan" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    
+<ul>
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Nissan 300ZX Eti</span>
+                    <span class="node-badge products-count">5 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513442316569</span>
+                    
+            <a href="https://myeliteti.com/collections/nissan-300zx" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Nissan 350Z (Z33) Eti</span>
+                    <span class="node-badge products-count">42 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515084058905</span>
+                    
+            <a href="https://myeliteti.com/collections/350z-z33" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Nissan 370Z (Z34) Eti</span>
+                    <span class="node-badge products-count">28 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515083600153</span>
+                    
+            <a href="https://myeliteti.com/collections/370z-z34" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Nissan GT-R (R35) Eti</span>
+                    <span class="node-badge products-count">84 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515086057753</span>
+                    
+            <a href="https://myeliteti.com/collections/gtr-r35" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Nissan Silvia / 180SX (S13) Eti</span>
+                    <span class="node-badge products-count">25 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515084157209</span>
+                    
+            <a href="https://myeliteti.com/collections/silvia-s13-180sx" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Nissan Silvia / 200SX (S14) Eti</span>
+                    <span class="node-badge products-count">18 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515083436313</span>
+                    
+            <a href="https://myeliteti.com/collections/silvia-s14" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Nissan Silvia / 200SX (S15) Eti</span>
+                    <span class="node-badge products-count">18 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515084222745</span>
+                    
+            <a href="https://myeliteti.com/collections/silvia-s15" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Nissan Skyline (R32) Eti</span>
+                    <span class="node-badge products-count">70 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515084517657</span>
+                    
+            <a href="https://myeliteti.com/collections/skyline-r32" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Nissan Skyline (R33) Eti</span>
+                    <span class="node-badge products-count">55 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515084845337</span>
+                    
+            <a href="https://myeliteti.com/collections/skyline-r33" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Nissan Skyline (R34) Eti</span>
+                    <span class="node-badge products-count">67 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515085992217</span>
+                    
+            <a href="https://myeliteti.com/collections/skyline-r34" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Cefiro (A31) Eti</span>
+                    <span class="node-badge products-count">7 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515924918553</span>
+                    
+            <a href="https://myeliteti.com/collections/cefiro-a31-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Juke (F15) Eti</span>
+                    <span class="node-badge products-count">15 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515924951321</span>
+                    
+            <a href="https://myeliteti.com/collections/juke-f15-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">March / Micra & Tiida Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515924984089</span>
+                    
+            <a href="https://myeliteti.com/collections/march-micra-tiida-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Navara / Frontier (D40 / D23) Eti</span>
+                    <span class="node-badge products-count">3 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515925016857</span>
+                    
+            <a href="https://myeliteti.com/collections/navara-frontier-d40-d23-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Skyline / G35 (V35 / CV35) Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515925049625</span>
+                    
+            <a href="https://myeliteti.com/collections/skyline-g35-v35-cv35-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+</ul>
+</li>
+
+        <li>
+            <div class="node-row collapsed" onclick="toggleNode(this)">
+                <div class="node-left">
+                    <svg class="node-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    <span class="node-title">RX-7 (FD3S) Eti</span>
+                    <span class="node-badge brand">Brand</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 467566100761</span>
+                    
+            <a href="https://myeliteti.com/collections/rx7" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    
+<ul>
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Mazda 2 Eti</span>
+                    <span class="node-badge products-count">3 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515084878105</span>
+                    
+            <a href="https://myeliteti.com/collections/mazda-2" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Mazda 3 Eti</span>
+                    <span class="node-badge products-count">11 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515084812569</span>
+                    
+            <a href="https://myeliteti.com/collections/mazda-3" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">MX-5 Miata (NA) Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515083862297</span>
+                    
+            <a href="https://myeliteti.com/collections/mx-5-miata" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">RX-7 (FD3S) Eti</span>
+                    <span class="node-badge products-count">85 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 467566100761</span>
+                    
+            <a href="https://myeliteti.com/collections/rx7" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">RX-8 (SE3P) Eti</span>
+                    <span class="node-badge products-count">71 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 476770599193</span>
+                    
+            <a href="https://myeliteti.com/collections/mazda-rx8" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+</ul>
+</li>
+
+        <li>
+            <div class="node-row collapsed" onclick="toggleNode(this)">
+                <div class="node-left">
+                    <svg class="node-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    <span class="node-title">Mitsubishi Eti</span>
+                    <span class="node-badge brand">Brand</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512298778905</span>
+                    
+            <a href="https://myeliteti.com/collections/mitsubishi" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    
+<ul>
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Mitsubishi Colt Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512445645081</span>
+                    
+            <a href="https://myeliteti.com/collections/mitsubishi-colt" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Mitsubishi FTO Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512445579545</span>
+                    
+            <a href="https://myeliteti.com/collections/mitsubishi-fto" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Mitsubishi GTO Eti</span>
+                    <span class="node-badge products-count">12 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512445546777</span>
+                    
+            <a href="https://myeliteti.com/collections/mitsubishi-gto" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Mitsubishi Evo 6 Eti</span>
+                    <span class="node-badge products-count">4 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512445514009</span>
+                    
+            <a href="https://myeliteti.com/collections/mitsubishi-evo-6" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Mitsubishi Evo 7-8-9 Eti</span>
+                    <span class="node-badge products-count">66 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512445481241</span>
+                    
+            <a href="https://myeliteti.com/collections/mitsubishi-evo-7-9" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Mitsubishi Evo X Eti</span>
+                    <span class="node-badge products-count">29 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512445448473</span>
+                    
+            <a href="https://myeliteti.com/collections/mitsubishi-evo-x" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Mitsubishi Space Wagon Eti</span>
+                    <span class="node-badge products-count">5 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512445612313</span>
+                    
+            <a href="https://myeliteti.com/collections/mitsubishi-space-wagon" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Mitsubishi Triton Eti</span>
+                    <span class="node-badge products-count">7 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512445710617</span>
+                    
+            <a href="https://myeliteti.com/collections/mitsubishi-triton" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+</ul>
+</li>
+
+        <li>
+            <div class="node-row collapsed" onclick="toggleNode(this)">
+                <div class="node-left">
+                    <svg class="node-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    <span class="node-title">Porsche Eti</span>
+                    <span class="node-badge brand">Brand</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 467589366041</span>
+                    
+            <a href="https://myeliteti.com/collections/porsche" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    
+<ul>
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Porsche 718 Eti</span>
+                    <span class="node-badge products-count">5 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512446005529</span>
+                    
+            <a href="https://myeliteti.com/collections/porsche-719" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Porsche 996 Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512446169369</span>
+                    
+            <a href="https://myeliteti.com/collections/porsche-998" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Porsche 997 Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512446202137</span>
+                    
+            <a href="https://myeliteti.com/collections/porsche-999" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Porsche 991 Eti</span>
+                    <span class="node-badge products-count">3 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512446136601</span>
+                    
+            <a href="https://myeliteti.com/collections/porsche-992" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Porsche 911 (General) Eti</span>
+                    <span class="node-badge products-count">4 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512446038297</span>
+                    
+            <a href="https://myeliteti.com/collections/porsche-911" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Porsche 986 987 Eti</span>
+                    <span class="node-badge products-count">8 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512446103833</span>
+                    
+            <a href="https://myeliteti.com/collections/porsche-986-988" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Porsche 981 Eti</span>
+                    <span class="node-badge products-count">10 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512446071065</span>
+                    
+            <a href="https://myeliteti.com/collections/porsche-982" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Porsche Cayenne Eti</span>
+                    <span class="node-badge products-count">6 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512446234905</span>
+                    
+            <a href="https://myeliteti.com/collections/porsche-cayenne-1" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Porsche Panamera Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 512446267673</span>
+                    
+            <a href="https://myeliteti.com/collections/porsche-panamera" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Porsche Taycan Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515923575065</span>
+                    
+            <a href="https://myeliteti.com/collections/porsche-taycan-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+</ul>
+</li>
+
+        <li>
+            <div class="node-row collapsed" onclick="toggleNode(this)">
+                <div class="node-left">
+                    <svg class="node-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    <span class="node-title">Lexus Eti</span>
+                    <span class="node-badge brand">Brand</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513420820761</span>
+                    
+            <a href="https://myeliteti.com/collections/toyota-lexus" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    
+<ul>
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Aristo / GS300 (JZS147 / JZS161) Eti</span>
+                    <span class="node-badge products-count">8 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515926819097</span>
+                    
+            <a href="https://myeliteti.com/collections/aristo-gs300-jzs147-jzs161-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">IS250 / IS350 (XE20) Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515926851865</span>
+                    
+            <a href="https://myeliteti.com/collections/is250-is350-xe20-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">LS430 (XF30) Eti</span>
+                    <span class="node-badge products-count">3 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515926884633</span>
+                    
+            <a href="https://myeliteti.com/collections/ls430-xf30-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">RX / Harrier Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515926917401</span>
+                    
+            <a href="https://myeliteti.com/collections/rx-harrier-eti-1" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+</ul>
+</li>
+
+        <li>
+            <div class="node-row collapsed" onclick="toggleNode(this)">
+                <div class="node-left">
+                    <svg class="node-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    <span class="node-title">Tesla Eti</span>
+                    <span class="node-badge brand">Brand</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515083305241</span>
+                    
+            <a href="https://myeliteti.com/collections/tesla" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    
+<ul>
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Model 3 Eti</span>
+                    <span class="node-badge products-count">23 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515083338009</span>
+                    
+            <a href="https://myeliteti.com/collections/universal-hardware-accessories" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+</ul>
+</li>
+
+        <li>
+            <div class="node-row collapsed" onclick="toggleNode(this)">
+                <div class="node-left">
+                    <svg class="node-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    <span class="node-title">Subaru Eti</span>
+                    <span class="node-badge brand">Brand</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 495206859033</span>
+                    
+            <a href="https://myeliteti.com/collections/subaru" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    
+<ul>
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">BRZ Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515085861145</span>
+                    
+            <a href="https://myeliteti.com/collections/brz" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">WRX / STI Eti</span>
+                    <span class="node-badge products-count">6 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515085107481</span>
+                    
+            <a href="https://myeliteti.com/collections/wrx-sti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+</ul>
+</li>
+
+        <li>
+            <div class="node-row collapsed" onclick="toggleNode(this)">
+                <div class="node-left">
+                    <svg class="node-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    <span class="node-title">Mercedes-Benz Eti</span>
+                    <span class="node-badge brand">Brand</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513104412953</span>
+                    
+            <a href="https://myeliteti.com/collections/mercedes-benz" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    
+<ul>
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">C-Class (W204/W205) Eti</span>
+                    <span class="node-badge products-count">2 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515085205785</span>
+                    
+            <a href="https://myeliteti.com/collections/c-class-w204-w205" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">CL-Class (C140) Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515923411225</span>
+                    
+            <a href="https://myeliteti.com/collections/cl-class-c140-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">E-Class (W211/W212/W213) Eti</span>
+                    <span class="node-badge products-count">3 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515085467929</span>
+                    
+            <a href="https://myeliteti.com/collections/e-class-w211-w212-w213" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Mercedes S-Class W140 Eti</span>
+                    <span class="node-badge products-count">7 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513104445721</span>
+                    
+            <a href="https://myeliteti.com/collections/mercedes-s-class-w140" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Mercedes S-Class W220 Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513104478489</span>
+                    
+            <a href="https://myeliteti.com/collections/mercedes-s-class-w220" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Mercedes SL R129 Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513104511257</span>
+                    
+            <a href="https://myeliteti.com/collections/mercedes-sl-r129" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Mercedes SLR McLaren Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 513104544025</span>
+                    
+            <a href="https://myeliteti.com/collections/mercedes-slr-mclaren" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+</ul>
+</li>
+
+        <li>
+            <div class="node-row collapsed" onclick="toggleNode(this)">
+                <div class="node-left">
+                    <svg class="node-arrow" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    <span class="node-title">Chevrolet Eti</span>
+                    <span class="node-badge brand">Brand</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515920167193</span>
+                    
+            <a href="https://myeliteti.com/collections/chevrolet-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    
+<ul>
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Corvette C8 Eti</span>
+                    <span class="node-badge products-count">13 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 487586922777</span>
+                    
+            <a href="https://myeliteti.com/collections/c8-corvette" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+
+        <li>
+            <div class="node-row" onclick="toggleNode(this)">
+                <div class="node-left">
+                    
+                    <span class="node-title">Colorado Eti</span>
+                    <span class="node-badge products-count">1 Products</span>
+                </div>
+                <div class="node-right">
+                    <span class="node-id">ID: 515922952473</span>
+                    
+            <a href="https://myeliteti.com/collections/colorado-eti" target="_blank" class="external-link" title="Open Storefront Collection">
+                <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+            </a>
+        
+                </div>
+            </div>
+    </li>
+</ul>
+</li>
+
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleNode(element) {
+            element.classList.toggle('collapsed');
+        }
+    </script>
+</body>
+</html>
