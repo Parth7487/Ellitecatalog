@@ -20,6 +20,10 @@
       "dest": "/weights.html"
     },
     {
+      "src": "^/weight$",
+      "dest": "/weight.html"
+    },
+    {
       "src": "^/images-tracker$",
       "dest": "/images-tracker.html"
     },
