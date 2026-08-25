@@ -8,6 +8,10 @@
   ],
   "routes": [
     {
+      "src": "^/upscaled$",
+      "dest": "/upscaled.html"
+    },
+    {
       "src": "^/tree$",
       "dest": "/tree.html"
     },
@@ -38,6 +42,10 @@
     {
       "src": "^/verify$",
       "dest": "/verify.html"
+    },
+    {
+      "src": "^/errors$",
+      "dest": "/error_chart.html"
     },
     {
       "src": "/(.*)",
