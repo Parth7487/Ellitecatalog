@@ -248,7 +248,7 @@
         <h1>⚡ Elite Ti — Full Storefront Product Gallery (Ultra Fast CDN)</h1>
         <p class="subtitle">100% Real-Time Active Storefront Catalog; 26× Faster Thumbnail CDN Loading (?width=400 + Lazy Loading) | Full-Screen Lightbox Popup | 0 Live Store Changes</p>
         <div class="stats-bar">
-            <div class="stat-badge">Total Active Products: <strong>1,323</strong></div>
+            <div class="stat-badge">Total Active Products: <strong id="stat-total-products">1,325</strong></div>
             <div class="stat-badge">Total Live Images: <strong>5,351</strong></div>
             <div class="stat-badge">Brand Categories: <strong>23 Categories</strong></div>
             <div class="stat-badge">CDN Speedup: <strong>⚡ 26× Faster Load</strong></div>
@@ -37890,9 +37890,20 @@
             });
         }
 
+        
+        function updateHeaderStats() {
+            const totalProds = document.querySelectorAll('.product-section').length;
+            const statEl = document.getElementById('stat-total-products');
+            if (statEl && totalProds > 0) {
+                statEl.textContent = totalProds.toLocaleString();
+            }
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
+            updateHeaderStats();
             syncActiveTabRealtime();
         });
+
     </script>
 </body>
 </html>
