@@ -44,6 +44,14 @@
       "dest": "/image.html"
     },
     {
+      "src": "^/placeholder$",
+      "dest": "/placeholder_verification_preview.html"
+    },
+    {
+      "src": "^/covered$",
+      "dest": "/covered_products_preview.html"
+    },
+    {
       "src": "^/verify$",
       "dest": "/verify.html"
     },
