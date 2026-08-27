@@ -9,18 +9,18 @@
   "routes": [
     {
       "src": "^/gallery(\\.html)?$",
-      "dest": "/covered_products_preview.html"
+      "dest": "/gallery.html"
     },
     {
-      "src": "^/image(\\.html)?$",
+      "src": "^/covered(\\.html)?$",
       "dest": "/covered_products_preview.html"
     },
     {
       "src": "^/placeholder(\\.html)?$",
-      "dest": "/covered_products_preview.html"
+      "dest": "/placeholder_verification_preview.html"
     },
     {
-      "src": "^/covered(\\.html)?$",
+      "src": "^/image(\\.html)?$",
       "dest": "/covered_products_preview.html"
     },
     {
