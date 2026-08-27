@@ -37707,7 +37707,7 @@
         <div class="lightbox-hints">
             <div><span>◀ ▶</span> Move Left/Right</div>
             <div><span>Hover</span> Hover to Zoom</div>
-            <div><span>Esc / Space</span> Close Preview</div>
+            <div><span>Click Outside / Esc / Space</span> Close Preview</div>
         </div>
     </div>
 
@@ -37788,6 +37788,17 @@
             if (currentImageUrls.length === 0) return;
             currentImageIndex = (currentImageIndex - 1 + currentImageUrls.length) % currentImageUrls.length;
             updateLightboxContent();
+        }
+
+        
+        // Click Outside Backdrop to Close Lightbox
+        const lightboxEl = document.getElementById('lightbox');
+        if (lightboxEl) {
+            lightboxEl.addEventListener('click', (e) => {
+                if (e.target === lightboxEl) {
+                    closeLightbox();
+                }
+            });
         }
 
         function closeLightbox() {
