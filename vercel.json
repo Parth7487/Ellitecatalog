@@ -8,56 +8,36 @@
   ],
   "routes": [
     {
-      "src": "^/gallery$",
-      "dest": "/gallery.html"
-    },
-    {
-      "src": "^/upscaled$",
-      "dest": "/upscaled.html"
-    },
-    {
-      "src": "^/tree$",
-      "dest": "/tree.html"
-    },
-    {
-      "src": "^/tagging$",
-      "dest": "/tagging.html"
-    },
-    {
-      "src": "^/weights$",
-      "dest": "/weights.html"
-    },
-    {
-      "src": "^/weight$",
-      "dest": "/weight.html"
-    },
-    {
-      "src": "^/navigation$",
-      "dest": "/navigation.html"
-    },
-    {
-      "src": "^/images-tracker$",
-      "dest": "/images-tracker.html"
-    },
-    {
-      "src": "^/image$",
-      "dest": "/image.html"
-    },
-    {
-      "src": "^/placeholder$",
-      "dest": "/placeholder_verification_preview.html"
-    },
-    {
-      "src": "^/covered$",
+      "src": "^/gallery(\\.html)?$",
       "dest": "/covered_products_preview.html"
     },
     {
-      "src": "^/verify$",
-      "dest": "/verify.html"
+      "src": "^/image(\\.html)?$",
+      "dest": "/covered_products_preview.html"
     },
     {
-      "src": "^/errors$",
-      "dest": "/error_chart.html"
+      "src": "^/placeholder(\\.html)?$",
+      "dest": "/covered_products_preview.html"
+    },
+    {
+      "src": "^/covered(\\.html)?$",
+      "dest": "/covered_products_preview.html"
+    },
+    {
+      "src": "^/tree(\\.html)?$",
+      "dest": "/tree.html"
+    },
+    {
+      "src": "^/tagging(\\.html)?$",
+      "dest": "/tagging.html"
+    },
+    {
+      "src": "^/weights(\\.html)?$",
+      "dest": "/weights.html"
+    },
+    {
+      "src": "^/navigation(\\.html)?$",
+      "dest": "/navigation.html"
     },
     {
       "src": "/(.*)",
