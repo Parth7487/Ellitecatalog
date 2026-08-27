@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT MCP Drafted Products Audit Dashboard (47 Products) | Elite Ti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Sakana-Regular';
+            src: url('https://fonts.cdnfonts.com/s/93208/Sakana-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: #141822;
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent-yellow: #f1c40f;
+            --accent-green: #3ecf8e;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --text-light: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Outfit', sans-serif !important;
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            padding: 2.5rem;
+            min-height: 100vh;
+        }
+
+        header {
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .header-title {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+        h1 span {
+            color: var(--accent-yellow);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .stat-badge {
+            background: rgba(241, 196, 15, 0.12);
+            border: 1px solid rgba(241, 196, 15, 0.3);
+            color: var(--accent-yellow);
+            padding: 0.75rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-badge-blue {
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            padding: 0.75rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 320px;
+            padding: 1rem 1.4rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: var(--text-light);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-box:focus {
+            border-color: var(--accent-yellow);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(241, 196, 15, 0.4);
+        }
+
+        .image-gallery-container {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-thumbs {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 4px;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            border-radius: 8px;
+        }
+
+        .thumb-img {
+            width: 44px;
+            height: 44px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            opacity: 0.7;
+            transition: all 0.2s;
+        }
+        .thumb-img:hover, .thumb-img.active {
+            opacity: 1;
+            border-color: var(--accent-yellow);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .product-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.4;
+        }
+
+        .badge-draft {
+            background: rgba(241, 196, 15, 0.18);
+            color: var(--accent-yellow);
+            border: 1px solid rgba(241, 196, 15, 0.4);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .meta-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 0.9rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+        }
+
+        .meta-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .meta-label { color: var(--text-muted); }
+        .meta-value { color: #fff; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+
+        .actions-container {
+            margin-top: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            padding-top: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .btn-admin {
+            background: rgba(139, 92, 246, 0.15);
+            color: #a78bfa;
+            border: 1px solid rgba(139, 92, 246, 0.35);
+        }
+        .btn-admin:hover {
+            background: rgba(139, 92, 246, 0.3);
+            color: #fff;
+        }
+
+        .btn-storefront {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.35);
+        }
+        .btn-storefront:hover {
+            background: rgba(59, 130, 246, 0.3);
+            color: #fff;
+        }
+
+        /* Lightbox Modal */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .lightbox-modal.active {
+            display: flex;
+        }
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            object-fit: contain;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #fff;
+            font-size: 2.5rem;
+            cursor: pointer;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-title">
+        <h1><span>Shopify ChatGPT MCP App</span> Drafted Products Dashboard</h1>
+        <div class="subtitle">Live Media & Links Preview for 47 Products Drafted in Past 10 Hours</div>
+    </div>
+    <div class="header-stats">
+        <div class="stat-badge">⚡ <span>47 DRAFT PRODUCTS</span></div>
+        <div class="stat-badge-blue">🕒 AUDITED: PAST 10 HOURS</div>
+    </div>
+</header>
+
+<div class="controls">
+    <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search product title, ID, handle or product type..." onkeyup="filterProducts()">
+</div>
+
+<div class="grid-container" id="productsGrid">
+
+    <div class="product-card" data-title="eti toyota supra mkiv varis style hood" data-id="10218948362521" data-type="hood">
+        <div class="image-gallery-container">
+            <img id="img-10218948362521" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_Supra_MKIV_Varis_Style_Hood_-_1.jpg?v=1787125064" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_Supra_MKIV_Varis_Style_Hood_-_1.jpg?v=1787125064')" alt="ETi Toyota Supra MKIV Varis Style Hood">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_Supra_MKIV_Varis_Style_Hood_-_1.jpg?v=1787125064" class="thumb-img active" onclick="changeMainImage('img-10218948362521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_Supra_MKIV_Varis_Style_Hood_-_1.jpg?v=1787125064', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_Supra_MKIV_Varis_Style_Hood_-_2.jpg?v=1787125064" class="thumb-img " onclick="changeMainImage('img-10218948362521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_Supra_MKIV_Varis_Style_Hood_-_2.jpg?v=1787125064', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_Supra_MKIV_Varis_Style_Hood_-_3.jpg?v=1787125064" class="thumb-img " onclick="changeMainImage('img-10218948362521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_Supra_MKIV_Varis_Style_Hood_-_3.jpg?v=1787125064', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">ETi Toyota Supra MKIV Varis Style Hood</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10218948362521</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Hood</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,550.00 - $1,780.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">3 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10218948362521" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/eti-toyota-supra-mkiv-varis-style-hood" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="supra varis style gt-wing" data-id="10617909805337" data-type="spoiler & wing">
+        <div class="image-gallery-container">
+            <img id="img-10617909805337" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Varis_Style_GT-Wing_-_1.jpg?v=1787124996" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Varis_Style_GT-Wing_-_1.jpg?v=1787124996')" alt="Supra Varis Style GT-Wing">
+            
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Supra Varis Style GT-Wing</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10617909805337</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Spoiler & Wing</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($2,650.00 - $3,045.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">1 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10617909805337" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/supra-varis-style-gt-wing" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="mitsubishi lancer evo x varis body kit" data-id="10626079392025" data-type="body kit">
+        <div class="image-gallery-container">
+            <img id="img-10626079392025" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_1.jpg?v=1787555409" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_1.jpg?v=1787555409')" alt="Mitsubishi Lancer EVO X Varis Body Kit">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_1.jpg?v=1787555409" class="thumb-img active" onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_1.jpg?v=1787555409', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_2.jpg?v=1787555413" class="thumb-img " onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_2.jpg?v=1787555413', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_3.jpg?v=1787555418" class="thumb-img " onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_3.jpg?v=1787555418', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_4.jpg?v=1787555424" class="thumb-img " onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_4.jpg?v=1787555424', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_5.jpg?v=1787555429" class="thumb-img " onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_5.jpg?v=1787555429', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_6.jpg?v=1787555434" class="thumb-img " onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_6.jpg?v=1787555434', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_7.jpg?v=1787555439" class="thumb-img " onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_7.jpg?v=1787555439', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_8.jpg?v=1787555444" class="thumb-img " onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_8.jpg?v=1787555444', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_9.jpg?v=1787555449" class="thumb-img " onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_9.jpg?v=1787555449', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_10.jpg?v=1787555454" class="thumb-img " onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_10.jpg?v=1787555454', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_11.jpg?v=1787555458" class="thumb-img " onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_11.jpg?v=1787555458', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_12.jpg?v=1787555463" class="thumb-img " onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_12.jpg?v=1787555463', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_13.jpg?v=1787555468" class="thumb-img " onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_13.jpg?v=1787555468', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_14.jpg?v=1787555473" class="thumb-img " onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_14.jpg?v=1787555473', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_15.jpg?v=1787555478" class="thumb-img " onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_15.jpg?v=1787555478', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_16.jpg?v=1787555482" class="thumb-img " onclick="changeMainImage('img-10626079392025', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_Lancer_EVO_X_Varis_Body_Kit_-_16.jpg?v=1787555482', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Mitsubishi Lancer EVO X Varis Body Kit</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10626079392025</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Body Kit</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">5 Vars ($573.00 - $1,450.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">16 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10626079392025" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/mitsubishi-lancer-evo-x-varis-body-kit" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="evo 9 varis style front lip" data-id="10626080571673" data-type="lip & splitter">
+        <div class="image-gallery-container">
+            <img id="img-10626080571673" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_1.jpg?v=1787554496" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_1.jpg?v=1787554496')" alt="Evo 9 Varis Style Front Lip">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_1.jpg?v=1787554496" class="thumb-img active" onclick="changeMainImage('img-10626080571673', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_1.jpg?v=1787554496', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_2.jpg?v=1787554501" class="thumb-img " onclick="changeMainImage('img-10626080571673', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_2.jpg?v=1787554501', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_3.jpg?v=1787554506" class="thumb-img " onclick="changeMainImage('img-10626080571673', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_3.jpg?v=1787554506', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_4.jpg?v=1787554511" class="thumb-img " onclick="changeMainImage('img-10626080571673', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_4.jpg?v=1787554511', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_5.jpg?v=1787554515" class="thumb-img " onclick="changeMainImage('img-10626080571673', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_5.jpg?v=1787554515', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_6.jpg?v=1787554520" class="thumb-img " onclick="changeMainImage('img-10626080571673', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_6.jpg?v=1787554520', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_7.jpg?v=1787554525" class="thumb-img " onclick="changeMainImage('img-10626080571673', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_7.jpg?v=1787554525', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_8.jpg?v=1787554530" class="thumb-img " onclick="changeMainImage('img-10626080571673', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/MITSUBISHI_EVO9_VARIS_Body_Kit_-_8.jpg?v=1787554530', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Evo 9 Varis Style Front Lip</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10626080571673</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Lip & Splitter</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($995.00 - $1,145.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">8 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10626080571673" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/evo-9-varis-style-front-lip" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="mitsubishi evo x varis (carbon) body kit" data-id="10626080932121" data-type="body kit">
+        <div class="image-gallery-container">
+            <img id="img-10626080932121" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_1.jpg?v=1787554977" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_1.jpg?v=1787554977')" alt="Mitsubishi EVO X Varis (Carbon) Body Kit">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_1.jpg?v=1787554977" class="thumb-img active" onclick="changeMainImage('img-10626080932121', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_1.jpg?v=1787554977', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_2.jpg?v=1787554982" class="thumb-img " onclick="changeMainImage('img-10626080932121', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_2.jpg?v=1787554982', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_3.jpg?v=1787554996" class="thumb-img " onclick="changeMainImage('img-10626080932121', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_3.jpg?v=1787554996', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_4.jpg?v=1787555001" class="thumb-img " onclick="changeMainImage('img-10626080932121', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_4.jpg?v=1787555001', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_5.jpg?v=1787555007" class="thumb-img " onclick="changeMainImage('img-10626080932121', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_5.jpg?v=1787555007', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_6.jpg?v=1787555011" class="thumb-img " onclick="changeMainImage('img-10626080932121', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_6.jpg?v=1787555011', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_7.jpg?v=1787555016" class="thumb-img " onclick="changeMainImage('img-10626080932121', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_7.jpg?v=1787555016', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_8.jpg?v=1787555021" class="thumb-img " onclick="changeMainImage('img-10626080932121', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_8.jpg?v=1787555021', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_9.jpg?v=1787555027" class="thumb-img " onclick="changeMainImage('img-10626080932121', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_9.jpg?v=1787555027', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_10.jpg?v=1787555031" class="thumb-img " onclick="changeMainImage('img-10626080932121', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_Carbon_Body_Kit_-_10.jpg?v=1787555031', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Mitsubishi EVO X Varis (Carbon) Body Kit</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10626080932121</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Body Kit</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">9 Vars ($995.00 - $2,150.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">10 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10626080932121" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/mitsubishi-evo-x-varis-carbon-body-kit" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="mitsubishi evo x varis abs body kit" data-id="10626080997657" data-type="body kit">
+        <div class="image-gallery-container">
+            <img id="img-10626080997657" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_1.jpg?v=1787555049" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_1.jpg?v=1787555049')" alt="Mitsubishi EVO X Varis ABS Body Kit">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_1.jpg?v=1787555049" class="thumb-img active" onclick="changeMainImage('img-10626080997657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_1.jpg?v=1787555049', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_2.jpg?v=1787555054" class="thumb-img " onclick="changeMainImage('img-10626080997657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_2.jpg?v=1787555054', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_3.jpg?v=1787555059" class="thumb-img " onclick="changeMainImage('img-10626080997657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_3.jpg?v=1787555059', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_4.jpg?v=1787555064" class="thumb-img " onclick="changeMainImage('img-10626080997657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_4.jpg?v=1787555064', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_5.jpg?v=1787555069" class="thumb-img " onclick="changeMainImage('img-10626080997657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_5.jpg?v=1787555069', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_6.jpg?v=1787555074" class="thumb-img " onclick="changeMainImage('img-10626080997657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_6.jpg?v=1787555074', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_7.jpg?v=1787555079" class="thumb-img " onclick="changeMainImage('img-10626080997657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_7.jpg?v=1787555079', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_8.jpg?v=1787555084" class="thumb-img " onclick="changeMainImage('img-10626080997657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_8.jpg?v=1787555084', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_9.jpg?v=1787555089" class="thumb-img " onclick="changeMainImage('img-10626080997657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mitsubishi_EVO_X_Varis_ABS_Body_Kit_-_9.jpg?v=1787555089', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Mitsubishi EVO X Varis ABS Body Kit</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10626080997657</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Body Kit</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">15 Vars ($414.00 - $1,450.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">9 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10626080997657" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/mitsubishi-evo-x-varis-abs-body-kit" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="eti mitsubishi evo x varis carbon fiber spoiler" data-id="10626081947929" data-type="spoiler & wing">
+        <div class="image-gallery-container">
+            <img id="img-10626081947929" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Mitsubishi_EVO_X_Varis_Carbon_Fiber_Spoiler_-_1.jpg?v=1787553957" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Mitsubishi_EVO_X_Varis_Carbon_Fiber_Spoiler_-_1.jpg?v=1787553957')" alt="ETi Mitsubishi EVO X Varis Carbon Fiber Spoiler">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Mitsubishi_EVO_X_Varis_Carbon_Fiber_Spoiler_-_1.jpg?v=1787553957" class="thumb-img active" onclick="changeMainImage('img-10626081947929', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Mitsubishi_EVO_X_Varis_Carbon_Fiber_Spoiler_-_1.jpg?v=1787553957', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Mitsubishi_EVO_X_Varis_Carbon_Fiber_Spoiler_-_2.jpg?v=1787553961" class="thumb-img " onclick="changeMainImage('img-10626081947929', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Mitsubishi_EVO_X_Varis_Carbon_Fiber_Spoiler_-_2.jpg?v=1787553961', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Mitsubishi_EVO_X_Varis_Carbon_Fiber_Spoiler_-_3.jpg?v=1787553966" class="thumb-img " onclick="changeMainImage('img-10626081947929', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Mitsubishi_EVO_X_Varis_Carbon_Fiber_Spoiler_-_3.jpg?v=1787553966', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Mitsubishi_EVO_X_Varis_Carbon_Fiber_Spoiler_-_4.jpg?v=1787553970" class="thumb-img " onclick="changeMainImage('img-10626081947929', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Mitsubishi_EVO_X_Varis_Carbon_Fiber_Spoiler_-_4.jpg?v=1787553970', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">ETi Mitsubishi EVO X Varis Carbon Fiber Spoiler</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10626081947929</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Spoiler & Wing</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,850.00 - $2,130.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">4 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10626081947929" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/eti-mitsubishi-evo-x-varis-carbon-fiber-spoiler" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="eti evolution 8/9 varis style front fender add-on" data-id="10627600318745" data-type="fender">
+        <div class="image-gallery-container">
+            <img id="img-10627600318745" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evolution_89_Varis_Style_Front_Fender_Add-On_-_1.jpg?v=1787553352" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evolution_89_Varis_Style_Front_Fender_Add-On_-_1.jpg?v=1787553352')" alt="ETi Evolution 8/9 Varis Style Front Fender Add-On">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evolution_89_Varis_Style_Front_Fender_Add-On_-_1.jpg?v=1787553352" class="thumb-img active" onclick="changeMainImage('img-10627600318745', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evolution_89_Varis_Style_Front_Fender_Add-On_-_1.jpg?v=1787553352', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evolution_89_Varis_Style_Front_Fender_Add-On_-_2.jpg?v=1787553357" class="thumb-img " onclick="changeMainImage('img-10627600318745', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evolution_89_Varis_Style_Front_Fender_Add-On_-_2.jpg?v=1787553357', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evolution_89_Varis_Style_Front_Fender_Add-On_-_3.jpg?v=1787553361" class="thumb-img " onclick="changeMainImage('img-10627600318745', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evolution_89_Varis_Style_Front_Fender_Add-On_-_3.jpg?v=1787553361', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evolution_89_Varis_Style_Front_Fender_Add-On_-_4.jpg?v=1787553366" class="thumb-img " onclick="changeMainImage('img-10627600318745', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evolution_89_Varis_Style_Front_Fender_Add-On_-_4.jpg?v=1787553366', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evolution_89_Varis_Style_Front_Fender_Add-On_-_5.jpg?v=1787553370" class="thumb-img " onclick="changeMainImage('img-10627600318745', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evolution_89_Varis_Style_Front_Fender_Add-On_-_5.jpg?v=1787553370', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">ETi Evolution 8/9 Varis Style Front Fender Add-On</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10627600318745</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Fender</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($365.00 - $420.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">5 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10627600318745" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/eti-evolution-8-9-varis-style-front-fender-add-on" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="eti evo 8 varis-style carbon fiber front bumper canards" data-id="10627600646425" data-type="canard">
+        <div class="image-gallery-container">
+            <img id="img-10627600646425" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evo_8_Varis-Style_Carbon_Fiber_Front_Bumper_Canards_-_1.jpg?v=1787552686" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evo_8_Varis-Style_Carbon_Fiber_Front_Bumper_Canards_-_1.jpg?v=1787552686')" alt="ETi Evo 8 Varis-Style Carbon Fiber Front Bumper Canards">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evo_8_Varis-Style_Carbon_Fiber_Front_Bumper_Canards_-_1.jpg?v=1787552686" class="thumb-img active" onclick="changeMainImage('img-10627600646425', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evo_8_Varis-Style_Carbon_Fiber_Front_Bumper_Canards_-_1.jpg?v=1787552686', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evo_8_Varis-Style_Carbon_Fiber_Front_Bumper_Canards_-_2.jpg?v=1787552691" class="thumb-img " onclick="changeMainImage('img-10627600646425', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evo_8_Varis-Style_Carbon_Fiber_Front_Bumper_Canards_-_2.jpg?v=1787552691', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evo_8_Varis-Style_Carbon_Fiber_Front_Bumper_Canards_-_3.jpg?v=1787552695" class="thumb-img " onclick="changeMainImage('img-10627600646425', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Evo_8_Varis-Style_Carbon_Fiber_Front_Bumper_Canards_-_3.jpg?v=1787552695', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">ETi Evo 8 Varis-Style Carbon Fiber Front Bumper Canards</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10627600646425</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Canard</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($360.00 - $415.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">3 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10627600646425" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/eti-evo-8-varis-style-carbon-fiber-front-bumper-canards" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="gt86 varis diffuser" data-id="10657638711577" data-type="diffuser">
+        <div class="image-gallery-container">
+            <img id="img-10657638711577" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Diffuser_-_1.jpg?v=1787126025" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Diffuser_-_1.jpg?v=1787126025')" alt="GT86 Varis Diffuser">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Diffuser_-_1.jpg?v=1787126025" class="thumb-img active" onclick="changeMainImage('img-10657638711577', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Diffuser_-_1.jpg?v=1787126025', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Diffuser_-_2.jpg?v=1787126025" class="thumb-img " onclick="changeMainImage('img-10657638711577', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Diffuser_-_2.jpg?v=1787126025', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">GT86 Varis Diffuser</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10657638711577</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Diffuser</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($950.00 - $1,095.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">2 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10657638711577" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/gt86-varis-diffuser" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="gt86 varis front fenders" data-id="10657638777113" data-type="fender">
+        <div class="image-gallery-container">
+            <img id="img-10657638777113" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Front_Fenders_-_1.jpg?v=1787126058" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Front_Fenders_-_1.jpg?v=1787126058')" alt="GT86 Varis Front Fenders">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Front_Fenders_-_1.jpg?v=1787126058" class="thumb-img active" onclick="changeMainImage('img-10657638777113', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Front_Fenders_-_1.jpg?v=1787126058', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Front_Fenders_-_2.jpg?v=1787126058" class="thumb-img " onclick="changeMainImage('img-10657638777113', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Front_Fenders_-_2.jpg?v=1787126058', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">GT86 Varis Front Fenders</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10657638777113</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Fender</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,190.00 - $1,370.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">2 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10657638777113" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/gt86-varis-front-fenders" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="gt86 varis rear bumper" data-id="10657638842649" data-type="bumper">
+        <div class="image-gallery-container">
+            <img id="img-10657638842649" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Rear_Bumper_-_1.jpg?v=1787125916" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Rear_Bumper_-_1.jpg?v=1787125916')" alt="GT86 Varis Rear Bumper">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Rear_Bumper_-_1.jpg?v=1787125916" class="thumb-img active" onclick="changeMainImage('img-10657638842649', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Rear_Bumper_-_1.jpg?v=1787125916', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Rear_Bumper_-_2.jpg?v=1787125916" class="thumb-img " onclick="changeMainImage('img-10657638842649', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Rear_Bumper_-_2.jpg?v=1787125916', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Rear_Bumper_-_3.jpg?v=1787125916" class="thumb-img " onclick="changeMainImage('img-10657638842649', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Rear_Bumper_-_3.jpg?v=1787125916', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">GT86 Varis Rear Bumper</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10657638842649</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Bumper</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,545.00 - $1,776.75)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">3 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10657638842649" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/gt86-varis-rear-bumper" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="gt86 varis spatz" data-id="10657638908185" data-type="exterior trim">
+        <div class="image-gallery-container">
+            <img id="img-10657638908185" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Spatz_-_1.jpg?v=1787125890" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Spatz_-_1.jpg?v=1787125890')" alt="GT86 Varis Spatz">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Spatz_-_1.jpg?v=1787125890" class="thumb-img active" onclick="changeMainImage('img-10657638908185', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Spatz_-_1.jpg?v=1787125890', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Spatz_-_2.jpg?v=1787125890" class="thumb-img " onclick="changeMainImage('img-10657638908185', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Spatz_-_2.jpg?v=1787125890', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">GT86 Varis Spatz</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10657638908185</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Exterior Trim</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($650.00 - $745.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">2 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10657638908185" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/gt86-varis-spatz" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="gt86 varis arising ii rear diffuser" data-id="10657638940953" data-type="diffuser">
+        <div class="image-gallery-container">
+            <img id="img-10657638940953" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Arising_II_Rear_Diffuser_-_1.jpg?v=1787126303" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Arising_II_Rear_Diffuser_-_1.jpg?v=1787126303')" alt="GT86 Varis Arising II Rear Diffuser">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Arising_II_Rear_Diffuser_-_1.jpg?v=1787126303" class="thumb-img active" onclick="changeMainImage('img-10657638940953', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Arising_II_Rear_Diffuser_-_1.jpg?v=1787126303', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Arising_II_Rear_Diffuser_-_2.jpg?v=1787126303" class="thumb-img " onclick="changeMainImage('img-10657638940953', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Arising_II_Rear_Diffuser_-_2.jpg?v=1787126303', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">GT86 Varis Arising II Rear Diffuser</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10657638940953</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Diffuser</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,350.00 - $1,550.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">2 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10657638940953" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/gt86-varis-arising-ii-rear-diffuser" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="gt86 varis lip" data-id="10657638973721" data-type="lip & splitter">
+        <div class="image-gallery-container">
+            <img id="img-10657638973721" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Lip_-_1.jpg?v=1787126386" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Lip_-_1.jpg?v=1787126386')" alt="GT86 Varis Lip">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Lip_-_1.jpg?v=1787126386" class="thumb-img active" onclick="changeMainImage('img-10657638973721', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Lip_-_1.jpg?v=1787126386', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Lip_-_2.jpg?v=1787126386" class="thumb-img " onclick="changeMainImage('img-10657638973721', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Lip_-_2.jpg?v=1787126386', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Lip_-_3.jpg?v=1787126386" class="thumb-img " onclick="changeMainImage('img-10657638973721', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Lip_-_3.jpg?v=1787126386', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Lip_-_4.jpg?v=1787126386" class="thumb-img " onclick="changeMainImage('img-10657638973721', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Lip_-_4.jpg?v=1787126386', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Lip_-_5.jpg?v=1787126386" class="thumb-img " onclick="changeMainImage('img-10657638973721', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Lip_-_5.jpg?v=1787126386', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">GT86 Varis Lip</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10657638973721</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Lip & Splitter</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($720.00 - $830.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">5 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10657638973721" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/gt86-varis-lip" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="gt86 varis side skirts" data-id="10657639006489" data-type="side skirt">
+        <div class="image-gallery-container">
+            <img id="img-10657639006489" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Side_Skirts_-_1.jpg?v=1787126588" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Side_Skirts_-_1.jpg?v=1787126588')" alt="GT86 Varis Side Skirts">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Side_Skirts_-_1.jpg?v=1787126588" class="thumb-img active" onclick="changeMainImage('img-10657639006489', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Side_Skirts_-_1.jpg?v=1787126588', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Side_Skirts_-_2.jpg?v=1787126588" class="thumb-img " onclick="changeMainImage('img-10657639006489', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Side_Skirts_-_2.jpg?v=1787126588', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Side_Skirts_-_3.jpg?v=1787126588" class="thumb-img " onclick="changeMainImage('img-10657639006489', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Side_Skirts_-_3.jpg?v=1787126588', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Side_Skirts_-_4.jpg?v=1787126588" class="thumb-img " onclick="changeMainImage('img-10657639006489', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Side_Skirts_-_4.jpg?v=1787126588', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Side_Skirts_-_5.jpg?v=1787126588" class="thumb-img " onclick="changeMainImage('img-10657639006489', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/GT86_Varis_Side_Skirts_-_5.jpg?v=1787126588', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">GT86 Varis Side Skirts</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10657639006489</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Side Skirt</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,080.00 - $1,242.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">5 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10657639006489" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/gt86-varis-side-skirts" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="eti toyota ft86 varis carbon fiber hood" data-id="10657641693465" data-type="hood">
+        <div class="image-gallery-container">
+            <img id="img-10657641693465" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Varis_Carbon_Fiber_Hood_-_1.jpg?v=1787126642" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Varis_Carbon_Fiber_Hood_-_1.jpg?v=1787126642')" alt="ETi Toyota FT86 Varis Carbon Fiber Hood">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Varis_Carbon_Fiber_Hood_-_1.jpg?v=1787126642" class="thumb-img active" onclick="changeMainImage('img-10657641693465', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Varis_Carbon_Fiber_Hood_-_1.jpg?v=1787126642', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Varis_Carbon_Fiber_Hood_-_2.jpg?v=1787126642" class="thumb-img " onclick="changeMainImage('img-10657641693465', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Varis_Carbon_Fiber_Hood_-_2.jpg?v=1787126642', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Varis_Carbon_Fiber_Hood_-_3.jpg?v=1787126642" class="thumb-img " onclick="changeMainImage('img-10657641693465', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Varis_Carbon_Fiber_Hood_-_3.jpg?v=1787126642', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Varis_Carbon_Fiber_Hood_-_4.jpg?v=1787126642" class="thumb-img " onclick="changeMainImage('img-10657641693465', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Varis_Carbon_Fiber_Hood_-_4.jpg?v=1787126642', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Varis_Carbon_Fiber_Hood_-_5.jpg?v=1787126642" class="thumb-img " onclick="changeMainImage('img-10657641693465', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Varis_Carbon_Fiber_Hood_-_5.jpg?v=1787126642', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Varis_Carbon_Fiber_Hood_-_6.jpg?v=1787126642" class="thumb-img " onclick="changeMainImage('img-10657641693465', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Varis_Carbon_Fiber_Hood_-_6.jpg?v=1787126642', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">ETi Toyota FT86 Varis Carbon Fiber Hood</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10657641693465</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Hood</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,450.00 - $1,670.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">6 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10657641693465" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/eti-toyota-ft86-varis-carbon-fiber-hood" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="toyota ft86 varis v3 body kit" data-id="10657644544281" data-type="body kit">
+        <div class="image-gallery-container">
+            <img id="img-10657644544281" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Toyota_FT86_Varis_V3_Body_Kit_-_1.jpg?v=1787125824" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Toyota_FT86_Varis_V3_Body_Kit_-_1.jpg?v=1787125824')" alt="Toyota FT86 Varis V3 Body Kit">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Toyota_FT86_Varis_V3_Body_Kit_-_1.jpg?v=1787125824" class="thumb-img active" onclick="changeMainImage('img-10657644544281', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Toyota_FT86_Varis_V3_Body_Kit_-_1.jpg?v=1787125824', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Toyota_FT86_Varis_V3_Body_Kit_-_2.jpg?v=1787125824" class="thumb-img " onclick="changeMainImage('img-10657644544281', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Toyota_FT86_Varis_V3_Body_Kit_-_2.jpg?v=1787125824', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Toyota_FT86_Varis_V3_Body_Kit_-_3.jpg?v=1787125824" class="thumb-img " onclick="changeMainImage('img-10657644544281', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Toyota_FT86_Varis_V3_Body_Kit_-_3.jpg?v=1787125824', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Toyota_FT86_Varis_V3_Body_Kit_-_4.jpg?v=1787125824" class="thumb-img " onclick="changeMainImage('img-10657644544281', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Toyota_FT86_Varis_V3_Body_Kit_-_4.jpg?v=1787125824', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Toyota_FT86_Varis_V3_Body_Kit_-_5.jpg?v=1787125824" class="thumb-img " onclick="changeMainImage('img-10657644544281', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Toyota_FT86_Varis_V3_Body_Kit_-_5.jpg?v=1787125824', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Toyota_FT86_Varis_V3_Body_Kit_-_6.jpg?v=1787125824" class="thumb-img " onclick="changeMainImage('img-10657644544281', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Toyota_FT86_Varis_V3_Body_Kit_-_6.jpg?v=1787125824', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Toyota FT86 Varis V3 Body Kit</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10657644544281</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Body Kit</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">43 Vars ($286.00 - $7,935.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">6 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10657644544281" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/toyota-ft86-varis-v3-body-kit" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan 370z varis style carbon fiber hood" data-id="10658251211033" data-type="hood">
+        <div class="image-gallery-container">
+            <img id="img-10658251211033" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787610705" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787610705')" alt="Nissan 370Z Varis Style Carbon Fiber Hood">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787610705" class="thumb-img active" onclick="changeMainImage('img-10658251211033', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787610705', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Carbon_Fiber_Hood_-_2.jpg?v=1787610710" class="thumb-img " onclick="changeMainImage('img-10658251211033', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Carbon_Fiber_Hood_-_2.jpg?v=1787610710', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Carbon_Fiber_Hood_-_3.jpg?v=1787610716" class="thumb-img " onclick="changeMainImage('img-10658251211033', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Carbon_Fiber_Hood_-_3.jpg?v=1787610716', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan 370Z Varis Style Carbon Fiber Hood</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10658251211033</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Hood</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,550.00 - $1,785.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">3 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10658251211033" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-370z-varis-style-carbon-fiber-hood" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan r35 varis style carbon fiber fender" data-id="10658252554521" data-type="fender">
+        <div class="image-gallery-container">
+            <img id="img-10658252554521" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_Varis_Style_Carbon_Fiber_Fender_-_1.jpg?v=1787611131" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_Varis_Style_Carbon_Fiber_Fender_-_1.jpg?v=1787611131')" alt="Nissan R35 Varis Style Carbon Fiber Fender">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_Varis_Style_Carbon_Fiber_Fender_-_1.jpg?v=1787611131" class="thumb-img active" onclick="changeMainImage('img-10658252554521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_Varis_Style_Carbon_Fiber_Fender_-_1.jpg?v=1787611131', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_Varis_Style_Carbon_Fiber_Fender_-_2.jpg?v=1787611137" class="thumb-img " onclick="changeMainImage('img-10658252554521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_Varis_Style_Carbon_Fiber_Fender_-_2.jpg?v=1787611137', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_Varis_Style_Carbon_Fiber_Fender_-_3.jpg?v=1787611141" class="thumb-img " onclick="changeMainImage('img-10658252554521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_Varis_Style_Carbon_Fiber_Fender_-_3.jpg?v=1787611141', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_Varis_Style_Carbon_Fiber_Fender_-_4.jpg?v=1787611146" class="thumb-img " onclick="changeMainImage('img-10658252554521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_Varis_Style_Carbon_Fiber_Fender_-_4.jpg?v=1787611146', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_Varis_Style_Carbon_Fiber_Fender_-_5.jpg?v=1787611150" class="thumb-img " onclick="changeMainImage('img-10658252554521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_Varis_Style_Carbon_Fiber_Fender_-_5.jpg?v=1787611150', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_Varis_Style_Carbon_Fiber_Fender_-_6.jpg?v=1787611154" class="thumb-img " onclick="changeMainImage('img-10658252554521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_Varis_Style_Carbon_Fiber_Fender_-_6.jpg?v=1787611154', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan R35 Varis Style Carbon Fiber Fender</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10658252554521</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Fender</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($3,150.00 - $3,620.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">6 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10658252554521" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-r35-varis-style-carbon-fiber-fender" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan 350z varis style body kit" data-id="10658254422297" data-type="body kit">
+        <div class="image-gallery-container">
+            <img id="img-10658254422297" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Varis_Style_Body_Kit_-_1.jpg?v=1787610083" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Varis_Style_Body_Kit_-_1.jpg?v=1787610083')" alt="Nissan 350Z Varis Style Body Kit">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Varis_Style_Body_Kit_-_1.jpg?v=1787610083" class="thumb-img active" onclick="changeMainImage('img-10658254422297', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Varis_Style_Body_Kit_-_1.jpg?v=1787610083', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Varis_Style_Body_Kit_-_2.jpg?v=1787610088" class="thumb-img " onclick="changeMainImage('img-10658254422297', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Varis_Style_Body_Kit_-_2.jpg?v=1787610088', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Varis_Style_Body_Kit_-_3.jpg?v=1787610093" class="thumb-img " onclick="changeMainImage('img-10658254422297', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Varis_Style_Body_Kit_-_3.jpg?v=1787610093', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Varis_Style_Body_Kit_-_4.jpg?v=1787610097" class="thumb-img " onclick="changeMainImage('img-10658254422297', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Varis_Style_Body_Kit_-_4.jpg?v=1787610097', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan 350Z Varis Style Body Kit</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10658254422297</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Body Kit</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">6 Vars ($1,030.00 - $2,895.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">4 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10658254422297" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-350z-varis-style-body-kit" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan 370z varis style body kit" data-id="10658255077657" data-type="body kit">
+        <div class="image-gallery-container">
+            <img id="img-10658255077657" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_1.png?v=1787610636" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_1.png?v=1787610636')" alt="Nissan 370Z Varis Style Body Kit">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_1.png?v=1787610636" class="thumb-img active" onclick="changeMainImage('img-10658255077657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_1.png?v=1787610636', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_2.jpg?v=1787610641" class="thumb-img " onclick="changeMainImage('img-10658255077657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_2.jpg?v=1787610641', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_3.jpg?v=1787610646" class="thumb-img " onclick="changeMainImage('img-10658255077657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_3.jpg?v=1787610646', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_4.jpg?v=1787610652" class="thumb-img " onclick="changeMainImage('img-10658255077657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_4.jpg?v=1787610652', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_5.jpg?v=1787610657" class="thumb-img " onclick="changeMainImage('img-10658255077657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_5.jpg?v=1787610657', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_6.jpg?v=1787610662" class="thumb-img " onclick="changeMainImage('img-10658255077657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_6.jpg?v=1787610662', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_7.jpg?v=1787610667" class="thumb-img " onclick="changeMainImage('img-10658255077657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_7.jpg?v=1787610667', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_8.jpg?v=1787610672" class="thumb-img " onclick="changeMainImage('img-10658255077657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_8.jpg?v=1787610672', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_9.jpg?v=1787610677" class="thumb-img " onclick="changeMainImage('img-10658255077657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_9.jpg?v=1787610677', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_10.jpg?v=1787610682" class="thumb-img " onclick="changeMainImage('img-10658255077657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_10.jpg?v=1787610682', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_11.jpg?v=1787610688" class="thumb-img " onclick="changeMainImage('img-10658255077657', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Varis_Style_Body_Kit_-_11.jpg?v=1787610688', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan 370Z Varis Style Body Kit</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10658255077657</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Body Kit</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">57 Vars ($318.00 - $9,540.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">11 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10658255077657" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-370z-varis-style-body-kit" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan skyline r35 varis style front lip" data-id="10658257535257" data-type="lip & splitter">
+        <div class="image-gallery-container">
+            <img id="img-10658257535257" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_1.jpg?v=1787613536" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_1.jpg?v=1787613536')" alt="Nissan Skyline R35 Varis Style Front Lip">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_1.jpg?v=1787613536" class="thumb-img active" onclick="changeMainImage('img-10658257535257', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_1.jpg?v=1787613536', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_2.jpg?v=1787613541" class="thumb-img " onclick="changeMainImage('img-10658257535257', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_2.jpg?v=1787613541', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_3.jpg?v=1787613546" class="thumb-img " onclick="changeMainImage('img-10658257535257', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_3.jpg?v=1787613546', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_4.jpg?v=1787613550" class="thumb-img " onclick="changeMainImage('img-10658257535257', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_4.jpg?v=1787613550', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_5.jpg?v=1787613555" class="thumb-img " onclick="changeMainImage('img-10658257535257', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_5.jpg?v=1787613555', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_6.jpg?v=1787613560" class="thumb-img " onclick="changeMainImage('img-10658257535257', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_6.jpg?v=1787613560', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_7.jpg?v=1787613565" class="thumb-img " onclick="changeMainImage('img-10658257535257', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_7.jpg?v=1787613565', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_8.jpg?v=1787613569" class="thumb-img " onclick="changeMainImage('img-10658257535257', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_8.jpg?v=1787613569', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_9.jpg?v=1787613574" class="thumb-img " onclick="changeMainImage('img-10658257535257', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_9.jpg?v=1787613574', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_10.jpg?v=1787613579" class="thumb-img " onclick="changeMainImage('img-10658257535257', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_10.jpg?v=1787613579', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_11.jpg?v=1787613584" class="thumb-img " onclick="changeMainImage('img-10658257535257', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_11.jpg?v=1787613584', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_12.jpg?v=1787613589" class="thumb-img " onclick="changeMainImage('img-10658257535257', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_Varis_Style_Body_Kit_-_12.jpg?v=1787613589', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan Skyline R35 Varis Style Front Lip</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10658257535257</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Lip & Splitter</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,591.00 - $1,830.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">12 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10658257535257" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-skyline-r35-varis-style-front-lip" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="mazda 3 varis style rear spoiler" data-id="10685682778393" data-type="spoiler & wing">
+        <div class="image-gallery-container">
+            <img id="img-10685682778393" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mazda_3_Varis_Style_Body_Kit_-_1.jpg?v=1787118584" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Mazda_3_Varis_Style_Body_Kit_-_1.jpg?v=1787118584')" alt="Mazda 3 Varis Style Rear Spoiler">
+            
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Mazda 3 Varis Style Rear Spoiler</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10685682778393</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Spoiler & Wing</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">5 Vars ($445.00 - $1,125.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">1 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10685682778393" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/mazda-3-varis-style-rear-spoiler" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="subaru impreza gr varis style carbon fiber rear spoiler" data-id="10769051910425" data-type="spoilers">
+        <div class="image-gallery-container">
+            <img id="img-10769051910425" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/aeb35ecfe18190fdce1e7fa5341b49f3_d08f21fc-1eff-4afe-939d-dc4e4be0d65b.jpg?v=1787187453" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/aeb35ecfe18190fdce1e7fa5341b49f3_d08f21fc-1eff-4afe-939d-dc4e4be0d65b.jpg?v=1787187453')" alt="Subaru Impreza GR Varis Style Carbon Fiber Rear Spoiler">
+            
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Subaru Impreza GR Varis Style Carbon Fiber Rear Spoiler</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10769051910425</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Spoilers</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">5 Vars ($1,145.00 - $2,895.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">1 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10769051910425" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/subaru-impreza-gr-varis-style-carbon-fiber-rear-spoiler" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="eti subaru wrx 2006 v9 varis style carbon fiber hood" data-id="10773764702489" data-type="hood">
+        <div class="image-gallery-container">
+            <img id="img-10773764702489" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Placeholder_Photo_1_1_419ef07d-a245-44cf-812c-4727b3a14ee3.jpg?v=1787613219" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Placeholder_Photo_1_1_419ef07d-a245-44cf-812c-4727b3a14ee3.jpg?v=1787613219')" alt="ETi Subaru WRX 2006 V9 Varis Style Carbon Fiber Hood">
+            
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">ETi Subaru WRX 2006 V9 Varis Style Carbon Fiber Hood</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10773764702489</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Hood</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,600.00 - $1,840.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">1 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10773764702489" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/eti-subaru-wrx-2006-v9-varis-style-carbon-fiber-hood" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="eti subaru gdb 5doors varis style carbon fiber hood" data-id="10773764800793" data-type="hood">
+        <div class="image-gallery-container">
+            <img id="img-10773764800793" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Placeholder_Photo_1_1_eaa36bfb-1efb-4380-9393-31b8fb295d03.jpg?v=1787613234" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Placeholder_Photo_1_1_eaa36bfb-1efb-4380-9393-31b8fb295d03.jpg?v=1787613234')" alt="ETi Subaru GDB 5Doors Varis Style Carbon Fiber Hood">
+            
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">ETi Subaru GDB 5Doors Varis Style Carbon Fiber Hood</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10773764800793</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Hood</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,500.00 - $1,725.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">1 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10773764800793" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/eti-subaru-gdb-5doors-varis-style-carbon-fiber-hood" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="supra top secret style widebody body kit" data-id="10617911083289" data-type="body kit">
+        <div class="image-gallery-container">
+            <img id="img-10617911083289" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_1.jpg?v=1787123739" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_1.jpg?v=1787123739')" alt="Supra Top Secret Style Widebody Body Kit">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_1.jpg?v=1787123739" class="thumb-img active" onclick="changeMainImage('img-10617911083289', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_1.jpg?v=1787123739', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_2.jpg?v=1787123739" class="thumb-img " onclick="changeMainImage('img-10617911083289', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_2.jpg?v=1787123739', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_3.jpg?v=1787123739" class="thumb-img " onclick="changeMainImage('img-10617911083289', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_3.jpg?v=1787123739', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_4.jpg?v=1787123739" class="thumb-img " onclick="changeMainImage('img-10617911083289', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_4.jpg?v=1787123739', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_5.jpg?v=1787123739" class="thumb-img " onclick="changeMainImage('img-10617911083289', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_5.jpg?v=1787123739', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_6.jpg?v=1787123739" class="thumb-img " onclick="changeMainImage('img-10617911083289', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_6.jpg?v=1787123739', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_7.jpg?v=1787123739" class="thumb-img " onclick="changeMainImage('img-10617911083289', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Widebody_Body_Kit_-_7.jpg?v=1787123739', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Supra Top Secret Style Widebody Body Kit</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10617911083289</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Body Kit</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">42 Vars ($223.00 - $6,520.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">7 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10617911083289" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/supra-top-secret-style-widebody-body-kit" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan skyline r35 mc top secret style wide body kit" data-id="10730120773913" data-type="body kit">
+        <div class="image-gallery-container">
+            <img id="img-10730120773913" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_MC_TOP_SECRET_Style_Wide_Body_Kit_-_1.jpg?v=1787613178" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R35_MC_TOP_SECRET_Style_Wide_Body_Kit_-_1.jpg?v=1787613178')" alt="Nissan Skyline R35 MC Top Secret Style Wide Body Kit">
+            
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan Skyline R35 MC Top Secret Style Wide Body Kit</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10730120773913</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Body Kit</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">68 Vars ($286.00 - $16,810.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">1 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10730120773913" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-skyline-r35-mc-top-secret-style-wide-body-kit" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan 350z top secret style widebody body kit" data-id="10658254389529" data-type="body kit">
+        <div class="image-gallery-container">
+            <img id="img-10658254389529" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Widebody_Body_Kit_-_1.jpg?v=1787610019" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Widebody_Body_Kit_-_1.jpg?v=1787610019')" alt="Nissan 350Z Top Secret Style Widebody Body Kit">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Widebody_Body_Kit_-_1.jpg?v=1787610019" class="thumb-img active" onclick="changeMainImage('img-10658254389529', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Widebody_Body_Kit_-_1.jpg?v=1787610019', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Widebody_Body_Kit_-_2.jpg?v=1787610023" class="thumb-img " onclick="changeMainImage('img-10658254389529', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Widebody_Body_Kit_-_2.jpg?v=1787610023', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Widebody_Body_Kit_-_3.jpg?v=1787610027" class="thumb-img " onclick="changeMainImage('img-10658254389529', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Widebody_Body_Kit_-_3.jpg?v=1787610027', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Widebody_Body_Kit_-_4.jpg?v=1787610031" class="thumb-img " onclick="changeMainImage('img-10658254389529', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Widebody_Body_Kit_-_4.jpg?v=1787610031', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan 350Z Top Secret Style Widebody Body Kit</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10658254389529</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Body Kit</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">35 Vars ($191.00 - $5,845.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">4 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10658254389529" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-350z-top-secret-style-widebody-body-kit" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan skyline r32 gts top secret style carbon fiber rear spats addon" data-id="10658247442713" data-type="exterior trim">
+        <div class="image-gallery-container">
+            <img id="img-10658247442713" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R32_GTS_Top_Secret_Style_Carbon_Fiber_Rear_Spats_Addon_-_1.jpg?v=1787612324" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R32_GTS_Top_Secret_Style_Carbon_Fiber_Rear_Spats_Addon_-_1.jpg?v=1787612324')" alt="Nissan Skyline R32 GTS Top Secret Style Carbon Fiber Rear Spats Addon">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R32_GTS_Top_Secret_Style_Carbon_Fiber_Rear_Spats_Addon_-_1.jpg?v=1787612324" class="thumb-img active" onclick="changeMainImage('img-10658247442713', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R32_GTS_Top_Secret_Style_Carbon_Fiber_Rear_Spats_Addon_-_1.jpg?v=1787612324', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R32_GTS_Top_Secret_Style_Carbon_Fiber_Rear_Spats_Addon_-_2.jpg?v=1787612329" class="thumb-img " onclick="changeMainImage('img-10658247442713', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R32_GTS_Top_Secret_Style_Carbon_Fiber_Rear_Spats_Addon_-_2.jpg?v=1787612329', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R32_GTS_Top_Secret_Style_Carbon_Fiber_Rear_Spats_Addon_-_3.jpg?v=1787612333" class="thumb-img " onclick="changeMainImage('img-10658247442713', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_Skyline_R32_GTS_Top_Secret_Style_Carbon_Fiber_Rear_Spats_Addon_-_3.jpg?v=1787612333', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan Skyline R32 GTS Top Secret Style Carbon Fiber Rear Spats Addon</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10658247442713</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Exterior Trim</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">5 Vars ($115.00 - $285.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">3 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10658247442713" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-skyline-r32-gts-top-secret-style-carbon-fiber-rear-spats-addon" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="supra top secret v12 style body kit" data-id="10617911050521" data-type="body kit">
+        <div class="image-gallery-container">
+            <img id="img-10617911050521" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_1.jpg?v=1787123667" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_1.jpg?v=1787123667')" alt="Supra Top Secret V12 Style Body Kit">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_1.jpg?v=1787123667" class="thumb-img active" onclick="changeMainImage('img-10617911050521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_1.jpg?v=1787123667', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_2.jpg?v=1787123667" class="thumb-img " onclick="changeMainImage('img-10617911050521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_2.jpg?v=1787123667', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_3.jpg?v=1787123667" class="thumb-img " onclick="changeMainImage('img-10617911050521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_3.jpg?v=1787123667', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_4.jpg?v=1787123667" class="thumb-img " onclick="changeMainImage('img-10617911050521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_4.jpg?v=1787123667', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_5.jpg?v=1787123667" class="thumb-img " onclick="changeMainImage('img-10617911050521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_5.jpg?v=1787123667', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_6.jpg?v=1787123667" class="thumb-img " onclick="changeMainImage('img-10617911050521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_6.jpg?v=1787123667', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_7.jpg?v=1787123667" class="thumb-img " onclick="changeMainImage('img-10617911050521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_7.jpg?v=1787123667', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_8.jpg?v=1787123667" class="thumb-img " onclick="changeMainImage('img-10617911050521', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_V12_Style_Body_Kit_-_8.jpg?v=1787123667', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Supra Top Secret V12 Style Body Kit</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10617911050521</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Body Kit</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">35 Vars ($320.00 - $6,370.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">8 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10617911050521" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/supra-top-secret-v12-style-body-kit" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan 350z center rear diffuser" data-id="10658254291225" data-type="diffuser">
+        <div class="image-gallery-container">
+            <img id="img-10658254291225" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Body_Kit_-_1.jpg?v=1787609985" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Body_Kit_-_1.jpg?v=1787609985')" alt="Nissan 350Z Center Rear Diffuser">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Body_Kit_-_1.jpg?v=1787609985" class="thumb-img active" onclick="changeMainImage('img-10658254291225', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Body_Kit_-_1.jpg?v=1787609985', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Body_Kit_-_2.jpg?v=1787609990" class="thumb-img " onclick="changeMainImage('img-10658254291225', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Body_Kit_-_2.jpg?v=1787609990', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Body_Kit_-_3.jpg?v=1787609994" class="thumb-img " onclick="changeMainImage('img-10658254291225', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Body_Kit_-_3.jpg?v=1787609994', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Body_Kit_-_4.jpg?v=1787609999" class="thumb-img " onclick="changeMainImage('img-10658254291225', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Body_Kit_-_4.jpg?v=1787609999', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan 350Z Center Rear Diffuser</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10658254291225</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Diffuser</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,295.00 - $1,490.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">4 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10658254291225" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-350z-center-rear-diffuser" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan 350z top secret style carbon fiber hood" data-id="10658250621209" data-type="hood">
+        <div class="image-gallery-container">
+            <img id="img-10658250621209" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787610008" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787610008')" alt="Nissan 350Z Top Secret Style Carbon Fiber Hood">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787610008" class="thumb-img active" onclick="changeMainImage('img-10658250621209', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787610008', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Carbon_Fiber_Hood_-_2.jpg?v=1787610012" class="thumb-img " onclick="changeMainImage('img-10658250621209', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_Carbon_Fiber_Hood_-_2.jpg?v=1787610012', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan 350Z Top Secret Style Carbon Fiber Hood</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10658250621209</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Hood</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,550.00 - $1,785.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">2 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10658250621209" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-350z-top-secret-style-carbon-fiber-hood" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan r35 08-15 top secret style carbon fiber hood" data-id="10658250162457" data-type="hood">
+        <div class="image-gallery-container">
+            <img id="img-10658250162457" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_08-15_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787611017" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_08-15_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787611017')" alt="Nissan R35 08-15 Top Secret Style Carbon Fiber Hood">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_08-15_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787611017" class="thumb-img active" onclick="changeMainImage('img-10658250162457', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_08-15_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787611017', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_08-15_Top_Secret_Style_Carbon_Fiber_Hood_-_2.jpg?v=1787611024" class="thumb-img " onclick="changeMainImage('img-10658250162457', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_08-15_Top_Secret_Style_Carbon_Fiber_Hood_-_2.jpg?v=1787611024', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_08-15_Top_Secret_Style_Carbon_Fiber_Hood_-_3.jpg?v=1787611029" class="thumb-img " onclick="changeMainImage('img-10658250162457', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_08-15_Top_Secret_Style_Carbon_Fiber_Hood_-_3.jpg?v=1787611029', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_08-15_Top_Secret_Style_Carbon_Fiber_Hood_-_4.jpg?v=1787611034" class="thumb-img " onclick="changeMainImage('img-10658250162457', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_08-15_Top_Secret_Style_Carbon_Fiber_Hood_-_4.jpg?v=1787611034', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_08-15_Top_Secret_Style_Carbon_Fiber_Hood_-_5.jpg?v=1787611041" class="thumb-img " onclick="changeMainImage('img-10658250162457', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R35_08-15_Top_Secret_Style_Carbon_Fiber_Hood_-_5.jpg?v=1787611041', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan R35 08-15 Top Secret Style Carbon Fiber Hood</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10658250162457</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Hood</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($2,450.00 - $2,817.50)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">5 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10658250162457" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-r35-08-15-top-secret-style-carbon-fiber-hood" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="honda accord 09 top secret style carbon fiber hood" data-id="10653657563417" data-type="hood">
+        <div class="image-gallery-container">
+            <img id="img-10653657563417" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Honda_Accord_09_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787603605" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Honda_Accord_09_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787603605')" alt="Honda Accord 09 Top Secret Style Carbon Fiber Hood">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Honda_Accord_09_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787603605" class="thumb-img active" onclick="changeMainImage('img-10653657563417', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Honda_Accord_09_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787603605', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Honda_Accord_09_Top_Secret_Style_Carbon_Fiber_Hood_-_2.jpg?v=1787603611" class="thumb-img " onclick="changeMainImage('img-10653657563417', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Honda_Accord_09_Top_Secret_Style_Carbon_Fiber_Hood_-_2.jpg?v=1787603611', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Honda_Accord_09_Top_Secret_Style_Carbon_Fiber_Hood_-_3.jpg?v=1787603617" class="thumb-img " onclick="changeMainImage('img-10653657563417', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Honda_Accord_09_Top_Secret_Style_Carbon_Fiber_Hood_-_3.jpg?v=1787603617', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Honda_Accord_09_Top_Secret_Style_Carbon_Fiber_Hood_-_4.jpg?v=1787603622" class="thumb-img " onclick="changeMainImage('img-10653657563417', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Honda_Accord_09_Top_Secret_Style_Carbon_Fiber_Hood_-_4.jpg?v=1787603622', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Honda Accord 09 Top Secret Style Carbon Fiber Hood</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10653657563417</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Hood</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,550.00 - $1,785.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">4 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10653657563417" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/honda-accord-09-top-secret-style-carbon-fiber-hood" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="supra top secret style hood" data-id="10617909018905" data-type="hood">
+        <div class="image-gallery-container">
+            <img id="img-10617909018905" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Hood_-_1.jpg?v=1787125179" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Hood_-_1.jpg?v=1787125179')" alt="Supra Top Secret Style Hood">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Hood_-_1.jpg?v=1787125179" class="thumb-img active" onclick="changeMainImage('img-10617909018905', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Hood_-_1.jpg?v=1787125179', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Hood_-_2.jpg?v=1787125179" class="thumb-img " onclick="changeMainImage('img-10617909018905', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Hood_-_2.jpg?v=1787125179', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Hood_-_3.jpg?v=1787125179" class="thumb-img " onclick="changeMainImage('img-10617909018905', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Hood_-_3.jpg?v=1787125179', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Hood_-_4.jpg?v=1787125179" class="thumb-img " onclick="changeMainImage('img-10617909018905', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Hood_-_4.jpg?v=1787125179', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Hood_-_5.jpg?v=1787125179" class="thumb-img " onclick="changeMainImage('img-10617909018905', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Hood_-_5.jpg?v=1787125179', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Supra Top Secret Style Hood</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10617909018905</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Hood</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,550.00 - $1,780.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">5 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10617909018905" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/supra-top-secret-style-hood" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan 370z top secret style carbon fiber hood" data-id="10658251112729" data-type="hood">
+        <div class="image-gallery-container">
+            <img id="img-10658251112729" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787610606" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787610606')" alt="Nissan 370Z Top Secret Style Carbon Fiber Hood">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787610606" class="thumb-img active" onclick="changeMainImage('img-10658251112729', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Top_Secret_Style_Carbon_Fiber_Hood_-_1.jpg?v=1787610606', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Top_Secret_Style_Carbon_Fiber_Hood_-_2.jpg?v=1787610610" class="thumb-img " onclick="changeMainImage('img-10658251112729', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Top_Secret_Style_Carbon_Fiber_Hood_-_2.jpg?v=1787610610', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Top_Secret_Style_Carbon_Fiber_Hood_-_3.jpg?v=1787610615" class="thumb-img " onclick="changeMainImage('img-10658251112729', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Top_Secret_Style_Carbon_Fiber_Hood_-_3.jpg?v=1787610615', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Top_Secret_Style_Carbon_Fiber_Hood_-_4.jpg?v=1787610620" class="thumb-img " onclick="changeMainImage('img-10658251112729', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Top_Secret_Style_Carbon_Fiber_Hood_-_4.jpg?v=1787610620', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Top_Secret_Style_Carbon_Fiber_Hood_-_5.jpg?v=1787610624" class="thumb-img " onclick="changeMainImage('img-10658251112729', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_370Z_Top_Secret_Style_Carbon_Fiber_Hood_-_5.jpg?v=1787610624', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan 370Z Top Secret Style Carbon Fiber Hood</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10658251112729</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Hood</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,550.00 - $1,785.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">5 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10658251112729" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-370z-top-secret-style-carbon-fiber-hood" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="eti toyota ft86 top secret carbon fiber hood" data-id="10657641660697" data-type="hood">
+        <div class="image-gallery-container">
+            <img id="img-10657641660697" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Top_Secret_Carbon_Fiber_Hood_-_1.jpg?v=1787126661" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Top_Secret_Carbon_Fiber_Hood_-_1.jpg?v=1787126661')" alt="ETi Toyota FT86 Top Secret Carbon Fiber Hood">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Top_Secret_Carbon_Fiber_Hood_-_1.jpg?v=1787126661" class="thumb-img active" onclick="changeMainImage('img-10657641660697', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Top_Secret_Carbon_Fiber_Hood_-_1.jpg?v=1787126661', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Top_Secret_Carbon_Fiber_Hood_-_2.jpg?v=1787126661" class="thumb-img " onclick="changeMainImage('img-10657641660697', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Top_Secret_Carbon_Fiber_Hood_-_2.jpg?v=1787126661', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Top_Secret_Carbon_Fiber_Hood_-_3.jpg?v=1787126661" class="thumb-img " onclick="changeMainImage('img-10657641660697', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Top_Secret_Carbon_Fiber_Hood_-_3.jpg?v=1787126661', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Top_Secret_Carbon_Fiber_Hood_-_4.jpg?v=1787126661" class="thumb-img " onclick="changeMainImage('img-10657641660697', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Top_Secret_Carbon_Fiber_Hood_-_4.jpg?v=1787126661', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Top_Secret_Carbon_Fiber_Hood_-_5.jpg?v=1787126661" class="thumb-img " onclick="changeMainImage('img-10657641660697', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Top_Secret_Carbon_Fiber_Hood_-_5.jpg?v=1787126661', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Top_Secret_Carbon_Fiber_Hood_-_6.jpg?v=1787126661" class="thumb-img " onclick="changeMainImage('img-10657641660697', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/ETi_Toyota_FT86_Top_Secret_Carbon_Fiber_Hood_-_6.jpg?v=1787126661', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">ETi Toyota FT86 Top Secret Carbon Fiber Hood</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10657641660697</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Hood</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,450.00 - $1,670.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">6 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10657641660697" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/eti-toyota-ft86-top-secret-carbon-fiber-hood" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="eti carbon add-on set for top secret widebody – toyota supra mkiv" data-id="10722295480601" data-type="body kit">
+        <div class="image-gallery-container">
+            <img id="img-10722295480601" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/TOYOTA_SUPRA_W1_ETi_Wide_Body_Body_Kit_-_1.jpg?v=1787123963" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/TOYOTA_SUPRA_W1_ETi_Wide_Body_Body_Kit_-_1.jpg?v=1787123963')" alt="ETi Carbon Add-On Set for Top Secret Widebody – Toyota Supra MKIV">
+            
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">ETi Carbon Add-On Set for Top Secret Widebody – Toyota Supra MKIV</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10722295480601</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Body Kit</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">27 Vars ($255.00 - $2,405.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">1 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10722295480601" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/eti-carbon-add-on-set-top-secret-widebody-toyota-supra-mkiv" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan 200sx top secret style body kit" data-id="10658253373721" data-type="body kit">
+        <div class="image-gallery-container">
+            <img id="img-10658253373721" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_200SX_Top_Secret_Style_Body_Kit_-_1.jpg?v=1787609216" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_200SX_Top_Secret_Style_Body_Kit_-_1.jpg?v=1787609216')" alt="Nissan 200SX Top Secret Style Body Kit">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_200SX_Top_Secret_Style_Body_Kit_-_1.jpg?v=1787609216" class="thumb-img active" onclick="changeMainImage('img-10658253373721', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_200SX_Top_Secret_Style_Body_Kit_-_1.jpg?v=1787609216', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_200SX_Top_Secret_Style_Body_Kit_-_2.jpg?v=1787609220" class="thumb-img " onclick="changeMainImage('img-10658253373721', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_200SX_Top_Secret_Style_Body_Kit_-_2.jpg?v=1787609220', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_200SX_Top_Secret_Style_Body_Kit_-_3.jpg?v=1787609225" class="thumb-img " onclick="changeMainImage('img-10658253373721', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_200SX_Top_Secret_Style_Body_Kit_-_3.jpg?v=1787609225', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan 200SX Top Secret Style Body Kit</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10658253373721</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Body Kit</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">16 Vars ($382.00 - $1,820.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">3 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10658253373721" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-200sx-top-secret-style-body-kit" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan skyline r33 top secret style body kit" data-id="10658241773849" data-type="body kit">
+        <div class="image-gallery-container">
+            <img id="img-10658241773849" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/R33_GTST_TS_Top_Secret_Style_Front_Bumper_not_GTR_Models_5.jpg?v=1781049317" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/R33_GTST_TS_Top_Secret_Style_Front_Bumper_not_GTR_Models_5.jpg?v=1781049317')" alt="Nissan Skyline R33 Top Secret Style Body Kit">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/R33_GTST_TS_Top_Secret_Style_Front_Bumper_not_GTR_Models_5.jpg?v=1781049317" class="thumb-img active" onclick="changeMainImage('img-10658241773849', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/R33_GTST_TS_Top_Secret_Style_Front_Bumper_not_GTR_Models_5.jpg?v=1781049317', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/shopify_4_fdde89cf-6e88-407a-ad95-5e7a1e545424.webp?v=1787532893" class="thumb-img " onclick="changeMainImage('img-10658241773849', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/shopify_4_fdde89cf-6e88-407a-ad95-5e7a1e545424.webp?v=1787532893', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/R33_GTST_TS_Top_Secret_Style_Front_Bumper_not_GTR_Models_4.jpg?v=1781049314" class="thumb-img " onclick="changeMainImage('img-10658241773849', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/R33_GTST_TS_Top_Secret_Style_Front_Bumper_not_GTR_Models_4.jpg?v=1781049314', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/R33_GTST_TS_Top_Secret_Style_Front_Bumper_not_GTR_Models_3.jpg?v=1781049310" class="thumb-img " onclick="changeMainImage('img-10658241773849', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/R33_GTST_TS_Top_Secret_Style_Front_Bumper_not_GTR_Models_3.jpg?v=1781049310', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/R33_GTST_TS_Top_Secret_Style_Front_Bumper_not_GTR_Models_2.jpg?v=1781049307" class="thumb-img " onclick="changeMainImage('img-10658241773849', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/R33_GTST_TS_Top_Secret_Style_Front_Bumper_not_GTR_Models_2.jpg?v=1781049307', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/R33_GTST_TS_Top_Secret_Style_Front_Bumper_not_GTR_Models_1.jpg?v=1781049304" class="thumb-img " onclick="changeMainImage('img-10658241773849', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/R33_GTST_TS_Top_Secret_Style_Front_Bumper_not_GTR_Models_1.jpg?v=1781049304', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/shopify_2_b634709e-4a59-4f71-80e2-24b7d81bd338.webp?v=1787532881" class="thumb-img " onclick="changeMainImage('img-10658241773849', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/shopify_2_b634709e-4a59-4f71-80e2-24b7d81bd338.webp?v=1787532881', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan Skyline R33 Top Secret Style Body Kit</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10658241773849</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Body Kit</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">16 Vars ($220.00 - $1,825.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">7 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10658241773849" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-skyline-r33-top-secret-style-body-kit" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="supra top secret style gt-wing c (168×30)" data-id="10617909870873" data-type="spoiler & wing">
+        <div class="image-gallery-container">
+            <img id="img-10617909870873" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_GT-Wing_C_16830_-_1.jpg?v=1787125267" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_GT-Wing_C_16830_-_1.jpg?v=1787125267')" alt="Supra Top Secret Style GT-Wing C (168×30)">
+            
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Supra Top Secret Style GT-Wing C (168×30)</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10617909870873</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Spoiler & Wing</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($2,150.00 - $2,470.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">1 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10617909870873" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/supra-top-secret-style-gt-wing-c-16830" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="supra top secret style body kit" data-id="10617911017753" data-type="body kit">
+        <div class="image-gallery-container">
+            <img id="img-10617911017753" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_1.jpg?v=1787124130" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_1.jpg?v=1787124130')" alt="Supra Top Secret Style Body Kit">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_1.jpg?v=1787124130" class="thumb-img active" onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_1.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_2.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_2.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_3.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_3.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_4.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_4.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_5.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_5.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_6.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_6.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_7.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_7.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_8.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_8.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_9.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_9.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_10.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_10.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_11.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_11.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_12.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_12.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_13.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_13.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_14.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_14.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_15.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_15.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_16.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_16.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_17.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_17.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_18.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_18.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_19.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_19.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_20.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_20.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_21.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_21.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_22.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_22.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_23.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_23.jpg?v=1787124130', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_24.jpg?v=1787124130" class="thumb-img " onclick="changeMainImage('img-10617911017753', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Body_Kit_-_24.jpg?v=1787124130', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Supra Top Secret Style Body Kit</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10617911017753</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Body Kit</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">16 Vars ($382.00 - $2,100.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">24 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10617911017753" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/supra-top-secret-style-body-kit" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="supra top secret style wing" data-id="10617908920601" data-type="spoiler & wing">
+        <div class="image-gallery-container">
+            <img id="img-10617908920601" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Wing_-_1.jpg?v=1787125156" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Supra_Top_Secret_Style_Wing_-_1.jpg?v=1787125156')" alt="Supra Top Secret Style Wing">
+            
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Supra Top Secret Style Wing</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10617908920601</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Spoiler & Wing</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,680.00 - $1,935.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">1 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10617908920601" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/supra-top-secret-style-wing" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan 350z top secret style long nose body kit" data-id="10658254356761" data-type="body kit">
+        <div class="image-gallery-container">
+            <img id="img-10658254356761" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_1.jpg?v=1787610041" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_1.jpg?v=1787610041')" alt="Nissan 350Z Top Secret Style long nose Body Kit">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_1.jpg?v=1787610041" class="thumb-img active" onclick="changeMainImage('img-10658254356761', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_1.jpg?v=1787610041', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_2.jpg?v=1787610045" class="thumb-img " onclick="changeMainImage('img-10658254356761', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_2.jpg?v=1787610045', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_3.jpg?v=1787610051" class="thumb-img " onclick="changeMainImage('img-10658254356761', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_3.jpg?v=1787610051', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_4.jpg?v=1787610055" class="thumb-img " onclick="changeMainImage('img-10658254356761', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_4.jpg?v=1787610055', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_5.jpg?v=1787610060" class="thumb-img " onclick="changeMainImage('img-10658254356761', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_5.jpg?v=1787610060', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_6.jpg?v=1787610065" class="thumb-img " onclick="changeMainImage('img-10658254356761', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_6.jpg?v=1787610065', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_7.jpg?v=1787610070" class="thumb-img " onclick="changeMainImage('img-10658254356761', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_350Z_Top_Secret_Style_long_nose_Body_Kit_-_7.jpg?v=1787610070', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan 350Z Top Secret Style long nose Body Kit</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10658254356761</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Body Kit</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">5 Vars ($720.00 - $1,820.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">7 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10658254356761" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-350z-top-secret-style-long-nose-body-kit" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-card" data-title="nissan r32 gtr top secret style hood" data-id="10658243936537" data-type="hood">
+        <div class="image-gallery-container">
+            <img id="img-10658243936537" src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R32_GTR_Top_Secret_Style_Hood_-_1.jpg?v=1787610857" class="hero-img" onclick="openLightbox('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R32_GTR_Top_Secret_Style_Hood_-_1.jpg?v=1787610857')" alt="Nissan R32 GTR Top Secret Style Hood">
+            <div class="gallery-thumbs"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R32_GTR_Top_Secret_Style_Hood_-_1.jpg?v=1787610857" class="thumb-img active" onclick="changeMainImage('img-10658243936537', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R32_GTR_Top_Secret_Style_Hood_-_1.jpg?v=1787610857', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R32_GTR_Top_Secret_Style_Hood_-_2.jpg?v=1787610861" class="thumb-img " onclick="changeMainImage('img-10658243936537', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R32_GTR_Top_Secret_Style_Hood_-_2.jpg?v=1787610861', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R32_GTR_Top_Secret_Style_Hood_-_3.jpg?v=1787610867" class="thumb-img " onclick="changeMainImage('img-10658243936537', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R32_GTR_Top_Secret_Style_Hood_-_3.jpg?v=1787610867', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R32_GTR_Top_Secret_Style_Hood_-_4.jpg?v=1787610873" class="thumb-img " onclick="changeMainImage('img-10658243936537', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R32_GTR_Top_Secret_Style_Hood_-_4.jpg?v=1787610873', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R32_GTR_Top_Secret_Style_Hood_-_5.jpg?v=1787610879" class="thumb-img " onclick="changeMainImage('img-10658243936537', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R32_GTR_Top_Secret_Style_Hood_-_5.jpg?v=1787610879', this)" alt="Thumbnail"><img src="https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R32_GTR_Top_Secret_Style_Hood_-_6.jpg?v=1787610884" class="thumb-img " onclick="changeMainImage('img-10658243936537', 'https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Nissan_R32_GTR_Top_Secret_Style_Hood_-_6.jpg?v=1787610884', this)" alt="Thumbnail"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-header">
+                <div class="product-title">Nissan R32 GTR Top Secret Style Hood</div>
+                <span class="badge-draft">DRAFT</span>
+            </div>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-label">Product ID</span>
+                    <span class="meta-value">10658243936537</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Product Type</span>
+                    <span class="meta-value">Hood</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Variants & Price</span>
+                    <span class="meta-value">4 Vars ($1,450.00 - $1,670.00)</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Total Images</span>
+                    <span class="meta-value">6 Photos</span>
+                </div>
+            </div>
+            <div class="actions-container">
+                <a href="https://admin.shopify.com/store/myeliteti/products/10658243936537" target="_blank" class="btn btn-admin">⚙️ Admin Link</a>
+                <a href="https://myeliteti.com/products/nissan-r32-gtr-top-secret-style-hood" target="_blank" class="btn btn-storefront">🌐 Storefront Link</a>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightboxImg" class="lightbox-content" src="" alt="Enlarged View">
+</div>
+
+<script>
+    function changeMainImage(targetId, newSrc, thumbElem) {
+        document.getElementById(targetId).src = newSrc;
+        let thumbs = thumbElem.parentElement.querySelectorAll('.thumb-img');
+        thumbs.forEach(t => t.classList.remove('active'));
+        thumbElem.classList.add('active');
+    }
+
+    function openLightbox(src) {
+        document.getElementById('lightboxImg').src = src;
+        document.getElementById('lightboxModal').classList.add('active');
+    }
+
+    function closeLightbox(e) {
+        if (e.target.id === 'lightboxModal' || e.target.classList.contains('lightbox-close')) {
+            document.getElementById('lightboxModal').classList.remove('active');
+        }
+    }
+
+    function filterProducts() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let cards = document.querySelectorAll('.product-card');
+        cards.forEach(card => {
+            let title = card.getAttribute('data-title');
+            let pid = card.getAttribute('data-id');
+            let ptype = card.getAttribute('data-type');
+            if (title.includes(input) || pid.includes(input) || ptype.includes(input)) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
