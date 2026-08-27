@@ -19,16 +19,25 @@
             --glass-border: rgba(255, 255, 255, 0.08);
         }
 
+@font-face {
+            font-family: 'Sakana-Regular';
+            src: url('https://cdn.shopify.com/s/files/1/0842/8362/1657/files/Sakana-Regular.woff2?v=1760518366.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             scrollbar-width: thin;
             scrollbar-color: var(--accent-color) var(--bg-color);
+            font-family: 'Sakana-Regular', sans-serif !important;
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Sakana-Regular', sans-serif !important;
             background-color: var(--bg-color);
             color: var(--text-color);
             background-image: 
@@ -329,7 +338,7 @@
         }
 
         .product-id {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Sakana-Regular', sans-serif !important;
             font-size: 0.75rem;
             color: #666;
         }
